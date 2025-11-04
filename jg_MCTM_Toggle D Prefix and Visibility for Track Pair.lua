@@ -33,16 +33,19 @@ local function getPartnerName(name)
     return nil
 end
 
-local function findTrackByName(searchName)
+local function findTrackByName(searchName, excludeTrack)
     -- finds a track by matching the base instrument name (ignores leading D)
+    -- excludeTrack: optional Reaper track object to skip (avoid returning the same track)
     local searchBase = mctm.parse(searchName).name
     for i = 0, reaper.CountTracks(0) - 1 do
         local tr = reaper.GetTrack(0, i)
+        if excludeTrack and tr == excludeTrack then goto continue end
         local _, trName = reaper.GetTrackName(tr, "")
         local parsed = mctm.parse(trName)
         if parsed.name == searchBase then
             return tr
         end
+        ::continue::
     end
     return nil
 end
@@ -57,48 +60,56 @@ local tracksToProcess = {}
 
 for i = 0, selCount - 1 do
     local track = reaper.GetSelectedTrack(0, i)
-    local _, name = reaper.GetTrackName(track, "")
-    local partnerName = getPartnerName(name)
-
-    tracksToProcess[track] = name
-    if partnerName then
-        local partnerTrack = findTrackByName(partnerName)
-        if partnerTrack then
-            tracksToProcess[partnerTrack] = ({reaper.GetTrackName(partnerTrack, "")})[2]
+    tracksToProcess[track] = true
+        local _, name = reaper.GetTrackName(track, "")
+        local partnerName = getPartnerName(name)
+        if partnerName then
+            local partnerTrack = findTrackByName(partnerName, track)
+            if partnerTrack then tracksToProcess[partnerTrack] = true end
         end
-    end
 end
 
 -- Bestimme, ob deaktiviert oder reaktiviert werden soll
 local deactivate = false
-for track, name in pairs(tracksToProcess) do
-    if not hasPrefix(name, "D ") then
+for track, _ in pairs(tracksToProcess) do
+    local _, name = reaper.GetTrackName(track, "")
+    local parsed = mctm.parse(name)
+    if not mctm.is_disabled(parsed) then
         deactivate = true
         break
     end
 end
 
--- Anwenden des Toggles
-for track, name in pairs(tracksToProcess) do
+-- Anwenden des Toggles (synchronisiert für beide Partner)
+for track, _ in pairs(tracksToProcess) do
+    local _, name = reaper.GetTrackName(track, "")
+    local parsed = mctm.parse(name)
+
     if deactivate then
-        -- Add 'D ' prefix wenn nicht vorhanden
-        if not hasPrefix(name, "D ") then
-            reaper.GetSetMediaTrackInfo_String(track, "P_NAME", "D " .. name, true)
+        -- Add 'D' prefix if not present
+        if not mctm.is_disabled(parsed) then
+            local newPrefixes = {"D"}
+            for _, p in ipairs(parsed.prefixes) do table.insert(newPrefixes, p) end
+            local newName = mctm.format_label(newPrefixes, parsed.name)
+            reaper.GetSetMediaTrackInfo_String(track, "P_NAME", newName, true)
         end
-        -- Verstecken in TCP und MCP
+        -- Always hide disabled tracks in TCP and Mixer
         reaper.SetMediaTrackInfo_Value(track, "B_SHOWINTCP", 0)
         reaper.SetMediaTrackInfo_Value(track, "B_SHOWINMIXER", 0)
     else
-        -- Entferne 'D ' prefix falls vorhanden
-        if hasPrefix(name, "D ") then
-            name = name:sub(3)
-            reaper.GetSetMediaTrackInfo_String(track, "P_NAME", name, true)
+        -- Remove 'D' prefix if present
+        if mctm.is_disabled(parsed) then
+            local newPrefixes = {}
+            for _, p in ipairs(parsed.prefixes) do if p ~= "D" then table.insert(newPrefixes, p) end end
+            local newName = mctm.format_label(newPrefixes, parsed.name)
+            reaper.GetSetMediaTrackInfo_String(track, "P_NAME", newName, true)
+            parsed = mctm.parse(newName)
         end
-        -- Sichtbarkeit abhängig vom Typ
-        if name:sub(1,2) == "M " then
+        -- Set visibility depending on type
+        if mctm.is_midi(parsed) then
             reaper.SetMediaTrackInfo_Value(track, "B_SHOWINTCP", 1)
             reaper.SetMediaTrackInfo_Value(track, "B_SHOWINMIXER", 0)
-        elseif name:sub(1,2) == "A " then
+        elseif mctm.is_audio(parsed) then
             reaper.SetMediaTrackInfo_Value(track, "B_SHOWINTCP", 0)
             reaper.SetMediaTrackInfo_Value(track, "B_SHOWINMIXER", 1)
         end
