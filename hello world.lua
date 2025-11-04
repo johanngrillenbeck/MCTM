@@ -1,9 +1,24 @@
--- Demo for mctm.lua (Media Composer Template Manager)
--- This script demonstrates parsing and finding pairs using the library in the same folder.
+-- Demo for jg_MCTM_helper (Media Composer Template Manager)
+-- This script demonstrates parsing and finding pairs using the helper in the same folder.
 
-local ok, mctm = pcall(dofile, "jg_MCTM_helper.lua")
+-- Ensure the script directory is on package.path so `require` finds local modules
+local function add_script_dir_to_package_path()
+	local info = debug.getinfo(1, 'S')
+	if not info or not info.source then return end
+	local source = info.source
+	-- source looks like "@C:/.../hello world.lua" when executed
+	local script_dir = source:match("@?(.*[\\/])")
+	if not script_dir then return end
+	local pattern1 = script_dir .. "?.lua;"
+	local pattern2 = script_dir .. "?/init.lua;"
+	package.path = pattern1 .. pattern2 .. package.path
+end
+
+add_script_dir_to_package_path()
+
+local ok, mctm = pcall(require, "jg_MCTM_helper")
 if not ok or not mctm then
-	reaper.ShowConsoleMsg("Could not load jg_MCTM_helper.lua (demo). Make sure jg_MCTM_helper.lua is in the same folder.\n")
+	reaper.ShowConsoleMsg("Could not require 'jg_MCTM_helper': " .. tostring(mctm) .. "\n")
 	return
 end
 
@@ -16,14 +31,14 @@ local sample = {
 	"CTRL VEHost",
 	"A Cello",
 	"M Cello",
-	"A-Oboe",
+	"A Oboe",
 	"M Oboe",
 }
 
-local pairs = mctm.findPairs(sample)
+local found = mctm.findPairs(sample)
 
 local function report()
-	for key,entry in pairs(pairs) do
+	for key,entry in pairs(found) do
 		local s = string.format("Instrument: '%s' (key='%s')\n  audio: %s\n  midi:  %s\n  ctrl:  %s\n  disabled: %s\n\n",
 			entry.name or "(unnamed)", key,
 			entry.audio or "-",

@@ -5,7 +5,7 @@
 local M = {}
 
 local function trim(s)
-  return (s and s:gsub("^%s+","":gsub("%s+$",""))) or ""
+  return (s and s:gsub("^%s+", ""):gsub("%s+$", "")) or ""
 end
 
 local valid_prefixes = {
