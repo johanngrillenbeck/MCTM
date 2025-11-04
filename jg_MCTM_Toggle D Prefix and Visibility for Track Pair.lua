@@ -5,7 +5,20 @@ Author: JG and ChatGPT
 
 reaper.Undo_BeginBlock()
 
-local mctm = dofile("jg_MCTM_helper.lua")
+local function add_script_dir_to_package_path()
+    local info = debug.getinfo(1, 'S')
+    if not info or not info.source then return end
+    local source = info.source
+    local script_dir = source:match("@?(.*[\\/])")
+    if not script_dir then return end
+    local pattern1 = script_dir .. "?.lua;"
+    local pattern2 = script_dir .. "?/init.lua;"
+    package.path = pattern1 .. pattern2 .. package.path
+end
+add_script_dir_to_package_path()
+
+local ok, mctm = pcall(require, "jg_MCTM_helper")
+if not ok or not mctm then reaper.ShowConsoleMsg("Could not require 'jg_MCTM_helper': " .. tostring(mctm) .. "\n") return end
 
 local function getPartnerName(name)
     -- Use helper to strip prefixes and build partner name preserving the A/M token
