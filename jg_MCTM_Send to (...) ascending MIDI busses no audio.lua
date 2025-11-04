@@ -6,13 +6,17 @@ Description: Routes selected tracks MIDI to CTRL tracks in ascending order, disa
 ]]
 
 -- Helper function: get all tracks with prefix "CTRL"
+local mctm = dofile("jg_MCTM_helper.lua")
+
+-- Helper function: get all tracks with prefix "CTRL"
 function get_ctrl_tracks()
     local ctrl_tracks = {}
     local track_count = reaper.CountTracks(0)
     for i = 0, track_count-1 do
         local tr = reaper.GetTrack(0, i)
         local _, tr_name = reaper.GetTrackName(tr, "")
-        if tr_name:sub(1,4) == "CTRL" then
+        local parsed = mctm.parse(tr_name)
+        if mctm.is_ctrl(parsed) then
             table.insert(ctrl_tracks, {track=tr, name=tr_name})
         end
     end

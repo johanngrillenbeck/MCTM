@@ -5,40 +5,37 @@ Author: JG and ChatGPT
 
 reaper.Undo_BeginBlock()
 
-local function stripDeactivatedPrefix(name)
-    -- Entfernt führendes "D " falls vorhanden
-    if name:sub(1,2) == "D " then
-        return name:sub(3)
-    end
-    return name
-end
+local mctm = dofile("jg_MCTM_helper.lua")
 
 local function getPartnerName(name)
-    -- Entfernt ggf. D Präfix vor Verarbeitung
-    local baseName = stripDeactivatedPrefix(name)
-    if baseName:sub(1,2) == "A " then
-        return "M " .. baseName:sub(3)
-    elseif baseName:sub(1,2) == "M " then
-        return "A " .. baseName:sub(3)
+    -- Use helper to strip prefixes and build partner name preserving the A/M token
+    local parsed = mctm.parse(name)
+    local base = parsed.name
+    if base == "" then return nil end
+    if mctm.is_audio(parsed) then
+        return "M " .. base
+    elseif mctm.is_midi(parsed) then
+        return "A " .. base
+    end
+    return nil
+end
+
+local function findTrackByName(searchName)
+    -- finds a track by matching the base instrument name (ignores leading D)
+    local searchBase = mctm.parse(searchName).name
+    for i = 0, reaper.CountTracks(0) - 1 do
+        local tr = reaper.GetTrack(0, i)
+        local _, trName = reaper.GetTrackName(tr, "")
+        local parsed = mctm.parse(trName)
+        if parsed.name == searchBase then
+            return tr
+        end
     end
     return nil
 end
 
 local function hasPrefix(name, prefix)
     return name:sub(1, #prefix) == prefix
-end
-
-local function findTrackByName(searchName)
-    -- sucht exakt nach Trackname (case-sensitive), ignoriert "D " Präfix beim Vergleich
-    local strippedSearch = stripDeactivatedPrefix(searchName)
-    for i = 0, reaper.CountTracks(0) - 1 do
-        local tr = reaper.GetTrack(0, i)
-        local _, trName = reaper.GetTrackName(tr, "")
-        if stripDeactivatedPrefix(trName) == strippedSearch then
-            return tr
-        end
-    end
-    return nil
 end
 
 -- Sammle Tracks zur Verarbeitung (ausgewählte + deren Partner)

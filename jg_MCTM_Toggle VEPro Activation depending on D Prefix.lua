@@ -13,8 +13,11 @@ local function dbg(msg)
 end
 
 -- Hilfsfunktion: Trackname ohne Präfix (A/M/D)
+local mctm = dofile("jg_MCTM_helper.lua")
+
+-- Hilfsfunktion: Trackname ohne Präfix (A/M/D)
 local function getTrackBaseName(trackName)
-    return trackName:gsub("^[ADMd ]+ ", "")
+    return mctm.parse(trackName).name
 end
 
 -- Hilfsfunktion: Envelope-Name ohne Index und /Disable
@@ -24,8 +27,10 @@ local function getEnvelopeBaseName(envName)
 end
 
 -- Zielwert abhängig vom Track-Prefix
+-- Zielwert abhängig vom Track-Prefix
 local function getTargetValue(trackName)
-    if trackName:match("^D ") then
+    local parsed = mctm.parse(trackName)
+    if mctm.is_disabled(parsed) then
         return 1
     else
         return 0

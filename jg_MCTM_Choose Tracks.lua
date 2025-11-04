@@ -1,28 +1,19 @@
 local ctx = reaper.ImGui_CreateContext('Track Selector')
+local mctm = dofile("jg_MCTM_helper.lua")
 local selected_pairs = {}
 local show_window = true  -- Fenster-Status
 
 local function isRelevantTrack(track)
     local _, name = reaper.GetTrackName(track, "")
-    return name:match("^%s*[AMD]%s+") ~= nil
+    local parsed = mctm.parse(name)
+    -- relevant if it has an A, M or D prefix
+    return mctm.is_audio(parsed) or mctm.is_midi(parsed) or mctm.is_disabled(parsed)
 end
 
 local function getPairName(track)
     local _, name = reaper.GetTrackName(track, "")
-    -- alle führenden Prefixes D/A/M entfernen
-    local prefixes = {"D ", "A ", "M "}
-    local changed = true
-    while changed do
-        changed = false
-        for _, p in ipairs(prefixes) do
-            if name:sub(1, #p) == p then
-                name = name:sub(#p + 1)
-                changed = true
-                break
-            end
-        end
-    end
-    return name
+    local parsed = mctm.parse(name)
+    return parsed.name
 end
 
 local function getTrackPairs()

@@ -5,12 +5,15 @@ Author: JG with help from ChatGPT
 
 reaper.Undo_BeginBlock()
 
+local mctm = dofile("jg_MCTM_helper.lua")
+
 local function getPartnerName(name)
-    -- Wenn "A " -> ersetze durch "M ", umgekehrt genauso
-    if name:sub(1, 2) == "A " then
-        return "M " .. name:sub(3)
-    elseif name:sub(1, 2) == "M " then
-        return "A " .. name:sub(3)
+    local parsed = mctm.parse(name)
+    local base = parsed.name
+    if parsed and mctm.is_audio(parsed) then
+        return "M " .. base
+    elseif parsed and mctm.is_midi(parsed) then
+        return "A " .. base
     end
     return nil
 end
