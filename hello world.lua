@@ -1,1 +1,1 @@
-reaper.ShowConsoleMsg('Hello, World!')
+reaper.ShowConsoleMsg('Hello, INITIAL CODEBASE BRANCH!')
