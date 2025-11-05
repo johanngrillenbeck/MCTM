@@ -50,8 +50,7 @@ local rows = {}
 local ctrl_set = {}
 dbg("Parsing CSV...")
 for idx, line in ipairs(lines) do
-    if idx == 1 then goto continue end -- skip header
-    ::continue::
+    if idx == 1 then goto cont2 end -- skip header
     if line:match("^%s*$") then goto cont2 end
     local fields = split_semicolon(line)
     -- ensure at least 3 columns exist
@@ -68,6 +67,33 @@ for idx, line in ipairs(lines) do
 end
 dbg("Parsed rows: " .. tostring(#rows))
 
+-- compute per-CTRL required source channels (max channel index needed)
+local ctrl_needs = {}
+for _, r in ipairs(rows) do
+    local ctrl = r.ctrl
+    local ve = r.ve or ""
+    -- parse range like '1-4' or single number
+    local a,b = ve:match("(%d+)%s*-%s*(%d+)")
+    local endch = nil
+    if a and b then endch = tonumber(b) end
+    if not endch then
+        local single = ve:match("(%d+)")
+        if single then endch = tonumber(single) end
+    end
+    if endch then
+        ctrl_needs[ctrl] = math.max(ctrl_needs[ctrl] or 0, endch)
+    else
+        -- default to at least 4 channels
+        ctrl_needs[ctrl] = math.max(ctrl_needs[ctrl] or 0, 4)
+    end
+end
+do
+    local tmp = {}
+    for k,v in pairs(ctrl_needs) do table.insert(tmp, k .. ":" .. tostring(v)) end
+    table.sort(tmp)
+    dbg("CTRL channel needs: " .. (#tmp>0 and table.concat(tmp, ", ") or "(none)"))
+end
+
 -- find or create CTRL tracks
 local ctrl_tracks = {}
 dbg("Preparing to find/create CTRL tracks...")
@@ -79,6 +105,8 @@ do
 end
 for ctrlname,_ in pairs(ctrl_set) do
     dbg("Looking for CTRL: " .. tostring(ctrlname))
+    local before_count = reaper.CountTracks(0)
+    dbg("  Track count before search: " .. tostring(before_count))
     -- search existing
     local found = nil
     for i = 0, reaper.CountTracks(0)-1 do
@@ -94,6 +122,14 @@ for ctrlname,_ in pairs(ctrl_set) do
         found = reaper.GetTrack(0, idx)
         reaper.GetSetMediaTrackInfo_String(found, "P_NAME", ctrlname, true)
         dbg("Created CTRL track: "..ctrlname)
+            -- set required source channels if known
+            local need = ctrl_needs[ctrlname]
+            if need and tonumber(need) then
+                reaper.SetMediaTrackInfo_Value(found, "I_NCHAN", need)
+                dbg("  Set CTRL I_NCHAN = " .. tostring(need))
+                reaper.TrackList_AdjustWindows(false)
+            end
+        dbg("  Track count after creation: " .. tostring(reaper.CountTracks(0)))
     else
         dbg("Found existing CTRL track: "..ctrlname)
     end
@@ -121,7 +157,7 @@ for i, r in ipairs(rows) do
     local idxA = reaper.CountTracks(0)
     reaper.InsertTrackAtIndex(idxA, true)
     local A = reaper.GetTrack(0, idxA)
-    reaper.GetSetMediaTrackInfo_String(A, "P_NAME", base .. " A", true)
+    reaper.GetSetMediaTrackInfo_String(A, "P_NAME", "A " .. base, true)
     -- ensure 4 channels
     reaper.SetMediaTrackInfo_Value(A, "I_NCHAN", 4)
     dbg("  Created A track: " .. base .. " A (I_NCHAN=4)")
@@ -130,7 +166,7 @@ for i, r in ipairs(rows) do
     local idxM = reaper.CountTracks(0)
     reaper.InsertTrackAtIndex(idxM, true)
     local M = reaper.GetTrack(0, idxM)
-    reaper.GetSetMediaTrackInfo_String(M, "P_NAME", base .. " M", true)
+    reaper.GetSetMediaTrackInfo_String(M, "P_NAME", "M " .. base, true)
     dbg("  Created M track: " .. base .. " M")
 
     -- routing: A receives quad audio from CTRL
