@@ -105,13 +105,8 @@ for i = 0, sel_track_count-1 do
         local pair_dst = pair*2
         local sendidx = reaper.CreateTrackSend(src_track, dst)
         if sendidx and sendidx >= 0 then
-            reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_SRCCHAN", true, pair_src)
-            reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_DSTCHAN", true, pair_dst)
-            -- Also set via core API as fallback
-            pcall(function()
-                reaper.SetTrackSendInfo_Value(src_track, 0, sendidx, "I_SRCCHAN", pair_src)
-                reaper.SetTrackSendInfo_Value(src_track, 0, sendidx, "I_DSTCHAN", pair_dst)
-            end)
+            reaper.SetTrackSendInfo_Value(src_track, 0, sendidx, "I_SRCCHAN", pair_src)
+            reaper.SetTrackSendInfo_Value(src_track, 0, sendidx, "I_DSTCHAN", pair_dst)
             -- Disable MIDI on these sends
             reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_MIDI_SRCBUS", true, -1)
             reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_MIDI_DSTBUS", true, -1)
@@ -120,15 +115,6 @@ for i = 0, sel_track_count-1 do
             -- Safety defaults
             reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "D_VOL", true, 1.0)
             reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "B_MUTE", true, 0.0)
-            -- Diagnostic: print resulting send mapping for each pair
-            local ok_read, r_src, r_dst = pcall(function()
-                local a = reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_SRCCHAN", false, 0)
-                local b = reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_DSTCHAN", false, 0)
-                return a, b
-            end)
-            if ok_read then
-                reaper.ShowConsoleMsg(string.format("Send %d.%d -> I_SRCCHAN=%s I_DSTCHAN=%s\n", i+1, pair+1, tostring(r_src), tostring(r_dst)))
-            end
         else
             reaper.ShowConsoleMsg(string.format("Failed to create send (pair %d) to selected dest track %d\n", pair+1, i+1))
         end
