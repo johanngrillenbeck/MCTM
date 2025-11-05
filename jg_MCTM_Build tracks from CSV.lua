@@ -10,19 +10,11 @@ local function dbg(m) reaper.ShowConsoleMsg(tostring(m) .. "\n") end
 local function trim(s) if not s then return "" end return (s:gsub('^%s+', ''):gsub('%s+$','')) end
 
 -- prompt for csv
-local csvPath = reaper.GetUserFileNameForRead("", "Select CSV template", "csv")
-dbg("CSV dialog returned: " .. tostring(csvPath) .. " (type=" .. type(csvPath) .. ")")
-
--- Some REAPER/Lua builds may return non-string from GetUserFileNameForRead (e.g. boolean).
--- Provide a fallback to ask the user to paste the path if selection returned non-string.
-if type(csvPath) ~= "string" or csvPath == "" then
-    dbg("GetUserFileNameForRead did not return a path; asking for path via text input as fallback.")
     local ok, input = reaper.GetUserInputs("CSV Path (fallback)", 1, "CSV file full path:", "")
     if not ok then dbg("User cancelled fallback path input.") return end
     csvPath = input
-    dbg("Fallback CSV path: " .. tostring(csvPath))
-end
-
+    dbg("CSV path: " .. tostring(csvPath))
+    
 -- normalize path variable for io.open (tooling types may expect string)
 local csvPathStr = csvPath
 if type(csvPathStr) ~= "string" then csvPathStr = tostring(csvPathStr) end
