@@ -12,8 +12,20 @@ local function dbg(msg)
     reaper.ShowConsoleMsg(msg .. "\n")
 end
 
--- Hilfsfunktion: Trackname ohne Präfix (A/M/D)
-local mctm = dofile("jg_MCTM_helper.lua")
+local function add_script_dir_to_package_path()
+    local info = debug.getinfo(1, 'S')
+    if not info or not info.source then return end
+    local source = info.source
+    local script_dir = source:match("@?(.*[\\/])")
+    if not script_dir then return end
+    local pattern1 = script_dir .. "?.lua;"
+    local pattern2 = script_dir .. "?/init.lua;"
+    package.path = pattern1 .. pattern2 .. package.path
+end
+add_script_dir_to_package_path()
+
+local ok, mctm = pcall(require, "jg_MCTM_helper")
+if not ok or not mctm then reaper.ShowConsoleMsg("Could not require 'jg_MCTM_helper': " .. tostring(mctm) .. "\n") return end
 
 -- Hilfsfunktion: Trackname ohne Präfix (A/M/D)
 local function getTrackBaseName(trackName)
@@ -21,9 +33,22 @@ local function getTrackBaseName(trackName)
 end
 
 -- Hilfsfunktion: Envelope-Name ohne Index und /Disable
+local function trim(s)
+    return (s:gsub("^%s+",""):gsub("%s+$",""))
+end
+
 local function getEnvelopeBaseName(envName)
-    local name = envName:match("^%d+%s+(.+)/Disable")
-    return name or ""
+    if not envName then return "" end
+    -- Try to capture after a leading index (e.g. '1 Name / Disable'), allowing spaces around '/'
+    local name = envName:match("^%d+%s*(.-)%s*/%s*Disable")
+    if not name then
+        -- Fallback: capture anything before '/Disable'
+        name = envName:match("(.-)%s*/%s*Disable")
+    end
+    if name then
+        return trim(name)
+    end
+    return ""
 end
 
 -- Zielwert abhängig vom Track-Prefix
@@ -43,7 +68,7 @@ if selTrackCount == 0 then
     reaper.ShowMessageBox("Keine Tracks ausgewählt!", "Fehler", 0)
     return
 end
-dbg("Ausgewählte Tracks: " .. selTrackCount)
+-- dbg("Ausgewählte Tracks: " .. selTrackCount)
 
 -- Track-Paar-Handling: Basisname → Zielwert (D priorisiert)
 local selBaseNames = {}
@@ -59,23 +84,27 @@ for i = 0, selTrackCount-1 do
         -- D Tracks priorisieren
         if targetVal == 1 then selBaseNames[baseName] = 1 end
     end
-    dbg(string.format("Track %d: '%s' → BaseName: '%s', Zielwert: %d", i+1, trackName, baseName, selBaseNames[baseName]))
+    -- dbg(string.format("Track %d: '%s' → BaseName: '%s', Zielwert: %d", i+1, trackName, baseName, selBaseNames[baseName]))
 end
 
 -- Alle CTRL-Tracks durchsuchen
 local trackCount = reaper.CountTracks(0)
-dbg("Alle Tracks im Projekt: " .. trackCount)
+-- dbg("Alle Tracks im Projekt: " .. trackCount)
 
 for i = 0, trackCount-1 do
     local ctrlTrack = reaper.GetTrack(0, i)
     local _, ctrlTrackName = reaper.GetTrackName(ctrlTrack)
     if ctrlTrackName:match("^CTRL") then
-        dbg("CTRL-Track gefunden: " .. ctrlTrackName)
+        -- dbg("CTRL-Track gefunden: " .. ctrlTrackName)
 
         local envCount = reaper.CountTrackEnvelopes(ctrlTrack)
         for e = 0, envCount-1 do
             local env = reaper.GetTrackEnvelope(ctrlTrack, e)
-            local _, envName = reaper.GetEnvelopeName(env, "")
+            -- GetEnvelopeName may return its result in different positions depending on build; handle gracefully
+            local n1, n2 = reaper.GetEnvelopeName(env)
+            local envName = ""
+            if type(n1) == "string" then envName = n1
+            elseif type(n2) == "string" then envName = n2 end
             
             -- Nur /Disable Envelopes
             if envName:find("/Disable") then
@@ -83,14 +112,24 @@ for i = 0, trackCount-1 do
                 local targetVal = selBaseNames[envBaseName]
                 
                 if targetVal ~= nil then
-                    dbg(string.format("  Envelope '%s' → BaseName: '%s' | Zielwert: %d", envName, envBaseName, targetVal))
-                    -- Punkte löschen und Anfangspunkt setzen
+                    -- dbg(string.format("  Envelope '%s' → BaseName: '%s' | Zielwert: %d", envName, envBaseName, targetVal))
+                    -- Punkte löschen und Dreieck-/Ramp-Punkte innerhalb der ersten Sekunde setzen
                     reaper.DeleteEnvelopePointRange(env, 0, reaper.GetProjectLength())
-                    reaper.InsertEnvelopePoint(env, 0, targetVal, 0, 0, false, true)
+                    if targetVal == 1 then
+                        -- Deactivate: ramp up from 0 -> 0.75 -> 1 over 0..0.5..1s
+                        reaper.InsertEnvelopePoint(env, 0.0, 0.0, 0, 0, false, true)
+                        reaper.InsertEnvelopePoint(env, 0.5, 0.75, 0, 0, false, true)
+                        reaper.InsertEnvelopePoint(env, 1.0, 1.0, 0, 0, false, true)
+                    else
+                        -- Activate: small bump 0 -> 0.25 -> 0 over 0..0.5..1s
+                        reaper.InsertEnvelopePoint(env, 0.0, 0.0, 0, 0, false, true)
+                        reaper.InsertEnvelopePoint(env, 0.5, 0.25, 0, 0, false, true)
+                        reaper.InsertEnvelopePoint(env, 1.0, 0.0, 0, 0, false, true)
+                    end
                     reaper.Envelope_SortPoints(env)
-                    dbg("    Envelope gesetzt.")
+                    -- dbg("    Envelope gesetzt (triangle ramp).")
                 else
-                    dbg(string.format("  Envelope '%s' hat keinen passenden Track.", envName))
+                    -- dbg(string.format("  Envelope '%s' hat keinen passenden Track.", envName))
                 end
             end
         end
@@ -98,5 +137,5 @@ for i = 0, trackCount-1 do
 end
 
 reaper.UpdateArrange()
-dbg("Script beendet.")
+-- dbg("Script beendet.")
 
