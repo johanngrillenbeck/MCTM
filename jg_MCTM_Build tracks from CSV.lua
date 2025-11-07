@@ -48,6 +48,7 @@ end
 -- collect rows and unique CTRL names
 local rows = {}
 local ctrl_set = {}
+local bus_set = {}
 dbg("Parsing CSV...")
 for idx, line in ipairs(lines) do
     if idx == 1 then goto cont2 end -- skip header
@@ -57,11 +58,25 @@ for idx, line in ipairs(lines) do
     local ctrl = trim(fields[1] or "")
     local lib = trim(fields[2] or "")
     local tname = trim(fields[3] or "")
-    local ve = trim(fields[4] or "")
-    local midi_bus = trim(fields[5] or "")
+    -- New CSV layout may include an "Audio Send To" column immediately to the right of the track name.
+    -- Support both layouts:
+    local audio_send_to = ""
+    local ve = ""
+    local midi_bus = ""
+    if #fields >= 6 then
+        -- assume: ctrl; lib; name; audio_send_to; ve; midi_bus
+        audio_send_to = trim(fields[4] or "")
+        ve = trim(fields[5] or "")
+        midi_bus = trim(fields[6] or "")
+    else
+        -- fallback to old layout: ctrl; lib; name; ve; midi_bus
+        ve = trim(fields[4] or "")
+        midi_bus = trim(fields[5] or "")
+    end
     if ctrl ~= "" and (lib ~= "" or tname ~= "") then
-        table.insert(rows, {ctrl=ctrl, lib=lib, name=tname, ve=ve, midi_bus=midi_bus})
+        table.insert(rows, {ctrl=ctrl, lib=lib, name=tname, ve=ve, midi_bus=midi_bus, audio_send_to=audio_send_to})
         if not ctrl_set[ctrl] then ctrl_set[ctrl] = true end
+        if audio_send_to and audio_send_to ~= "" then bus_set[audio_send_to] = true end
     end
     ::cont2::
 end
@@ -160,6 +175,36 @@ if #ctrl_order > 0 then
     reaper.TrackList_AdjustWindows(false)
 end
 
+    -- Create / find all Audio Bus tracks (batch) so we don't check per-row repeatedly
+    local bus_tracks = {}
+    do
+        local bus_order = {}
+        for k,_ in pairs(bus_set) do table.insert(bus_order, k) end
+        table.sort(bus_order)
+        if #bus_order > 0 then dbg("Preparing to find/create Audio Bus tracks: " .. table.concat(bus_order, ", ")) end
+        for _, bname in ipairs(bus_order) do
+            dbg("Looking for Bus: " .. tostring(bname))
+            local found = nil
+            for i = 0, reaper.CountTracks(0)-1 do
+                local tr = reaper.GetTrack(0,i)
+                local ok, tname = reaper.GetTrackName(tr)
+                if type(tname) ~= "string" then tname = "" end
+                if tname == bname then found = tr break end
+            end
+            if not found then
+                dbg("Bus not found, creating: " .. tostring(bname))
+                local idx = reaper.CountTracks(0)
+                reaper.InsertTrackAtIndex(idx, true)
+                found = reaper.GetTrack(0, idx)
+                reaper.GetSetMediaTrackInfo_String(found, "P_NAME", bname, true)
+                dbg(" Created Bus track: " .. tostring(bname))
+            else
+                dbg("Found existing Bus track: " .. tostring(bname))
+            end
+            bus_tracks[bname] = found
+        end
+    end
+
 -- create A and M track pairs (append at end) and set routing
 reaper.Undo_BeginBlock()
 reaper.PreventUIRefresh(1)
@@ -199,6 +244,16 @@ local function send_has_midi(src, dest, midi_dstbus)
             local okm, mb = pcall(reaper.BR_GetSetTrackSendInfo, src, 0, s, "I_MIDI_DSTBUS", false, 0)
             if okm and tonumber(mb) == tonumber(midi_dstbus) then return true end
         end
+    end
+    return false
+end
+
+-- check if a send exists from src track to dest track (any audio send)
+local function send_exists_to_dest(src, dest)
+    local ns = reaper.GetTrackNumSends(src, 0)
+    for s = 0, ns-1 do
+        local ok, dst = pcall(reaper.BR_GetSetTrackSendInfo, src, 0, s, "P_DESTTRACK", false, 0)
+        if ok and dst == dest then return true end
     end
     return false
 end
@@ -246,6 +301,33 @@ for i, r in ipairs(rows) do
     -- disable parent/master send for both tracks (user requested)
     pcall(function() reaper.SetMediaTrackInfo_Value(A, "B_MAINSEND", 0) end)
     pcall(function() reaper.SetMediaTrackInfo_Value(M, "B_MAINSEND", 0) end)
+
+    -- routing: A -> its Audio Bus (if specified)
+    local bus_name = r.audio_send_to or ""
+    if bus_name ~= "" then
+        local bus_tr = bus_tracks[bus_name]
+        if not bus_tr then
+            dbg("Warning: Audio Bus track not found for name: " .. tostring(bus_name))
+        else
+            if send_exists_to_dest(A, bus_tr) then
+                dbg(string.format("  Audio send already exists from %s to bus %s (skipping)", A_name, bus_name))
+            else
+                local sidx = reaper.CreateTrackSend(A, bus_tr)
+                if sidx and sidx >= 0 then
+                    dbg(string.format("  Created audio send from %s to bus %s (sendidx=%d)", A_name, bus_name, sidx))
+                    -- ensure it's an audio send (disable MIDI mapping)
+                    pcall(function()
+                        reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_MIDI_SRCBUS", true, -1)
+                        reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_MIDI_DSTBUS", true, -1)
+                        reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_MIDI_SRCCHAN", true, -1)
+                        reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_MIDI_DSTCHAN", true, -1)
+                        reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "D_VOL", true, 1.0)
+                        reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "B_MUTE", true, 0.0)
+                    end)
+                end
+            end
+        end
+    end
 
     -- routing: A receives quad audio from CTRL
     local src_track = ctrl_tracks[ctrl]
