@@ -223,26 +223,69 @@ end
 
 local function send_has_dest_and_chans(src, dest, src_chan, dst_chan)
     local ns = reaper.GetTrackNumSends(src, 0)
+    -- precompute dest name for comparison
+    local dest_name = nil
+    pcall(function() local ok, n = reaper.GetTrackName(dest) if ok then dest_name = n end end)
+
     for s = 0, ns-1 do
+        -- get the destination reported by BR
         local ok, dst = pcall(reaper.BR_GetSetTrackSendInfo, src, 0, s, "P_DESTTRACK", false, 0)
-        if ok and dst == dest then
+        if not ok or not dst then goto continue_send end
+
+        -- determine if this send points to our dest (compare name)
+        local same = false
+        local okn, n = pcall(reaper.GetTrackName, dst)
+        if okn and n and dest_name and n == dest_name then same = true end
+
+        if same then
+            -- try to read channel mapping via BR
             local ok1, vsrc = pcall(reaper.BR_GetSetTrackSendInfo, src, 0, s, "I_SRCCHAN", false, 0)
             local ok2, vdst = pcall(reaper.BR_GetSetTrackSendInfo, src, 0, s, "I_DSTCHAN", false, 0)
-            if ok1 and ok2 and tonumber(vsrc) == tonumber(src_chan) and tonumber(vdst) == tonumber(dst_chan) then
-                return true
+            local vsrcn = (ok1 and tonumber(vsrc)) or nil
+            local vdstn = (ok2 and tonumber(vdst)) or nil
+
+            -- exact match
+            if vsrcn and vdstn and vsrcn == tonumber(src_chan) and vdstn == tonumber(dst_chan) then return true end
+
+            -- lenient pair-match: if existing send covers either channel of the stereo pair, treat as present
+            if vsrcn and vdstn then
+                if (vsrcn == tonumber(src_chan) or vsrcn == tonumber(src_chan)+1) and (vdstn == tonumber(dst_chan) or vdstn == tonumber(dst_chan)+1) then
+                    return true
+                end
+            end
+
+            -- fallback: try core API to get numeric channel values
+            local okf, fsrc = pcall(reaper.GetTrackSendInfo_Value, src, 0, s, "I_SRCCHAN")
+            local okg2, fdst = pcall(reaper.GetTrackSendInfo_Value, src, 0, s, "I_DSTCHAN")
+            local fsrcn = (okf and tonumber(fsrc)) or nil
+            local fdstn = (okg2 and tonumber(fdst)) or nil
+            if fsrcn and fdstn then
+                if fsrcn == tonumber(src_chan) and fdstn == tonumber(dst_chan) then return true end
+                if (fsrcn == tonumber(src_chan) or fsrcn == tonumber(src_chan)+1) and (fdstn == tonumber(dst_chan) or fdstn == tonumber(dst_chan)+1) then return true end
             end
         end
+        ::continue_send::
     end
+
     return false
 end
 
 local function send_has_midi(src, dest, midi_dstbus)
     local ns = reaper.GetTrackNumSends(src, 0)
+    -- precompute dest name
+    local dest_name = nil
+    pcall(function() local ok, n = reaper.GetTrackName(dest) if ok then dest_name = n end end)
     for s = 0, ns-1 do
         local ok, dst = pcall(reaper.BR_GetSetTrackSendInfo, src, 0, s, "P_DESTTRACK", false, 0)
-        if ok and dst == dest then
-            local okm, mb = pcall(reaper.BR_GetSetTrackSendInfo, src, 0, s, "I_MIDI_DSTBUS", false, 0)
-            if okm and tonumber(mb) == tonumber(midi_dstbus) then return true end
+        if ok then
+            local okn, n = pcall(reaper.GetTrackName, dst)
+            if okn and n and dest_name and n == dest_name then
+                local okm, mb = pcall(reaper.BR_GetSetTrackSendInfo, src, 0, s, "I_MIDI_DSTBUS", false, 0)
+                if okm and tonumber(mb) == tonumber(midi_dstbus) then return true end
+                -- fallback to core API
+                local okf, fmb = pcall(reaper.GetTrackSendInfo_Value, src, 0, s, "I_MIDI_DSTBUS")
+                if okf and tonumber(fmb) == tonumber(midi_dstbus) then return true end
+            end
         end
     end
     return false
@@ -251,9 +294,31 @@ end
 -- check if a send exists from src track to dest track (any audio send)
 local function send_exists_to_dest(src, dest)
     local ns = reaper.GetTrackNumSends(src, 0)
+    -- compare by name for robustness
+    local dest_name = nil
+    pcall(function() local ok, n = reaper.GetTrackName(dest) if ok then dest_name = n end end)
     for s = 0, ns-1 do
         local ok, dst = pcall(reaper.BR_GetSetTrackSendInfo, src, 0, s, "P_DESTTRACK", false, 0)
-        if ok and dst == dest then return true end
+        if ok and dst then
+            local okn, n = pcall(reaper.GetTrackName, dst)
+            if okn and n and dest_name and n == dest_name then return true end
+        end
+    end
+    return false
+end
+
+-- check if dest track has any receives from src track (more robust in some hosts)
+local function receive_from_src_exists(src, dest)
+    local rcount = reaper.GetTrackNumSends(dest, -1)
+    if rcount == 0 then return false end
+    local ok_srcname, src_name = pcall(function() local ok2, tn = reaper.GetTrackName(src) if ok2 then return tn end end)
+    if not ok_srcname or not src_name then src_name = "" end
+    for i = 0, rcount-1 do
+        local ok, sptr = pcall(reaper.BR_GetSetTrackSendInfo, dest, -1, i, "P_SRCTRACK", false, 0)
+        if ok and sptr then
+            local okn, n = pcall(function() local ok2, tn = reaper.GetTrackName(sptr) if ok2 then return tn end end)
+            if okn and n and src_name ~= "" and n == src_name then return true end
+        end
     end
     return false
 end
@@ -337,13 +402,15 @@ for i, r in ipairs(rows) do
     local s = ve:match("(%d+)%s*-%s*%d+")
     if s then start_ch = tonumber(s) or start_ch end
         local src_start = start_ch - 1 -- zero-based
-        -- create two stereo sends (pair 0 and 1) but avoid duplicates
-        for pair = 0,1 do
-            local pair_src = src_start + pair*2
-            local pair_dst = pair*2
-            if send_has_dest_and_chans(src_track, A, pair_src, pair_dst) then
-                dbg(string.format("    Send already exists to A: pair=%d src=%d dst=%d (skipping)", pair, pair_src, pair_dst))
-            else
+        -- create two stereo sends (pair 0 and 1) but avoid creating duplicates.
+        -- If any send from src_track to A already exists, skip creating both pairs to avoid duplicate overlapping sends.
+        -- prefer checking receives on destination for robustness; fallback to send_exists_to_dest
+        if receive_from_src_exists(src_track, A) or send_exists_to_dest(src_track, A) then
+            dbg(string.format("    At least one send already exists from CTRL to %s — skipping channel-pair creation to avoid duplicates.", A_name))
+        else
+            for pair = 0,1 do
+                local pair_src = src_start + pair*2
+                local pair_dst = pair*2
                 local sendidx = reaper.CreateTrackSend(src_track, A)
                 if sendidx and sendidx >= 0 then
                     dbg(string.format("    Created send to A: sendidx=%d pair=%d src=%d dst=%d", sendidx, pair, pair_src, pair_dst))
@@ -369,7 +436,7 @@ for i, r in ipairs(rows) do
 
     -- routing: M sends MIDI to CTRL
     if src_track then
-        if midi_bus and send_has_midi(M, src_track, midi_bus) then
+        if receive_from_src_exists(M, src_track) or (midi_bus and send_has_midi(M, src_track, midi_bus)) then
             dbg(string.format("    MIDI send already exists from M to CTRL bus=%s (skipping)", tostring(midi_bus)))
         else
             local sendidx = reaper.CreateTrackSend(M, src_track)
