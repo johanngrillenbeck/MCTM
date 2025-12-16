@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<!-- saved from url=(0030)https://reaticulate.com/usage/ -->
+<html lang="en-US" style=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link rel="shortcut icon" href="https://reaticulate.com/img/favicon.png">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Usage | reaticulate</title>
+<meta name="generator" content="Jekyll v3.9.3">
+<meta property="og:title" content="Usage | reaticulate">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="Reaticulate | a free articulation management system for REAPER">
+<meta property="og:description" content="Reaticulate | a free articulation management system for REAPER">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Usage | reaticulate">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Reaticulate | a free articulation management system for REAPER","headline":"Usage | reaticulate","url":"/usage/"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="./Usage _ reaticulate_files/style.css">
+    <script src="./Usage _ reaticulate_files/jquery.min.js.Download"></script>
+    <script src="./Usage _ reaticulate_files/respond.js.Download"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="/assets/css/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <a href="https://github.com/jtackaberry/reaticulate" class="github-corner" aria-label="View source on Github">
+          <svg width="80" height="80" viewBox="0 0 250 250" style="fill:rgb(29, 128, 194); color:#252525; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1><a href="https://reaticulate.com/"></a></h1>
+          <p>Reaticulate | a free articulation management system for REAPER</p>
+        </div>
+        <div class="nav">
+          <ul>
+              
+              <li class="home"><a href="https://reaticulate.com/">Home</a></li>
+              <li class="download"><a href="https://reaticulate.com/download/">Download</a></li>
+              <li class="usage"><a class="active" href="https://reaticulate.com/usage/">Usage</a></li>
+              <li class="reabank"><a href="https://reaticulate.com/reabank/">Custom Banks</a></li>
+              <li class="news"><a href="https://reaticulate.com/news/">News</a></li>
+              <li class="contact"><a href="https://reaticulate.com/contact/">Contact</a></li>
+            </ul>
+          </div>
+
+        <p class="info">
+    Before we get into it, Seventh Sam <a href="https://seventhsam.com/guides/blog/6781138/how-to-use-reaticulate-to-manage-your-sample-library-articulations">
+    has provided an excellent blog post on how to use Reaticulate</a>, offering a more
+    accessible introduction to Reaticulate's usage than this page, which is more
+    comprehensive but also more technical.
+    <br><br>
+    So we recommend you read <a href="https://seventhsam.com/guides/blog/6781138/how-to-use-reaticulate-to-manage-your-sample-library-articulations">Seventh
+    Sam's blog post</a> first, and then come back here to fill in the missing pieces.
+</p>
+<h1 id="first-run">First Run</h1>
+<ul>
+<li>Open Reaper's Actions list (the <code>?</code> key by default) and run <code>Script: Reaticulate_Main.lua</code></li>
+<li>The UI window can be docked by clicking the Dock icon in the toolbar <img src="./Usage _ reaticulate_files/18-dock_window.png" alt="Dock icon">
+<ul>
+<li>After that you can control it like any other docked window in Reaper</li>
+</ul>
+</li>
+<li>If you want Reaticulate to automatically start each time Reaper is launched (recommended), click the settings icon <img src="./Usage _ reaticulate_files/18-settings.png" alt="Settings icon"> and enable the autostart option</li>
+</ul>
+<h1 id="basics">Basics</h1>
+<p>Let's first get some terminology and basic operational stuff out of the way:</p>
+<ul>
+<li>A <strong>patch</strong> refers to a set of articulations offered by some virtual instrument on a single channel
+<ul>
+<li>For example Spitfire's Chamber Strings Ensembles patch running in Kontakt</li>
+</ul>
+</li>
+<li>A <strong>bank</strong> defines a set of articulations that typically describes some multi-articulation patch
+<ul>
+<li>Reaticulate banks are analogous to <strong>articulation maps</strong> that you might have seen in
+other DAWs, and the terms can be used interchangeably</li>
+<li><strong>Factory banks</strong> are distributed with Reaticulate and you won't directly change these, but
+you can use them</li>
+<li><strong>User banks</strong> are custom banks made by you, or made by others that you have imported</li>
+</ul>
+</li>
+<li>Reaticulate works by translating incoming <strong>program change</strong> MIDI messages to whatever different
+MIDI events your virtual instrument library needs to trigger articulation changes
+<ul>
+<li>Reaticulate calls these <strong>output events</strong> and they're defined in the bank</li>
+</ul>
+</li>
+<li>Because <strong>articulations</strong> are activated by <strong>program changes</strong> these terms are often used
+interchangeably in this documentation</li>
+<li>Reaticulate lets you assign up to 16 different banks to a track and provides a GUI and a bunch of actions
+to make it easy to trigger (i.e. activate) articulations
+<ul>
+<li>Where "trigger articulations" means either emitting program change messages or inserting them into MIDI items</li>
+</ul>
+</li>
+</ul>
+<h1 id="track-setup">Track Setup</h1>
+<p>In order for Reaticulate to work on a track, you must first load the Reaticulate FX plugin at the
+top of the FX chain. The job of the Reaticulate FX is to translate program change MIDI messages (as
+emitted by Reaticulate's GUI) to the appropriate MIDI needed by the virtual instrument on that track
+to switch articulations.</p>
+<ul>
+<li>Select the track</li>
+<li>Click <img src="./Usage _ reaticulate_files/18-add_circle_outline.png" alt="Add
+icon">
+<strong>Add Reaticulate FX</strong> which will be shown in Reaticulate's UI</li>
+<li>Once the FX is installed, the track configuration icon <img src="./Usage _ reaticulate_files/18-view_list.png" alt="track configuration
+icon">
+will appear in Reaticulate's toolbar.  Click it to configure the track.</li>
+<li>Click <img src="./Usage _ reaticulate_files/18-add_circle_outline.png" alt="Add
+icon">
+<strong>Add Bank</strong></li>
+</ul>
+<p class="warning">
+    During live recordings, when articulations are activated Reaticulate will inject the Program Change event into Reaper's Virtual MIDI Keyboard queue, so in order to ensure articulation changes get recorded, be sure to configure the track to input from All MIDI Inputs while recording (right click on the Record Arm button on the track and select <code>Input: MIDI | All MIDI Inputs | All Channels</code> (or any specific channel of your choice) from the menu.
+</p>
+<p>A <strong>bank</strong> (i.e. articulation map) is a collection of articulations that generally
+describes a multi-articulation patch of a virtual instrument.  A track can contain a
+number of banks provided there are no conflicting articulations (program numbers) between
+banks assigned to the same MIDI source channel (see below) on a given track.</p>
+<p>Once added, each bank has a few UI elements:</p>
+<ul>
+<li>A selection of one of the existing factory or user banks (see below)
+<img src="./Usage _ reaticulate_files/bank-config.png" alt="floating"></li>
+<li>The <strong>source channel</strong>, which defaults to <em>Omni</em>
+<ul>
+<li>Program change MIDI messages observed on this channel will be processed according to this
+bank</li>
+<li>Subsequent MIDI events (notes, CC, etc.) on this channel will be sent to the articulation's
+destination channel(s) (unless the articulation is specifically configured not to alter
+routing, though this is uncommon)</li>
+<li>When a bank's source channel is <em>Omni</em> then this single bank can be used across multiple
+channels, where each channel can have a different articulation.  This lets you pull in the
+same patch on different channels (e.g. for layering or divisi) while using just one bank.</li>
+</ul>
+</li>
+<li>The <strong>destination channel</strong>, which defaults to <em>Source</em>
+<ul>
+<li>As part of the bank definition, output events for an articulation can specify exactly which
+channels they should be sent to, but when no channel is given (which is usually the case),
+this channel is the one that will be used for the output events</li>
+<li>Typically the destination channel just defines the channel the underlying VI patch is
+listening on</li>
+<li>When set to <em>Source</em> it means that output events will be sent to the same MIDI channel the
+program change message came in on</li>
+<li>(Prerelease) The destination MIDI bus can be specified for more advanced setups.  When
+<em>Source</em> is used, the destination bus is overridden but the destination channel will be the
+same as the source channel.</li>
+</ul>
+</li>
+<li>A delete button <img src="./Usage _ reaticulate_files/18-delete.png" alt="Delete
+icon">
+which removes the bank from the track</li>
+<li>A drag handle <img src="./Usage _ reaticulate_files/24-drag_vertical.png" alt="Drag
+icon">
+which lets you rearrange the order of banks on the track by dragging and dropping</li>
+<li>Optional info text <img src="./Usage _ reaticulate_files/24-info_outline.png" alt="Info icon">
+that may give some additional information on how to configure the patch to work with the bank</li>
+</ul>
+<h2 id="factory-banks">Factory Banks</h2>
+<p>Banks for a number of existing VI libraries come bundled with Reaticulate.  These generally work
+out of the box with the patch, or require minimal tweaks to the patch which will be indicated
+in a message when you add a factory bank.  (For example, banks for Spitfire libraries usually
+require setting the patch to <em>Locked to UACC</em>.)</p>
+<p>You can use these to get started, but of course you're almost certainly going to want to roll your own.</p>
+<h2 id="user-banks">User Banks</h2>
+<p class="warning">
+    Currently there is no GUI for creating custom banks.  Until this is available,
+    unfortunately it means some manual text editing will be necessary to configure banks.
+    <a href="https://reaticulate.com/reabank/"><b>Click here to learn how to create your own custom banks for Reaticulate</b></a>.
+</p>
+<p>You can also <a href="https://reaticulate.com/download#download-bank-files">download user-contributed banks</a> for various libraries.</p>
+<p>If you've downloaded one or more Reaticulate-annotated reabank files that you want to
+install, the easiest way to do this is to drag the files from File Explorer (Windows) or
+Finder (Mac) onto Reaticulate's GUI window.</p>
+<h1 id="usage">Usage</h1>
+<h2 id="gui">GUI</h2>
+<p>Hopefully the GUI will be fairly intuitive.  Here are some tips that may not be obvious:</p>
+<p><img src="./Usage _ reaticulate_files/banklist-small.png" alt="floating"></p>
+<ul>
+<li>The group of 16 numbers at the top of the UI indicate the <strong>default channel</strong>
+<ul>
+<li>The default channel is the channel on which articulations will be activated when you click an
+articulation button with the mouse (provided the articulation's output events don't explicitly
+specify a destination channel themselves)</li>
+<li>This value is synchronized (in both directions) with the target channel for new events in the active
+MIDI editor.</li>
+<li>There are also a number of actions relating the default channel (see later)</li>
+</ul>
+</li>
+<li><strong>Left clicking</strong> on an articulation will change articulations by sending the output events defined
+for that articulation in the bank using the default channel as the source channel for the articulation</li>
+<li><strong>Right clicking</strong> or <strong>double clicking</strong> on the other hand will insert a program change into a MIDI item
+<ul>
+<li>If the MIDI editor is open and the option <em>Insert articulations based on selected notes</em> (in Reaticulate's Settings page) is enabled, then program changes will be inserted at the first note of any contiguous subset of selected notes</li>
+<li>If that option is disabled or the MIDI editor is closed (you're working in Reaper's Arrange view), program changes will be inserted at the edit cursor postion</li>
+</ul>
+</li>
+<li>When you left or right click an articulation, Reaticulate will refocus the window that previously had focus before activating the articulation.  (This is only true when the js_ReaScriptAPI extension is installed.  If it's not installed, if MIDI editor if it's open it will focus that, and focus the arrange view otherwise.) This is <em>usually</em> what you want to avoid focus-stealing.</li>
+<li>When an articulation is activated, the source channel that articulation is active on is denoted by
+a number on the right edge of the articulation
+<ul>
+<li>If a bank's source channel is set to <strong>Omni</strong> in the track configuration, then it's possible
+activate the articulation on multiple channels. All channels on which the articulation is
+active will be listed here.</li>
+</ul>
+</li>
+<li><strong>Middle clicking</strong> an articulation will clear its assignment from all source channels (at least
+as far as the UI is concerned)</li>
+<li>To scroll large bank lists, a vertical scrollbar will appear by hovering over the right edge of Reaticulate's window.  Of course you can always use the <strong>scroll wheel</strong> on your mouse anywhere within the window to scroll the view as needed.</li>
+<li>You can adjust the zoom level of the UI by using ctrl-mousewheel</li>
+<li>As you hover over an articulation, the status bar at the bottom of the UI will describe what output events will be sent</li>
+<li>The articulations filter works by fuzzy substring match, so for example <code>trp</code> would match <code>trill P4</code>
+<ul>
+<li>And hitting escape when the filter is focused will clear it</li>
+</ul>
+</li>
+</ul>
+<h2 id="actions">Actions</h2>
+<p>Reaticulate installs a number of Reaper actions that you can bind to keyboard shortcuts or MIDI
+controller events.  Most of the actions are designed to make Reaticulate usable from a control
+surface or tablet (e.g. running TouchOSC or Lemur).</p>
+<p>All actions are prefixed with <code>Reaticulate</code> so you can easily find them by searching for
+<code>Reaticulate</code> in Reaper's action list.</p>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Activate articulation by CC on default channel</code></td>
+<td>When you bind a CC to this action, sending the CC with value <code>&lt;n&gt;</code> will activate the articulation defined by program <code>&lt;n&gt;</code>.  This is the action you probably want to use from a control surface.  The articulation is activated on the default channel (described above).</td>
+</tr>
+<tr>
+<td><code>Activate articulation by CC on channel &lt;n&gt;</code></td>
+<td>Like the previous action, except explicitly activates the articulation on channel <code>&lt;n&gt;</code> instead of the default channel.  There are 16 separate actions for the 16 different MIDI channels.</td>
+</tr>
+<tr>
+<td><code>Set default MIDI Channel by CC</code></td>
+<td>Sending value <code>&lt;n&gt;</code> on the CC bound to this action will set the default channel to <code>&lt;n&gt;</code>.</td>
+</tr>
+<tr>
+<td><code>Set default MIDI Channel to &lt;n&gt;</code></td>
+<td>Sets the default channel to <code>&lt;n&gt;</code>. There are 16 separate actions for the 16 different MIDI channels.</td>
+</tr>
+<tr>
+<td><code>Activate articulation by CC in group &lt;n&gt; on default channel (MIDI CC relative or mousewheel)</code></td>
+<td>Scrolls through the articulations in group <code>&lt;n&gt;</code>.  It can be convenient to bind this action to an encoder as a quick way to flip through articulations from a control surface.</td>
+</tr>
+<tr>
+<td><code>Activate articulation by slot number by CC on default channel</code></td>
+<td>Whereas earlier actions activate an articulation based on the program number (denoted as the CC value), this action activates an articulation by its position in the list of articulations.  So binding a CC to this action and sending value 2 will activate the second articulation in the list.</td>
+</tr>
+<tr>
+<td><code>Activate previous/next articulation in group &lt;n&gt; on default channel</code></td>
+<td>These actions can be assigned to previous/next keys (or control surface buttons) to discretely scroll through the articulations on group <code>&lt;n&gt;</code></td>
+</tr>
+<tr>
+<td><code>Select articulation by CC (MIDI CC relative or mousewheel)</code></td>
+<td>Unlike the <em>activate</em> actions, this action merely selects the articulation in the bank list but doesn't activate it yet.  You'll need to activate the selected articulation after (see below).</td>
+</tr>
+<tr>
+<td><code>Select next/previous articulation</code></td>
+<td>These actions select (but not activate) the next or previous articulation in the bank list, relative to the currently selected articulation</td>
+</tr>
+<tr>
+<td><code>Activate selected articulation on default channel</code></td>
+<td>After having selected an articulation visually via one of the <em>Select</em> actions, this action will activate the selected articulation. Pro tip: triggering this action twice in rapid succession will force-insert the program change event into the current MIDI item at the edit cursor.</td>
+</tr>
+<tr>
+<td><code>Insert last activated articulation into MIDI item on default channel</code></td>
+<td>Will force-insert the program change event for the last activated articulation into the MIDI item at the editor cursor.</td>
+</tr>
+<tr>
+<td><code>Focus articulation filter</code></td>
+<td>Focus Reaticulate's articulation filter text input in the bank list to rapidly find a desired articulation by searching.  (This works best when the js_ReaScript API extension is installed.)</td>
+</tr>
+<tr>
+<td><code>Disable/Enable/Toggle feedback to MIDI feedback device</code></td>
+<td>If feedback is configured (see below), these actions control whether or not it's active.  If not configured, these actions do nothing.</td>
+</tr>
+<tr>
+<td><code>Sync current state on selected track to MIDI feedback device</code></td>
+<td>Replays all last seen CCs and current articulations on all channels to the MIDI feedback device (if configured).</td>
+</tr>
+<tr>
+<td><code>Toggle track selection follow focused FX window</code></td>
+<td>If enabled, when an FX window is floated, Reaticulate will automatically select its track.  (Requires the js_ReaScriptAPI extension.)</td>
+</tr>
+<tr>
+<td><code>Toggle track selection follows MIDI editor target item</code></td>
+<td>If enabled, when you select a MIDI item in the MIDI editor for writes, Reaticulate will automatically select that track so the bank list updates to reflect that track's articulations.  This is most conveniently paired with the "Options: MIDI track list/media item lane selection is linked to editability" so that merely selecting an item in the MIDI editor will both enable it for edits and automatically select the track.</td>
+</tr>
+</tbody>
+</table>
+<p>(Prerelease) Note: if any of the "Activate" actions are triggered twice within 500ms of each other, the articulation will be inserted into the MIDI item at the edit cursor (if one exists).  This allows you to use the same actions from, say, a control surface to both temporarily enable articulations <em>and</em> insert them into current items.</p>
+<h1 id="feedback-to-control-surface">Feedback to Control Surface</h1>
+<p>Reaticulate is able to send articulation changes and CC values to a control surface or other MIDI
+controller.  Once enabled:</p>
+<ul>
+<li>When a track is selected, Reaticulate first sends any user-defined feedback event as
+configured on track settings screen, then it sends all current articulations and
+last-observed CCs across all channels on that track.  This causes your control surface to
+sync its faders/encoders as you select different tracks.</li>
+<li>During playback, articulation changes and CCs on all channels from the selected track will
+be streamed back to the control surface in real time.</li>
+</ul>
+<p>If multiple tracks are selected, then only the first selected track will be synced to the control
+surface.</p>
+<p>This is implemented by means of a hidden track called "MIDI Feedback (Reaticulate)" and
+which the Reaticulate JSFX installed on the track communicates with via MIDI bus 16.
+Consequently, if you enable this feature, you won't be able to assign banks to tracks on
+bus 16 (or use banks with output events that explicitly address bus 16).</p>
+<p class="warning">
+  Feedback is only sent to the control surface when the selected track is both armed for recording
+  and monitoring for input on a MIDI device.
+</p>
+<h2 id="configuration">Configuration</h2>
+<p>To configure this:</p>
+<ul>
+<li>Click the settings icon <img src="./Usage _ reaticulate_files/18-settings.png" alt="Settings icon"> in the toolbar</li>
+<li>In the <em>Feedback to Control Surface</em> section select your control surface's MIDI device
+<ul>
+<li><strong>Important!</strong> This device must be enabled for MIDI output within Reaper first, before selecting
+the MIDI device.  (Clicking the <code>Device must be enabled for output</code> text will open Reaper's
+Settings.)</li>
+</ul>
+</li>
+<li>By default, articulation changes are signaled to the control surface via Program Change messages
+but these can be translated to a CC value.  Under the <em>Articulations</em> option list, select <em>CC
+values</em> and then enter the CC number to use.  Note that even if CC values are used here, the bank
+select message will still be sent.</li>
+</ul>
+<h3 id="midi-bus">MIDI Bus</h3>
+<p>You almost certainly want to leave this set to 1, in which case the CC events sent to the control
+surface are standard MIDI.</p>
+<p>More esoteric custom configurations may benefit from using a different MIDI bus for the outbound
+CCs.  When a bus other than 1 is used, Reaper will output SysEx MIDI events like this:</p>
+<pre><code>F0 FF 52 50 62 0F B0 0B 30 F7
+</code></pre>
+<p>Where:</p>
+<ul>
+<li><code>0F</code> is the MIDI bus offset from 0 (so <code>0F</code> is MIDI bus 16)</li>
+<li><code>B0 0B 30</code> is the standard CC event (in this example, channel 1, CC 11, value 48)</li>
+</ul>
+<h2 id="control-surface-feedback-events">Control Surface Feedback Events</h2>
+<p>This section describes the type of events that are transmitted to the control surface.
+While some messages are user-configurable, others are fixed and defined by Reaticulate.</p>
+<h3 id="user-defined-track-select-event">User-defined Track Select Event</h3>
+<p>Previous versions of Reaticulate used to send a Bank Select MIDI message to the control
+surface device when a track was selected.  However, as of Reaticulate 0.5, because bank
+MSB/LSB is now dynamically generated by Reaticulate, the previous behavior was no longer
+appropriate, because the MSB/LSB for a given bank stopped being predictable.</p>
+<p>Reaticulate now provides you the means of customizing your own control surface feedback
+MIDI message(s) whenever a track selected.  In the track configuration screen within
+Reaticulate, the "Feedback on Track Select" section defines this.  It's disabled by
+default, but you can choose from the following message types:</p>
+<ul>
+<li>Bank Select (where you choose your own explicit MSB/LSB)</li>
+<li>Program Change</li>
+<li>Note (includes both note-on and note-off messages)</li>
+<li>Note On</li>
+<li>Note Off</li>
+<li>Raw MIDI</li>
+</ul>
+<p>For notes, it's recommended you avoid using notes 0-9.  Reaticulate uses note-off events
+on these low notes to encode certain information such as articulation group and current
+default channel.  This is described further in the sections below.</p>
+<p>In the case of Raw MIDI, you can choose your own arbitrary string of MIDI bytes expressed
+as hexidecimal codes.  For example, a custom System Exclusive (SysEx) MIDI message could
+be set as <code>f7 42 43 44 f0</code> (where the bytes between <code>f7</code> and <code>f0</code> are arbitrary).</p>
+<h3 id="articulations">Articulations</h3>
+<p>Whenever an articulation is triggered on the selected track, the articulation's group is
+first sent to the control surface (see below), and then the articulation.  By default, the
+articulation is a Program Change message, but this can be translated to a CC of your
+choice from Reaticulate's settings screen (see above).</p>
+<p>The group number is communicated using a custom event: a MIDI note off (0x80) for note 0, where the
+note-off velocity represents the group number offset from 0 (i.e. value 0 means group 1).</p>
+<p>The MIDI channel of both these events is the source channel of the selected articulation.</p>
+<h3 id="cc-values">CC values</h3>
+<p>MIDI controllers that send CCs can sometimes also <em>receive</em> those same CCs and use those values to set the
+controller's current state.  There are many devices with this capability, but some examples are:</p>
+<ul>
+<li><a href="https://www.native-instruments.com/en/products/komplete/keyboards/">Komplete Kontrol</a> keyboards
+where the encoders are configurable
+<img src="./Usage _ reaticulate_files/controlsurface.jpg" alt="floating"></li>
+<li><a href="https://store.djtechtools.com/products/midi-fighter-twister">MIDI Fighter Twister</a></li>
+<li><a href="https://iconproaudio.com/product/platform-m-plus/">iCON Platform-M</a> (when configured in custom
+mode)</li>
+</ul>
+<p>Many control surfaces with motorized faders (such as the one depicted right) can be configured such
+that the faders transmit MIDI CC values and can receive CCs back to move the faders to the new
+values.</p>
+<p>Even if your control surfaces lacks a custom mode to work directly with CCs (and supports only e.g.
+Mackie Control Protocol [MCP] or HUI), if you're particularly enterprising, it's possible to shim a
+translation layer between Reaper and the controller.  For example, with a control surface supporting
+MCP, software such as <a href="https://www.bome.com/products/miditranslator">Bome MIDI Translator Pro</a> could
+be used to translate between CCs on the DAW side and pitch bend messages (used by MCP) on the
+control surface side.</p>
+<h3 id="default-channel">Default Channel</h3>
+<p>When the default channel is changed through the interface, or a new track is selected, the track's
+default channel is fed back to the control surface using a custom event.</p>
+<p>Similar with articulation groups above, the custom event is defined as a MIDI note-off (0x80) for note 1.
+The event's channel indicates the new default Reaticulate channel. The note-off velocity is not significant.</p>
+
+
+      </section>
+
+    </div>
+
+    
+    <script type="text/javascript">
+      // Replaces div of class iframe with actual iframes, since commonmark doesn't seem to
+      // be passing <iframe> tags through.
+      $iframes = $('div.iframe');
+      $iframes.replaceWith(function(n) {
+        var old = $iframes.get(n);
+        var $new = $('<iframe>');
+        for (var i = 0; i < old.attributes.length; i++) {
+          var a = old.attributes[i];
+          $new.attr(a.name, a.value);
+        }
+        return $new;
+      });
+    </script>
+  
+
+</body></html>
