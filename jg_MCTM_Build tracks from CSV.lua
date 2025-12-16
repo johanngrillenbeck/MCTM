@@ -9,6 +9,21 @@ local function dbg(m) reaper.ShowConsoleMsg(tostring(m) .. "\n") end
 
 local function trim(s) if not s then return "" end return (s:gsub('^%s+', ''):gsub('%s+$','')) end
 
+local function set_default_colors()
+    ctrl_hex = "a1a1a1"
+    bus_hex = "906BFA"
+    local fr,fg,fb = hex_to_rgb(ctrl_hex)
+    local br,bg,bb = hex_to_rgb(bus_hex)
+    local fx_native = (fr and reaper.ColorToNative(fr,fg,fb)) or nil
+    local bus_native = (br and reaper.ColorToNative(br,bg,bb)) or nil
+    return { ctrl = fx_native, bus = bus_native, ctrl_hex = ctrl_hex, bus_hex = bus_hex }
+end
+
+local COLORS = set_default_colors()
+local function set_track_color(tr, nativeColor)
+    if tr and nativeColor then pcall(function() reaper.SetTrackColor(tr, nativeColor) end) end
+end
+
 -- prompt for csv
     local ok, input = reaper.GetUserInputs("CSV Path (fallback)", 1, "CSV file full path:", "")
     if not ok then dbg("User cancelled fallback path input.") return end
@@ -151,9 +166,13 @@ for _, ctrlname in ipairs(ctrl_order) do
             dbg("  Set CTRL I_NCHAN = " .. tostring(need))
             reaper.TrackList_AdjustWindows(false)
         end
+        -- apply CTRL color
+        set_track_color(found, COLORS.ctrl)
         dbg("  Track count after creation: " .. tostring(reaper.CountTracks(0)))
     else
         dbg("Found existing CTRL track: "..ctrlname)
+        -- ensure CTRL color
+        set_track_color(found, COLORS.ctrl)
     end
     ctrl_tracks[ctrlname] = found
 end
@@ -198,8 +217,10 @@ end
                 found = reaper.GetTrack(0, idx)
                 reaper.GetSetMediaTrackInfo_String(found, "P_NAME", bname, true)
                 dbg(" Created Bus track: " .. tostring(bname))
+                set_track_color(found, COLORS.bus)
             else
                 dbg("Found existing Bus track: " .. tostring(bname))
+                set_track_color(found, COLORS.bus)
             end
             bus_tracks[bname] = found
         end
