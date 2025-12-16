@@ -11,6 +11,8 @@ This repository contains Lua scripts for REAPER to manage large orchestral templ
   - `findPairs(tracks, opts)` → map keyed by canonical name: `{ name, audio, midi, ctrl, disabled }`
   - `format_label(prefixes, name)` → string
 - **Scripts**: Each `jg_MCTM_*.lua` file performs a specific workflow (choose tracks, build from CSV, toggle visibility/prefixes, send/receive routing, VEPro activation). Most scripts should import the helper: `local mctm = dofile("jg_MCTM_helper.lua")`.
+- you can find the Reascript API documentation locally in the file [.github/reascripthelp.html](.github/reascripthelp.html) included in this repository.
+- you can find the Reaticulate documentation locally in the file [.github/reabank files _ reaticulate.html](.github/reabank%20files%20_%20reaticulate.html) included in this repository.
 
 ## Prefix Conventions
 - `A`: audio track
@@ -44,9 +46,12 @@ local new = mctm.format_label({"M"}, "Viola") -- "M Viola"
 ```
 
 ## Workflows (REAPER-specific)
+### General
 - Load scripts via REAPER Action List; ensure they run with access to `jg_MCTM_helper.lua` in the same folder.
 - CSV-based scripts expect resource files under `Ressources/` (e.g., `jgscoringtest.csv`, `jgscoringtest7stereo.csv`).
 - Some routing scripts assume ascending bus numbering and may distinguish audio-only vs MIDI-only busses.
+### Instrument Articulations
+- Articulations should integrate with the popular Reaticulate extension. We achieve this by adding the required information to the "..._INSTRUMENTS.csv" as well as "..._KEY_SWITCHES.csv" and build our own Reaticulate bank file in "...REATICULATE.reabank", which the user can then import into Reaticulate.
 
 ## Project Conventions
 - Operate on labels, not arbitrary metadata; avoid assumptions outside prefixes and names.

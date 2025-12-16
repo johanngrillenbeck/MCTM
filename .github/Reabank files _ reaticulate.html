@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<!-- saved from url=(0032)https://reaticulate.com/reabank/ -->
+<html lang="en-US" style=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link rel="shortcut icon" href="https://reaticulate.com/img/favicon.png">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Reabank files | reaticulate</title>
+<meta name="generator" content="Jekyll v3.9.3">
+<meta property="og:title" content="Reabank files | reaticulate">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="Reaticulate | a free articulation management system for REAPER">
+<meta property="og:description" content="Reaticulate | a free articulation management system for REAPER">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Reabank files | reaticulate">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Reaticulate | a free articulation management system for REAPER","headline":"Reabank files | reaticulate","url":"/reabank/"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="./Reabank files _ reaticulate_files/style.css">
+    <script src="./Reabank files _ reaticulate_files/jquery.min.js.Download"></script>
+    <script src="./Reabank files _ reaticulate_files/respond.js.Download"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="/assets/css/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <a href="https://github.com/jtackaberry/reaticulate" class="github-corner" aria-label="View source on Github">
+          <svg width="80" height="80" viewBox="0 0 250 250" style="fill:rgb(29, 128, 194); color:#252525; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1><a href="https://reaticulate.com/"></a></h1>
+          <p>Reaticulate | a free articulation management system for REAPER</p>
+        </div>
+        <div class="nav">
+          <ul>
+              
+              <li class="home"><a href="https://reaticulate.com/">Home</a></li>
+              <li class="download"><a href="https://reaticulate.com/download/">Download</a></li>
+              <li class="usage"><a href="https://reaticulate.com/usage/">Usage</a></li>
+              <li class="reabank"><a class="active" href="https://reaticulate.com/reabank/">Custom Banks</a></li>
+              <li class="news"><a href="https://reaticulate.com/news/">News</a></li>
+              <li class="contact"><a href="https://reaticulate.com/contact/">Contact</a></li>
+            </ul>
+          </div>
+
+        <p class="info">
+    While this page tries to be relatively accessible and provides several examples, it's
+    also a detailed technical specification for how to create articulation maps (banks)
+    for Reaticulate, which might be daunting for new users. Seventh Sam has <a href="https://seventhsam.com/guides/blog/6779963/how-to-create-custom-reaticulate-banks-for-your-sample-libraries-120a9322-0e24-4db4-b5db-153a7eaf6334">provided
+    an excellent blog post</a>, which may serve as a friendlier introduction to this
+    topic.  Erik Wikstrom has also done a <a href="https://www.youtube.com/watch?v=lMdde8jRUZA">video tutorial for The REAPER
+    Blog</a> that will help you get started.
+    <br><br>
+    Your best bet would be to start there, and then reference this page for the complete
+    details.
+</p>
+<h2 id="reaticulate-notations-for-reabank-files">Reaticulate notations for Reabank files</h2>
+<p class="warning">
+    Unfortunately there isn't yet a GUI for creating custom banks.  This will come in the
+    next major release of Reaticulate, but for now, you'll need to understand the nitty
+    gritty on this page and use a text editor to create banks.
+    <br><br>
+    You can also <a href="https://github.com/jtackaberry/reaticulate/tree/master/userbanks">
+    download user-contributed banks</a> for various libraries.
+</p>
+<p>Reaticulate directly manages REAPER's assigned global Reabank file, which it dynamically
+assembles from both the distributed factory banks and your own custom banks.  Relative to
+REAPER's resource directory (which you can find by invoking the REAPER action "Show REAPER
+Resource path"), these files are:</p>
+<ol>
+<li>Factory banks: <code>Scripts/Reaticulate/Reaticulate-factory.reabank</code>
+<ul>
+<li>A selection of banks are bundled with Reaticulate for you to use, but you can't edit these</li>
+</ul>
+</li>
+<li>User banks: <code>Data/Reaticulate.reabank</code>
+<ul>
+<li>This file is where you store all your personal or imported banks</li>
+</ul>
+</li>
+</ol>
+<p>(Reaticulate combines these files into a file it manages called <code>Data/Reaticulate-tmp*.reabank</code>.
+You'll never edit this file directly, but it's what Reaticulate feeds back to REAPER to use as
+the default reabank file.)</p>
+<p><img src="./Reabank files _ reaticulate_files/reabank-edit.png" alt="floating"></p>
+<p>You can take a look at the factory banks for inspiration, but if you want to start slinging
+your own custom articulation banks, the easiest way is to click the pencil button at the
+top of the UI and open the file in your editor.  Clicking this will create the file if
+necessary before opening the editor.  Open in Default App will launch whatever application
+you've associated with <code>.reabank</code> files.</p>
+<p class="warning">
+    Once you save changes to the file, click the reload button (next to the pencil) to force
+    Reaticulate to pick up the changes.
+</p>
+<h2 id="anatomy-of-a-standard-reabank-file">Anatomy of a standard Reabank file</h2>
+<p>Let's start by taking a look at the normal REAPER reabank file, which is defined by REAPER
+and works out-of-the-box even without Reaticulate.  The standard format is:</p>
+<pre><code>Bank &lt;MSB&gt; &lt;LSB&gt; &lt;Bank name&gt;
+&lt;program #&gt; &lt;articulation name&gt;
+</code></pre>
+<p>For example:</p>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Bank</span> <span class="m">65</span> <span class="m">1</span> <span class="n">Spitfire</span> <span class="n">Symphonic</span> <span class="n">Brass</span> <span class="o">-</span> <span class="n">Horn</span> <span class="n">Solo</span>
+<span class="m">20</span> <span class="n">legato</span>
+<span class="m">1</span> <span class="n">long</span>
+<span class="m">52</span> <span class="n">marcato</span>
+<span class="m">50</span> <span class="n">tenuto</span>
+<span class="m">40</span> <span class="n">staccato</span>
+<span class="m">100</span> <span class="n">rip</span>
+<span class="m">101</span> <span class="n">fall</span>
+<span class="m">70</span> <span class="n">trill</span> <span class="n">m2</span>
+<span class="m">71</span> <span class="n">trill</span> <span class="n">M2</span>
+</code></pre></div></div>
+<p>The two numbers on the Bank line (65 and 1 in the above example) indicate the MSB and LSB
+of the MIDI bank.  This stands for Most Significant Byte and Least Significant Byte
+respectively, and are defined as part of the MIDI specification.  These values are between
+0 and 127 and are somewhat arbitrary, as long as the pair is unique to the REAPER
+instance.</p>
+<p>👉 REAPER itself needs the MSB and LSB values, but you don't need to worry about that.
+Reaticulate (as of version 0.5.0) automatically takes care of assigning these values. As
+you'll see below, all you need to put for these numbers is an asterisk (<code>*</code>).</p>
+<p>Following the MSB/LSB is an arbitrary name for the bank.</p>
+<p>Each subsequent line (until the next Bank line) specifies the programs for the
+bank.  The number is the MIDI Program Change event number (which, apart from
+the requirement that articuluations in the same bank have unique program
+numbers, is technically arbitrary but see the <a href="https://reaticulate.com/reabank/#program-numbers">Program
+Numbers</a> section below for some advice), and the description
+is, in our case for Reaticulate, the name of the articulation.</p>
+<h2 id="reaticulate-notations">Reaticulate notations</h2>
+<p>Reaticulate extends Reabank files by adding special notations on lines starting with <code>//!</code></p>
+<p>Let's revisit the above example bank, now fully notated for Reaticulate, and how this bank
+looks in the GUI:</p>
+<p><img src="./Reabank files _ reaticulate_files/bank-horn-solo.png" alt="floating"></p>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">//! g="Spitfire/Symphonic Brass" n="Horn Solo"</span>
+<span class="c">//! m="Set patch to UACC"</span>
+<span class="c">//! id=cbbdac4f-34a1-4a1d-86ea-3e9e00365d1f</span>
+<span class="n">Bank</span> <span class="o">*</span> <span class="o">*</span> <span class="n">SSB</span> <span class="o">-</span> <span class="n">Horn</span> <span class="n">Solo</span>
+<span class="c">//! c=legato i=legato o=cc:32,20</span>
+<span class="m">20</span> <span class="n">legato</span>
+<span class="c">//! c=long i=note-whole o=cc:32,1</span>
+<span class="m">1</span> <span class="n">long</span>
+<span class="c">//! c=short i=marcato-quarter o=cc:32,52</span>
+<span class="m">52</span> <span class="n">marcato</span>
+<span class="c">//! c=short i=tenuto-eighth o=cc:32,50</span>
+<span class="m">50</span> <span class="n">tenuto</span>
+<span class="c">//! c=short i=staccato o=cc:32,40</span>
+<span class="m">40</span> <span class="n">staccato</span>
+<span class="c">//! c=short-dark i=rip o=cc:32,100</span>
+<span class="m">100</span> <span class="n">rip</span>
+<span class="c">//! c=short-dark i=rip-downward o=cc:32,101</span>
+<span class="m">101</span> <span class="n">fall</span>
+<span class="c">//! c=long i=trill-min2 o=cc:32,70</span>
+<span class="m">70</span> <span class="n">trill</span> <span class="n">m2</span>
+<span class="c">//! c=long i=trill-maj2 o=cc:32,71</span>
+<span class="m">71</span> <span class="n">trill</span> <span class="n">M2</span>
+</code></pre></div></div>
+<p>Notated attributes take the form <code>name=value</code> (or <code>name="value"</code> if the value contains spaces)
+and are separated by whitespace.  The line(s) prefixed with <code>//!</code> immediately preceding the
+uncommented line will annotate it with the supplied attributes.</p>
+<p>Notice also that in the Reaticulate version of the bank, the MSB/LSB numbers in the "Bank"
+line have been replaced with asterisks (<code>*</code>).  This is because Reaticulate automatically
+picks appropriate values when you first load the bank on some track in a project.</p>
+<p>When an articulation is triggered, Reaticulate will emit the MIDI output events defined by
+the <code>o</code> attribute (see below).  In the above example, each articulation sends a single MIDI
+event: CC 32 with a value defined by the second argument.  The expectation for this factory bank
+is that the Spitfire Horns Solo patch be set to UACC (a feature of the patch itself).</p>
+<h2 id="attributes-for-bank-lines">Attributes for Bank lines</h2>
+<p>These are the supported attributes for Bank lines.  Attributes are optional unless specifically
+marked as required.</p>
+<table>
+<tbody><tr><th style="text-align: center">Name</th><th style="text-align: left">Description</th></tr>
+<tr>
+    <td valign="top" style="text-align: center">id<br><code>generated</code></td>
+    <td>
+        A globally unique id (GUID, though technically speaking it's a UUID4) for this bank.
+        <br><br>
+        Don't define this yourself -- let Reaticulate generate this for you -- but if you share your
+        bank with other users, be sure to include the id attribute that Reaticulate generates so
+        that projects using this bank can be properly loaded between users.
+        <br><br>
+        When you create a new bank in <code>Reaticulate.reabank</code> and click the Reload toolbar
+        button in the GUI, Reaticulate notices that the bank is missing the <code>id</code>
+        attribute and new random one is automatically generated. The bank file is then rewritten to
+        include this new value.
+        <br><br>
+        Just be aware that if you're editing <code>Reaticulate.reabank</code> in a text editor at the
+        same time as Reaticulate generates the GUID and overwrites the file, you'll need to reload it
+        in the editor otherwise you risk reverting the GUID.  Best to use an editor that detects
+        on-disk changes and reloads for you, such as Visual Studio Code or Notepad++.
+    </td>
+</tr>
+<tr>
+    <td valign="top" style="text-align: center">g<br><code>required</code></td>
+    <td>
+         Group name separated by slashes.  Used to build a menu hierarchy for the bank.
+        Generally should be Vendor/Product.
+    </td>
+</tr>
+<tr>
+    <td valign="top" style="text-align: center">n</td>
+    <td>
+        The name of the patch the bank describes.  If not specified, the Reabank name is used.
+    </td>
+</tr>
+<tr>
+    <td valign="top" style="text-align: center">clone</td>
+    <td>
+        Clones the articulations <i>from</i> the referenced bank, specified as the referenced bank's <code>id</code> attribute (its GUID), <i>to</i> the current bank which contains the clone attribute. The cloned articulations will appear after any articulations explicitly defined in the current bank.
+        <br><br>
+        Although this is now deprecated and should not be used in new banks, the clone value may also be a fully qualified bank name (i.e. the groupname/bankname format).  New banks should use the source bank's <code>id</code> instead, which is more robust.
+    </td>
+</tr>
+<tr>
+    <td valign="top" style="text-align: center">off</td>
+    <td>
+        For articulations with note-hold outputs, this defines the "default program" when no note-hold
+        articulation is active.  The GUI will show this program as active when a manually triggered
+        note-hold keyswitch is released.  When this articulation is explicitly activated via Reaticulate,
+        it will cause any active note-hold articulation to be released.
+    </td>
+</tr>
+<tr>
+    <td valign="top" style="text-align: center">f</td>
+    <td>
+        Default articulation flags. Most can be overridden per articulation. Is a comma-delimited list of one
+        or more of the options below.  Any option can be prefixed with <code>!</code> to negate it.
+        <ul>
+            <li>
+                <code>chase</code>: Chase CCs when target MIDI channel changes. (Default)
+            </li>
+            <li>
+                <code>antihang</code>: Prevent note hanging when a note is released on a different
+                channel than it's pressed. (Default)
+            </li>
+            <li>
+                <code>antihangcc</code>: Similar to antihang, but prevents the note from hanging due to sustain
+                pedal or breath control (CC 2 and 64).  In other words, it ensures sustain release or breath off is
+                sent to the channel where the ringing note was struck, regardless of the current routing. (Default)
+            </li>
+            <li>
+                <code>nobank</code>: Blocks the bank select messages generated by Reaticulate from hitting the
+                downstream FX. (Default. Bank level only.)
+            </li>
+            <li>
+                <code>toggle</code>: Triggering the articulation when it's active will deactivate it. It will still
+                emit the output events but the UI will indicate the articulation as off if it was previously on.
+            </li>
+            <li>
+                <code>hidden</code>: Articulation will not be visible in the UI.  When defined at the bank level
+                instead of a specific articulation, the bank will not be available to add to tracks, however
+                any existing references to the bank (e.g. in existing projects) will continue to work.
+            </li>
+        </ul>
+    </td>
+</tr>
+<tr>
+    <td valign="top" style="text-align: center">chase</td>
+    <td>
+        Comma-delimited list of CCs (or CC ranges) that should be "chased" when CC chasing is enabled
+        for an articulation (as is default).  For example: 1,2,5,11-21,92-120.  (Default: 1,2,11,64-69)
+        <br><br>CC chasing occurs when switching articulations between patches across different MIDI channels.  For example, suppose you have long normale on channel 1 and long con sordino on channel 2 with long normale currently active. Say you've set CC1 to value 92 and played a note, and then activated the long con sordino articulation.  If CC1 is included here in the list of CCs to be chased, when long con sordino is activated, CC1 value 92 will be "chased" into the patch on channel 2, ensuring that your
+        next note with that articulation has the same dynamics level.<br><br>Another use case is with the sustain pedal.  Supposing you're on long normale and you hold the sustain pedal, press a note, and then activate long con sordino and press another note, if CC64 (sustain) is in the chase list, Reaticulate will chase the CC64 "pedal down" value into the next channel so that the second note with that articulation also sustains. Provided the <code>antihangcc</code> flag (mentioned above) is not disabled, when the sustain pedal is released, Reaticulate will send the CC64 value 0 (sustain pedal up) event into <i>both</i> channel 1 (long normale with the first note rining) and channel 2 (long con sordino with the second note ringing), which prevents the first note on the previous (but not currently active) MIDI channel from "hanging."
+    </td>
+</tr>
+<tr>
+    <td valign="top" style="text-align: center">m</td>
+    <td>
+        A custom message displayed in the track configuration page and optionally the main
+        articulation list screen.  This usually provides some special instructions about how to configure
+        the virtual instrument to be compatible with the bank, or other performance details.
+    </td>
+</tr>
+</tbody></table>
+<h2 id="attributes-for-program-lines">Attributes for Program lines</h2>
+<p>Programs can be decorated with these attributes:</p>
+<table>
+<tbody><tr><th style="text-align: center">Name</th><th style="text-align: left">Description</th></tr>
+<tr>
+    <td valign="top" style="text-align: center">i</td>
+    <td>
+        Articulation icon name.  See <a href="https://reaticulate.com/reabank/#articulation-icons">Articulation Icons</a> section
+        below for possible names. If not specified, the note-eighth icon will be used.
+    </td>
+</tr>
+<tr>
+    <td valign="top" style="text-align: center">n</td>
+    <td>
+        Overrides the articulation name for display in the articulation list in the Reaticulate UI.
+        Program events as seen in the MIDI editor will use the program name specified on the uncommented
+        line.
+    </td>
+</tr>
+<tr>
+    <td valign="top" style="text-align: center">c</td>
+    <td>
+        Color for the articulation button.  Either the name of a color (see the
+        <a href="https://reaticulate.com/reabank/#articulation-colors">Articulation Colors</a> section below)
+        or an HTML hex-style color in the form <code>#rrggbb</code>. If not specified,
+        the default color is used.
+    </td>
+</tr>
+<tr>
+    <td valign="top" style="text-align: center">f</td>
+    <td>
+        Articulation flags as defined above. (Overrides the defaults set at the bank level.)
+    </td>
+</tr>
+<tr>
+    <td valign="top" style="text-align: center">g</td>
+    <td>
+        A group number between 1 and 4 (defaults to 1 if not specified).  Only one articulation within a
+        group may be active at a time.<br><br>
+        For consistency, it is recommended that you use group 1 for the main set of articulations.<br><br>
+        Note that currently there is a limitation with groups: Groups are a Reaticulate construct that
+        Reaper itself doesn't know about.  Upon playback, Reaper will <i>only</i> chase the last program change on
+        the channel.  The desired behavior would be for Reaper to chase all articulations on all groups per
+        channel, but this isn't possible without some <a href="https://github.com/jtackaberry/reaticulate/issues/55">not-yet-implemented heroics.
+    </a></td>
+</tr>
+<tr>
+    <td valign="top" style="text-align: center">o<br><code>required</code></td>
+    <td>
+        One or more output events that describe the action taken when the articulation is triggered.<br><br>
+        This is where things get fun. See the <a href="https://reaticulate.com/reabank/#output-events">Output Events</a> section below
+        for the gory details.
+    </td>
+</tr>
+<tr>
+    <td valign="top" style="text-align: center">spacer</td>
+    <td>
+        Inserts some padding above the articulation when displayed in Reaticulate's main
+        articulation list screen.<br><br>
+        The value is a number that controls the amount of padding but generally a value of
+        <code>1</code> will provide a sufficient visual separation.
+    </td>
+</tr>
+<tr>
+    <td valign="top" style="text-align: center">transpose</td>
+    <td>
+        A value between -127 and 127 which defines how many pitches incoming notes should be
+        transposed after the articulation is activated.
+    </td>
+</tr>
+<tr>
+    <td valign="top" style="text-align: center">velocity</td>
+    <td>
+        A multiplier between 0.00 and 10.00 (up to 2 decimals of precision) that will be applied
+        to incoming note velocities.  The note-off velocity (if it exists -- it's quite rare)
+        will also be multiplied by this value.
+    </td>
+</tr>
+<tr>
+    <td valign="top" style="text-align: center">pitchrange</td>
+    <td>
+        A value in the form <code>min-max</code> defining the lower and upper limits that
+        incoming note pitch numbers will be clamped to.  For example a value of
+        <code>40-70</code> will force all notes with pitch values below 40 to be 40, and
+        values above 70 to be 70.
+    </td>
+</tr>
+<tr>
+    <td valign="top" style="text-align: center">velrange</td>
+    <td>
+        A value in the form <code>min-max</code> defining the lower and upper limits that
+        incoming note velocities will be clamped to.  For example a value of <code>32-64</code> will
+        force all notes with velocities below 32 to be 32, and velocities above 64 to be 64.
+    </td>
+</tr>
+<tr>
+    <td valign="top" style="text-align: center">m</td>
+    <td>
+        A custom message displayed when the user hovers the mouse over the articulation button.
+    </td>
+</tr>
+</tbody></table>
+<h2 id="program-numbers">Program Numbers</h2>
+<p>Within a given bank, each articulation must have its own unique program number.
+The specific program number is, strictly speaking, arbitary, however some form
+of standardization is recommended because this allows using the
+<code>Reaticulate_Activate articulation by CC</code> actions to trigger a given
+articulation (or at least its closest approximation) from a control surface,
+tablet, etc., no matter the underlying instrument.</p>
+<p>The primary use case for program number standardization is having a set of common
+articulations configured on your MIDI controller for sketching purposes, which, thanks to
+common program numbers, can work regardless of the virtual instrument.  An idea can be
+expressed with basic articulations, and then you can go back over the MIDI item and
+finesse the articulations using Reaticulate's GUI.</p>
+<p>Another reason for program number consistency is that articulations can be inserted on
+multiple selected tracks at the same time.  Suppose you have 1st Violins from one library
+vendor and 2nd Violins from another, and want them both to play staccato at same spot. If
+both banks use the same program number for staccato, you can select both tracks and insert
+staccato in one shot.</p>
+<p>To that end, in consideration of the sketching use case, we recommend using the following
+program numbers for these articulations, or the <strong>closest approximation</strong> of these
+articulations available in the patch:</p>
+<table>
+<thead>
+<tr>
+<th>Program #</th>
+<th>Articulation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>20</td>
+<td>legato normale</td>
+</tr>
+<tr>
+<td>1</td>
+<td>long normale / sustain (chords)</td>
+</tr>
+<tr>
+<td>7</td>
+<td>long muted (e.g. con sordino)</td>
+</tr>
+<tr>
+<td>17</td>
+<td>long soft (e.g. sul tasto or flautando)</td>
+</tr>
+<tr>
+<td>9</td>
+<td>long hard (e.g. marcato)</td>
+</tr>
+<tr>
+<td>10</td>
+<td>long harmonics</td>
+</tr>
+<tr>
+<td>11</td>
+<td>tremolo or flutter</td>
+</tr>
+<tr>
+<td>40</td>
+<td>short normale (e.g. staccato)</td>
+</tr>
+<tr>
+<td>42</td>
+<td>shorter normale (e.g. spiccato)</td>
+</tr>
+<tr>
+<td>52</td>
+<td>short hard (e.g. marcato short or staccato dig)</td>
+</tr>
+<tr>
+<td>56</td>
+<td>pizzicato / plucked</td>
+</tr>
+<tr>
+<td>70</td>
+<td>trill minor 2</td>
+</tr>
+<tr>
+<td>71</td>
+<td>trill major 2</td>
+</tr>
+</tbody>
+</table>
+<p>For articulations not included above or if there are multiple candidates, pick any program number not in the above table.  If at all possible, try to find a match against <strong><a href="https://spitfire-webassets.s3.amazonaws.com/pdfs/UACCv2spec.pdf">Spitfire's UACC specification</a></strong> (which is where the numbering scheme above is derived).</p>
+<p>It's not crucial to find an exact match, but it's encouraged.  Use your better judgment.</p>
+<h2 id="output-events-specification">Output Events Specification</h2>
+<p class="warning">
+    This section is a bit nerdy.  It's quite necessary to understand to build your
+    own banks, but don't worry, there are some more approachable examples later.
+</p>
+<p>Programs can trigger up to 16 <em>output events</em>, specified by the <code>o</code> attribute, which
+ultimately describe the articulation's behavior.</p>
+<p>Output events can be used to send a MIDI event to the virtual instrument to cause the
+underlying patch to change articulations, or even just to set up routing to some
+destination MIDI channel.  Or both: you can have a program send a MIDI event to a
+specific channel, and subsequently performed MIDI will be routed to that channel.</p>
+<p>Multiple output events are separated by a <code>/</code> (forward slash) where each individual
+output event roughly takes the form <code>type@channel:arg1,arg2</code> (no whitespace allowed).</p>
+<p>A more formal specification for a single output event would look like this:</p>
+<pre><code>[-][type][@channel[.bus]][:arg1[,arg2]][%filter_program]
+</code></pre>
+<p>Where elements enclosed in square brackets are optional, and where:</p>
+<ul>
+<li>
+<p>Output events prefixed with <code>-</code> don't affect the routing of future MIDI events.  Otherwise, if channels
+are not prefixed this way then any future user-generated MIDI event will be routed to this channel when
+the articulation is activated (which in most cases is what you want).</p>
+</li>
+<li>
+<p><code>type</code> defines the type of output event (see below), e.g. <code>note</code>, <code>cc</code>, etc.</p>
+</li>
+<li>
+<p><code>@channel</code> specifies the destination MIDI channel of the output event and, unless <code>type</code> is
+prefixed with <code>-</code>, it implies subsequent MIDI events will also be routed to that destination
+channel.</p>
+<p>When channel is not specified, the destination channel will be dictated by the
+destination channel the defined by the user when the bank was configured on the track.  (See the
+<a href="https://reaticulate.com/usage#track-setup">usage page</a> for more information on source and destination channels.)</p>
+<p>Alternatively, a special channel value of <code>-</code> will direct the output event to
+the destination(s) setup by the previously activated articulation.</p>
+</li>
+<li>
+<p><code>.bus</code> specifies the destination bus of the output event and subsequent incoming
+events when the articulation is activated.  <code>bus</code> is a value between 1 and 16.</p>
+<p>As with the channel, if not specified the default bus will be dictated by the
+destination bus for the bank's track configuration. If the bus is defined but
+not the channel (e.g. <code>@.4</code>) then then the default channel will be used but
+the bus will be overridden.</p>
+<p>If you use Reaticulate's MIDI controller feedback feature, you won't be able to assign
+bus 16 as this bus is used by the feedback feature internally.</p>
+</li>
+<li>
+<p><code>arg1</code> and <code>arg2</code> depend on the type</p>
+</li>
+<li>
+<p><code>%filter_program</code> if defined will only emit the output event if the specified program number
+<code>filter_program</code> is currently active on the same channel in another group.  This allows
+the state of other groups to modify the output events emitted by the articulation.</p>
+<p>For example, you might have an articulation group that specifies normal attack
+vs hard attack with different programs.  A single sustain articulation could
+then emit different keyswitches depending on whether the normal or hard attack
+is selected in the group.</p>
+</li>
+</ul>
+<p>Possible output event types are:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Type</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">program</td>
+<td>Program change message.  <code>arg1</code> indicates the program number between 0-127 (inclusive) and <code>arg2</code> can be omitted.</td>
+</tr>
+<tr>
+<td align="center">cc</td>
+<td>A CC event, with <code>arg1</code> indicating the CC number and <code>arg2</code> defining the CC value, both between 0-127 inclusive</td>
+</tr>
+<tr>
+<td align="center">note</td>
+<td>A sequence of note-on and note-off events, where <code>arg1</code> defines the note number and <code>arg2</code> indicates note-on velocity, both between 0-127 inclusive.  <code>arg2</code> is optional and if not specified the default velocity is 127.  (It's not possible to specify the note-off velocity, however.  This is a seldom used feature of MIDI.)</td>
+</tr>
+<tr>
+<td align="center">note-hold</td>
+<td>A note-on event, where <code>arg1</code> and <code>arg2</code> are according to the <code>note</code> type.  The corresponding note-off event is deferred until the next articulation is activated.  This is useful with patches that use non-latching keyswitches.</td>
+</tr>
+<tr>
+<td align="center">pitch</td>
+<td>A pitch bend event, where <code>arg1</code> is the 14-bit pitch bend value between -8192 and 8192 inclusive, and <code>arg2</code> is not used.</td>
+</tr>
+<tr>
+<td align="center">art</td>
+<td>Activate another articulation in the same bank, with <code>arg1</code> being the articulation program number and <code>arg2</code> is omitted.  This can be used to create composite articulations.  For example if you have articulation groups for con sordino/senza sordino and legato/non-legato, you could have another composite articulation for non-legato sustain con sordino that references the articulations in the other groups.</td>
+</tr>
+</tbody>
+</table>
+<p>Be aware that if multiple <code>note</code> output events are specified for a given articulation, all note-on
+events will be sent before any note-off event.  This means as far as the target patch is concerned
+the notes will be simultaneously pressed.  This is also true for <code>note-hold</code> events, except that
+of course in that case all the necessary note-off events will be deferred until the next articulation.</p>
+<p>The <code>type</code> can also be empty, specifying just <code>@channel</code>, in which case the action of the
+articulation will just be to set up routing to the destination channel specified, with no MIDI event
+emitted.</p>
+<p>Alternatively, if the type is prefixed with a <code>-</code> sign (e.g. <code>-note</code>) then the output event is
+emitted but routing of subsequent user MIDI events to the output event's destination channel
+will not be done.  This can be useful for example to send control events to listeners on other
+channels.  If <em>all</em> the output events for the articulation are prefixed this way, then the
+destination channel routing setup by the previous articulation won't be altered.</p>
+<h2 id="output-event-examples">Output Event Examples</h2>
+<p>Ok, with the technicals out of the way, here are some examples.</p>
+<h3 id="multiple-notes">Multiple notes</h3>
+<p>This one from Cinematic Studio Strings sends 3 separate notes at specific velocities to set sordino
+and legato in addition to the sustains patch.</p>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">//! g="Reaticulate Examples" n="Multiple Note Outputs"</span>
+<span class="n">Bank</span> <span class="m">42</span> <span class="m">1</span> <span class="n">Multiple</span> <span class="n">Note</span> <span class="n">Outputs</span>
+<span class="c">//! c=long-light i=con-sord o=note:12/note:22,1/note:23,127</span>
+<span class="m">7</span> <span class="n">con</span> <span class="n">sordino</span>
+</code></pre></div></div>
+<h3 id="simple-channel-routing">Simple channel routing</h3>
+<p>A generic example where we have 3 individual articulation patches on 3 separate MIDI channels and we
+want to do simple routing only: no keyswitches needed by the underlying virtual instrument.</p>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">//! g="Reaticulate Examples" n="Simple Channel Routing"</span>
+<span class="n">Bank</span> <span class="m">42</span> <span class="m">2</span> <span class="n">Simple</span> <span class="n">Channel</span> <span class="n">Routing</span>
+<span class="c">//! c=legato i=legato o=@1</span>
+<span class="m">20</span> <span class="n">legato</span>
+<span class="c">//! c=long i=note-whole o=@2</span>
+<span class="m">1</span> <span class="n">sustains</span>
+<span class="c">//! c=short i=staccato o=@3</span>
+<span class="m">40</span> <span class="n">staccato</span>
+</code></pre></div></div>
+<h3 id="one-off-layering">One-off layering</h3>
+<p>Here's another one from Cinematic Studio Strings, setting up spiccato without sordino. The twist is
+the "beefy spiccato" program, where we are setting CSS as with spiccato but also layering it with
+another patch on channel 2.</p>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">//! g="Reaticulate Examples" n="Layering"</span>
+<span class="n">Bank</span> <span class="m">42</span> <span class="m">3</span> <span class="n">Articulation</span> <span class="n">Layering</span>
+<span class="c">//! c=short i=spiccato o=note:17,1/note:23,1</span>
+<span class="m">42</span> <span class="n">spiccato</span>
+<span class="c">//! c=short-dark i=spiccato o=note:17,1/note:23,1/@2</span>
+<span class="m">44</span> <span class="n">beefy</span> <span class="n">spiccato</span>
+</code></pre></div></div>
+<h3 id="both-non-latching-and-latching-articulation-keyswitches">Both non-latching and latching articulation keyswitches</h3>
+<p>Now for a more sophisticated example: an excerpt from the Bohemian violin bank.  This instrument
+controls legato by a single note toggle keyswitch (hitting the same note repeatedly toggles legato),
+so this is in its own group.</p>
+<p>Most of the articulations in the Bohemian are only active while the note is held, and once the note
+is released, it defaults back to an intelligent, adaptive mode which VirHamonic calls the Performer.
+So the trick here is to specify an <code>off</code> program for the bank (we arbitrarily choose 0) which
+describes the default mode of the Bohemian when no articulations are explicitly chosen.</p>
+<p>Finally, the last 3 programs define the Performer styles, and unlike the others, these ones are
+latching keyswitches, so we use the <code>note</code> type for these.</p>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">//! g="Reaticulate Examples" n="Bohemian Violin Exp1" off=0</span>
+<span class="n">Bank</span> <span class="m">42</span> <span class="m">4</span> <span class="n">Bohemian</span> <span class="n">Violin</span> <span class="n">Exp1</span>
+<span class="c">//! c=long-dark i=note-whole g=2 f=toggle o=note:35</span>
+<span class="m">35</span> <span class="n">chords</span>
+
+<span class="c">//! spacer=1</span>
+<span class="c">//! c=long-light i=phrase</span>
+<span class="m">0</span> <span class="n">performer</span>
+<span class="c">//! c=long i=note-half o=note-hold:24</span>
+<span class="m">24</span> <span class="n">arc</span>
+<span class="c">//! c=long-light i=legato-bowed2 o=note-hold:41</span>
+<span class="m">41</span> <span class="n">rebow</span>
+
+<span class="c">//! spacer=1</span>
+<span class="c">//! c=fx i=phrase g=3 o=note:48</span>
+<span class="m">48</span> <span class="n">improv</span>
+<span class="c">//! c=fx i=phrase g=3 o=note:49</span>
+<span class="m">49</span> <span class="n">czardas</span>
+<span class="c">//! c=fx i=phrase g=3 o=note:50</span>
+<span class="m">50</span> <span class="n">emotive</span>
+</code></pre></div></div>
+<p>This example also uses the <code>spacer</code> attribute to provide a visual separation between the groups.</p>
+<h3 id="contextual-articulations-based-on-state-of-other-groups">Contextual articulations based on state of other groups</h3>
+<p>Suppose a trumpet library offered a number of different articulations with different types of mutes
+(no mute, straight mute, or harmon mute), with each variant being available under a different
+patch.</p>
+<p>The obvious approach would be to create different articulations for each of the normal vs hard
+attack variants.  This is a perfectly cromulent strategy to be sure, but by using filter programs
+you could move the hard/normal attack flag to a group and use only a single program for each
+articulation even if it offers all three variants.</p>
+<p>Here we we have the three different patches for the different mute types on different MIDI
+channels.  A single articulation definition can route to the appropriate patch depending on
+which mute articulation is selected.</p>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">//! g="Reaticulate Examples" n="Contextual Articulations"</span>
+<span class="n">Bank</span> <span class="m">42</span> <span class="m">5</span> <span class="n">Contextual</span> <span class="n">Articulations</span>
+<span class="c">//! c=long i=note-whole g=2</span>
+<span class="m">120</span> <span class="n">unmuted</span>
+<span class="c">//! c=long-light i=stopped g=2</span>
+<span class="m">121</span> <span class="n">straight</span> <span class="n">mute</span>
+<span class="c">//! c=long-light i=stopped g=2</span>
+<span class="m">122</span> <span class="n">harmon</span> <span class="n">mute</span>
+
+<span class="c">//! c=long i=note-whole o=note@1:24%120/note@2:24%121/note@3:24%122</span>
+<span class="m">1</span> <span class="n">long</span>
+<span class="c">//! c=short i=staccato o=note@1:27%120/note@2:27%121/note@3:27%122</span>
+<span class="m">40</span> <span class="n">staccato</span>
+<span class="c">//! c=short i=marcato-quarter o=note@1:28%120/note@2:28%121/note@3:28%122</span>
+<span class="m">52</span> <span class="n">marcato</span>
+</code></pre></div></div>
+<p>This bank uses programs 120-122 to define the different mute types.  Notice there aren't any
+output events with these articulations -- they don't actually emit any outputs directly, but
+rather they influence the output events emitted by the long and staccato articulations.</p>
+<p>Changing one of the mute types will retrigger long or staccato (whichever is selected) and
+cause the appropriate output event to be emitted for the new mute type.</p>
+<h2 id="articulation-colors">Articulation Colors</h2>
+<p><img src="./Reabank files _ reaticulate_files/artcolors.png" alt="floating"></p>
+<p>The <code>c</code> program attribute defines the color of the button for the articulation, which is either
+a <a href="https://htmlcolorcodes.com/">HTML color code</a> or one of the predefined names.  When <code>c</code> isn't
+specified, then the default color is used.</p>
+<p>The image right shows the available names and their out-of-the-box colors.</p>
+<p>(The icons shown are just for demonstration purposes.  The color selection has no bearing on the
+icon.  That's defined by the <code>i</code> attribute.)</p>
+<p>The factory banks use the <em>light</em> variants for articulations played more softly or subdued than
+normale, for example con sordino, sul tasto, or harmonics.  The <em>dark</em> variants are used for
+grittier, distorted, or louder articulations, such as sul ponticello or Bartok pizzicato.</p>
+<p>While you <em>can</em> define explicit custom color values, it's recommended you use the named
+colors (e.g. <code>short-dark</code>) in your banks, because users are able to customize these colors
+in Reaticulate's settings page.  If you use an explicit color, then this color is forced
+upon other users of your bank.  That may be ok in certain situations, and it's certainly not an
+issue if you're the only consumer of the banks you create, but it's something to consider
+when sharing your banks with other users.</p>
+<div style="clear: both"></div>
+<h2 id="articulation-icons">Articulation Icons</h2>
+<p>Here are the current icon names that may be assigned to the <code>i</code> attribute:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Icon</th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><div class="articon" style="background-position: 0px 0px"></div></td>
+<td>accented-half</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -64px 0px"></div></td>
+<td>accented-quarter</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -128px 0px"></div></td>
+<td>acciaccatura-quarter</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -192px 0px"></div></td>
+<td>alt-circle</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: 0px -560px"></div></td>
+<td>alt-gypsy</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -64px -560px"></div></td>
+<td>alt-gypsy-eighth</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -128px -560px"></div></td>
+<td>alt-gypsy-harmonics</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -192px -560px"></div></td>
+<td>alt-tremolo-gypsy-harmonics</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -256px -560px"></div></td>
+<td>alt-wave</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -320px -560px"></div></td>
+<td>alt-wave-double</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -384px -560px"></div></td>
+<td>alt-wave-double-stopped</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -448px -560px"></div></td>
+<td>alt-wave-double-tr</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -512px -560px"></div></td>
+<td>alt-x</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -640px -504px"></div></td>
+<td>bend-down</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -576px -504px"></div></td>
+<td>bend-up</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -256px 0px"></div></td>
+<td>blend</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -320px 0px"></div></td>
+<td>bow-down</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -384px 0px"></div></td>
+<td>bow-up</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -448px 0px"></div></td>
+<td>col-legno</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -512px 0px"></div></td>
+<td>col-legno-whole</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -576px 0px"></div></td>
+<td>con-sord</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -640px 0px"></div></td>
+<td>con-sord-blend</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -704px 0px"></div></td>
+<td>con-sord-bow-down</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -768px 0px"></div></td>
+<td>con-sord-bow-up</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: 0px -56px"></div></td>
+<td>con-sord-sul-pont</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -64px -56px"></div></td>
+<td>con-sord-sul-pont-bow-up</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -128px -56px"></div></td>
+<td>cresc-f-half</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -192px -56px"></div></td>
+<td>cresc-half</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -256px -56px"></div></td>
+<td>cresc-m-half</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -320px -56px"></div></td>
+<td>cresc-mf-half</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -384px -56px"></div></td>
+<td>cresc-mp-half</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -448px -56px"></div></td>
+<td>cresc-p-half</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -512px -56px"></div></td>
+<td>cresc-quarter</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -576px -56px"></div></td>
+<td>crescendo</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -640px -56px"></div></td>
+<td>cuivre</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -704px -56px"></div></td>
+<td>dblstop-5th</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -768px -56px"></div></td>
+<td>dblstop-5th-eighth</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: 0px -112px"></div></td>
+<td>decrescendo</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -64px -112px"></div></td>
+<td>fall</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -128px -112px"></div></td>
+<td>fanfare</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -192px -112px"></div></td>
+<td>flautando</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -256px -112px"></div></td>
+<td>flautando-con-sord</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -320px -112px"></div></td>
+<td>flautando-con-sord-eighth</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -704px -504px"></div></td>
+<td>fortepiano</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -384px -112px"></div></td>
+<td>fx</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -448px -112px"></div></td>
+<td>ghost-eighth</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -512px -112px"></div></td>
+<td>harmonics</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -576px -112px"></div></td>
+<td>harmonics-natural</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -640px -112px"></div></td>
+<td>harmonics-natural-eighth</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -576px -560px"></div></td>
+<td>harp-pdlt</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -704px -112px"></div></td>
+<td>harp-pdlt2</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -768px -112px"></div></td>
+<td>legato</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: 0px -168px"></div></td>
+<td>legato-blend-generic</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -64px -168px"></div></td>
+<td>legato-bowed</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -128px -168px"></div></td>
+<td>legato-bowed2</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -192px -168px"></div></td>
+<td>legato-con-sord</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -256px -168px"></div></td>
+<td>legato-fast</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -320px -168px"></div></td>
+<td>legato-flautando</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -384px -168px"></div></td>
+<td>legato-gliss</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -448px -168px"></div></td>
+<td>legato-portamento</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -512px -168px"></div></td>
+<td>legato-portamento-con-sord</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -576px -168px"></div></td>
+<td>legato-portamento-flautando</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -640px -168px"></div></td>
+<td>legato-runs</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -704px -168px"></div></td>
+<td>legato-slow</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -768px -168px"></div></td>
+<td>legato-slow-blend</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -64px -224px"></div></td>
+<td>legato-sul-c</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -128px -224px"></div></td>
+<td>legato-sul-g</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -192px -224px"></div></td>
+<td>legato-sul-pont</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -256px -224px"></div></td>
+<td>legato-tremolo</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -320px -224px"></div></td>
+<td>legato-vibrato</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -640px -224px"></div></td>
+<td>light</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -384px -224px"></div></td>
+<td>list</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -448px -224px"></div></td>
+<td>marcato-half</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -512px -224px"></div></td>
+<td>marcato-quarter</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -768px -504px"></div></td>
+<td>multitongued</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -576px -224px"></div></td>
+<td>note-acciaccatura</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -704px -224px"></div></td>
+<td>note-eighth</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -768px -224px"></div></td>
+<td>note-half</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: 0px -280px"></div></td>
+<td>note-quarter</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -64px -280px"></div></td>
+<td>note-sixteenth</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: 0px -224px"></div></td>
+<td>note-tied</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -128px -280px"></div></td>
+<td>note-whole</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -640px -560px"></div></td>
+<td>phrase</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -704px -560px"></div></td>
+<td>phrase-multitongued</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -768px -560px"></div></td>
+<td>phrase-multitongued-cresc</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -192px -280px"></div></td>
+<td>phrase2</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -256px -280px"></div></td>
+<td>pizz</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -320px -280px"></div></td>
+<td>pizz-bartok</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -384px -280px"></div></td>
+<td>pizz-con-sord</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -448px -280px"></div></td>
+<td>pizz-mix</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -512px -280px"></div></td>
+<td>pizz-sul-pont</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -768px -280px"></div></td>
+<td>plop</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -448px -504px"></div></td>
+<td>portato</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -576px -280px"></div></td>
+<td>rest-quarter</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -640px -280px"></div></td>
+<td>ricochet</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -704px -280px"></div></td>
+<td>rip</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: 0px -336px"></div></td>
+<td>run-major</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -64px -336px"></div></td>
+<td>run-minor</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -512px -504px"></div></td>
+<td>scoop</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -128px -336px"></div></td>
+<td>sfz</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -192px -336px"></div></td>
+<td>spiccato</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -256px -336px"></div></td>
+<td>spiccato-breath</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -320px -336px"></div></td>
+<td>spiccato-brushed</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -384px -336px"></div></td>
+<td>spiccato-brushed-con-sord</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -448px -336px"></div></td>
+<td>spiccato-brushed-con-sord-sul-pont</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -512px -336px"></div></td>
+<td>spiccato-feathered</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -576px -336px"></div></td>
+<td>staccatissimo-stopped</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -640px -336px"></div></td>
+<td>staccato</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -704px -336px"></div></td>
+<td>staccato-breath</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -768px -336px"></div></td>
+<td>staccato-con-sord</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: 0px -392px"></div></td>
+<td>staccato-dig</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -64px -392px"></div></td>
+<td>staccato-harmonics</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -128px -392px"></div></td>
+<td>staccato-harmonics-half</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -256px -392px"></div></td>
+<td>staccato-sfz</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -192px -392px"></div></td>
+<td>staccato-stopped</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -320px -392px"></div></td>
+<td>stopped</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -384px -392px"></div></td>
+<td>sul-c</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -448px -392px"></div></td>
+<td>sul-g</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -512px -392px"></div></td>
+<td>sul-pont</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -576px -392px"></div></td>
+<td>sul-tasto</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: 0px -616px"></div></td>
+<td>sul-tasto-super</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -64px -616px"></div></td>
+<td>sul-tasto-super-eighth</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -640px -392px"></div></td>
+<td>tenuto-eighth</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -704px -392px"></div></td>
+<td>tenuto-half</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -768px -392px"></div></td>
+<td>tenuto-quarter</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: 0px -448px"></div></td>
+<td>tremolo</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -64px -448px"></div></td>
+<td>tremolo-con-sord</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -128px -448px"></div></td>
+<td>tremolo-con-sord-sul-pont</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -384px -448px"></div></td>
+<td>tremolo-fingered</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -256px -448px"></div></td>
+<td>tremolo-ghost</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -320px -448px"></div></td>
+<td>tremolo-harmonics</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -128px -616px"></div></td>
+<td>tremolo-harmonics-a</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -192px -616px"></div></td>
+<td>tremolo-harmonics-b</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -448px -448px"></div></td>
+<td>tremolo-measured-eighth</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -576px -448px"></div></td>
+<td>tremolo-measured-eighth-con-sord</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -512px -448px"></div></td>
+<td>tremolo-measured-sixteenth</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -640px -448px"></div></td>
+<td>tremolo-measured-sixteenth-con-sord</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -256px -616px"></div></td>
+<td>tremolo-slurred</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -192px -448px"></div></td>
+<td>tremolo-sul-pont</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -704px -448px"></div></td>
+<td>trill</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -768px -448px"></div></td>
+<td>trill-maj2</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: 0px -504px"></div></td>
+<td>trill-maj3</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -64px -504px"></div></td>
+<td>trill-min2</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -128px -504px"></div></td>
+<td>trill-min3</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -192px -504px"></div></td>
+<td>trill-perf4</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -256px -504px"></div></td>
+<td>vibrato</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -320px -504px"></div></td>
+<td>vibrato-con-sord</td>
+</tr>
+<tr>
+<td align="center"><div class="articon" style="background-position: -384px -504px"></div></td>
+<td>vibrato-molto</td>
+</tr>
+</tbody>
+</table>
+
+
+      </section>
+
+    </div>
+
+    
+    <script type="text/javascript">
+      // Replaces div of class iframe with actual iframes, since commonmark doesn't seem to
+      // be passing <iframe> tags through.
+      $iframes = $('div.iframe');
+      $iframes.replaceWith(function(n) {
+        var old = $iframes.get(n);
+        var $new = $('<iframe>');
+        for (var i = 0; i < old.attributes.length; i++) {
+          var a = old.attributes[i];
+          $new.attr(a.name, a.value);
+        }
+        return $new;
+      });
+    </script>
+  
+
+</body></html>
