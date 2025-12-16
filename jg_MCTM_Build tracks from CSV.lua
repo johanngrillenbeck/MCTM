@@ -9,17 +9,36 @@ local function dbg(m) reaper.ShowConsoleMsg(tostring(m) .. "\n") end
 
 local function trim(s) if not s then return "" end return (s:gsub('^%s+', ''):gsub('%s+$','')) end
 
-local function set_default_colors()
-    ctrl_hex = "a1a1a1"
-    bus_hex = "906BFA"
-    local fr,fg,fb = hex_to_rgb(ctrl_hex)
-    local br,bg,bb = hex_to_rgb(bus_hex)
-    local fx_native = (fr and reaper.ColorToNative(fr,fg,fb)) or nil
-    local bus_native = (br and reaper.ColorToNative(br,bg,bb)) or nil
-    return { ctrl = fx_native, bus = bus_native, ctrl_hex = ctrl_hex, bus_hex = bus_hex }
+-- Color helpers and presets (self-contained)
+local function hex_to_rgb(hex)
+    if not hex then return nil end
+    local h = tostring(hex):gsub("^#", "")
+    if #h == 3 then
+        h = h:sub(1,1)..h:sub(1,1)..h:sub(2,2)..h:sub(2,2)..h:sub(3,3)..h:sub(3,3)
+    end
+    if #h ~= 6 then return nil end
+    local r = tonumber(h:sub(1,2), 16)
+    local g = tonumber(h:sub(3,4), 16)
+    local b = tonumber(h:sub(5,6), 16)
+    if not (r and g and b) then return nil end
+    return r, g, b
 end
 
-local COLORS = set_default_colors()
+local COLOR_PRESETS = {
+    ctrl = "#a1a1a1",
+    bus  = "#906BFA",
+}
+
+local function native_from_hex(hex)
+    local r,g,b = hex_to_rgb(hex)
+    return (r and reaper.ColorToNative(r,g,b)) or nil
+end
+
+local COLORS = {
+    ctrl = native_from_hex(COLOR_PRESETS.ctrl),
+    bus  = native_from_hex(COLOR_PRESETS.bus),
+    hex  = COLOR_PRESETS,
+}
 local function set_track_color(tr, nativeColor)
     if tr and nativeColor then pcall(function() reaper.SetTrackColor(tr, nativeColor) end) end
 end
