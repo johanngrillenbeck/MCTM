@@ -1,20 +1,20 @@
-ID;Articulation Name;Icon;Note;Programm Number
-1;Single hits;note-whole;24;1
-1;Rolls;tremolo;25;11
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
+ID;Articulation Name;Note;Icon;Color;Program Number
+1;Single hits;24;note-whole;long;1
+1;Rolls;25;tremolo;long-light;11
+2;Sustains + LEG;24;legato;;
+2;Sustains;25;note-whole;;
+2;Sustains accented;26;accented-half;;
+2;Marcato long;27;marcato-half;;
+2;Marcato short;28;marcato-quarter;;
+2;Staccato;29;staccato;;
+2;Staccato short;30;staccatissimo-stopped;;
+2;Repetitions 1/16;31;note-sixteenth;;
+;;;;;
+;;;;;
+;;;;;
+;;;;;
+;;;;;
+;;;;;
+;;;;;
+;;;;;
+;;;;;
