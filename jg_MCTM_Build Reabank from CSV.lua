@@ -55,6 +55,12 @@ end
 -- as the first parameter to let the user pick a path and new filename.
 local function prompt_save_file(title, suggested_name, ext)
   local suggested = suggested_name or "new.reabank"
+  ext = ext or ""
+  -- Prefer JS extension Save dialog (native save dialog). Fallback to GetUserFileNameForRead.
+  if type(reaper.JS_Dialog_BrowseForSaveFile) == "function" then
+    local retval, fname = reaper.JS_Dialog_BrowseForSaveFile(title or "Save file", "", suggested, "*." .. ext)
+    if retval and retval == 1 and fname and fname ~= "" then return fname end
+  end
   local ok, path = reaper.GetUserFileNameForRead(suggested, title, ext)
   if not ok or not path or path == "" then return nil end
   return path
@@ -285,10 +291,19 @@ for _, key in ipairs(instrument_order) do
 end
 
 -- Write
+local content = table.concat(outbuf, "")
 local wf, werr = io.open(output_path, "w")
 if not wf then reaper.MB("Failed to write reabank: "..tostring(werr), "Error", 0) return end
-wf:write(table.concat(outbuf, ""))
+wf:write(content)
 wf:close()
 
 log("Reabank written: " .. output_path)
 log("Banks generated: " .. tostring(#outbuf) .. ", skipped: " .. tostring(skipped))
+
+-- Copy generated reabank text to system clipboard (if API available)
+if type(reaper.CF_SetClipboard) == "function" then
+  reaper.CF_SetClipboard(content)
+  log("Reabank content copied to clipboard (" .. tostring(#content) .. " bytes)")
+else
+  log("CF_SetClipboard not available in this REAPER build; clipboard not set.")
+end
