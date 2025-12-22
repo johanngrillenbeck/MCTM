@@ -1,20 +1,72 @@
-ID;Articulation Name;Note;Icon;Color;Program Number
-1;Single hits;24;note-whole;long;1
-1;Rolls;25;tremolo;long-light;11
-2;Sustains + LEG;24;legato;;
-2;Sustains;25;note-whole;;
-2;Sustains accented;26;accented-half;;
-2;Marcato long;27;marcato-half;;
-2;Marcato short;28;marcato-quarter;;
-2;Staccato;29;staccato;;
-2;Staccato short;30;staccatissimo-stopped;;
-2;Repetitions 1/16;31;note-sixteenth;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
+ID;Articulation Name;Note
+1;Sustains + LEG;24
+1;Sustains;25
+1;Sustains accented;26
+1;Marcato long;27
+1;Marcato short;28
+1;Staccato;29
+1;Staccato short;30
+1;Repetitions 1/16;31
+1;Repetitions 1/8 triplet;32
+1;Trills;33
+1;Trills single;34
+1;Trills sforzando;35
+1;Playable runs + LEG;36
+1;Playable runs;37
+2;Sustains + LEG;24
+2;Sustains;25
+2;Portato long;26
+2;Portato short;27
+2;Sforzando;28
+2;Staccato;29
+2;Staccato short;30
+2;Doubles;31
+2;Triples;32
+2;Trills;33
+2;Trills measured;34
+2;Trills single;35
+2;Trills sforzando;36
+2;Playable runs + LEG;37
+2;Playable runs;38
+3;Sustains + LEG;24
+3;Sustains;25
+3;Sustains accented;26
+3;Marcato long;27
+3;Marcato short;28
+3;Staccato;29
+3;Staccato short;30
+3;Repetitions 1/16;31
+3;Repetitions 1/8 triplet;32
+3;Trills;33
+3;Trills single;34
+3;Trills sforzando;35
+3;Playable runs + LEG;36
+3;Playable runs;37
+4;Sustains + LEG;24
+4;Sustains;25
+4;Sustains soft;26
+4;Sustains accented;27
+4;Marcato long;28
+4;Portato long;29
+4;Marcato short;30
+4;Portato short;31
+4;Staccato;32
+4;Staccato short;33
+4;Repetitions 1/16;34
+4;Repetitions 1/8 triplet;35
+4;Trills;36
+4;Trills measured down;37
+4;Trills measured up;38
+4;Trills single;39
+4;Trills sforzando;40
+4;Playable runs + LEG;41
+4;Playable runs;42
+5;Sustains + LEG;24
+5;Sustains;25
+5;Sustains soft;26
+5;Portato long;27
+5;Portato short;28
+5;Staccato short;29
+5;Playable runs + LEG;30
+5;Playable runs;31
+;;
