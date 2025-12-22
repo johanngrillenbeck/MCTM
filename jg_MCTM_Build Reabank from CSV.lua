@@ -50,6 +50,16 @@ local function prompt_file(title, ext)
   return path
 end
 
+-- Prompt for a save path + filename using the same Explorer dialog.
+-- REAPER provides only GetUserFileNameForRead; pass a suggested filename
+-- as the first parameter to let the user pick a path and new filename.
+local function prompt_save_file(title, suggested_name, ext)
+  local suggested = suggested_name or "new.reabank"
+  local ok, path = reaper.GetUserFileNameForRead(suggested, title, ext)
+  if not ok or not path or path == "" then return nil end
+  return path
+end
+
 local function confirm_overwrite(path)
   local msg = "Overwrite reabank file?\nAll contents in '" .. tostring(path) .. "' will be replaced."
   local rv = reaper.MB(msg, "Confirm overwrite", 4) -- 6=yes/no? Using 4=OK/Cancel; treat OK as proceed
@@ -71,18 +81,18 @@ end
 -- Each instrument entry: { lib_prefix, track_name, patches = { {patch, midi_channel} ... }, keyswitch_id = number|nil }
 local function parse_instruments(lines)
   if not lines or #lines == 0 then return {} end
-  -- Header indices by name
+  -- Build header index map from first line
   local header = split_semicolon_quoted(lines[1] or "")
   local idx = {}
-  for i, h in ipairs(header) do idx[h] = i end
+  for i, h in ipairs(header) do idx[trim(h)] = i end
 
   local I_CTRL = idx["CTRL"] or 1
   local I_LIB = idx["Library Prefix"] or 2
   local I_NAME = idx["Track Name"] or 3
   local I_MIDI_CH = idx["Midi Channel"] or 7
   local I_PATCH = idx["Patch"] or 8
-  local I_KEY_BOOL = idx["Key Sw bool"] or 10
-  local I_KEY_ID = idx["Key Sw ID"] or 11
+  -- Key Sw ID now used; '0' means no keyswitches for this patch
+  local I_KEY_ID = idx["Key Sw ID"] or 10
 
   local instruments = {}
   local order = {}
@@ -99,9 +109,8 @@ local function parse_instruments(lines)
     local name = trim(cols[I_NAME] or "")
     local midi_ch = tonumber(trim(cols[I_MIDI_CH] or ""))
     local patch = trim(cols[I_PATCH] or "")
-    local key_bool = trim(cols[I_KEY_BOOL] or "")
     local key_id = trim(cols[I_KEY_ID] or "")
-
+          -- (no per-program group annotation; bank already grouped)
     local is_new_instrument = (name ~= "")
     if is_new_instrument then
       current_ctrl = ctrl
@@ -123,11 +132,9 @@ local function parse_instruments(lines)
       if patch ~= "" and midi_ch then
         table.insert(instruments[target_key].patches, { patch = patch, midi_channel = midi_ch })
       end
-      -- Keyswitch: if key_bool truthy ("1", "true"), capture keyswitch_id on the first encounter
-      if key_bool == "1" or key_bool:lower() == "true" then
-        local idn = tonumber(key_id)
-        if idn then instruments[target_key].keyswitch_id = instruments[target_key].keyswitch_id or idn end
-      end
+      -- Keyswitch: Key Sw ID of 0 means no keyswitches; otherwise capture the ID
+      local idn = tonumber(key_id)
+      if idn and idn ~= 0 then instruments[target_key].keyswitch_id = instruments[target_key].keyswitch_id or idn end
     end
   end
 
@@ -145,9 +152,10 @@ local function parse_keyswitches(lines)
   local I_ID = idx["ID"] or 1
   local I_NAME = idx["Articulation Name"] or 2
   local I_NOTE = idx["Note"] or 3
-  local I_ICON = idx["Icon"] or 4
-  local I_COLOR = idx["Color"] or 5
-  local I_PROG = idx["Program Number"] or idx["Programm Number"] or 6
+  -- KEY_SWITCHES now only contains: ID;Articulation Name;Note
+  local I_ICON = nil
+  local I_COLOR = nil
+  local I_PROG = nil
 
   local map = {}
   for r = 2, #lines do
@@ -155,12 +163,9 @@ local function parse_keyswitches(lines)
     local id = tonumber(trim(cols[I_ID] or ""))
     local name = trim(cols[I_NAME] or "")
     local note = tonumber(trim(cols[I_NOTE] or ""))
-    local icon = trim(cols[I_ICON] or "")
-    local color = trim(cols[I_COLOR] or "")
-    local program = tonumber(trim(cols[I_PROG] or ""))
     if id and name ~= "" then
       map[id] = map[id] or {}
-      table.insert(map[id], { id = id, name = name, note = note, icon = icon, color = color, program = program })
+      table.insert(map[id], { id = id, name = name, note = note })
     end
   end
   return map
@@ -173,12 +178,7 @@ local function build_banks_for_instrument(inst, ks_map)
   if name == "" then return {} end
 
   -- Determine features
-  local channels = {}
-  for _, p in ipairs(inst.patches or {}) do channels[p.midi_channel] = true end
-  local channel_list = {}
-  for ch,_ in pairs(channels) do table.insert(channel_list, ch) end
-  table.sort(channel_list)
-  local has_multi_channel = (#channel_list > 1)
+  local multi_patch = (#(inst.patches or {}) > 1)
 
   local ks_rows = nil
   if inst.keyswitch_id then ks_rows = ks_map[inst.keyswitch_id] end
@@ -187,7 +187,7 @@ local function build_banks_for_instrument(inst, ks_map)
   local banks = {}
 
   -- Case 1: Multi-patch + keyswitches => one bank per patch, keyswitches only
-  if has_multi_channel and has_keyswitches then
+  if multi_patch and has_keyswitches then
     -- keep CSV order for patches
     for _, p in ipairs(inst.patches) do
       local patch_name = trim(p.patch)
@@ -200,30 +200,13 @@ local function build_banks_for_instrument(inst, ks_map)
       buf[#buf+1] = ("//! g=\"%s\" n=\"%s\""):format(group_label or "", patch_name)
       buf[#buf+1] = ("Bank * * %s"):format(bank_header_name)
 
-      -- keyswitch programs only, keep CSV order
-      local used_prog = {}
+      -- keyswitch programs only, keep CSV order — assign sequential program numbers
       local next_prog = 1
       for _, row in ipairs(ks_rows) do
-        local prog = tonumber(row.program)
-        if not prog or used_prog[prog] then
-          -- assign next free program number incrementally
-          while used_prog[next_prog] do next_prog = next_prog + 1 end
-          prog = next_prog
-          used_prog[prog] = true
-          next_prog = next_prog + 1
-        else
-          used_prog[prog] = true
-        end
+        local prog = next_prog
+        next_prog = next_prog + 1
         local aname = trim(row.name)
-        local icon = trim(row.icon or "")
-        local color = trim(row.color or "")
-        -- annotation before program
-        local ann = "//! g=2"
-        if icon ~= "" then ann = ann .. " i=" .. icon end
-        if color ~= "" then ann = ann .. " c=" .. color end
-        buf[#buf+1] = ann
         if row.note and tonumber(row.note) then
-          -- rely on GUI routing (or use current routed channel)
           buf[#buf+1] = ("//! o=-note:%d"):format(tonumber(row.note))
         end
         buf[#buf+1] = ("%d %s"):format(prog, aname ~= "" and aname or ("KS " .. tostring(prog)))
@@ -235,48 +218,20 @@ local function build_banks_for_instrument(inst, ks_map)
   end
 
   -- Case 2: Multi-patch + no keyswitches => single bank with channel routing
-  if has_multi_channel and not has_keyswitches then
-    local bank_header_name = (lib ~= "" and (lib .. " - " .. name)) or name
-    local buf = {}
-    buf[#buf+1] = ("//! g=\"%s\" n=\"%s\""):format(lib, name)
-    buf[#buf+1] = ("Bank * * %s"):format(bank_header_name)
-    for _, p in ipairs(inst.patches) do
-      local ch = tonumber(p.midi_channel)
-      local pname = trim(p.patch)
-      local prog = ch
-      buf[#buf+1] = "//! g=1"
-      buf[#buf+1] = ("//! o=@%d"):format(ch)
-      buf[#buf+1] = ("%d %s"):format(prog, pname ~= "" and pname or ("Channel " .. tostring(ch)))
-    end
-    banks[#banks+1] = table.concat(buf, "\n") .. "\n\n"
-    return banks
-  end
+  -- We no longer generate multi-patch banks without keyswitches; skip
+  -- if multi_patch and not has_keyswitches then return {} end
 
   -- Case 3: Single patch + keyswitches => single bank with keyswitches only
-  if (not has_multi_channel) and has_keyswitches then
+  if (not multi_patch) and has_keyswitches then
     local bank_header_name = (lib ~= "" and (lib .. " - " .. name)) or name
     local buf = {}
     buf[#buf+1] = ("//! g=\"%s\" n=\"%s\""):format(lib, name)
     buf[#buf+1] = ("Bank * * %s"):format(bank_header_name)
-    local used_prog = {}
     local next_prog = 1
     for _, row in ipairs(ks_rows) do
-      local prog = tonumber(row.program)
-      if not prog or used_prog[prog] then
-        while used_prog[next_prog] do next_prog = next_prog + 1 end
-        prog = next_prog
-        used_prog[prog] = true
-        next_prog = next_prog + 1
-      else
-        used_prog[prog] = true
-      end
+      local prog = next_prog
+      next_prog = next_prog + 1
       local aname = trim(row.name)
-      local icon = trim(row.icon or "")
-      local color = trim(row.color or "")
-      local ann = "//! g=2"
-      if icon ~= "" then ann = ann .. " i=" .. icon end
-      if color ~= "" then ann = ann .. " c=" .. color end
-      buf[#buf+1] = ann
       if row.note and tonumber(row.note) then
         buf[#buf+1] = ("//! o=-note:%d"):format(tonumber(row.note))
       end
@@ -296,10 +251,17 @@ if not instruments_csv then log("Cancelled: INSTRUMENTS CSV path required.") ret
 local keyswitches_csv = prompt_file("Choose KEY_SWITCHES CSV", "csv")
 if not keyswitches_csv then log("Cancelled: KEY_SWITCHES CSV path required.") return end
 
-local output_path = prompt_file("Choose target .reabank file (will overwrite)", "reabank")
+-- Let the user choose a path and filename for the new .reabank (suggest a name).
+local default_name = "JG_SCORING_TEMPLATE.reabank"
+local output_path = prompt_save_file("Choose target .reabank file (pick path and filename)", default_name, "reabank")
 if not output_path then log("Cancelled: .reabank path required.") return end
 
-if not confirm_overwrite(output_path) then log("Aborted: overwrite not confirmed.") return end
+-- If file exists, confirm overwrite.
+local attr = io.open(output_path, "r")
+if attr then
+  attr:close()
+  if not confirm_overwrite(output_path) then log("Aborted: overwrite not confirmed.") return end
+end
 
 local instr_lines, err1 = read_lines(instruments_csv)
 if not instr_lines then reaper.MB("Failed to read INSTRUMENTS CSV: "..tostring(err1), "Error", 0) return end
