@@ -127,6 +127,7 @@ dbg("Parsed rows: " .. tostring(#rows))
 -- Prompt for Colors & Order CSV before creating any tracks (optional)
 local color_map = {}
 local default_color_hex = nil
+local positions_entries = {}
 do
     local colorsPath = prompt_file("Choose Colors and Order CSV (optional)", "csv")
     if colorsPath and colorsPath ~= "" then
@@ -140,11 +141,16 @@ do
                 if line:match("^%s*$") then goto contcol end
                 local fields = split_semicolon(line)
                 local bus = trim(fields[1] or "")
+                local pos = trim(fields[2] or "")
                 local hex = trim(fields[3] or "")
-                if bus ~= "" and hex ~= "" then
+                if bus ~= "" then
                     local key = bus:lower():gsub("^%s+", ""):gsub("%s+$", "")
-                    color_map[key] = hex
-                    if key == "default" then default_color_hex = hex end
+                    if hex ~= "" then color_map[key] = hex end
+                    if key == "default" and hex ~= "" then default_color_hex = hex end
+                    local pnum = tonumber(pos)
+                    if pnum then
+                        table.insert(positions_entries, {bus = bus, pos = pnum})
+                    end
                 end
                 ::contcol::
             end
@@ -620,6 +626,34 @@ for i, r in ipairs(rows) do
 end
 
 reaper.TrackList_AdjustWindows(false)
+-- Final ordering pass: place Bus tracks (no prefix) after CTRL tracks according to positions_entries
+do
+    if #positions_entries > 0 then
+        table.sort(positions_entries, function(a,b) return a.pos < b.pos end)
+        -- count actual CTRL tracks in ctrl_order
+        local ctrl_count = 0
+        for _, cname in ipairs(ctrl_order) do if ctrl_tracks[cname] then ctrl_count = ctrl_count + 1 end end
+        dbg(string.format("Reordering %d Bus entries after %d CTRL tracks", #positions_entries, ctrl_count))
+        -- move in reverse so final order is ascending
+        for i = #positions_entries, 1, -1 do
+            local entry = positions_entries[i]
+            local bname = entry.bus
+            if bname and bname ~= "" then
+                local tr = find_track_by_name(bname)
+                if tr then
+                    -- clear selection
+                    for j = 0, reaper.CountTracks(0)-1 do reaper.SetTrackSelected(reaper.GetTrack(0,j), false) end
+                    reaper.SetTrackSelected(tr, true)
+                    reaper.ReorderSelectedTracks(0, ctrl_count)
+                    dbg(string.format("  Moved Bus '%s' to index %d (position=%d)", tostring(bname), ctrl_count, entry.pos))
+                else
+                    dbg(string.format("  Bus track not found for ordering: '%s' (skipping)", tostring(bname)))
+                end
+            end
+        end
+    end
+end
+
 reaper.PreventUIRefresh(-1)
 reaper.Undo_EndBlock("jg_MCTM: Build tracks from CSV", -1)
 
