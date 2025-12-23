@@ -1,11 +1,14 @@
 local ctx = reaper.ImGui_CreateContext('Track Selector')
 
+local SCRIPT_DIR = nil
+
 local function add_script_dir_to_package_path()
     local info = debug.getinfo(1, 'S')
     if not info or not info.source then return end
     local source = info.source
     local script_dir = source:match("@?(.*[\\/])")
     if not script_dir then return end
+    SCRIPT_DIR = script_dir
     local pattern1 = script_dir .. "?.lua;"
     local pattern2 = script_dir .. "?/init.lua;"
     package.path = pattern1 .. pattern2 .. package.path
@@ -134,12 +137,14 @@ local function getTrackPairs()
                         name = parsed.name,
                         audio_track = nil,
                         midi_track = nil,
+                        disabled = false,
                     }
                     pairs[key] = entry
                     table.insert(order, key)
                 end
                 if mctm.is_audio(parsed) then entry.audio_track = track end
                 if mctm.is_midi(parsed) then entry.midi_track = track end
+                if mctm.is_disabled(parsed) then entry.disabled = true end
             end
         end
     end
@@ -149,6 +154,40 @@ local function getTrackPairs()
     end)
 
     return order, pairs
+end
+
+local function getDesiredChecked(key, pair)
+    local v = selected_pairs[key]
+    if v == nil then
+        return not (pair and pair.disabled)
+    end
+    return v
+end
+
+local function unselectAllTracks()
+    -- 40297: Unselect all tracks
+    reaper.Main_OnCommand(40297, 0)
+end
+
+local function selectTracks(tracks)
+    unselectAllTracks()
+    for _, tr in ipairs(tracks or {}) do
+        if tr then
+            reaper.SetTrackSelected(tr, true)
+        end
+    end
+end
+
+local function dofile_in_script_dir(filename)
+    if not SCRIPT_DIR then
+        return false, "Could not determine SCRIPT_DIR"
+    end
+    local path = SCRIPT_DIR .. filename
+    local ok, err = pcall(dofile, path)
+    if not ok then
+        return false, tostring(err)
+    end
+    return true, nil
 end
 
 function loop()
@@ -226,7 +265,120 @@ function loop()
             for _, key in ipairs(pair_order) do selected_pairs[key] = false end
         end
 
+        reaper.ImGui_SameLine(ctx)
+
+        -- green Apply Selection button
+        local apply_clicked = false
+        local push_ok = type(reaper.ImGui_PushStyleColor) == "function"
+            and type(reaper.ImGui_PopStyleColor) == "function"
+            and type(reaper.ImGui_ColorConvertDouble4ToU32) == "function"
+            and type(reaper.ImGui_Col_Button) == "function"
+            and type(reaper.ImGui_Col_ButtonHovered) == "function"
+            and type(reaper.ImGui_Col_ButtonActive) == "function"
+        if push_ok then
+            local col_btn = reaper.ImGui_ColorConvertDouble4ToU32(0.20, 0.70, 0.20, 1.00)
+            local col_hov = reaper.ImGui_ColorConvertDouble4ToU32(0.25, 0.80, 0.25, 1.00)
+            local col_act = reaper.ImGui_ColorConvertDouble4ToU32(0.18, 0.60, 0.18, 1.00)
+            reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_Button(), col_btn)
+            reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_ButtonHovered(), col_hov)
+            reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_ButtonActive(), col_act)
+        end
+        apply_clicked = reaper.ImGui_Button(ctx, "Apply Selection")
+        if push_ok then
+            reaper.ImGui_PopStyleColor(ctx, 3)
+        end
+
         reaper.ImGui_Separator(ctx)
+
+        if apply_clicked then
+            if #routing_errors > 0 then
+                reaper.MB("Routing error(s) detected. Fix routing before applying selection.", "MCTM", 0)
+            else
+                local to_disable = {}
+                local to_enable = {}
+                local final_m_selection = {}
+                local changed_set = {}
+                local changed_tracks = {}
+
+                for _, key in ipairs(pair_order) do
+                    local pair = pair_map[key]
+                    local desired = getDesiredChecked(key, pair)
+
+                    if desired and pair and pair.midi_track then
+                        table.insert(final_m_selection, pair.midi_track)
+                    end
+
+                    if pair then
+                        local any_track = pair.midi_track or pair.audio_track
+                        if (not desired) and (not pair.disabled) then
+                            if any_track then table.insert(to_disable, any_track) end
+                            if any_track and not changed_set[any_track] then changed_set[any_track] = true; table.insert(changed_tracks, any_track) end
+                        elseif desired and pair.disabled then
+                            if any_track then table.insert(to_enable, any_track) end
+                            if any_track and not changed_set[any_track] then changed_set[any_track] = true; table.insert(changed_tracks, any_track) end
+                        end
+                    end
+                end
+
+                local toggle_script = "jg_MCTM_Toggle D Prefix and Visibility for Track Pair.lua"
+                local vepro_script = "jg_MCTM_Toggle VEPro Activation depending on D Prefix.lua"
+
+                local failed = false
+                local fail_msg = nil
+
+                reaper.Undo_BeginBlock()
+                reaper.PreventUIRefresh(1)
+
+                repeat
+                    if #to_disable > 0 then
+                        selectTracks(to_disable)
+                        local ok, err = dofile_in_script_dir(toggle_script)
+                        if not ok then
+                            failed = true
+                            fail_msg = "Failed running: " .. toggle_script .. "\n" .. tostring(err)
+                            break
+                        end
+                    end
+
+                    if #to_enable > 0 then
+                        selectTracks(to_enable)
+                        local ok, err = dofile_in_script_dir(toggle_script)
+                        if not ok then
+                            failed = true
+                            fail_msg = "Failed running: " .. toggle_script .. "\n" .. tostring(err)
+                            break
+                        end
+                    end
+
+                    -- Update VEPro state for affected instruments (or for current enabled selection if nothing changed)
+                    if #changed_tracks > 0 then
+                        selectTracks(changed_tracks)
+                    else
+                        selectTracks(final_m_selection)
+                    end
+
+                    do
+                        local ok, err = dofile_in_script_dir(vepro_script)
+                        if not ok then
+                            failed = true
+                            fail_msg = "Failed running: " .. vepro_script .. "\n" .. tostring(err)
+                            break
+                        end
+                    end
+
+                    -- Final selection: M tracks for checked instruments
+                    selectTracks(final_m_selection)
+                until true
+
+                reaper.TrackList_AdjustWindows(false)
+                reaper.PreventUIRefresh(-1)
+                reaper.Undo_EndBlock(failed and "MCTM Apply Selection (failed)" or "MCTM Apply Selection", -1)
+
+                if failed and fail_msg then
+                    reaper.MB(fail_msg, "MCTM", 0)
+                end
+            end
+        end
 
         if #routing_errors > 0 then
             reaper.ImGui_Text(ctx, "Routing error(s) detected. Fix routing and run again:")
@@ -253,7 +405,7 @@ function loop()
                     for _, key in ipairs(group.items or {}) do
                         local pair = pair_map[key]
                         local label = ((pair and pair.name) or key) .. "##" .. key
-                        local checked = selected_pairs[key] or false
+                        local checked = getDesiredChecked(key, pair)
                         local changed, new_state = reaper.ImGui_Checkbox(ctx, label, checked)
                         if changed then
                             selected_pairs[key] = new_state
