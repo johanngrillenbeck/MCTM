@@ -1,0 +1,20 @@
+Routed to;Position;Color Value for Track
+DEFAULT;0;#FFFFFF
+HiWW;1;#33FFD3
+MidWW;2;#2DE3BC
+LoWW;3;#28C7A4
+HiBr;4;#FFF52E
+MidBr;5;#FFE331
+LoBr;6;#F0BB2E
+MetalPerc;7;#D1D1FF
+MidPerc;8;#BEBEE8
+LoPerc;9;#9B9BBD
+TunedPerc;10;#FFAAE1
+Choir;11;#A0C4FF
+PluckSynth;12;#FF6596
+PadSynth;13;#FF75F4
+ArpSynth;14;#FF7A6E
+LoSynth;15;#B58BC2
+HiStr;16;#FFCF65
+MidStr;17;#FFA354
+LoStr;18;#FF8348

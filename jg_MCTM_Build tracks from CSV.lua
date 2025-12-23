@@ -124,6 +124,41 @@ for idx, line in ipairs(lines) do
 end
 dbg("Parsed rows: " .. tostring(#rows))
 
+-- Prompt for Colors & Order CSV before creating any tracks (optional)
+local color_map = {}
+local default_color_hex = nil
+do
+    local colorsPath = prompt_file("Choose Colors and Order CSV (optional)", "csv")
+    if colorsPath and colorsPath ~= "" then
+        local cf, cerr = io.open(colorsPath, "r")
+        if cf then
+            local clines = {}
+            for line in cf:lines() do table.insert(clines, line) end
+            cf:close()
+            for idx, line in ipairs(clines) do
+                if idx == 1 then goto contcol end -- skip header
+                if line:match("^%s*$") then goto contcol end
+                local fields = split_semicolon(line)
+                local bus = trim(fields[1] or "")
+                local hex = trim(fields[3] or "")
+                if bus ~= "" and hex ~= "" then
+                    local key = bus:lower():gsub("^%s+", ""):gsub("%s+$", "")
+                    color_map[key] = hex
+                    if key == "default" then default_color_hex = hex end
+                end
+                ::contcol::
+            end
+            local _count = 0
+            for _k,_v in pairs(color_map) do _count = _count + 1 end
+            dbg("Parsed Colors CSV entries: " .. tostring(_count))
+        else
+            dbg("Could not open Colors CSV: " .. tostring(cerr))
+        end
+    else
+        dbg("No Colors CSV selected; instrument coloring will be skipped or use defaults.")
+    end
+end
+
 -- compute per-CTRL required source channels (max channel index needed)
 local ctrl_needs = {}
 for _, r in ipairs(rows) do
@@ -437,6 +472,7 @@ for i, r in ipairs(rows) do
         pcall(function() reaper.SetMediaTrackInfo_Value(A, "B_SHOWINTCP", 0) end)
         pcall(function() reaper.SetMediaTrackInfo_Value(A, "B_SHOWINMIXER", 0) end)
         dbg("  Set newly created A track to deactivated and hidden: " .. newAname)
+        -- color will be applied after routing is processed (see below)
     end
     if createdM then
         local newMname = "D " .. M_name
@@ -444,6 +480,7 @@ for i, r in ipairs(rows) do
         pcall(function() reaper.SetMediaTrackInfo_Value(M, "B_SHOWINTCP", 0) end)
         pcall(function() reaper.SetMediaTrackInfo_Value(M, "B_SHOWINMIXER", 0) end)
         dbg("  Set newly created M track to deactivated and hidden: " .. newMname)
+        -- color will be applied after routing is processed (see below)
     end
 
     -- routing: A -> its Audio Bus (if specified)
@@ -472,7 +509,18 @@ for i, r in ipairs(rows) do
             end
         end
     end
-
+    -- Apply coloring for this A/M pair based on the audio bus routing (only for newly created tracks)
+    do
+        local bus_key = (bus_name or ""):lower():gsub("^%s+", ""):gsub("%s+$", "")
+        local assigned_hex = nil
+        if bus_key ~= "" then assigned_hex = color_map[bus_key] end
+        if not assigned_hex then assigned_hex = default_color_hex end
+        local native_color = (assigned_hex and native_from_hex(assigned_hex)) or nil
+        if native_color then
+            if createdA then set_track_color(A, native_color) dbg(string.format("Applied color %s to %s (bus=%s)", tostring(assigned_hex), A_name, tostring(bus_name))) end
+            if createdM then set_track_color(M, native_color) dbg(string.format("Applied color %s to %s (bus=%s)", tostring(assigned_hex), M_name, tostring(bus_name))) end
+        end
+    end
     -- routing: A receives audio from CTRL (stereo or quad depending on VE range)
     local src_track = ctrl_tracks[ctrl]
     if src_track then

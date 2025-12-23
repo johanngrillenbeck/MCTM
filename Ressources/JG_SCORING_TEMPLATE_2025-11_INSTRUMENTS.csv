@@ -210,7 +210,7 @@ CTRLVE3;;;;121-124;31;1;;;0
 CTRLVE3;;;;125-128;32;1;;;0
 CTRLVE4;OTMA4;High Strings;HiStr;1-4;1;1;High Strings;SINE;0
 CTRLVE4;OTMA4;Mid Strings;MidStr;5-8;2;1;Mid Strings;SINE;0
-CTRLVE4;OTMA4;Low Strings;LowStr;9-12;3;1;Low Strings;SINE;0
+CTRLVE4;OTMA4;Low Strings;LoStr;9-12;3;1;Low Strings;SINE;0
 CTRLVE4;OTMA4;Flute & Piccolo;HiWW;13-16;4;1;Flute & Piccolo;SINE;0
 CTRLVE4;OTMA4;Flute, Oboe & Clarinet;HiWW;17-20;5;1;Flute, Oboe & Clarinet;SINE;0
 CTRLVE4;OTMA4;Bass Oboe & Basset Horn;MidWW;21-24;6;1;Bass Oboe & Basset Horn;SINE;0
@@ -218,15 +218,15 @@ CTRLVE4;OTMA4;Horn, Wagner Tuba & Trombone;MidBr;25-28;7;1;Horn, Wagner Tuba & T
 CTRLVE4;OTMA4;Trumpet & Muted Trumpet;HiBr;29-32;8;1;Trumpet & Muted Trumpet;SINE;0
 CTRLVE4;OTMA4;Flute, English Horn & Muted Trumpet;HiBr;33-36;9;1;Flute, English Horn & Muted Trumpet;SINE;0
 CTRLVE4;OTMA4;Bassoon & Horn;MidBr;37-40;10;1;Bassoon & Horn;SINE;0
-CTRLVE4;OTMA4;Bass Clarinet & Muted Bass Trombone;LowBr;41-44;11;1;Bass Clarinet & Muted Bass Trombone;SINE;0
-CTRLVE4;OTMA4;Bass Clarinet, Bass Saxophone;LowBr;45-48;12;1;Bass Clarinet, Bass Saxophone;SINE;0
-CTRLVE4;OTMA4;Contrabassoon, Euphonium & Tuba;LowBr;49-52;13;1;Contrabassoon, Euphonium & Tuba;SINE;0
+CTRLVE4;OTMA4;Bass Clarinet & Muted Bass Trombone;LoBr;41-44;11;1;Bass Clarinet & Muted Bass Trombone;SINE;0
+CTRLVE4;OTMA4;Bass Clarinet, Bass Saxophone;LoBr;45-48;12;1;Bass Clarinet, Bass Saxophone;SINE;0
+CTRLVE4;OTMA4;Contrabassoon, Euphonium & Tuba;LoBr;49-52;13;1;Contrabassoon, Euphonium & Tuba;SINE;0
 CTRLVE4;OTMA4;Female Choir;Choir;53-56;14;1;Female Choir;SINE;0
 CTRLVE4;OTMA4;Male Choir;Choir;57-60;15;1;Male Choir;SINE;0
 CTRLVE4;OTMA4;Marimba, Xylophone & Piano;TunedPerc;61-64;16;1;Marimba, Xylophone & Piano;SINE;0
-CTRLVE4;OTMA4;Tuned Toms & Timpani;LowPerc;65-68;17;1;Tuned Toms & Timpani;SINE;0
-CTRLVE4;OTMA4;Kick Drum Ensemble;LowPerc;69-72;18;1;Kick Drum Ensemble;SINE;0
-CTRLVE4;OTMA4;Low Drums;LowPerc;73-76;19;1;Low Drums;SINE;0
+CTRLVE4;OTMA4;Tuned Toms & Timpani;LoPerc;65-68;17;1;Tuned Toms & Timpani;SINE;0
+CTRLVE4;OTMA4;Kick Drum Ensemble;LoPerc;69-72;18;1;Kick Drum Ensemble;SINE;0
+CTRLVE4;OTMA4;Low Drums;LoPerc;73-76;19;1;Low Drums;SINE;0
 CTRLVE4;OTMA4;Cassa Anvil Thundersheet;MetalPerc;77-80;20;1;Cassa Anvil Thundersheet;SINE;0
 CTRLVE4;OTMA4;Metal 1;MetalPerc;81-84;21;1;Metal 1;SINE;0
 CTRLVE4;OTMA4;Metal 2;MetalPerc;85-88;22;1;Metal 2;SINE;0
@@ -253,8 +253,8 @@ CTRLVE5;OTSA;Vibraphone;TunedPerc;9-12;3;1;Vibraphone;SINE;0
 CTRLVE5;OTSA;Chimes;TunedPerc;13-16;4;1;Chimes;SINE;0
 CTRLVE5;OTSA;Thundersheet;MetalPerc;17-20;5;1;Thundersheet;SINE;0
 CTRLVE5;OTSA;Tamtam;MetalPerc;21-24;6;1;Tamtam;SINE;0
-CTRLVE5;OTSA;Gran Cassa;LowPerc;25-28;7;1;Gran Cassa;SINE;0
-CTRLVE5;OTSA;Timpani;LowPerc;29-32;8;1;Timpani;SINE;0
+CTRLVE5;OTSA;Gran Cassa;LoPerc;25-28;7;1;Gran Cassa;SINE;0
+CTRLVE5;OTSA;Timpani;LoPerc;29-32;8;1;Timpani;SINE;0
 CTRLVE5;OTSA;Wind Gong;MetalPerc;33-36;9;1;Wind Gong;SINE;0
 CTRLVE5;OTSA;Icy;PadSynth;37-40;10;1;Flickering lights;SINE;0
 ;;;;;;2;Lucid glass;;0
@@ -335,7 +335,7 @@ CTRLVE5;OTPV;Violas;MidStr;69-72;18;1;Violas;SINE;0
 ;;;;;;2;gestures;;0
 CTRLVE5;OTPV;Celli;MidStr;73-76;19;1;Celli;SINE;0
 ;;;;;;2;gestures;;0
-CTRLVE5;OTPV;Basses;LowStr;77-80;20;1;Basses;SINE;0
+CTRLVE5;OTPV;Basses;LoStr;77-80;20;1;Basses;SINE;0
 ;;;;;;2;gestures;;0
 CTRLVE5;OTPV;Violin I FC;HiStr;81-84;21;1;Violin I FC;SINE;0
 ;;;;;;2;gestures;;0
@@ -345,7 +345,7 @@ CTRLVE5;OTPV;Viola FC;MidStr;89-92;23;1;Viola FC;SINE;0
 ;;;;;;2;gestures;;0
 CTRLVE5;OTPV;Cello FC;MidStr;93-96;24;1;Cello FC;SINE;0
 ;;;;;;2;gestures;;0
-CTRLVE5;OTPV;Bass FC;LowStr;97-100;25;1;Bass FC;SINE;0
+CTRLVE5;OTPV;Bass FC;LoStr;97-100;25;1;Bass FC;SINE;0
 ;;;;;;2;gestures;;0
 CTRLVE5;;;;101-104;26;1;;;0
 CTRLVE5;;;;105-108;27;1;;;0
@@ -441,17 +441,17 @@ CTRLVE6;OTar;Plucks;PluckSynth;43-44;22;1;High wooden pluck;SINE;0
 CTRLVE6;OTar;Textures;PadSynth;45-46;23;1;Rainforest clattering;SINE;0
 ;;;;;;2;Deep rain;;0
 ;;;;;;3;Digital wind;;0
-CTRLVE6;OTda;Ensembles;LowPerc;47-48;24;1;Full ensemble;SINE;0
+CTRLVE6;OTda;Ensembles;LoPerc;47-48;24;1;Full ensemble;SINE;0
 ;;;;;;2;Deep ensemble;;0
 ;;;;;;3;Punch ensemble;;0
 ;;;;;;4;Concert drum Ensemble;;0
-CTRLVE6;OTda;Single Instruments;LowPerc;49-50;25;1;Concert drums;SINE;0
+CTRLVE6;OTda;Single Instruments;LoPerc;49-50;25;1;Concert drums;SINE;0
 ;;;;;;2;Gun 1;;0
 ;;;;;;3;Gun 2;;0
 ;;;;;;4;Dragon drum;;0
 ;;;;;;5;Dragon drum XL;;0
 ;;;;;;6;Giant bass drum;;0
-CTRLVE6;OTda;Percussion;LowPerc;51-52;26;1;Hyper punch ensemble;SINE;0
+CTRLVE6;OTda;Percussion;LoPerc;51-52;26;1;Hyper punch ensemble;SINE;0
 ;;;;;;2;Loose big ensemble;;0
 ;;;;;;3;Soft and full ensemble;;0
 ;;;;;;4;Soft and wide ensemble;;0
@@ -500,7 +500,7 @@ CTRLVE6;OTor;Plucks;PluckSynth;87-88;44;1;Acai palm;SINE;0
 CTRLVE6;OTor;Keys;PluckSynth;89-90;45;1;Durian;SINE;0
 ;;;;;;2;Heliconia;;0
 ;;;;;;3;Buttress roots;;0
-CTRLVE6;OTor;Kicks;LowPerc;91-92;46;1;Cecropia;SINE;0
+CTRLVE6;OTor;Kicks;LoPerc;91-92;46;1;Cecropia;SINE;0
 ;;;;;;2;Saprophytes;;0
 ;;;;;;3;Epiphytes;;0
 ;;;;;;4;Tualang;;0
