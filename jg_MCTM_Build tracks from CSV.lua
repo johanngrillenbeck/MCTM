@@ -29,6 +29,10 @@ local COLOR_PRESETS = {
     bus  = "#906BFA",
 }
 
+-- Master/project channel format: buses inherit this by default.
+-- Use 4-channel (quad) layout as default.
+local MASTER_NCHANNELS = 4
+
 local function native_from_hex(hex)
     local r,g,b = hex_to_rgb(hex)
     return (r and reaper.ColorToNative(r,g,b)) or nil
@@ -296,12 +300,16 @@ end
                 -- show only in MCP (mixer), hide in TCP
                 pcall(function() reaper.SetMediaTrackInfo_Value(found, "B_SHOWINTCP", 0) end)
                 pcall(function() reaper.SetMediaTrackInfo_Value(found, "B_SHOWINMIXER", 1) end)
+                -- ensure bus channel count inherits MASTER setting
+                pcall(function() reaper.SetMediaTrackInfo_Value(found, "I_NCHAN", MASTER_NCHANNELS) end)
                 set_track_color(found, COLORS.bus)
             else
                 dbg("Found existing Bus track: " .. tostring(bname))
                 -- ensure bus visibility: MCP visible, TCP hidden
                 pcall(function() reaper.SetMediaTrackInfo_Value(found, "B_SHOWINTCP", 0) end)
                 pcall(function() reaper.SetMediaTrackInfo_Value(found, "B_SHOWINMIXER", 1) end)
+                -- ensure bus channel count inherits MASTER setting (idempotent)
+                pcall(function() reaper.SetMediaTrackInfo_Value(found, "I_NCHAN", MASTER_NCHANNELS) end)
                 set_track_color(found, COLORS.bus)
             end
             bus_tracks[bname] = found
@@ -496,21 +504,75 @@ for i, r in ipairs(rows) do
         if not bus_tr then
             dbg("Warning: Audio Bus track not found for name: " .. tostring(bus_name))
         else
-            if send_exists_to_dest(A, bus_tr) then
-                dbg(string.format("  Audio send already exists from %s to bus %s (skipping)", A_name, bus_name))
-            else
-                local sidx = reaper.CreateTrackSend(A, bus_tr)
-                if sidx and sidx >= 0 then
-                    dbg(string.format("  Created audio send from %s to bus %s (sendidx=%d)", A_name, bus_name, sidx))
-                    -- ensure it's an audio send (disable MIDI mapping)
-                    pcall(function()
-                        reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_MIDI_SRCBUS", true, -1)
-                        reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_MIDI_DSTBUS", true, -1)
-                        reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_MIDI_SRCCHAN", true, -1)
-                        reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_MIDI_DSTCHAN", true, -1)
-                        reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "D_VOL", true, 1.0)
-                        reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "B_MUTE", true, 0.0)
-                    end)
+            -- create stereo send pairs from A -> Bus mapping 1/2->1/2, 3/4->3/4, etc.
+            -- determine channel count for this A track from VE field in CSV (as used for CTRL->A mapping later)
+            local start_ch = 1
+            local a,b = (ve or ""):match("(%d+)%s*-%s*(%d+)")
+            local end_ch = nil
+            if a and b then end_ch = tonumber(b) end
+            if not end_ch then
+                local single = (ve or ""):match("(%d+)")
+                if single then end_ch = tonumber(single) end
+            end
+            if not end_ch then end_ch = start_ch + (MASTER_NCHANNELS - 1) end
+            local channel_count = math.max(1, (end_ch - start_ch + 1))
+            -- Never create more send channel pairs than MASTER_NCHANNELS permits
+            if channel_count > MASTER_NCHANNELS then
+                dbg(string.format("  Channel count %d exceeds MASTER_NCHANNELS (%d) — capping to master value", channel_count, MASTER_NCHANNELS))
+                channel_count = MASTER_NCHANNELS
+            end
+
+            local pairs = math.floor(channel_count / 2)
+            local has_odd = (channel_count % 2) == 1
+
+            for pair = 0, pairs-1 do
+                local pair_src = pair * 2
+                local pair_dst = pair * 2
+                if send_has_dest_and_chans(A, bus_tr, pair_src, pair_dst) then
+                    dbg(string.format("  Audio send pair already exists from %s to bus %s (pair src=%d)", A_name, bus_name, pair_src))
+                else
+                    local sidx = reaper.CreateTrackSend(A, bus_tr)
+                    if sidx and sidx >= 0 then
+                        dbg(string.format("  Created audio send from %s to bus %s (sendidx=%d pair_src=%d)", A_name, bus_name, sidx, pair_src))
+                        pcall(function()
+                            reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_SRCCHAN", true, pair_src)
+                            reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_DSTCHAN", true, pair_dst)
+                            reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_MIDI_SRCBUS", true, -1)
+                            reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_MIDI_DSTBUS", true, -1)
+                            reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_MIDI_SRCCHAN", true, -1)
+                            reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_MIDI_DSTCHAN", true, -1)
+                            reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "D_VOL", true, 1.0)
+                            reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "B_MUTE", true, 0.0)
+                        end)
+                    end
+                end
+            end
+            -- handle any odd leftover single channel
+            if has_odd then
+                local last_src = pairs * 2
+                local last_dst = pairs * 2
+                -- ensure leftover channel doesn't exceed MASTER_NCHANNELS-1
+                if last_src < MASTER_NCHANNELS then
+                    if not send_has_dest_and_chans(A, bus_tr, last_src, last_dst) then
+                        local sidx = reaper.CreateTrackSend(A, bus_tr)
+                        if sidx and sidx >= 0 then
+                            dbg(string.format("  Created single-channel audio send from %s to bus %s (sendidx=%d src=%d)", A_name, bus_name, sidx, last_src))
+                            pcall(function()
+                                reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_SRCCHAN", true, last_src)
+                                reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_DSTCHAN", true, last_dst)
+                                reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_MIDI_SRCBUS", true, -1)
+                                reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_MIDI_DSTBUS", true, -1)
+                                reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_MIDI_SRCCHAN", true, -1)
+                                reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_MIDI_DSTCHAN", true, -1)
+                                reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "D_VOL", true, 1.0)
+                                reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "B_MUTE", true, 0.0)
+                            end)
+                        end
+                    else
+                        dbg(string.format("  Single-channel audio send already exists from %s to bus %s (src=%d)", A_name, bus_name, last_src))
+                    end
+                else
+                    dbg(string.format("  Skipping leftover single channel %d — exceeds MASTER_NCHANNELS (%d)", last_src, MASTER_NCHANNELS))
                 end
             end
         end
