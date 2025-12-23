@@ -20,7 +20,9 @@ This repository contains Lua scripts for REAPER to manage large orchestral templ
 - `D`: disabled (ignored by functions unless explicitly included)
 - `CTRL`: controller/host track (e.g., VEPro instance)
 - Prefixes are recognized as space-separated leading tokens. Example: `D M Viola` → prefixes `{"D","M"}`, name `"Viola"`.
+- CTRL tracks never have A, M or D prefixes, since they have a distinct role and can never be disabled.
 - Canonical instrument identity is derived from the remaining name (lowercased, trimmed).
+- Audio Buses are not explicitly prefixed; they are identified by absence of A/M/CTRL and presence of recieving audio from A tracks.
 
 ## Typical Data Flows
 - Collect track labels (from REAPER or provided lists).
