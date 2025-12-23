@@ -195,13 +195,18 @@ for _, ctrlname in ipairs(ctrl_order) do
         end
         -- disable master/parent send for CTRL tracks (we route only to A tracks)
         pcall(function() reaper.SetMediaTrackInfo_Value(found, "B_MAINSEND", 0) end)
+        -- show only in TCP, hide in MCP (Mixer)
+        pcall(function() reaper.SetMediaTrackInfo_Value(found, "B_SHOWINTCP", 1) end)
+        pcall(function() reaper.SetMediaTrackInfo_Value(found, "B_SHOWINMIXER", 0) end)
         -- apply CTRL color
         set_track_color(found, COLORS.ctrl)
         dbg("  Track count after creation: " .. tostring(reaper.CountTracks(0)))
     else
         dbg("Found existing CTRL track: "..ctrlname)
-        -- ensure CTRL color and disable master send
+        -- ensure CTRL color and disable master send; ensure visibility: TCP visible, MCP hidden
         pcall(function() reaper.SetMediaTrackInfo_Value(found, "B_MAINSEND", 0) end)
+        pcall(function() reaper.SetMediaTrackInfo_Value(found, "B_SHOWINTCP", 1) end)
+        pcall(function() reaper.SetMediaTrackInfo_Value(found, "B_SHOWINMIXER", 0) end)
         set_track_color(found, COLORS.ctrl)
     end
     ctrl_tracks[ctrlname] = found
