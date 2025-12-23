@@ -252,9 +252,15 @@ end
                 found = reaper.GetTrack(0, idx)
                 reaper.GetSetMediaTrackInfo_String(found, "P_NAME", bname, true)
                 dbg(" Created Bus track: " .. tostring(bname))
+                -- show only in MCP (mixer), hide in TCP
+                pcall(function() reaper.SetMediaTrackInfo_Value(found, "B_SHOWINTCP", 0) end)
+                pcall(function() reaper.SetMediaTrackInfo_Value(found, "B_SHOWINMIXER", 1) end)
                 set_track_color(found, COLORS.bus)
             else
                 dbg("Found existing Bus track: " .. tostring(bname))
+                -- ensure bus visibility: MCP visible, TCP hidden
+                pcall(function() reaper.SetMediaTrackInfo_Value(found, "B_SHOWINTCP", 0) end)
+                pcall(function() reaper.SetMediaTrackInfo_Value(found, "B_SHOWINMIXER", 1) end)
                 set_track_color(found, COLORS.bus)
             end
             bus_tracks[bname] = found
