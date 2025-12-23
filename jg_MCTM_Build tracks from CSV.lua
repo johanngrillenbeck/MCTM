@@ -386,6 +386,7 @@ for i, r in ipairs(rows) do
     local A_name = "A " .. base
     local M_name = "M " .. base
     local A = find_track_by_name(A_name)
+    local createdA = false
     if A then
         dbg("  Found existing A track: " .. A_name)
     else
@@ -393,11 +394,13 @@ for i, r in ipairs(rows) do
         reaper.InsertTrackAtIndex(idxA, true)
         A = reaper.GetTrack(0, idxA)
         reaper.GetSetMediaTrackInfo_String(A, "P_NAME", A_name, true)
+        createdA = true
         dbg("  Created A track: " .. base .. " A")
     end
 
     -- find or create M track (idempotent)
     local M = find_track_by_name(M_name)
+    local createdM = false
     if M then
         dbg("  Found existing M track: " .. M_name)
     else
@@ -405,11 +408,29 @@ for i, r in ipairs(rows) do
         reaper.InsertTrackAtIndex(idxM, true)
         M = reaper.GetTrack(0, idxM)
         reaper.GetSetMediaTrackInfo_String(M, "P_NAME", M_name, true)
+        createdM = true
         dbg("  Created M track: " .. base .. " M")
     end
     -- disable parent/master send for both tracks (user requested)
     pcall(function() reaper.SetMediaTrackInfo_Value(A, "B_MAINSEND", 0) end)
     pcall(function() reaper.SetMediaTrackInfo_Value(M, "B_MAINSEND", 0) end)
+
+    -- If tracks were just created, mark them deactivated (add 'D' prefix)
+    -- and hide them in TCP and MCP per template convention.
+    if createdA then
+        local newAname = "D " .. A_name
+        pcall(function() reaper.GetSetMediaTrackInfo_String(A, "P_NAME", newAname, true) end)
+        pcall(function() reaper.SetMediaTrackInfo_Value(A, "B_SHOWINTCP", 0) end)
+        pcall(function() reaper.SetMediaTrackInfo_Value(A, "B_SHOWINMIXER", 0) end)
+        dbg("  Set newly created A track to deactivated and hidden: " .. newAname)
+    end
+    if createdM then
+        local newMname = "D " .. M_name
+        pcall(function() reaper.GetSetMediaTrackInfo_String(M, "P_NAME", newMname, true) end)
+        pcall(function() reaper.SetMediaTrackInfo_Value(M, "B_SHOWINTCP", 0) end)
+        pcall(function() reaper.SetMediaTrackInfo_Value(M, "B_SHOWINMIXER", 0) end)
+        dbg("  Set newly created M track to deactivated and hidden: " .. newMname)
+    end
 
     -- routing: A -> its Audio Bus (if specified)
     local bus_name = r.audio_send_to or ""
