@@ -43,11 +43,19 @@ local function set_track_color(tr, nativeColor)
     if tr and nativeColor then pcall(function() reaper.SetTrackColor(tr, nativeColor) end) end
 end
 
--- prompt for csv
-    local ok, input = reaper.GetUserInputs("CSV Path (fallback)", 1, "CSV file full path:", "")
-    if not ok then dbg("User cancelled fallback path input.") return end
-    csvPath = input
-    dbg("CSV path: " .. tostring(csvPath))
+-- use system file picker (preferred) to choose CSV
+local function prompt_file(title, ext)
+    local ok, path = reaper.GetUserFileNameForRead("", title or "Choose file", ext or "csv")
+    if not ok or not path or path == "" then
+        dbg("User cancelled CSV file selection.")
+        return nil
+    end
+    return path
+end
+
+local csvPath = prompt_file("Choose CSV file", "csv")
+if not csvPath then return end
+dbg("CSV path: " .. tostring(csvPath))
     
 -- normalize path variable for io.open (tooling types may expect string)
 local csvPathStr = csvPath
