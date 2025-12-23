@@ -654,6 +654,78 @@ do
     end
 end
 
+    -- Now reorder all A/M pairs as a single block after the Bus tracks.
+    -- Build a map of bus -> position (exact matching) and a lookup for DEFAULT
+    do
+        if #positions_entries > 0 then
+            local pos_map = {}
+            local ordered_buses = {}
+            for _, e in ipairs(positions_entries) do
+                pos_map[e.bus] = e.pos
+                table.insert(ordered_buses, e.bus)
+            end
+            -- find DEFAULT position if present
+            local default_pos = pos_map["DEFAULT"]
+
+            -- prepare buckets in the order of positions_entries
+            local buckets = {}
+            for _, bname in ipairs(ordered_buses) do buckets[bname] = {} end
+
+            -- iterate original CSV rows in order and assign each A/M pair to the appropriate bucket
+            for _, r in ipairs(rows) do
+                local base = (r.lib ~= "" and (r.lib .. " " .. r.name) or r.name)
+                local A_name = "A " .. base
+                local D_A_name = "D " .. A_name
+                local M_name = "M " .. base
+                local D_M_name = "D " .. M_name
+                local A_tr = find_track_by_name(A_name) or find_track_by_name(D_A_name)
+                local M_tr = find_track_by_name(M_name) or find_track_by_name(D_M_name)
+                if not A_tr then goto continue_row end
+                local bus = r.audio_send_to or ""
+                local target_bus = nil
+                if bus == "" then
+                    if default_pos then target_bus = "DEFAULT" end
+                else
+                    if pos_map[bus] then target_bus = bus
+                    else
+                        -- fallback to DEFAULT if defined
+                        if default_pos then target_bus = "DEFAULT" end
+                    end
+                end
+                if target_bus then
+                    table.insert(buckets[target_bus], {A=A_tr, M=M_tr, A_name=A_name, M_name=M_name, bus=target_bus})
+                end
+                ::continue_row::
+            end
+
+            -- build final ordered list of pairs (CSV order preserved within each bucket)
+            local final_pairs = {}
+            for _, bname in ipairs(ordered_buses) do
+                for _, p in ipairs(buckets[bname]) do table.insert(final_pairs, p) end
+            end
+
+            -- compute insertion index: after CTRL tracks and after Bus tracks (current counts)
+            local ctrl_count = 0
+            for _, cname in ipairs(ctrl_order) do if ctrl_tracks[cname] then ctrl_count = ctrl_count + 1 end end
+            local bus_count = 0
+            for k,_ in pairs(bus_tracks) do bus_count = bus_count + 1 end
+            local insert_index = ctrl_count + bus_count
+
+            -- move pairs in reverse so the final order becomes ascending
+            for i = #final_pairs, 1, -1 do
+                local p = final_pairs[i]
+                if p and p.A then
+                    -- clear selection
+                    for j = 0, reaper.CountTracks(0)-1 do reaper.SetTrackSelected(reaper.GetTrack(0,j), false) end
+                    reaper.SetTrackSelected(p.A, true)
+                    if p.M then reaper.SetTrackSelected(p.M, true) end
+                    reaper.ReorderSelectedTracks(0, insert_index)
+                    dbg(string.format("  Moved pair %s (bus=%s)", tostring(p.A_name), tostring(p.bus)))
+                end
+            end
+        end
+    end
+
 reaper.PreventUIRefresh(-1)
 reaper.Undo_EndBlock("jg_MCTM: Build tracks from CSV", -1)
 
