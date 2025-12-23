@@ -71,20 +71,30 @@ end
 -- dbg("Ausgewählte Tracks: " .. selTrackCount)
 
 -- Track-Paar-Handling: Basisname → Zielwert (D priorisiert)
-local selBaseNames = {}
+-- Build a list of match entries for selected tracks using normalized names
+local selEntries = {}
+local function normalize(str)
+    if not str then return "" end
+    -- lower-case, replace any non-alphanumeric with single space, collapse spaces, trim
+    local s = str:lower()
+    s = s:gsub("[^%wäöüßÄÖÜ]+", " ")
+    s = s:gsub("%s+", " ")
+    s = s:gsub("^%s+", ""):gsub("%s+$", "")
+    return s
+end
+
 for i = 0, selTrackCount-1 do
     local track = reaper.GetSelectedTrack(0, i)
     local _, trackName = reaper.GetTrackName(track)
-    local baseName = getTrackBaseName(trackName)
+    local parsed = mctm.parse(trackName)
+    local instr = parsed and parsed.name or getTrackBaseName(trackName)
     local targetVal = getTargetValue(trackName)
 
-    if selBaseNames[baseName] == nil then
-        selBaseNames[baseName] = targetVal
-    else
-        -- D Tracks priorisieren
-        if targetVal == 1 then selBaseNames[baseName] = 1 end
-    end
-    -- dbg(string.format("Track %d: '%s' → BaseName: '%s', Zielwert: %d", i+1, trackName, baseName, selBaseNames[baseName]))
+    table.insert(selEntries, {
+        instrNorm = normalize(instr),
+        trackNorm = normalize(trackName),
+        target = targetVal,
+    })
 end
 
 -- Alle CTRL-Tracks durchsuchen
@@ -106,30 +116,42 @@ for i = 0, trackCount-1 do
             if type(n1) == "string" then envName = n1
             elseif type(n2) == "string" then envName = n2 end
             
-            -- Nur /Disable Envelopes
-            if envName:find("/Disable") then
-                local envBaseName = getEnvelopeBaseName(envName)
-                local targetVal = selBaseNames[envBaseName]
-                
-                if targetVal ~= nil then
-                    -- dbg(string.format("  Envelope '%s' → BaseName: '%s' | Zielwert: %d", envName, envBaseName, targetVal))
-                    -- Punkte löschen und Dreieck-/Ramp-Punkte innerhalb der ersten Sekunde setzen
-                    reaper.DeleteEnvelopePointRange(env, 0, reaper.GetProjectLength())
+            -- Only consider envelopes that mention Disable (case-insensitive)
+            if envName and envName:lower():find("disable") then
+                local envNorm = normalize(envName:gsub("/", " "))
+                local matched = false
+                local targetVal = nil
+                for _,entry in ipairs(selEntries) do
+                    if entry.instrNorm ~= "" and envNorm:find(entry.instrNorm, 1, true) then
+                        matched = true
+                        targetVal = entry.target
+                        break
+                    end
+                    if entry.trackNorm ~= "" and envNorm:find(entry.trackNorm, 1, true) then
+                        matched = true
+                        targetVal = entry.target
+                        break
+                    end
+                end
+
+                if matched and targetVal ~= nil then
+                    -- Clear all existing envelope points robustly before inserting new ones
+                    local function clearEnvelopePoints(envelope)
+                        local ok, cnt = pcall(reaper.CountEnvelopePoints, envelope)
+                        -- Use a very wide DeleteEnvelopePointRange to ensure all points are removed
+                        reaper.DeleteEnvelopePointRange(envelope, -1e9, 1e9)
+                    end
+                    clearEnvelopePoints(env)
                     if targetVal == 1 then
-                        -- Deactivate: ramp up from 0 -> 0.75 -> 1 over 0..0.5..1s
-                        reaper.InsertEnvelopePoint(env, 0.0, 0.0, 0, 0, false, true)
+                        reaper.InsertEnvelopePoint(env, 0.0, 1.0, 0, 0, false, true)
                         reaper.InsertEnvelopePoint(env, 0.5, 0.75, 0, 0, false, true)
                         reaper.InsertEnvelopePoint(env, 1.0, 1.0, 0, 0, false, true)
                     else
-                        -- Activate: small bump 0 -> 0.25 -> 0 over 0..0.5..1s
                         reaper.InsertEnvelopePoint(env, 0.0, 0.0, 0, 0, false, true)
                         reaper.InsertEnvelopePoint(env, 0.5, 0.25, 0, 0, false, true)
                         reaper.InsertEnvelopePoint(env, 1.0, 0.0, 0, 0, false, true)
                     end
                     reaper.Envelope_SortPoints(env)
-                    -- dbg("    Envelope gesetzt (triangle ramp).")
-                else
-                    -- dbg(string.format("  Envelope '%s' hat keinen passenden Track.", envName))
                 end
             end
         end
