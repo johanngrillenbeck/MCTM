@@ -51,11 +51,11 @@ CTRLVE1;;;;;;2;Ornaments;;28
 CTRLVE1;;;;;;3;Dynamics;;20
 CTRLVE1;;;;;;4;Repetitions;;21
 CTRLVE1;;;;;;5;Special Bows;;30
-CTRLVE1;OTBSFC;Violin I;HiStr;105-108;27;1;Violin I FC;SINE;0
-CTRLVE1;OTBSFC;Violin II;HiStr;109-112;28;1;Violin II FC;SINE;0
-CTRLVE1;OTBSFC;Viola;MidStr;113-116;29;1;Viola FC;SINE;0
-CTRLVE1;OTBSFC;Cello;LoStr;117-120;30;1;Cello FC;SINE;0
-CTRLVE1;OTBSFC;Bass;LoStr;121-124;31;1;Bass FC;SINE;0
+CTRLVE1;OTBSFC;Violin I;HiStr;105-108;27;1;Violin I FC;SINE;31
+CTRLVE1;OTBSFC;Violin II;HiStr;109-112;28;1;Violin II FC;SINE;31
+CTRLVE1;OTBSFC;Viola;MidStr;113-116;29;1;Viola FC;SINE;31
+CTRLVE1;OTBSFC;Cello;LoStr;117-120;30;1;Cello FC;SINE;31
+CTRLVE1;OTBSFC;Bass;LoStr;121-124;31;1;Bass FC;SINE;31
 CTRLVE1;Mod;Pianoteq;Piano;125-128;32;1;Steinway Model D New York;Pianoteq;0
 CTRLVE2;OTBB;Trombone 1;MidBr;1-4;1;1;Trombone 1;SINE;16
 CTRLVE2;OTBB;Trombone 2;MidBr;5-8;2;1;Trombone 2;SINE;16
@@ -140,17 +140,17 @@ CTRLVE2;;;;113-116;29;1;;;0
 CTRLVE2;;;;117-120;30;1;;;0
 CTRLVE2;;;;121-124;31;1;;;0
 CTRLVE2;;;;125-128;32;1;;;0
-CTRLVE3;OTBP;Roto Toms;MidPerc;1-4;1;1;6'';SINE;0
-;;;;;;2;8'';;0
-;;;;;;3;10'';;0
-;;;;;;4;12'';;0
-;;;;;;5;14'';;0
-;;;;;;6;18'';;0
-CTRLVE3;OTBP;Timbales;MidPerc;5-8;2;1;13'';SINE;0
-;;;;;;2;14'';;0
-CTRLVE3;OTBP;Bongos;MidPerc;9-12;3;1;Set 1;SINE;0
-;;;;;;2;Set 2;;0
-CTRLVE3;OTBP;Congas;MidPerc;13-16;4;1;Congas;SINE;0
+CTRLVE3;OTBP;Roto Toms;MidPerc;1-4;1;1;6'';SINE;32
+;;;;;;2;8'';;32
+;;;;;;3;10'';;32
+;;;;;;4;12'';;32
+;;;;;;5;14'';;32
+;;;;;;6;18'';;32
+CTRLVE3;OTBP;Timbales;MidPerc;5-8;2;1;13'';SINE;32
+;;;;;;2;14'';;32
+CTRLVE3;OTBP;Bongos;MidPerc;9-12;3;1;Set 1;SINE;32
+;;;;;;2;Set 2;;32
+CTRLVE3;OTBP;Congas;MidPerc;13-16;4;1;Congas;SINE;32
 CTRLVE3;OTBP;Celesta;TunedPerc;17-20;5;1;Celesta;SINE;0
 CTRLVE3;OTBP;Vibraphone;TunedPerc;21-24;6;1;Vibraphone;SINE;0
 CTRLVE3;OTBP;Marimba;TunedPerc;25-28;7;1;Marimba;SINE;0
@@ -186,22 +186,22 @@ CTRLVE3;OTBP;Timpani;LoPerc;89-92;23;1;Timpani Normal Mallets;SINE;0
 ;;;;;;3;Timpani Hard Mallets;;0
 ;;;;;;4;Timpani Impact;;0
 ;;;;;;5;Timpani Baroque Mallets;SINE;0
-CTRLVE3;OTBP;Bass Drum;LoPerc;93-96;24;1;28'';SINE;0
-;;;;;;2;34'';;0
-;;;;;;3;36'';;0
-;;;;;;4;40'';;0
-CTRLVE3;OTBP;Snare Drum;MidPerc;97-100;25;1;Majestic Pro Snare 1 14'';SINE;0
-;;;;;;2;Majestic Pro Snare 2 14'';;0
-;;;;;;3;Dresdner Snare 13'';;0
-;;;;;;4;Piccolo Snare 13'';;0
-;;;;;;5;Field Drum 14'';;0
-;;;;;;6;Tenor Drum 16'';;0
-;;;;;;7;Basler Drum 16'';;0
-;;;;;;8;Firecracker Snare 10'';;0
-CTRLVE3;OTBP;Tom;MidPerc;101-104;26;1;13'';SINE;0
-;;;;;;2;14'';;0
-;;;;;;3;15'';;0
-;;;;;;4;16'';;0
+CTRLVE3;OTBP;Bass Drum;LoPerc;93-96;24;1;28'';SINE;32
+;;;;;;2;34'';;32
+;;;;;;3;36'';;32
+;;;;;;4;40'';;32
+CTRLVE3;OTBP;Snare Drum;MidPerc;97-100;25;1;Majestic Pro Snare 1 14'';SINE;33
+;;;;;;2;Majestic Pro Snare 2 14'';;34
+;;;;;;3;Dresdner Snare 13'';;33
+;;;;;;4;Piccolo Snare 13'';;33
+;;;;;;5;Field Drum 14'';;33
+;;;;;;6;Tenor Drum 16'';;33
+;;;;;;7;Basler Drum 16'';;32
+;;;;;;8;Firecracker Snare 10'';;33
+CTRLVE3;OTBP;Tom;MidPerc;101-104;26;1;13'';SINE;32
+;;;;;;2;14'';;32
+;;;;;;3;15'';;32
+;;;;;;4;16'';;32
 CTRLVE3;;;;105-108;27;1;;;0
 CTRLVE3;;;;109-112;28;1;;;0
 CTRLVE3;;;;113-116;29;1;;;0
@@ -230,32 +230,32 @@ CTRLVE4;OTMA4;Low Drums;LoPerc;73-76;19;1;Low Drums;SINE;0
 CTRLVE4;OTMA4;Cassa Anvil Thundersheet;MetalPerc;77-80;20;1;Cassa Anvil Thundersheet;SINE;0
 CTRLVE4;OTMA4;Metal 1;MetalPerc;81-84;21;1;Metal 1;SINE;0
 CTRLVE4;OTMA4;Metal 2;MetalPerc;85-88;22;1;Metal 2;SINE;0
-CTRLVE4;OTSA;String Quartet;HiStr;89-92;23;1;String Quartet;SINE;0
-CTRLVE4;OTSA;Solo Viola;HiStr;93-96;24;1;Solo Viola;SINE;0
-CTRLVE4;OTSA;Solo Cello;MidStr;97-100;25;1;Solo Cello;SINE;0
-CTRLVE4;OTSA;Female Ensemble;Choir;101-104;26;1;Female Ensemble Main Artics;SINE;0
-;;;;;;2;Female Ensemble Special Artics;SINE;0
-CTRLVE4;OTSA;Male Ensemble;Choir;105-108;27;1;Male Ensemble Main Artics;SINE;0
-;;;;;;2;Male Ensemble Special Artics;SINE;0
-CTRLVE4;OTSA;Solo Alto;Choir;109-112;28;1;Solo Alto;SINE;0
-CTRLVE4;OTSA;Solo Basso;Choir;113-116;29;1;Solo Basso;SINE;0
-CTRLVE4;OTSA;Kannel, Harp and Piano;TunedPerc;117-120;30;1;Kannel, Harp and Piano;SINE;0
-;;;;;;2;Solo Kannel;;0
-;;;;;;3;Solo Harp;;0
-;;;;;;4;Solo Piano;;0
+CTRLVE4;OTSA;String Quartet;HiStr;89-92;23;1;String Quartet;SINE;35
+CTRLVE4;OTSA;Solo Viola;HiStr;93-96;24;1;Solo Viola;SINE;36
+CTRLVE4;OTSA;Solo Cello;MidStr;97-100;25;1;Solo Cello;SINE;37
+CTRLVE4;OTSA;Female Ensemble;Choir;101-104;26;1;Female Ensemble Main Artics;SINE;38
+;;;;;;2;Female Ensemble Special Artics;SINE;39
+CTRLVE4;OTSA;Male Ensemble;Choir;105-108;27;1;Male Ensemble Main Artics;SINE;40
+;;;;;;2;Male Ensemble Special Artics;SINE;41
+CTRLVE4;OTSA;Solo Alto;Choir;109-112;28;1;Solo Alto;SINE;42
+CTRLVE4;OTSA;Solo Basso;Choir;113-116;29;1;Solo Basso;SINE;43
+CTRLVE4;OTSA;Kannel, Harp and Piano;TunedPerc;117-120;30;1;Kannel, Harp and Piano;SINE;44
+;;;;;;2;Solo Kannel;;45
+;;;;;;3;Solo Harp;;46
+;;;;;;4;Solo Piano;;47
 CTRLVE4;;;;121-124;31;;;;0
 CTRLVE4;;;;125-128;32;;;;0
-CTRLVE5;OTSA;Tubular Bells;TunedPerc;1-4;1;1;Tubular Bells;SINE;0
-CTRLVE5;OTSA;Glockenspiel and Crotales;TunedPerc;5-8;2;1;Glockenspiel and Crotales;SINE;0
-;;;;;;2;Glockenspiel;SINE;0
-;;;;;;3;Crotales;SINE;0
-CTRLVE5;OTSA;Vibraphone;TunedPerc;9-12;3;1;Vibraphone;SINE;0
-CTRLVE5;OTSA;Chimes;TunedPerc;13-16;4;1;Chimes;SINE;0
-CTRLVE5;OTSA;Thundersheet;MetalPerc;17-20;5;1;Thundersheet;SINE;0
-CTRLVE5;OTSA;Tamtam;MetalPerc;21-24;6;1;Tamtam;SINE;0
-CTRLVE5;OTSA;Gran Cassa;LoPerc;25-28;7;1;Gran Cassa;SINE;0
-CTRLVE5;OTSA;Timpani;LoPerc;29-32;8;1;Timpani;SINE;0
-CTRLVE5;OTSA;Wind Gong;MetalPerc;33-36;9;1;Wind Gong;SINE;0
+CTRLVE5;OTSA;Tubular Bells;TunedPerc;1-4;1;1;Tubular Bells;SINE;48
+CTRLVE5;OTSA;Glockenspiel and Crotales;TunedPerc;5-8;2;1;Glockenspiel and Crotales;SINE;49
+;;;;;;2;Glockenspiel;SINE;50
+;;;;;;3;Crotales;SINE;50
+CTRLVE5;OTSA;Vibraphone;TunedPerc;9-12;3;1;Vibraphone;SINE;51
+CTRLVE5;OTSA;Chimes;TunedPerc;13-16;4;1;Chimes;SINE;52
+CTRLVE5;OTSA;Thundersheet;MetalPerc;17-20;5;1;Thundersheet;SINE;53
+CTRLVE5;OTSA;Tamtam;MetalPerc;21-24;6;1;Tamtam;SINE;54
+CTRLVE5;OTSA;Gran Cassa;LoPerc;25-28;7;1;Gran Cassa;SINE;55
+CTRLVE5;OTSA;Timpani;LoPerc;29-32;8;1;Timpani;SINE;56
+CTRLVE5;OTSA;Wind Gong;MetalPerc;33-36;9;1;Wind Gong;SINE;57
 CTRLVE5;OTSA;Icy;PadSynth;37-40;10;1;Flickering lights;SINE;0
 ;;;;;;2;Lucid glass;;0
 ;;;;;;3;Tulip flare;;0
@@ -327,26 +327,26 @@ CTRLVE5;OTSA;Plucks;PluckSynth;57-60;15;1;Fort and barrow;SINE;0
 ;;;;;;7;Cobblestone;;0
 ;;;;;;8;Harp to harp;;0
 ;;;;;;9;Pressure-point;;0
-CTRLVE5;OTPV;1st Violins;HiStr;61-64;16;1;1st Violins;SINE;0
-;;;;;;2;gestures;;0
-CTRLVE5;OTPV;2nd Violins;HiStr;65-68;17;1;2nd Violins;SINE;0
-;;;;;;2;gestures;;0
-CTRLVE5;OTPV;Violas;MidStr;69-72;18;1;Violas;SINE;0
-;;;;;;2;gestures;;0
-CTRLVE5;OTPV;Celli;MidStr;73-76;19;1;Celli;SINE;0
-;;;;;;2;gestures;;0
-CTRLVE5;OTPV;Basses;LoStr;77-80;20;1;Basses;SINE;0
-;;;;;;2;gestures;;0
-CTRLVE5;OTPV;Violin I FC;HiStr;81-84;21;1;Violin I FC;SINE;0
-;;;;;;2;gestures;;0
-CTRLVE5;OTPV;Violin II FC;HiStr;85-88;22;1;Violin II FC;SINE;0
-;;;;;;2;gestures;;0
-CTRLVE5;OTPV;Viola FC;MidStr;89-92;23;1;Viola FC;SINE;0
-;;;;;;2;gestures;;0
-CTRLVE5;OTPV;Cello FC;MidStr;93-96;24;1;Cello FC;SINE;0
-;;;;;;2;gestures;;0
-CTRLVE5;OTPV;Bass FC;LoStr;97-100;25;1;Bass FC;SINE;0
-;;;;;;2;gestures;;0
+CTRLVE5;OTPV;1st Violins;HiStr;61-64;16;1;1st Violins;SINE;58
+;;;;;;2;gestures;;59
+CTRLVE5;OTPV;2nd Violins;HiStr;65-68;17;1;2nd Violins;SINE;60
+;;;;;;2;gestures;;59
+CTRLVE5;OTPV;Violas;MidStr;69-72;18;1;Violas;SINE;58
+;;;;;;2;gestures;;59
+CTRLVE5;OTPV;Celli;MidStr;73-76;19;1;Celli;SINE;58
+;;;;;;2;gestures;;59
+CTRLVE5;OTPV;Basses;LoStr;77-80;20;1;Basses;SINE;61
+;;;;;;2;gestures;;62
+CTRLVE5;OTPV;Violin I FC;HiStr;81-84;21;1;Violin I FC;SINE;63
+;;;;;;2;gestures;;64
+CTRLVE5;OTPV;Violin II FC;HiStr;85-88;22;1;Violin II FC;SINE;63
+;;;;;;2;gestures;;64
+CTRLVE5;OTPV;Viola FC;MidStr;89-92;23;1;Viola FC;SINE;63
+;;;;;;2;gestures;;64
+CTRLVE5;OTPV;Cello FC;MidStr;93-96;24;1;Cello FC;SINE;63
+;;;;;;2;gestures;;64
+CTRLVE5;OTPV;Bass FC;LoStr;97-100;25;1;Bass FC;SINE;65
+;;;;;;2;gestures;;66
 CTRLVE5;;;;101-104;26;1;;;0
 CTRLVE5;;;;105-108;27;1;;;0
 CTRLVE5;;;;109-112;28;1;;;0
