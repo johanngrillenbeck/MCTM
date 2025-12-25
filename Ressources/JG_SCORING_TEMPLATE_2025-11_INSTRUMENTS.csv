@@ -4,64 +4,64 @@ CTRLVE1;OTBW;Flute 1;HiWW;5-8;2;1;Flute 1;SINE;2
 CTRLVE1;OTBW;Flute 2;HiWW;9-12;3;1;Flute 2;SINE;3
 CTRLVE1;OTBW;Flute 3;HiWW;13-16;4;1;Flute 3;SINE;4
 CTRLVE1;OTBW;Alto Flute;MidWW;17-20;5;1;Alto Flute;SINE;5
-CTRLVE1;OTBW;Oboe 1;HiWW;21-24;6;1;Oboe 1;SINE;0
-CTRLVE1;OTBW;Oboe 2;HiWW;25-28;7;1;Oboe 2;SINE;0
-CTRLVE1;OTBW;English Horn;MidWW;29-32;8;1;English Horn;SINE;0
-CTRLVE1;OTBW;Clarinet 1;MidWW;33-36;9;1;Clarinet 1;SINE;0
-CTRLVE1;OTBW;Clarinet 2;MidWW;37-40;10;1;Clarinet 2;SINE;0
-CTRLVE1;OTBW;Bassoon 1;LoWW;41-44;11;1;Bassoon 1;SINE;0
-CTRLVE1;OTBW;Bassoon 2;LoWW;45-48;12;1;Bassoon 2;SINE;0
-CTRLVE1;OTBB;Trumpet 1;HiBr;49-52;13;1;Trumpet 1;SINE;0
-CTRLVE1;;;;;;2;Trumpet 1 Zampano;;0
-CTRLVE1;OTBB;Trumpet 2;HiBr;53-56;14;1;Trumpet 2;SINE;0
-CTRLVE1;;;;;;2;Trumpet 2 Zampano;;0
-CTRLVE1;OTBB;Trumpet 3;HiBr;57-60;15;1;Trumpet 3;SINE;0
-CTRLVE1;OTBB;Trumpet Ens;HiBr;61-64;16;1;Trumpet Ens;SINE;0
-CTRLVE1;OTBB;Horn 1;HiBr;65-68;17;1;Horn 1;SINE;0
-CTRLVE1;OTBB;Horn 2;HiBr;69-72;18;1;Horn 2;SINE;0
-CTRLVE1;OTBB;Horn 3;HiBr;73-76;19;1;Horn 3;SINE;0
-CTRLVE1;OTBB;Horn 4;HiBr;77-80;20;1;Horn 4;SINE;0
-CTRLVE1;OTBB;Horn Ens;HiBr;81-84;21;1;Horn Ensemble;SINE;0
-CTRLVE1;;;;;;2;Horn Ensemble Bells Up;;0
-CTRLVE1;OTBS;1st Violins;HiStr;85-88;22;1;Longs and Shorts;SINE;0
-CTRLVE1;;;;;;2;Ornaments;;0
-CTRLVE1;;;;;;3;Dynamics;;0
-CTRLVE1;;;;;;4;Repetitions;;0
-CTRLVE1;;;;;;5;Octave Scale Runs;;0
-CTRLVE1;;;;;;6;Special Bows;;0
-CTRLVE1;OTBS;2nd Violins;HiStr;89-92;23;1;Longs and Shorts;SINE;0
-CTRLVE1;;;;;;2;Ornaments;;0
-CTRLVE1;;;;;;3;Dynamics;;0
-CTRLVE1;;;;;;4;Repetitions;;0
-CTRLVE1;;;;;;5;Octave Scale Runs;;0
-CTRLVE1;;;;;;6;Special Bows;;0
-CTRLVE1;OTBS;Violas;MidStr;93-96;24;1;Longs and Shorts;SINE;0
-CTRLVE1;;;;;;2;Ornaments;;0
-CTRLVE1;;;;;;3;Dynamics;;0
-CTRLVE1;;;;;;4;Repetitions;;0
-CTRLVE1;;;;;;5;Special Bows;;0
-CTRLVE1;OTBS;Celli;LoStr;97-100;25;1;Longs and Shorts;SINE;0
-CTRLVE1;;;;;;2;Ornaments;;0
-CTRLVE1;;;;;;3;Dynamics;;0
-CTRLVE1;;;;;;4;Repetitions;;0
-CTRLVE1;;;;;;5;Octave Scale Runs;;0
-CTRLVE1;;;;;;6;Special Bows;;0
-CTRLVE1;OTBS;Basses;LoStr;101-104;26;1;Longs and Shorts;SINE;0
-CTRLVE1;;;;;;2;Ornaments;;0
-CTRLVE1;;;;;;3;Dynamics;;0
-CTRLVE1;;;;;;4;Repetitions;;0
-CTRLVE1;;;;;;5;Special Bows;;0
+CTRLVE1;OTBW;Oboe 1;HiWW;21-24;6;1;Oboe 1;SINE;4
+CTRLVE1;OTBW;Oboe 2;HiWW;25-28;7;1;Oboe 2;SINE;6
+CTRLVE1;OTBW;English Horn;MidWW;29-32;8;1;English Horn;SINE;7
+CTRLVE1;OTBW;Clarinet 1;MidWW;33-36;9;1;Clarinet 1;SINE;6
+CTRLVE1;OTBW;Clarinet 2;MidWW;37-40;10;1;Clarinet 2;SINE;8
+CTRLVE1;OTBW;Bassoon 1;LoWW;41-44;11;1;Bassoon 1;SINE;9
+CTRLVE1;OTBW;Bassoon 2;LoWW;45-48;12;1;Bassoon 2;SINE;10
+CTRLVE1;OTBB;Trumpet 1;HiBr;49-52;13;1;Trumpet 1;SINE;11
+CTRLVE1;;;;;;2;Trumpet 1 Zampano;;12
+CTRLVE1;OTBB;Trumpet 2;HiBr;53-56;14;1;Trumpet 2;SINE;13
+CTRLVE1;;;;;;2;Trumpet 2 Zampano;;14
+CTRLVE1;OTBB;Trumpet 3;HiBr;57-60;15;1;Trumpet 3;SINE;11
+CTRLVE1;OTBB;Trumpet Ens;HiBr;61-64;16;1;Trumpet Ens;SINE;13
+CTRLVE1;OTBB;Horn 1;HiBr;65-68;17;1;Horn 1;SINE;13
+CTRLVE1;OTBB;Horn 2;HiBr;69-72;18;1;Horn 2;SINE;13
+CTRLVE1;OTBB;Horn 3;HiBr;73-76;19;1;Horn 3;SINE;13
+CTRLVE1;OTBB;Horn 4;HiBr;77-80;20;1;Horn 4;SINE;13
+CTRLVE1;OTBB;Horn Ens;HiBr;81-84;21;1;Horn Ensemble;SINE;13
+CTRLVE1;;;;;;2;Horn Ensemble Bells Up;;15
+CTRLVE1;OTBS;1st Violins;HiStr;85-88;22;1;Longs and Shorts;SINE;18
+CTRLVE1;;;;;;2;Ornaments;;19
+CTRLVE1;;;;;;3;Dynamics;;20
+CTRLVE1;;;;;;4;Repetitions;;21
+CTRLVE1;;;;;;5;Octave Scale Runs;;22
+CTRLVE1;;;;;;6;Special Bows;;29
+CTRLVE1;OTBS;2nd Violins;HiStr;89-92;23;1;Longs and Shorts;SINE;23
+CTRLVE1;;;;;;2;Ornaments;;19
+CTRLVE1;;;;;;3;Dynamics;;20
+CTRLVE1;;;;;;4;Repetitions;;21
+CTRLVE1;;;;;;5;Octave Scale Runs;;22
+CTRLVE1;;;;;;6;Special Bows;;29
+CTRLVE1;OTBS;Violas;MidStr;93-96;24;1;Longs and Shorts;SINE;24
+CTRLVE1;;;;;;2;Ornaments;;25
+CTRLVE1;;;;;;3;Dynamics;;20
+CTRLVE1;;;;;;4;Repetitions;;21
+CTRLVE1;;;;;;5;Special Bows;;29
+CTRLVE1;OTBS;Celli;LoStr;97-100;25;1;Longs and Shorts;SINE;26
+CTRLVE1;;;;;;2;Ornaments;;25
+CTRLVE1;;;;;;3;Dynamics;;20
+CTRLVE1;;;;;;4;Repetitions;;21
+CTRLVE1;;;;;;5;Octave Scale Runs;;22
+CTRLVE1;;;;;;6;Special Bows;;29
+CTRLVE1;OTBS;Basses;LoStr;101-104;26;1;Longs and Shorts;SINE;27
+CTRLVE1;;;;;;2;Ornaments;;28
+CTRLVE1;;;;;;3;Dynamics;;20
+CTRLVE1;;;;;;4;Repetitions;;21
+CTRLVE1;;;;;;5;Special Bows;;30
 CTRLVE1;OTBSFC;Violin I;HiStr;105-108;27;1;Violin I FC;SINE;0
 CTRLVE1;OTBSFC;Violin II;HiStr;109-112;28;1;Violin II FC;SINE;0
 CTRLVE1;OTBSFC;Viola;MidStr;113-116;29;1;Viola FC;SINE;0
 CTRLVE1;OTBSFC;Cello;LoStr;117-120;30;1;Cello FC;SINE;0
 CTRLVE1;OTBSFC;Bass;LoStr;121-124;31;1;Bass FC;SINE;0
 CTRLVE1;Mod;Pianoteq;Piano;125-128;32;1;Steinway Model D New York;Pianoteq;0
-CTRLVE2;OTBB;Trombone 1;MidBr;1-4;1;1;Trombone 1;SINE;0
-CTRLVE2;OTBB;Trombone 2;MidBr;5-8;2;1;Trombone 2;SINE;0
-CTRLVE2;OTBB;Bass Trombone;LoBr;9-12;3;1;Bass Trombone;SINE;0
-CTRLVE2;OTBB;Trombone Ens;MidBr;13-16;4;1;Trombone Ens;SINE;0
-CTRLVE2;OTBB;Tuba;LoBr;17-20;5;1;Tuba;SINE;0
+CTRLVE2;OTBB;Trombone 1;MidBr;1-4;1;1;Trombone 1;SINE;16
+CTRLVE2;OTBB;Trombone 2;MidBr;5-8;2;1;Trombone 2;SINE;16
+CTRLVE2;OTBB;Bass Trombone;LoBr;9-12;3;1;Bass Trombone;SINE;16
+CTRLVE2;OTBB;Trombone Ens;MidBr;13-16;4;1;Trombone Ens;SINE;17
+CTRLVE2;OTBB;Tuba;LoBr;17-20;5;1;Tuba;SINE;11
 CTRLVE2;OTTHB;Full Brass  ;HiBr;21-24;6;1;Full Brass  ;SINE;0
 CTRLVE2;OTTHB;Trumpet;HiBr;25-28;7;1;Trumpet;SINE;0
 CTRLVE2;OTTHB;Trumpets a3  ;HiBr;29-32;8;1;Trumpets a3  ;SINE;0
