@@ -62,21 +62,21 @@ CTRLVE2;OTBB;Trombone 2;MidBr;5-8;2;1;Trombone 2;SINE;16
 CTRLVE2;OTBB;Bass Trombone;LoBr;9-12;3;1;Bass Trombone;SINE;16
 CTRLVE2;OTBB;Trombone Ens;MidBr;13-16;4;1;Trombone Ens;SINE;17
 CTRLVE2;OTBB;Tuba;LoBr;17-20;5;1;Tuba;SINE;11
-CTRLVE2;OTTHB;Full Brass  ;HiBr;21-24;6;1;Full Brass  ;SINE;0
-CTRLVE2;OTTHB;Trumpet;HiBr;25-28;7;1;Trumpet;SINE;0
-CTRLVE2;OTTHB;Trumpets a3  ;HiBr;29-32;8;1;Trumpets a3  ;SINE;0
-CTRLVE2;OTTHB;Trumpets a6  ;HiBr;33-36;9;1;Trumpets a6  ;SINE;0
-CTRLVE2;OTTHB;French Horn;HiBr;37-40;10;1;French Horn;SINE;0
-CTRLVE2;OTTHB;French Horns a4  ;HiBr;41-44;11;1;French Horns a4  ;SINE;0
-CTRLVE2;OTTHB;French Horns a6  ;HiBr;45-48;12;1;French Horns a6  ;SINE;0
-CTRLVE2;OTTHB;French Horns a12  ;HiBr;49-52;13;1;French Horns a12  ;SINE;0
-CTRLVE2;OTTHB;Trombone;MidBr;53-56;14;1;Trombone;SINE;0
-CTRLVE2;OTTHB;Trombones a3  ;MidBr;57-60;15;1;Trombones a3  ;SINE;0
-CTRLVE2;OTTHB;Trombones a6  ;MidBr;61-64;16;1;Trombones a6  ;SINE;0
-CTRLVE2;OTTHB;Trombones a12  ;MidBr;65-68;17;1;Trombones a12  ;SINE;0
-CTRLVE2;OTTHB;Bass Trombones a3  ;MidBr;69-72;18;1;Bass Trombones a3  ;SINE;0
-CTRLVE2;OTTHB;Cimbassi a3  ;LoBr;73-76;19;1;Cimbassi a3  ;SINE;0
-CTRLVE2;OTTHB;Tuba;LoBr;77-80;20;1;Tuba;SINE;0
+CTRLVE2;OTTHB;Full Brass  ;HiBr;21-24;6;1;Full Brass  ;SINE;152
+CTRLVE2;OTTHB;Trumpet;HiBr;25-28;7;1;Trumpet;SINE;153
+CTRLVE2;OTTHB;Trumpets a3  ;HiBr;29-32;8;1;Trumpets a3  ;SINE;153
+CTRLVE2;OTTHB;Trumpets a6  ;HiBr;33-36;9;1;Trumpets a6  ;SINE;153
+CTRLVE2;OTTHB;French Horn;HiBr;37-40;10;1;French Horn;SINE;153
+CTRLVE2;OTTHB;French Horns a4  ;HiBr;41-44;11;1;French Horns a4  ;SINE;153
+CTRLVE2;OTTHB;French Horns a6  ;HiBr;45-48;12;1;French Horns a6  ;SINE;153
+CTRLVE2;OTTHB;French Horns a12  ;HiBr;49-52;13;1;French Horns a12  ;SINE;153
+CTRLVE2;OTTHB;Trombone;MidBr;53-56;14;1;Trombone;SINE;153
+CTRLVE2;OTTHB;Trombones a3  ;MidBr;57-60;15;1;Trombones a3  ;SINE;153
+CTRLVE2;OTTHB;Trombones a6  ;MidBr;61-64;16;1;Trombones a6  ;SINE;153
+CTRLVE2;OTTHB;Trombones a12  ;MidBr;65-68;17;1;Trombones a12  ;SINE;154
+CTRLVE2;OTTHB;Bass Trombones a3  ;MidBr;69-72;18;1;Bass Trombones a3  ;SINE;153
+CTRLVE2;OTTHB;Cimbassi a3  ;LoBr;73-76;19;1;Cimbassi a3  ;SINE;153
+CTRLVE2;OTTHB;Tuba;LoBr;77-80;20;1;Tuba;SINE;153
 CTRLVE2;OTTHP;Performance Kit;LoPerc;81-84;21;1;Performance Kit  ;SINE;0
 CTRLVE2;OTTHP;Bass Drums;LoPerc;85-88;22;1;"Bass Drum 1 Low Tuning 20""  ";SINE;0
 ;;;;;;2;"Bass Drum 1 High Tuning 20""  ";;0
@@ -208,28 +208,28 @@ CTRLVE3;;;;113-116;29;1;;;0
 CTRLVE3;;;;117-120;30;1;;;0
 CTRLVE3;;;;121-124;31;1;;;0
 CTRLVE3;;;;125-128;32;1;;;0
-CTRLVE4;OTMA4;High Strings;HiStr;1-4;1;1;High Strings;SINE;0
-CTRLVE4;OTMA4;Mid Strings;MidStr;5-8;2;1;Mid Strings;SINE;0
-CTRLVE4;OTMA4;Low Strings;LoStr;9-12;3;1;Low Strings;SINE;0
-CTRLVE4;OTMA4;Flute & Piccolo;HiWW;13-16;4;1;Flute & Piccolo;SINE;0
-CTRLVE4;OTMA4;Flute, Oboe & Clarinet;HiWW;17-20;5;1;Flute, Oboe & Clarinet;SINE;0
-CTRLVE4;OTMA4;Bass Oboe & Basset Horn;MidWW;21-24;6;1;Bass Oboe & Basset Horn;SINE;0
-CTRLVE4;OTMA4;Horn, Wagner Tuba & Trombone;MidBr;25-28;7;1;Horn, Wagner Tuba & Trombone;SINE;0
-CTRLVE4;OTMA4;Trumpet & Muted Trumpet;HiBr;29-32;8;1;Trumpet & Muted Trumpet;SINE;0
-CTRLVE4;OTMA4;Flute, English Horn & Muted Trumpet;HiBr;33-36;9;1;Flute, English Horn & Muted Trumpet;SINE;0
-CTRLVE4;OTMA4;Bassoon & Horn;MidBr;37-40;10;1;Bassoon & Horn;SINE;0
-CTRLVE4;OTMA4;Bass Clarinet & Muted Bass Trombone;LoBr;41-44;11;1;Bass Clarinet & Muted Bass Trombone;SINE;0
-CTRLVE4;OTMA4;Bass Clarinet, Bass Saxophone;LoBr;45-48;12;1;Bass Clarinet, Bass Saxophone;SINE;0
-CTRLVE4;OTMA4;Contrabassoon, Euphonium & Tuba;LoBr;49-52;13;1;Contrabassoon, Euphonium & Tuba;SINE;0
-CTRLVE4;OTMA4;Female Choir;Choir;53-56;14;1;Female Choir;SINE;0
-CTRLVE4;OTMA4;Male Choir;Choir;57-60;15;1;Male Choir;SINE;0
-CTRLVE4;OTMA4;Marimba, Xylophone & Piano;TunedPerc;61-64;16;1;Marimba, Xylophone & Piano;SINE;0
-CTRLVE4;OTMA4;Tuned Toms & Timpani;LoPerc;65-68;17;1;Tuned Toms & Timpani;SINE;0
-CTRLVE4;OTMA4;Kick Drum Ensemble;LoPerc;69-72;18;1;Kick Drum Ensemble;SINE;0
-CTRLVE4;OTMA4;Low Drums;LoPerc;73-76;19;1;Low Drums;SINE;0
-CTRLVE4;OTMA4;Cassa Anvil Thundersheet;MetalPerc;77-80;20;1;Cassa Anvil Thundersheet;SINE;0
-CTRLVE4;OTMA4;Metal 1;MetalPerc;81-84;21;1;Metal 1;SINE;0
-CTRLVE4;OTMA4;Metal 2;MetalPerc;85-88;22;1;Metal 2;SINE;0
+CTRLVE4;OTMA4;High Strings;HiStr;1-4;1;1;High Strings;SINE;135
+CTRLVE4;OTMA4;Mid Strings;MidStr;5-8;2;1;Mid Strings;SINE;136
+CTRLVE4;OTMA4;Low Strings;LoStr;9-12;3;1;Low Strings;SINE;137
+CTRLVE4;OTMA4;Flute & Piccolo;HiWW;13-16;4;1;Flute & Piccolo;SINE;138
+CTRLVE4;OTMA4;Flute, Oboe & Clarinet;HiWW;17-20;5;1;Flute, Oboe & Clarinet;SINE;139
+CTRLVE4;OTMA4;Bass Oboe & Basset Horn;MidWW;21-24;6;1;Bass Oboe & Basset Horn;SINE;140
+CTRLVE4;OTMA4;Horn, Wagner Tuba & Trombone;MidBr;25-28;7;1;Horn, Wagner Tuba & Trombone;SINE;141
+CTRLVE4;OTMA4;Trumpet & Muted Trumpet;HiBr;29-32;8;1;Trumpet & Muted Trumpet;SINE;142
+CTRLVE4;OTMA4;Flute, English Horn & Muted Trumpet;HiBr;33-36;9;1;Flute, English Horn & Muted Trumpet;SINE;143
+CTRLVE4;OTMA4;Bassoon & Horn;MidBr;37-40;10;1;Bassoon & Horn;SINE;144
+CTRLVE4;OTMA4;Bass Clarinet & Muted Bass Trombone;LoBr;41-44;11;1;Bass Clarinet & Muted Bass Trombone;SINE;145
+CTRLVE4;OTMA4;Bass Clarinet, Bass Saxophone;LoBr;45-48;12;1;Bass Clarinet, Bass Saxophone;SINE;146
+CTRLVE4;OTMA4;Contrabassoon, Euphonium & Tuba;LoBr;49-52;13;1;Contrabassoon, Euphonium & Tuba;SINE;147
+CTRLVE4;OTMA4;Female Choir;Choir;53-56;14;1;Female Choir;SINE;148
+CTRLVE4;OTMA4;Male Choir;Choir;57-60;15;1;Male Choir;SINE;149
+CTRLVE4;OTMA4;Marimba, Xylophone & Piano;TunedPerc;61-64;16;1;Marimba, Xylophone & Piano;SINE;150
+CTRLVE4;OTMA4;Tuned Toms & Timpani;LoPerc;65-68;17;1;Tuned Toms & Timpani;SINE;151
+CTRLVE4;OTMA4;Kick Drum Ensemble;LoPerc;69-72;18;1;Kick Drum Ensemble;SINE;32
+CTRLVE4;OTMA4;Low Drums;LoPerc;73-76;19;1;Low Drums;SINE;32
+CTRLVE4;OTMA4;Cassa Anvil Thundersheet;MetalPerc;77-80;20;1;Cassa Anvil Thundersheet;SINE;32
+CTRLVE4;OTMA4;Metal 1;MetalPerc;81-84;21;1;Metal 1;SINE;32
+CTRLVE4;OTMA4;Metal 2;MetalPerc;85-88;22;1;Metal 2;SINE;32
 CTRLVE4;OTSA;String Quartet;HiStr;89-92;23;1;String Quartet;SINE;35
 CTRLVE4;OTSA;Solo Viola;HiStr;93-96;24;1;Solo Viola;SINE;36
 CTRLVE4;OTSA;Solo Cello;MidStr;97-100;25;1;Solo Cello;SINE;37
@@ -586,12 +586,12 @@ CTRLVE7;OTop;Keys;;67-68;34;1;Freehand;SINE;0
 ;;;;;;3;Far out dust;;0
 ;;;;;;4;Notion;;0
 CTRLVE7;OTop;Opaline drum kit;;69-70;35;1;Opaline drum kit;SINE;0
-CTRLVE7;OTkh;Balafon;;71-72;36;1;Balafon;SINE;0
-CTRLVE7;OTkh;Dholak;;73-74;37;1;Dholak;SINE;0
-CTRLVE7;OTkh;Prepared frame drum;;75-76;38;1;Prepared frame drum;SINE;0
-CTRLVE7;OTkh;Prepared floor tom;;77-78;39;1;Prepared floor tom;SINE;0
-CTRLVE7;OTkh;Custom gamelan;;79-80;40;1;Custom gamelan;SINE;0
-CTRLVE7;OTkh;Custom cymbals;;81-82;41;1;Custom cymbals;SINE;0
+CTRLVE7;OTkh;Balafon;;71-72;36;1;Balafon;SINE;125
+CTRLVE7;OTkh;Dholak;;73-74;37;1;Dholak;SINE;126
+CTRLVE7;OTkh;Prepared frame drum;;75-76;38;1;Prepared frame drum;SINE;127
+CTRLVE7;OTkh;Prepared floor tom;;77-78;39;1;Prepared floor tom;SINE;80
+CTRLVE7;OTkh;Custom gamelan;;79-80;40;1;Custom gamelan;SINE;128
+CTRLVE7;OTkh;Custom cymbals;;81-82;41;1;Custom cymbals;SINE;80
 CTRLVE7;OTkh;Pads;;83-84;42;1;Meristem;SINE;0
 ;;;;;;2;Toxicity;;0
 ;;;;;;3;Exon;;0
@@ -608,13 +608,13 @@ CTRLVE7;OTkh;Percussion;;89-90;45;1;Induction;SINE;0
 CTRLVE7;;;;91-92;46;1;;SINE;0
 CTRLVE7;;;;93-94;47;1;;SINE;0
 CTRLVE7;;;;95-96;48;1;;SINE;0
-CTRLVE8;OTlo;Soprano chalumeau;;1-2;1;1;;SINE;0
-CTRLVE8;OTlo;Alto chalumeau;;3-4;2;1;;SINE;0
-CTRLVE8;OTlo;Tenor chalumeau;;5-6;3;1;;SINE;0
-CTRLVE8;OTlo;Bass chalumeau;;7-8;4;1;;SINE;0
-CTRLVE8;OTlo;Musette accordion;;9-10;5;1;;SINE;0
-CTRLVE8;OTlo;Musette accordion noises;;11-12;6;1;;SINE;0
-CTRLVE8;OTlo;Tuba;;13-14;7;1;;SINE;0
+CTRLVE8;OTlo;Soprano chalumeau;;1-2;1;1;Soprano chalumeau;SINE;129
+CTRLVE8;OTlo;Alto chalumeau;;3-4;2;1;Alto chalumeau;SINE;129
+CTRLVE8;OTlo;Tenor chalumeau;;5-6;3;1;Tenor chalumeau;SINE;130
+CTRLVE8;OTlo;Bass chalumeau;;7-8;4;1;Bass chalumeau;SINE;131
+CTRLVE8;OTlo;Musette accordion;;9-10;5;1;Musette accordion;SINE;132
+CTRLVE8;OTlo;Musette accordion noises;;11-12;6;1;Musette accordion noises;SINE;133
+CTRLVE8;OTlo;Tuba;;13-14;7;1;Tuba;SINE;134
 CTRLVE8;OTlo;Pads;;15-16;8;1;Cisse;SINE;0
 ;;;;;;2;Indre;;0
 ;;;;;;3;Acheneau;;0
