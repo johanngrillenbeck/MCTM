@@ -19,8 +19,10 @@ This repository contains Lua scripts for REAPER to manage large orchestral templ
 - `M`: MIDI track
 - `D`: disabled (ignored by functions unless explicitly included)
 - `CTRL`: controller/host track (e.g., VEPro instance)
+- `FX`: effects return track (needs audio track return from VEpro Instance but no MIDI)
 - Prefixes are recognized as space-separated leading tokens. Example: `D M Viola` → prefixes `{"D","M"}`, name `"Viola"`.
 - CTRL tracks never have A, M or D prefixes, since they have a distinct role and can never be disabled.
+- FX tracks never have A, M or D prefixes, since they have a distinct role and can never be disabled.
 - Canonical instrument identity is derived from the remaining name (lowercased, trimmed).
 - Audio Buses are not explicitly prefixed; they are identified by absence of A/M/CTRL and presence of recieving audio from A tracks.
 
@@ -68,6 +70,8 @@ local new = mctm.format_label({"M"}, "Viola") -- "M Viola"
  CSV loaders: keep robust to spacing and casing in names; map to `A/M/CTRL` roles using helper functions.
  Dependencies: requires SWS/BR extension (e.g., `BR_GetSetTrackSendInfo`) for MIDI/audio send manipulation used by routing scripts.
 
+ The use of the Reaper API can create conflicts with the integrated Lua Type checker, since the Reaper API ia not fully typed. Ignore false positives from the type checker related to Reaper API calls.
+
  Routing conventions:
    - Audio from `CTRL` to `A` tracks in ascending quad groups: first selected `A` receives source channels 1–4, second 5–8, etc.; each destination is set to 4 channels; sends are created as two stereo pairs per quad; MIDI on these sends is disabled.
      - Reference: [jg_MCTM_Recieve from CTRL - ascending quad audio no midi.lua](jg_MCTM_Recieve%20from%20CTRL%20-%20ascending%20quad%20audio%20no%20midi.lua)
@@ -81,6 +85,5 @@ local new = mctm.format_label({"M"}, "Viola") -- "M Viola"
    - Always disable audio (`I_SRCCHAN`/`I_DSTCHAN = -1`) for MIDI-only sends to `CTRL`.
    - Ensure source/destination channel counts are set before creating sends (`I_NCHAN`).
    - Use ascending ordering of currently selected tracks to determine bus/channel group assignment.
-- `hello world.lua`: minimal demo of library usage.
 
 Keep instructions concise and grounded in these conventions. When in doubt, parse labels and use `findPairs` before acting across tracks.

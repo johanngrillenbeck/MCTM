@@ -27,6 +27,7 @@ end
 local COLOR_PRESETS = {
     ctrl = "#a1a1a1",
     bus  = "#906BFA",
+    fx = "#faf06b",
 }
 
 -- Master/project channel format: buses inherit this by default.
@@ -41,6 +42,7 @@ end
 local COLORS = {
     ctrl = native_from_hex(COLOR_PRESETS.ctrl),
     bus  = native_from_hex(COLOR_PRESETS.bus),
+    fx   = native_from_hex(COLOR_PRESETS.fx),
     hex  = COLOR_PRESETS,
 }
 local function set_track_color(tr, nativeColor)
@@ -257,22 +259,8 @@ for _, ctrlname in ipairs(ctrl_order) do
     ctrl_tracks[ctrlname] = found
 end
 
--- Move CTRL tracks to top of TCP in CSV order
-if #ctrl_order > 0 then
-    dbg("Reordering CTRL tracks to top...")
-    -- move in reverse so final order matches ctrl_order
-    for i = #ctrl_order, 1, -1 do
-        local cname = ctrl_order[i]
-        local tr = ctrl_tracks[cname]
-        if tr then
-            -- clear selection
-            for j = 0, reaper.CountTracks(0)-1 do reaper.SetTrackSelected(reaper.GetTrack(0,j), false) end
-            reaper.SetTrackSelected(tr, true)
-            reaper.ReorderSelectedTracks(0, 0)
-        end
-    end
-    reaper.TrackList_AdjustWindows(false)
-end
+-- Do not reorder CTRL tracks here.
+-- A final ordering pass at the end will place CTRL tracks last.
 
     -- Create / find all Audio Bus tracks (batch) so we don't check per-row repeatedly
     local bus_tracks = {}
@@ -442,6 +430,177 @@ for i, r in ipairs(rows) do
     local midi_bus = tonumber(r.midi_bus) or nil
 
     if tname == "" then goto skip end
+
+    local is_fx = (tostring(lib or ""):upper() == "FX")
+
+    -- FX return tracks: create only an FX track (no MIDI track), and route like an A track.
+    -- CSV uses Library Prefix = "FX" only as a marker; the created track prefix is always "FX".
+    if is_fx then
+        local FX_name = "FX " .. tname
+        local FX = find_track_by_name(FX_name)
+        local createdFX = false
+        if FX then
+            dbg("  Found existing FX track: " .. FX_name)
+        else
+            local idxFX = reaper.CountTracks(0)
+            reaper.InsertTrackAtIndex(idxFX, true)
+            FX = reaper.GetTrack(0, idxFX)
+            reaper.GetSetMediaTrackInfo_String(FX, "P_NAME", FX_name, true)
+            createdFX = true
+            dbg("  Created FX track: " .. FX_name)
+            -- FX returns are mix tracks: show in MCP, hide in TCP
+            pcall(function() reaper.SetMediaTrackInfo_Value(FX, "B_SHOWINTCP", 0) end)
+            pcall(function() reaper.SetMediaTrackInfo_Value(FX, "B_SHOWINMIXER", 1) end)
+        end
+
+        -- apply FX color preset (idempotent)
+        set_track_color(FX, COLORS.fx)
+
+        -- routing: FX -> its Audio Bus (if specified). If bus missing/unspecified, allow master send.
+        local bus_name = r.audio_send_to or ""
+        local bus_tr = (bus_name ~= "" and bus_tracks[bus_name]) or nil
+        if bus_tr and bus_name ~= "" then
+            pcall(function() reaper.SetMediaTrackInfo_Value(FX, "B_MAINSEND", 0) end)
+            -- create stereo send pairs from FX -> Bus mapping 1/2->1/2, 3/4->3/4, etc.
+            local start_ch = 1
+            local a,b = (ve or ""):match("(%d+)%s*-%s*(%d+)")
+            local end_ch = nil
+            if a and b then end_ch = tonumber(b) end
+            if not end_ch then
+                local single = (ve or ""):match("(%d+)")
+                if single then end_ch = tonumber(single) end
+            end
+            if not end_ch then end_ch = start_ch + (MASTER_NCHANNELS - 1) end
+            local channel_count = math.max(1, (end_ch - start_ch + 1))
+            if channel_count > MASTER_NCHANNELS then
+                dbg(string.format("  FX channel count %d exceeds MASTER_NCHANNELS (%d) — capping to master value", channel_count, MASTER_NCHANNELS))
+                channel_count = MASTER_NCHANNELS
+            end
+
+            local pairs = math.floor(channel_count / 2)
+            local has_odd = (channel_count % 2) == 1
+            for pair = 0, pairs-1 do
+                local pair_src = pair * 2
+                local pair_dst = pair * 2
+                if send_has_dest_and_chans(FX, bus_tr, pair_src, pair_dst) then
+                    dbg(string.format("  Audio send pair already exists from %s to bus %s (pair src=%d)", FX_name, bus_name, pair_src))
+                else
+                    local sidx = reaper.CreateTrackSend(FX, bus_tr)
+                    if sidx and sidx >= 0 then
+                        dbg(string.format("  Created audio send from %s to bus %s (sendidx=%d pair_src=%d)", FX_name, bus_name, sidx, pair_src))
+                        pcall(function()
+                            reaper.BR_GetSetTrackSendInfo(FX, 0, sidx, "I_SRCCHAN", true, pair_src)
+                            reaper.BR_GetSetTrackSendInfo(FX, 0, sidx, "I_DSTCHAN", true, pair_dst)
+                            reaper.BR_GetSetTrackSendInfo(FX, 0, sidx, "I_MIDI_SRCBUS", true, -1)
+                            reaper.BR_GetSetTrackSendInfo(FX, 0, sidx, "I_MIDI_DSTBUS", true, -1)
+                            reaper.BR_GetSetTrackSendInfo(FX, 0, sidx, "I_MIDI_SRCCHAN", true, -1)
+                            reaper.BR_GetSetTrackSendInfo(FX, 0, sidx, "I_MIDI_DSTCHAN", true, -1)
+                            reaper.BR_GetSetTrackSendInfo(FX, 0, sidx, "D_VOL", true, 1.0)
+                            reaper.BR_GetSetTrackSendInfo(FX, 0, sidx, "B_MUTE", true, 0.0)
+                        end)
+                    end
+                end
+            end
+            if has_odd then
+                local last_src = pairs * 2
+                local last_dst = pairs * 2
+                if last_src < MASTER_NCHANNELS then
+                    if not send_has_dest_and_chans(FX, bus_tr, last_src, last_dst) then
+                        local sidx = reaper.CreateTrackSend(FX, bus_tr)
+                        if sidx and sidx >= 0 then
+                            dbg(string.format("  Created single-channel audio send from %s to bus %s (sendidx=%d src=%d)", FX_name, bus_name, sidx, last_src))
+                            pcall(function()
+                                reaper.BR_GetSetTrackSendInfo(FX, 0, sidx, "I_SRCCHAN", true, last_src)
+                                reaper.BR_GetSetTrackSendInfo(FX, 0, sidx, "I_DSTCHAN", true, last_dst)
+                                reaper.BR_GetSetTrackSendInfo(FX, 0, sidx, "I_MIDI_SRCBUS", true, -1)
+                                reaper.BR_GetSetTrackSendInfo(FX, 0, sidx, "I_MIDI_DSTBUS", true, -1)
+                                reaper.BR_GetSetTrackSendInfo(FX, 0, sidx, "I_MIDI_SRCCHAN", true, -1)
+                                reaper.BR_GetSetTrackSendInfo(FX, 0, sidx, "I_MIDI_DSTCHAN", true, -1)
+                                reaper.BR_GetSetTrackSendInfo(FX, 0, sidx, "D_VOL", true, 1.0)
+                                reaper.BR_GetSetTrackSendInfo(FX, 0, sidx, "B_MUTE", true, 0.0)
+                            end)
+                        end
+                    else
+                        dbg(string.format("  Single-channel audio send already exists from %s to bus %s (src=%d)", FX_name, bus_name, last_src))
+                    end
+                else
+                    dbg(string.format("  Skipping leftover single channel %d — exceeds MASTER_NCHANNELS (%d)", last_src, MASTER_NCHANNELS))
+                end
+            end
+        else
+            -- If no bus exists (or none specified), let FX flow to master.
+            pcall(function() reaper.SetMediaTrackInfo_Value(FX, "B_MAINSEND", 1) end)
+        end
+
+        if createdFX then dbg(string.format("Applied FX preset color %s to %s", tostring(COLOR_PRESETS.fx), FX_name)) end
+
+        -- routing: FX receives audio from CTRL (stereo/quad/etc depending on VE range)
+        local src_track = ctrl_tracks[ctrl]
+        if src_track then
+            local start_ch = 1
+            local a,b = (ve or ""):match("(%d+)%s*-%s*(%d+)")
+            local end_ch = nil
+            if a and b then
+                start_ch = tonumber(a) or start_ch
+                end_ch = tonumber(b)
+            else
+                local single = (ve or ""):match("(%d+)")
+                local single_n = tonumber(single)
+                if single_n then start_ch = single_n end
+                end_ch = start_ch + 3
+            end
+            local src_start = start_ch - 1
+            local channel_count = math.max(1, (end_ch - start_ch + 1))
+            reaper.SetMediaTrackInfo_Value(FX, "I_NCHAN", channel_count)
+            dbg(string.format("  FX track %s I_NCHAN set to %d (VE %s)", FX_name, channel_count, tostring(ve)))
+
+            local pairs = math.floor(channel_count / 2)
+            local has_odd = (channel_count % 2) == 1
+            if receive_from_src_exists(src_track, FX) or send_exists_to_dest(src_track, FX) then
+                dbg(string.format("    At least one send already exists from CTRL to %s — skipping channel creation to avoid duplicates.", FX_name))
+            else
+                for pair = 0, pairs-1 do
+                    local pair_src = src_start + pair*2
+                    local pair_dst = pair*2
+                    local sendidx = reaper.CreateTrackSend(src_track, FX)
+                    if sendidx and sendidx >= 0 then
+                        dbg(string.format("    Created stereo send to FX: sendidx=%d pair=%d src=%d dst=%d", sendidx, pair, pair_src, pair_dst))
+                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_SRCCHAN", true, pair_src)
+                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_DSTCHAN", true, pair_dst)
+                        pcall(function()
+                            reaper.SetTrackSendInfo_Value(src_track, 0, sendidx, "I_SRCCHAN", pair_src)
+                            reaper.SetTrackSendInfo_Value(src_track, 0, sendidx, "I_DSTCHAN", pair_dst)
+                        end)
+                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_MIDI_SRCBUS", true, -1)
+                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_MIDI_DSTBUS", true, -1)
+                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_MIDI_SRCCHAN", true, -1)
+                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_MIDI_DSTCHAN", true, -1)
+                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "D_VOL", true, 1.0)
+                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "B_MUTE", true, 0.0)
+                    end
+                end
+                if has_odd then
+                    local last_src = src_start + pairs*2
+                    local last_dst = pairs*2
+                    local sendidx = reaper.CreateTrackSend(src_track, FX)
+                    if sendidx and sendidx >= 0 then
+                        dbg(string.format("    Created single-channel send to FX: sendidx=%d src=%d dst=%d", sendidx, last_src, last_dst))
+                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_SRCCHAN", true, last_src)
+                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_DSTCHAN", true, last_dst)
+                        pcall(function()
+                            reaper.SetTrackSendInfo_Value(src_track, 0, sendidx, "I_SRCCHAN", last_src)
+                            reaper.SetTrackSendInfo_Value(src_track, 0, sendidx, "I_DSTCHAN", last_dst)
+                        end)
+                    end
+                end
+            end
+        else
+            dbg("Warning: CTRL track not found for " .. tostring(ctrl))
+        end
+
+        created[#created+1] = {A=FX, M=nil}
+        goto skip
+    end
 
     local base = (lib ~= "" and (lib .. " " .. tname) or tname)
 
@@ -688,110 +847,188 @@ for i, r in ipairs(rows) do
 end
 
 reaper.TrackList_AdjustWindows(false)
--- Final ordering pass: place Bus tracks (no prefix) after CTRL tracks according to positions_entries
+
+-- Final ordering pass: Instruments (A/M pairs) -> FX -> Busses -> CTRL
 do
+    -- Build a map of bus -> position (exact matching) and a lookup for DEFAULT.
+    -- If no positions CSV was provided, fall back to deterministic ordering.
+    local pos_map = {}
+    local ordered_buses = {}
     if #positions_entries > 0 then
         table.sort(positions_entries, function(a,b) return a.pos < b.pos end)
-        -- count actual CTRL tracks in ctrl_order
-        local ctrl_count = 0
-        for _, cname in ipairs(ctrl_order) do if ctrl_tracks[cname] then ctrl_count = ctrl_count + 1 end end
-        dbg(string.format("Reordering %d Bus entries after %d CTRL tracks", #positions_entries, ctrl_count))
-        -- move in reverse so final order is ascending
-        for i = #positions_entries, 1, -1 do
-            local entry = positions_entries[i]
-            local bname = entry.bus
-            if bname and bname ~= "" then
-                local tr = find_track_by_name(bname)
+        for _, e in ipairs(positions_entries) do
+            pos_map[e.bus] = e.pos
+            table.insert(ordered_buses, e.bus)
+        end
+    else
+        -- fallback: order buses alphabetically by name
+        for bname,_ in pairs(bus_tracks) do table.insert(ordered_buses, bname) end
+        table.sort(ordered_buses)
+    end
+    local default_pos = pos_map["DEFAULT"]
+
+    -- 1) Reorder instrument A/M pairs to the top, bucketed by bus order (CSV order preserved within each bucket)
+    do
+        local buckets = {}
+        for _, bname in ipairs(ordered_buses) do buckets[bname] = {} end
+
+        for _, r in ipairs(rows) do
+            local is_fx = (tostring(r.lib or ""):upper() == "FX")
+            if is_fx then goto continue_instr end
+
+            local base = (r.lib ~= "" and (r.lib .. " " .. r.name) or r.name)
+            local A_name = "A " .. base
+            local D_A_name = "D " .. A_name
+            local M_name = "M " .. base
+            local D_M_name = "D " .. M_name
+            local A_tr = find_track_by_name(A_name) or find_track_by_name(D_A_name)
+            local M_tr = find_track_by_name(M_name) or find_track_by_name(D_M_name)
+            if not A_tr then goto continue_instr end
+
+            local bus = r.audio_send_to or ""
+            local target_bus = nil
+            if bus == "" then
+                if default_pos then target_bus = "DEFAULT" end
+            else
+                if pos_map[bus] then target_bus = bus
+                else
+                    if default_pos then target_bus = "DEFAULT" end
+                end
+            end
+
+            -- if no positions file and no DEFAULT, just bucket into the first bus bucket (or a synthetic one)
+            if not target_bus then
+                target_bus = ordered_buses[1]
+                if not target_bus then
+                    target_bus = "__NO_BUS__"
+                    if not buckets[target_bus] then table.insert(ordered_buses, target_bus) buckets[target_bus] = {} end
+                end
+            end
+
+            if not buckets[target_bus] then buckets[target_bus] = {} end
+            table.insert(buckets[target_bus], {A=A_tr, M=M_tr, A_name=A_name, M_name=M_name, bus=target_bus})
+
+            ::continue_instr::
+        end
+
+        local final_pairs = {}
+        for _, bname in ipairs(ordered_buses) do
+            local bucket = buckets[bname]
+            if bucket then
+                for _, p in ipairs(bucket) do table.insert(final_pairs, p) end
+            end
+        end
+
+        local insert_index = 0
+        local instrument_track_count = 0
+        for i = #final_pairs, 1, -1 do
+            local p = final_pairs[i]
+            if p and p.A then
+                for j = 0, reaper.CountTracks(0)-1 do reaper.SetTrackSelected(reaper.GetTrack(0,j), false) end
+                reaper.SetTrackSelected(p.A, true)
+                if p.M then reaper.SetTrackSelected(p.M, true) end
+                reaper.ReorderSelectedTracks(insert_index, 0)
+                instrument_track_count = instrument_track_count + 1
+                if p.M then instrument_track_count = instrument_track_count + 1 end
+            end
+        end
+
+        -- 2) Reorder FX tracks after instruments.
+        local fx_by_ctrl = {}
+        local fx_ctrls = {}
+        local fx_track_count = 0
+        for _, r in ipairs(rows) do
+            local is_fx = (tostring(r.lib or ""):upper() == "FX")
+            if is_fx then
+                local fx_name = "FX " .. tostring(r.name or "")
+                local fx_tr = find_track_by_name(fx_name)
+                if fx_tr then
+                    local c = tostring(r.ctrl or "")
+                    if not fx_by_ctrl[c] then fx_by_ctrl[c] = {} table.insert(fx_ctrls, c) end
+                    table.insert(fx_by_ctrl[c], fx_tr)
+                end
+            end
+        end
+
+        local function ctrl_sort_key(ctrlname)
+            local n = tonumber((tostring(ctrlname or ""):match("(%d+)$")))
+            if n then return n end
+            return 999999
+        end
+
+        table.sort(fx_ctrls, function(a,b)
+            local ka, kb = ctrl_sort_key(a), ctrl_sort_key(b)
+            if ka ~= kb then return ka < kb end
+            return tostring(a) < tostring(b)
+        end)
+
+        local final_fx = {}
+        for _, c in ipairs(fx_ctrls) do
+            local list = fx_by_ctrl[c]
+            if list then
+                for _, tr in ipairs(list) do
+                    table.insert(final_fx, tr)
+                end
+            end
+        end
+
+        local fx_insert_index = instrument_track_count
+        for i = #final_fx, 1, -1 do
+            local tr = final_fx[i]
+            if tr then
+                for j = 0, reaper.CountTracks(0)-1 do reaper.SetTrackSelected(reaper.GetTrack(0,j), false) end
+                reaper.SetTrackSelected(tr, true)
+                reaper.ReorderSelectedTracks(fx_insert_index, 0)
+                fx_track_count = fx_track_count + 1
+            end
+        end
+
+        -- 3) Reorder Bus tracks after instruments + FX.
+        local bus_insert_index = instrument_track_count + fx_track_count
+        if #ordered_buses > 0 then
+            for i = #ordered_buses, 1, -1 do
+                local bname = ordered_buses[i]
+                if bname and bname ~= "DEFAULT" and bname ~= "__NO_BUS__" then
+                    local tr = find_track_by_name(bname)
+                    if tr then
+                        for j = 0, reaper.CountTracks(0)-1 do reaper.SetTrackSelected(reaper.GetTrack(0,j), false) end
+                        reaper.SetTrackSelected(tr, true)
+                        reaper.ReorderSelectedTracks(bus_insert_index, 0)
+                    end
+                end
+            end
+        end
+
+        -- 4) Reorder CTRL tracks to the bottom in CSV order.
+        if #ctrl_order > 0 then
+            for i = #ctrl_order, 1, -1 do
+                local cname = ctrl_order[i]
+                local tr = ctrl_tracks[cname]
                 if tr then
-                    -- clear selection
                     for j = 0, reaper.CountTracks(0)-1 do reaper.SetTrackSelected(reaper.GetTrack(0,j), false) end
                     reaper.SetTrackSelected(tr, true)
-                    reaper.ReorderSelectedTracks(0, ctrl_count)
-                    dbg(string.format("  Moved Bus '%s' to index %d (position=%d)", tostring(bname), ctrl_count, entry.pos))
-                else
-                    dbg(string.format("  Bus track not found for ordering: '%s' (skipping)", tostring(bname)))
+                    reaper.ReorderSelectedTracks(-1, 0)
                 end
             end
         end
     end
 end
 
-    -- Now reorder all A/M pairs as a single block after the Bus tracks.
-    -- Build a map of bus -> position (exact matching) and a lookup for DEFAULT
-    do
-        if #positions_entries > 0 then
-            local pos_map = {}
-            local ordered_buses = {}
-            for _, e in ipairs(positions_entries) do
-                pos_map[e.bus] = e.pos
-                table.insert(ordered_buses, e.bus)
-            end
-            -- find DEFAULT position if present
-            local default_pos = pos_map["DEFAULT"]
-
-            -- prepare buckets in the order of positions_entries
-            local buckets = {}
-            for _, bname in ipairs(ordered_buses) do buckets[bname] = {} end
-
-            -- iterate original CSV rows in order and assign each A/M pair to the appropriate bucket
-            for _, r in ipairs(rows) do
-                local base = (r.lib ~= "" and (r.lib .. " " .. r.name) or r.name)
-                local A_name = "A " .. base
-                local D_A_name = "D " .. A_name
-                local M_name = "M " .. base
-                local D_M_name = "D " .. M_name
-                local A_tr = find_track_by_name(A_name) or find_track_by_name(D_A_name)
-                local M_tr = find_track_by_name(M_name) or find_track_by_name(D_M_name)
-                if not A_tr then goto continue_row end
-                local bus = r.audio_send_to or ""
-                local target_bus = nil
-                if bus == "" then
-                    if default_pos then target_bus = "DEFAULT" end
-                else
-                    if pos_map[bus] then target_bus = bus
-                    else
-                        -- fallback to DEFAULT if defined
-                        if default_pos then target_bus = "DEFAULT" end
-                    end
-                end
-                if target_bus then
-                    table.insert(buckets[target_bus], {A=A_tr, M=M_tr, A_name=A_name, M_name=M_name, bus=target_bus})
-                end
-                ::continue_row::
-            end
-
-            -- build final ordered list of pairs (CSV order preserved within each bucket)
-            local final_pairs = {}
-            for _, bname in ipairs(ordered_buses) do
-                for _, p in ipairs(buckets[bname]) do table.insert(final_pairs, p) end
-            end
-
-            -- compute insertion index: after CTRL tracks and after Bus tracks (current counts)
-            local ctrl_count = 0
-            for _, cname in ipairs(ctrl_order) do if ctrl_tracks[cname] then ctrl_count = ctrl_count + 1 end end
-            local bus_count = 0
-            for k,_ in pairs(bus_tracks) do bus_count = bus_count + 1 end
-            local insert_index = ctrl_count + bus_count
-
-            -- move pairs in reverse so the final order becomes ascending
-            for i = #final_pairs, 1, -1 do
-                local p = final_pairs[i]
-                if p and p.A then
-                    -- clear selection
-                    for j = 0, reaper.CountTracks(0)-1 do reaper.SetTrackSelected(reaper.GetTrack(0,j), false) end
-                    reaper.SetTrackSelected(p.A, true)
-                    if p.M then reaper.SetTrackSelected(p.M, true) end
-                    reaper.ReorderSelectedTracks(0, insert_index)
-                    dbg(string.format("  Moved pair %s (bus=%s)", tostring(p.A_name), tostring(p.bus)))
-                end
-            end
-        end
-    end
-
 reaper.PreventUIRefresh(-1)
 reaper.Undo_EndBlock("jg_MCTM: Build tracks from CSV", -1)
 
-dbg("Created "..tostring(#created).." A/M pairs.")
+do
+    local pair_count = 0
+    local fx_count = 0
+    for _, entry in ipairs(created) do
+        if entry and entry.A and entry.M then
+            pair_count = pair_count + 1
+        elseif entry and entry.A and not entry.M then
+            fx_count = fx_count + 1
+        end
+    end
+    dbg(string.format("Created %d A/M pairs and %d FX tracks.", pair_count, fx_count))
+end
 do
     local keys = {}
     for k,_ in pairs(ctrl_tracks) do table.insert(keys, k) end
