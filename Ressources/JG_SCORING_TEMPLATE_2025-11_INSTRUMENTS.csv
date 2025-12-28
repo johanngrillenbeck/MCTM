@@ -56,7 +56,7 @@ CTRLVE1;OTBSFC;Violin II;HiStr;109-112;28;1;Violin II FC;SINE;31
 CTRLVE1;OTBSFC;Viola;MidStr;113-116;29;1;Viola FC;SINE;31
 CTRLVE1;OTBSFC;Cello;LoStr;117-120;30;1;Cello FC;SINE;31
 CTRLVE1;OTBSFC;Bass;LoStr;121-124;31;1;Bass FC;SINE;31
-CTRLVE1;Mod;Pianoteq;Piano;125-128;32;1;Steinway Model D New York;Pianoteq;0
+CTRLVE1;;;;125-128;32;1;;;
 CTRLVE2;OTBB;Trombone 1;MidBr;1-4;1;1;Trombone 1;SINE;16
 CTRLVE2;OTBB;Trombone 2;MidBr;5-8;2;1;Trombone 2;SINE;16
 CTRLVE2;OTBB;Bass Trombone;LoBr;9-12;3;1;Bass Trombone;SINE;16
@@ -202,7 +202,7 @@ CTRLVE3;OTBP;Tom;MidPerc;101-104;26;1;13'';SINE;32
 ;;;;;;2;14'';;32
 ;;;;;;3;15'';;32
 ;;;;;;4;16'';;32
-CTRLVE3;;;;105-108;27;1;;;0
+CTRLVE3;Mod;Pianoteq;Piano;105-108;27;1;Steinway Model D New York;Pianoteq;0
 CTRLVE3;;;;109-112;28;1;;;0
 CTRLVE3;;;;113-116;29;1;;;0
 CTRLVE3;;;;117-120;30;1;;;0
@@ -243,8 +243,10 @@ CTRLVE4;OTSA;Kannel, Harp and Piano;TunedPerc;117-120;30;1;Kannel, Harp and Pian
 ;;;;;;2;Solo Kannel;;45
 ;;;;;;3;Solo Harp;;46
 ;;;;;;4;Solo Piano;;47
-CTRLVE4;;;;121-124;31;;;;0
-CTRLVE4;;;;125-128;32;;;;0
+CTRLVE4;FX;Ret 1 (CTRLVE4);;121-122;0;0;;;0
+CTRLVE4;FX;Ret 2 (CTRLVE4);;123-124;0;0;;;0
+CTRLVE4;FX;Ret 3 (CTRLVE4);;125-126;0;0;;;
+CTRLVE4;FX;Ret 4 (CTRLVE4);;127-128;0;0;;;
 CTRLVE5;OTSA;Tubular Bells;TunedPerc;1-4;1;1;Tubular Bells;SINE;48
 CTRLVE5;OTSA;Glockenspiel and Crotales;TunedPerc;5-8;2;1;Glockenspiel and Crotales;SINE;49
 ;;;;;;2;Glockenspiel;SINE;50
@@ -507,33 +509,37 @@ CTRLVE6;OTor;Kicks;LoPerc;91-92;46;1;Cecropia;SINE;0
 ;;;;;;5;Timber bamboo;;0
 CTRLVE6;;;;93-94;47;1;;;0
 CTRLVE6;;;;95-96;48;1;;;0
-CTRLVE7;OTum;Flute Ensemble;;1-2;1;1;Flute Ensemble;SINE;107
-CTRLVE7;OTum;Percussion Ensemble;;3-4;2;1;Percussion Ensemble;SINE;0
-CTRLVE7;OTum;High Flute;;5-6;3;1;High Flute;SINE;108
-CTRLVE7;OTum;Mid Flute;;7-8;4;1;Mid Flute;SINE;109
-CTRLVE7;OTum;Low Flute;;9-10;5;1;Low Flute;SINE;110
-CTRLVE7;OTum;Humming Man;;11-12;6;1;Humming Man;SINE;111
-CTRLVE7;OTum;Rainmaker;;13-14;7;1;Rainmaker;SINE;112
-CTRLVE7;OTum;Shaman Drum;;15-16;8;1;Shaman Drum;SINE;113
-CTRLVE7;OTum;Frame Drum;;17-18;9;1;Frame Drum;SINE;114
-CTRLVE7;OTum;Gong Drum;;19-20;10;1;Gong Drum;SINE;115
-CTRLVE7;OTum;Pads;;21-22;11;1;Condor falls;SINE;0
+CTRLVE6;FX;Ret 1 (CTRLVE6);;97-98;0;0;;;
+CTRLVE6;FX;Ret 2 (CTRLVE6);;99-100;0;0;;;
+CTRLVE6;FX;Ret 3 (CTRLVE6);;101-102;0;0;;;
+CTRLVE6;FX;Ret 4 (CTRLVE6);;103-104;0;0;;;
+CTRLVE7;OTum;Flute Ensemble;HiWW;1-2;1;1;Flute Ensemble;SINE;107
+CTRLVE7;OTum;Percussion Ensemble;MidPerc;3-4;2;1;Percussion Ensemble;SINE;0
+CTRLVE7;OTum;High Flute;HiWW;5-6;3;1;High Flute;SINE;108
+CTRLVE7;OTum;Mid Flute;MidWW;7-8;4;1;Mid Flute;SINE;109
+CTRLVE7;OTum;Low Flute;LoWW;9-10;5;1;Low Flute;SINE;110
+CTRLVE7;OTum;Humming Man;Choir;11-12;6;1;Humming Man;SINE;111
+CTRLVE7;OTum;Rainmaker;MidPerc;13-14;7;1;Rainmaker;SINE;112
+CTRLVE7;OTum;Shaman Drum;MidPerc;15-16;8;1;Shaman Drum;SINE;113
+CTRLVE7;OTum;Frame Drum;MidPerc;17-18;9;1;Frame Drum;SINE;114
+CTRLVE7;OTum;Gong Drum;MidPerc;19-20;10;1;Gong Drum;SINE;115
+CTRLVE7;OTum;Pads;PadSynth;21-22;11;1;Condor falls;SINE;0
 ;;;;;;2;Attempted flight;;0
 ;;;;;;3;State of flutter;;0
 ;;;;;;4;Watching owl|;;0
 ;;;;;;5;Earth frost;;0
-CTRLVE7;OTum;Plucks;;23-24;12;1;Upstream;SINE;0
+CTRLVE7;OTum;Plucks;PluckSynth;23-24;12;1;Upstream;SINE;0
 ;;;;;;2;Enshrined;;0
-CTRLVE7;OTum;Keys;;25-26;13;1;Flying sparks;SINE;0
+CTRLVE7;OTum;Keys;Piano;25-26;13;1;Flying sparks;SINE;0
 ;;;;;;2;Nighthawk;;0
-CTRLVE7;OTum;Drones;;27-28;14;1;Darkened fumes;SINE;0
+CTRLVE7;OTum;Drones;PadSynth;27-28;14;1;Darkened fumes;SINE;0
 ;;;;;;2;Remaining particles;;0
-CTRLVE7;OTum;Perc;;29-30;15;1;Crispy shaker;SINE;0
+CTRLVE7;OTum;Perc;MidPerc;29-30;15;1;Crispy shaker;SINE;0
 ;;;;;;2;Pitched shaman drum;;0
 ;;;;;;3;Arsis kick;;0
 ;;;;;;4;Umbra kick;;0
-CTRLVE7;OTpa;Piano;;31-32;16;1;Piano;SINE;116
-CTRLVE7;OTpa;Pads;;33-34;17;1;Azure;SINE;0
+CTRLVE7;OTpa;Piano;Piano;31-32;16;1;Piano;SINE;116
+CTRLVE7;OTpa;Pads;PadSynth;33-34;17;1;Azure;SINE;0
 ;;;;;;2;Silver;;0
 ;;;;;;3;Teal;;0
 ;;;;;;4;Choral;;0
@@ -541,16 +547,16 @@ CTRLVE7;OTpa;Pads;;33-34;17;1;Azure;SINE;0
 ;;;;;;6;Ube;;0
 ;;;;;;7;Ecru;;0
 ;;;;;;8;Charcoal;;0
-CTRLVE7;OTpa;Cerulean Pluck;;35-36;18;1;Cerulean Pluck;SINE;0
-CTRLVE7;OTpa;Lumber Keys;;37-38;19;1;Lumber Keys;SINE;0
-CTRLVE7;OTpa;Bass;;39-40;20;1;Crimson;SINE;0
+CTRLVE7;OTpa;Cerulean Pluck;PluckSynth;35-36;18;1;Cerulean Pluck;SINE;0
+CTRLVE7;OTpa;Lumber Keys;Piano;37-38;19;1;Lumber Keys;SINE;0
+CTRLVE7;OTpa;Bass;LoSynth;39-40;20;1;Crimson;SINE;0
 ;;;;;;2;Ochre;;0
-CTRLVE7;OTwh;Ensemble;;41-42;21;1;Ensemble;SINE;117
-CTRLVE7;OTwh;Flute;;43-44;22;1;Flute;SINE;118
-CTRLVE7;OTwh;Cornet con sordino;;45-46;23;1;Cornet con sordino;SINE;119
-CTRLVE7;OTwh;Flugelhorn;;47-48;24;1;Flugelhorn;SINE;120
-CTRLVE7;OTwh;Bass clarinet;;49-50;25;1;Bass clarinet;SINE;121
-CTRLVE7;OTwh;Pads;;51-52;26;1;Cirrus;SINE;0
+CTRLVE7;OTwh;Ensemble;MidBr;41-42;21;1;Ensemble;SINE;117
+CTRLVE7;OTwh;Flute;HiWW;43-44;22;1;Flute;SINE;118
+CTRLVE7;OTwh;Cornet con sordino;LoBr;45-46;23;1;Cornet con sordino;SINE;119
+CTRLVE7;OTwh;Flugelhorn;MidBr;47-48;24;1;Flugelhorn;SINE;120
+CTRLVE7;OTwh;Bass clarinet;LoWW;49-50;25;1;Bass clarinet;SINE;121
+CTRLVE7;OTwh;Pads;PadSynth;51-52;26;1;Cirrus;SINE;0
 ;;;;;;2;Ice crystals;;0
 ;;;;;;3;Halo;;0
 ;;;;;;4;Stratus;;0
@@ -559,74 +565,78 @@ CTRLVE7;OTwh;Pads;;51-52;26;1;Cirrus;SINE;0
 ;;;;;;7;Radiation;;0
 ;;;;;;8;Nimbo;;0
 ;;;;;;9;Cumulus;;0
-CTRLVE7;OTwh;Plucks;;53-54;27;1;Rain marimba;SINE;0
+CTRLVE7;OTwh;Plucks;PluckSynth;53-54;27;1;Rain marimba;SINE;0
 ;;;;;;2;Particles;;0
 ;;;;;;3;Seep;;0
 ;;;;;;4;Anomaly;;0
-CTRLVE7;OTwh;Keys;;55-56;28;1;Phase change;SINE;0
+CTRLVE7;OTwh;Keys;Piano;55-56;28;1;Phase change;SINE;0
 ;;;;;;2;Liquid water;;0
 ;;;;;;3;Haze;;0
 ;;;;;;4;Emanate;;0
-CTRLVE7;OTop;Falsetto;;57-58;29;1;Falsetto;SINE;122
-CTRLVE7;OTop;Trumpet;;59-60;30;1;Trumpet;SINE;123
-CTRLVE7;OTop;Electric Guitar;;61-62;31;1;Electric Guitar;SINE;124
-CTRLVE7;OTop;Pads;;63-64;32;1;Dew;SINE;0
+CTRLVE7;OTop;Falsetto;Choir;57-58;29;1;Falsetto;SINE;122
+CTRLVE7;OTop;Trumpet;HiBr;59-60;30;1;Trumpet;SINE;123
+CTRLVE7;OTop;Electric Guitar;HiStr;61-62;31;1;Electric Guitar;SINE;124
+CTRLVE7;OTop;Pads;PadSynth;63-64;32;1;Dew;SINE;0
 ;;;;;;2;Detour;;0
 ;;;;;;3;Ava;;0
 ;;;;;;4;Adrift;;0
 ;;;;;;5;Noctilucent;;0
 ;;;;;;6;Ayahuasca;;0
 ;;;;;;7;Polar;;0
-CTRLVE7;OTop;Plucks;;65-66;33;1;Blood is blue;SINE;0
+CTRLVE7;OTop;Plucks;PluckSynth;65-66;33;1;Blood is blue;SINE;0
 ;;;;;;2;Dearest;;0
 ;;;;;;3;Unravel;;0
 ;;;;;;4;Thorns;;0
-CTRLVE7;OTop;Keys;;67-68;34;1;Freehand;SINE;0
+CTRLVE7;OTop;Keys;Piano;67-68;34;1;Freehand;SINE;0
 ;;;;;;2;Silhouette;;0
 ;;;;;;3;Far out dust;;0
 ;;;;;;4;Notion;;0
-CTRLVE7;OTop;Opaline drum kit;;69-70;35;1;Opaline drum kit;SINE;0
-CTRLVE7;OTkh;Balafon;;71-72;36;1;Balafon;SINE;125
-CTRLVE7;OTkh;Dholak;;73-74;37;1;Dholak;SINE;126
-CTRLVE7;OTkh;Prepared frame drum;;75-76;38;1;Prepared frame drum;SINE;127
-CTRLVE7;OTkh;Prepared floor tom;;77-78;39;1;Prepared floor tom;SINE;80
-CTRLVE7;OTkh;Custom gamelan;;79-80;40;1;Custom gamelan;SINE;128
-CTRLVE7;OTkh;Custom cymbals;;81-82;41;1;Custom cymbals;SINE;80
-CTRLVE7;OTkh;Pads;;83-84;42;1;Meristem;SINE;0
+CTRLVE7;OTop;Opaline drum kit;MidPerc;69-70;35;1;Opaline drum kit;SINE;0
+CTRLVE7;OTkh;Balafon;MidPerc;71-72;36;1;Balafon;SINE;125
+CTRLVE7;OTkh;Dholak;MidPerc;73-74;37;1;Dholak;SINE;126
+CTRLVE7;OTkh;Prepared frame drum;MidPerc;75-76;38;1;Prepared frame drum;SINE;127
+CTRLVE7;OTkh;Prepared floor tom;MidPerc;77-78;39;1;Prepared floor tom;SINE;80
+CTRLVE7;OTkh;Custom gamelan;MidPerc;79-80;40;1;Custom gamelan;SINE;128
+CTRLVE7;OTkh;Custom cymbals;MetalPerc;81-82;41;1;Custom cymbals;SINE;80
+CTRLVE7;OTkh;Pads;PadSynth;83-84;42;1;Meristem;SINE;0
 ;;;;;;2;Toxicity;;0
 ;;;;;;3;Exon;;0
 ;;;;;;4;Populations;;0
-CTRLVE7;OTkh;Plucks;;85-86;43;1;Amnion;SINE;0
+CTRLVE7;OTkh;Plucks;PluckSynth;85-86;43;1;Amnion;SINE;0
 ;;;;;;2;Reagent;;0
 ;;;;;;3;Molecules;;0
 ;;;;;;4;Anaplasia;;0
 ;;;;;;5;Mutation;;0
-CTRLVE7;OTkh;Membrane Bass;;87-88;44;1;Membrane Bass;SINE;0
-CTRLVE7;OTkh;Percussion;;89-90;45;1;Induction;SINE;0
+CTRLVE7;OTkh;Membrane Bass;LoSynth;87-88;44;1;Membrane Bass;SINE;0
+CTRLVE7;OTkh;Percussion;MidPerc;89-90;45;1;Induction;SINE;0
 ;;;;;;2;Plasmid;;0
 ;;;;;;3;Genes;;0
-CTRLVE7;;;;91-92;46;1;;SINE;0
-CTRLVE7;;;;93-94;47;1;;SINE;0
-CTRLVE7;;;;95-96;48;1;;SINE;0
-CTRLVE8;OTlo;Soprano chalumeau;;1-2;1;1;Soprano chalumeau;SINE;129
-CTRLVE8;OTlo;Alto chalumeau;;3-4;2;1;Alto chalumeau;SINE;129
-CTRLVE8;OTlo;Tenor chalumeau;;5-6;3;1;Tenor chalumeau;SINE;130
-CTRLVE8;OTlo;Bass chalumeau;;7-8;4;1;Bass chalumeau;SINE;131
-CTRLVE8;OTlo;Musette accordion;;9-10;5;1;Musette accordion;SINE;132
-CTRLVE8;OTlo;Musette accordion noises;;11-12;6;1;Musette accordion noises;SINE;133
-CTRLVE8;OTlo;Tuba;;13-14;7;1;Tuba;SINE;134
-CTRLVE8;OTlo;Pads;;15-16;8;1;Cisse;SINE;0
+CTRLVE7;;;;91-92;46;1;;;0
+CTRLVE7;;;;93-94;47;1;;;0
+CTRLVE7;;;;95-96;48;1;;;0
+CTRLVE7;FX;Ret 1 (CTRLVE7);;97-98;0;0;;;
+CTRLVE7;FX;Ret 2 (CTRLVE7);;99-100;0;0;;;
+CTRLVE7;FX;Ret 3 (CTRLVE7);;101-102;0;0;;;
+CTRLVE7;FX;Ret 4 (CTRLVE7);;103-104;0;0;;;
+CTRLVE8;OTlo;Soprano chalumeau;HiWW;1-2;1;1;Soprano chalumeau;SINE;129
+CTRLVE8;OTlo;Alto chalumeau;MidWW;3-4;2;1;Alto chalumeau;SINE;129
+CTRLVE8;OTlo;Tenor chalumeau;MidWW;5-6;3;1;Tenor chalumeau;SINE;130
+CTRLVE8;OTlo;Bass chalumeau;LoWW;7-8;4;1;Bass chalumeau;SINE;131
+CTRLVE8;OTlo;Musette accordion;TunedPerc;9-10;5;1;Musette accordion;SINE;132
+CTRLVE8;OTlo;Musette accordion noises;TunedPerc;11-12;6;1;Musette accordion noises;SINE;133
+CTRLVE8;OTlo;Tuba;LoBr;13-14;7;1;Tuba;SINE;134
+CTRLVE8;OTlo;Pads;PadSynth;15-16;8;1;Cisse;SINE;0
 ;;;;;;2;Indre;;0
 ;;;;;;3;Acheneau;;0
 ;;;;;;4;Aron;;0
 ;;;;;;5;Maine;;0
-CTRLVE8;OTlo;Plucks;;17-18;9;1;Cher;SINE;0
+CTRLVE8;OTlo;Plucks;PluckSynth;17-18;9;1;Cher;SINE;0
 ;;;;;;2;Mare;;0
-CTRLVE8;OTlo;Keys;;19-20;10;1;Allier;SINE;0
+CTRLVE8;OTlo;Keys;Piano;19-20;10;1;Allier;SINE;0
 ;;;;;;2;Coise;;0
 ;;;;;;3;Layon;;0
 ;;;;;;4;Erdre;;0
-CTRLVE8;OTlo;Rhins Textures;;21-22;11;1;;;0
+CTRLVE8;OTlo;Rhins Textures;PadSynth;21-22;11;1;;;0
 CTRLVE8;ART;ARP2600;PadSynth;23-24;12;1;Init;ARP2600;0
 CTRLVE8;ART;B-3;PadSynth;25-26;13;1;Init;B-3;0
 CTRLVE8;ART;Buchla Easel;PadSynth;27-28;14;1;Init;Buchla Easel;0
@@ -654,20 +664,20 @@ CTRLVE8;ART;Synthi;PadSynth;69-70;35;1;Init;Synthi;0
 CTRLVE8;ART;Vocoder;PadSynth;71-72;36;1;Init;Vocoder;0
 CTRLVE8;ART;Vox Continental;PadSynth;73-74;37;1;Init;Vox Continental;0
 CTRLVE8;ART;Wurli;PadSynth;75-76;38;1;Init;Wurli;0
-CTRLVE8;ART;Pigments;PadSynth;77-78;39;1;Init;Pigments;0
-CTRLVE8;VI;VITAL;;79-80;40;1;Init;Vital;0
-CTRLVE8;IK;MODO BASS;;81-82;41;1;;;0
-;;;;83-84;42;1;;;0
-;;;;85-86;43;1;;;0
-;;;;87-88;44;1;;;0
-;;;;89-90;45;1;;;0
-;;;;91-92;46;1;;;0
-;;;;93-94;47;1;;;0
-;;;;95-96;48;1;;;0
-CTRLVE9;IK;MODO DRUMS;;;;;;;
-;;;;;;;;;
-;;;;;;;;;
-;;;;;;;;;
+CTRLVE8;ART;Analog Lab;PadSynth;77-78;39;1;Init;Analog Lab;0
+CTRLVE8;ART;Pigments 1;PadSynth;79-80;40;1;Init;Pigments;0
+CTRLVE8;ART;Pigments 2;PadSynth;81-82;41;1;Init;Pigments;0
+CTRLVE8;ART;Pigments 3;PadSynth;83-84;42;1;Init;Pigments;0
+CTRLVE8;ART;Pigments 4;PadSynth;85-86;43;1;Init;Pigments;0
+CTRLVE8;ART;Pigments 5;PadSynth;87-88;44;1;Init;Pigments;0
+CTRLVE8;V;Vital 1;PadSynth;89-90;45;1;Init;Vital;0
+CTRLVE8;V;Vital 2;PadSynth;91-92;46;1;Init;Vital;0
+CTRLVE8;V;Vital 3;PadSynth;93-94;47;1;Init;Vital;0
+CTRLVE8;V;Vital 4;PadSynth;95-96;48;1;Init;Vital;0
+CTRLVE8;FX;Ret 1 (CTRLVE8);;97-98;0;0;;;
+CTRLVE8;FX;Ret 2 (CTRLVE8);;99-100;0;0;;;
+CTRLVE8;FX;Ret 3 (CTRLVE8);;101-102;0;0;;;
+CTRLVE8;FX;Ret 4 (CTRLVE8);;103-104;0;0;;;
 ;;;;;;;;;
 ;;;;;;;;;
 ;;;;;;;;;
