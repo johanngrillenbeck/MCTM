@@ -56,7 +56,8 @@ CTRLVE1;OTBSFC;Violin II;HiStr;109-112;28;1;Violin II FC;SINE;31
 CTRLVE1;OTBSFC;Viola;MidStr;113-116;29;1;Viola FC;SINE;31
 CTRLVE1;OTBSFC;Cello;LoStr;117-120;30;1;Cello FC;SINE;31
 CTRLVE1;OTBSFC;Bass;LoStr;121-124;31;1;Bass FC;SINE;31
-CTRLVE1;;;;125-128;32;1;;;
+CTRLVE1;FX;Ret 1;;125-126;;;;;
+CTRLVE1;FX;Ret 2;;127-128;;;;;
 CTRLVE2;OTBB;Trombone 1;MidBr;1-4;1;1;Trombone 1;SINE;16
 CTRLVE2;OTBB;Trombone 2;MidBr;5-8;2;1;Trombone 2;SINE;16
 CTRLVE2;OTBB;Bass Trombone;LoBr;9-12;3;1;Bass Trombone;SINE;16
@@ -138,8 +139,10 @@ CTRLVE2;OTTHP;Custom Drums;MidPerc;109-112;28;1;"Custom Tom Low Tuning 10""  ";S
 ;;;;;;10;Quad Toms  ;;0
 CTRLVE2;;;;113-116;29;1;;;0
 CTRLVE2;;;;117-120;30;1;;;0
-CTRLVE2;;;;121-124;31;1;;;0
-CTRLVE2;;;;125-128;32;1;;;0
+CTRLVE2;FX;Ret 1 (CTRLVE2);;121-122;0;0;;;0
+CTRLVE2;FX;Ret 2 (CTRLVE2);;123-124;0;0;;;0
+CTRLVE2;FX;Ret 3 (CTRLVE2);;125-126;0;0;;;
+CTRLVE2;FX;Ret 4 (CTRLVE2);;127-128;0;0;;;
 CTRLVE3;OTBP;Roto Toms;MidPerc;1-4;1;1;6'';SINE;32
 ;;;;;;2;8'';;32
 ;;;;;;3;10'';;32
@@ -202,12 +205,13 @@ CTRLVE3;OTBP;Tom;MidPerc;101-104;26;1;13'';SINE;32
 ;;;;;;2;14'';;32
 ;;;;;;3;15'';;32
 ;;;;;;4;16'';;32
-CTRLVE3;Mod;Pianoteq;Piano;105-108;27;1;Steinway Model D New York;Pianoteq;0
-CTRLVE3;;;;109-112;28;1;;;0
+CTRLVE3;Mod;Pianoteq;Piano;105-112;27;1;Steinway Model D New York;Pianoteq;0
 CTRLVE3;;;;113-116;29;1;;;0
 CTRLVE3;;;;117-120;30;1;;;0
-CTRLVE3;;;;121-124;31;1;;;0
-CTRLVE3;;;;125-128;32;1;;;0
+CTRLVE3;FX;Ret 1 (CTRLVE3);;121-122;0;0;;;
+CTRLVE3;FX;Ret 2 (CTRLVE3);;123-124;0;0;;;
+CTRLVE3;FX;Ret 3 (CTRLVE3);;125-126;0;0;;;
+CTRLVE3;FX;Ret 4 (CTRLVE3);;127-128;0;0;;;
 CTRLVE4;OTMA4;High Strings;HiStr;1-4;1;1;High Strings;SINE;135
 CTRLVE4;OTMA4;Mid Strings;MidStr;5-8;2;1;Mid Strings;SINE;136
 CTRLVE4;OTMA4;Low Strings;LoStr;9-12;3;1;Low Strings;SINE;137
@@ -354,8 +358,10 @@ CTRLVE5;;;;105-108;27;1;;;0
 CTRLVE5;;;;109-112;28;1;;;0
 CTRLVE5;;;;113-116;29;1;;;0
 CTRLVE5;;;;117-120;30;1;;;0
-CTRLVE5;;;;121-124;31;1;;;0
-CTRLVE5;;;;125-128;32;1;;;0
+CTRLVE5;FX;Ret 1 (CTRLVE5);;121-122;0;0;;;
+CTRLVE5;FX;Ret 2 (CTRLVE5);;123-124;0;0;;;
+CTRLVE5;FX;Ret 3 (CTRLVE5);;125-126;0;0;;;
+CTRLVE5;FX;Ret 4 (CTRLVE5);;127-128;0;0;;;
 CTRLVE6;OTam;Amber String Quartet;HiStr;1-2;1;1;Amber String Quartet;SINE;89
 CTRLVE6;OTam;1st Violin;HiStr;3-4;2;1;1st Violin;SINE;90
 CTRLVE6;OTam;2nd Violin;HiStr;5-6;3;1;2nd Violin;SINE;90
@@ -678,8 +684,83 @@ CTRLVE8;FX;Ret 1 (CTRLVE8);;97-98;0;0;;;
 CTRLVE8;FX;Ret 2 (CTRLVE8);;99-100;0;0;;;
 CTRLVE8;FX;Ret 3 (CTRLVE8);;101-102;0;0;;;
 CTRLVE8;FX;Ret 4 (CTRLVE8);;103-104;0;0;;;
-;;;;;;;;;
-;;;;;;;;;
-;;;;;;;;;
-;;;;;;;;;
-;;;;;;;;;
+CTRLVE9;VT;Auras Altis;;1-2;1;1;Init;Decent Sampler;
+CTRLVE9;VT;Auras Eraphine (Folder);;3-4;2;1;Ensemble Strings - Frost Viola;Decent Sampler;
+;;;;;;;Ensemble Voices - Aah;;
+;;;;;;;Ensemble Voices - Eeh;;
+;;;;;;;Ensemble Voices - Ooh;;
+;;;;;;;Ensemble Voices - Phrases;;
+;;;;;;;Pads - Just The Drones;;
+;;;;;;;Strings - Frost Viola;;
+;;;;;;;Voices - Aah;;
+;;;;;;;Voices - Eeh;;
+;;;;;;;Voices - Ooh;;
+;;;;;;;Voices - Phrases;;
+CTRLVE9;VT;Auras Lair;;5-6;3;1;Init;Decent Sampler;
+CTRLVE9;VT;Auras Lichen;;7-8;4;1;Init;Decent Sampler;
+CTRLVE9;VT;Auras Rooms;;9-10;5;1;Init;Decent Sampler;
+CTRLVE9;VT;Auras Veils;;11-12;6;1;Init;Decent Sampler;
+CTRLVE9;VT;Solaris;;13-14;7;1;Init;Decent Sampler;
+CTRLVE9;VT;Strands;;15-16;8;1;Init;Decent Sampler;
+CTRLVE9;DS;Tri-Timbral Flocks;;17-18;9;1;Init;Decent Sampler;
+CTRLVE9;DS;Mandrolia;;19-20;10;1;Init;Decent Sampler;
+CTRLVE9;DS;Echorda (Folder);;21-22;11;1;ECHORDA 3 Baby Grand;Decent Sampler;
+;;;;;;2;ECHORDA 3 Upright;;
+;;;;;;3;ECHORDA 3;;
+;;;;;;4;ECHORDA 2 Full;;
+;;;;;;5;ECHORDA 2;;
+CTRLVE9;DS;Broken Piano;;23-24;12;1;Init;Decent Sampler;
+CTRLVE9;DS;Antique Pad;;25-26;13;1;Init;Decent Sampler;
+CTRLVE9;SP;LABS 1;;27-28;14;1;Init;LABS;
+CTRLVE9;SP;LABS 2;;29-30;15;1;Init;LABS;
+CTRLVE9;SP;LABS 3;;31-32;16;1;Init;LABS;
+CTRLVE9;SP;LABS 4;;33-34;17;1;Init;LABS;
+CTRLVE9;SP;LABS 5;;35-36;18;1;Init;LABS;
+CTRLVE9;SP;LABS 6;;37-38;19;1;Init;LABS;
+CTRLVE9;SP;LABS 7;;39-40;20;1;Init;LABS;
+CTRLVE9;SP;LABS 8;;41-42;21;1;Init;LABS;
+CTRLVE9;SP;LABS 9;;43-44;22;1;Init;LABS;
+CTRLVE9;SP;LABS 10;;45-46;23;1;Init;LABS;
+CTRLVE9;SR;Hainbach - Landfill Totems;;47-48;24;1;Init;Spitfire;
+CTRLVE9;SR;Lea Bertucci - Acoustic Shadows;;49-50;25;1;Init;Spitfire;
+CTRLVE9;SR;Cinematic Frozen Strings;;51-52;26;1;Init;Spitfire;
+CTRLVE9;SR;Cinematic Soft Piano;;53-54;27;1;Init;Spitfire;
+CTRLVE9;SR;Mrs Mills Piano;;55-56;28;1;Init;Spitfire;
+CTRLVE9;IK;Modo Bass;;57-58;29;1;Init;Modo Bass;
+CTRLVE9;IK;Modo Drum 1;Drums;0;30;1;Init;Modo Drum;
+;;1/2;;59-60;30;1;Init;Modo Drum;
+;;3/4;;61-62;30;1;Init;Modo Drum;
+;;5/6;;63-64;30;1;Init;Modo Drum;
+;;7/8;;65-66;30;1;Init;Modo Drum;
+;;9/10;;67-68;30;1;Init;Modo Drum;
+;;11/12;;69-70;30;1;Init;Modo Drum;
+;;13/14;;71-72;30;1;Init;Modo Drum;
+;;15/16;;73-74;30;1;Init;Modo Drum;
+;;17/18;;75-76;30;1;Init;Modo Drum;
+;;19/20;;77-78;30;1;Init;Modo Drum;
+;;21/22;;79-80;30;1;Init;Modo Drum;
+;;23/24;;81-82;30;1;Init;Modo Drum;
+;;25/26;;83-84;30;1;Init;Modo Drum;
+;;27/28;;85-86;30;1;Init;Modo Drum;
+;;29/30;;87-88;30;1;Init;Modo Drum;
+;;31/32;;89-90;30;1;Init;Modo Drum;
+CTRLVE9;IK;Modo Drum 2;Drums;0;31;1;Init;Modo Drum;
+;;1/2;;91-92;31;1;Init;Modo Drum;
+;;3/4;;93-94;31;1;Init;Modo Drum;
+;;5/6;;95-96;31;1;Init;Modo Drum;
+;;7/8;;97-98;31;1;Init;Modo Drum;
+;;9/10;;99-100;31;1;Init;Modo Drum;
+;;11/12;;101-102;31;1;Init;Modo Drum;
+;;13/14;;103-104;31;1;Init;Modo Drum;
+;;15/16;;105-106;31;1;Init;Modo Drum;
+;;17/18;;107-108;31;1;Init;Modo Drum;
+;;19/20;;109-110;31;1;Init;Modo Drum;
+;;21/22;;111-112;31;1;Init;Modo Drum;
+;;23/24;;113-114;31;1;Init;Modo Drum;
+;;25/26;;115-116;31;1;Init;Modo Drum;
+;;27/28;;117-118;31;1;Init;Modo Drum;
+;;29/30;;119-120;31;1;Init;Modo Drum;
+;;31/32;;121-122;31;1;Init;Modo Drum;
+CTRLVE9;FX;Ret 2 (CTRLVE8);;123-124;0;0;;;
+CTRLVE9;FX;Ret 3 (CTRLVE8);;125-126;0;0;;;
+CTRLVE9;FX;Ret 4 (CTRLVE8);;127-128;0;0;;;

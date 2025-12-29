@@ -93,42 +93,183 @@ local function split_semicolon(s)
     return out
 end
 
--- collect rows and unique CTRL names
-local rows = {}
-local ctrl_set = {}
-local bus_set = {}
+-- collect raw CSV rows (including continuation rows where CTRL is empty)
+-- and then post-process into actionable entries.
+local raw_rows = {}
 dbg("Parsing CSV...")
 for idx, line in ipairs(lines) do
     if idx == 1 then goto cont2 end -- skip header
     if line:match("^%s*$") then goto cont2 end
     local fields = split_semicolon(line)
-    -- ensure at least 3 columns exist
+
+    -- New CSV layout (current):
+    -- CTRL; Library Prefix; Track Name; Audio Send To; From VE Audiotrack; Midi Bus; Midi Channel; Patch; Player/Instrument; Key Sw ID
     local ctrl = trim(fields[1] or "")
     local lib = trim(fields[2] or "")
     local tname = trim(fields[3] or "")
-    -- New CSV layout may include an "Audio Send To" column immediately to the right of the track name.
-    -- Support both layouts:
-    local audio_send_to = ""
-    local ve = ""
-    local midi_bus = ""
-    if #fields >= 6 then
-        -- assume: ctrl; lib; name; audio_send_to; ve; midi_bus
+    local audio_send_to = trim(fields[4] or "")
+    local ve = trim(fields[5] or "")
+    local midi_bus = trim(fields[6] or "")
+    local midi_chan = trim(fields[7] or "")
+    local patch = trim(fields[8] or "")
+
+    -- Back-compat for older layouts with fewer columns.
+    if #fields < 8 then
+        -- fallback: ctrl; lib; name; ve; midi_bus
         audio_send_to = trim(fields[4] or "")
         ve = trim(fields[5] or "")
         midi_bus = trim(fields[6] or "")
-    else
-        -- fallback to old layout: ctrl; lib; name; ve; midi_bus
-        ve = trim(fields[4] or "")
-        midi_bus = trim(fields[5] or "")
+        midi_chan = trim(fields[7] or "")
+        patch = trim(fields[8] or "")
+        if #fields <= 6 then
+            -- older: ctrl; lib; name; ve; midi_bus
+            audio_send_to = ""
+            ve = trim(fields[4] or "")
+            midi_bus = trim(fields[5] or "")
+            midi_chan = ""
+            patch = ""
+        end
     end
-    if ctrl ~= "" and (lib ~= "" or tname ~= "") then
-        table.insert(rows, {ctrl=ctrl, lib=lib, name=tname, ve=ve, midi_bus=midi_bus, audio_send_to=audio_send_to})
-        if not ctrl_set[ctrl] then ctrl_set[ctrl] = true end
-        if audio_send_to and audio_send_to ~= "" then bus_set[audio_send_to] = true end
-    end
+
+    table.insert(raw_rows, {
+        ctrl = ctrl,
+        lib = lib,
+        name = tname,
+        audio_send_to = audio_send_to,
+        ve = ve,
+        midi_bus = midi_bus,
+        midi_chan = midi_chan,
+        patch = patch,
+    })
+
     ::cont2::
 end
-dbg("Parsed rows: " .. tostring(#rows))
+dbg("Parsed CSV lines (raw rows): " .. tostring(#raw_rows))
+
+-- Post-process into entries.
+-- Types:
+--  - pair: normal 1:1 (A+M)
+--  - fx: FX return (FX only)
+--  - multi_audio_parent: creates M only (VE = 0)
+--  - multi_audio_child: creates A only (child return)
+local rows = {}
+local ctrl_set = {}
+local bus_set = {}
+
+-- For ordering: keep instrument items in CSV order.
+local instrument_items = {}
+
+local function is_zero_ve(ve)
+    ve = trim(ve or "")
+    if ve == "" then return false end
+    return ve == "0" or ve == "0-0"
+end
+
+-- Parse VE string range "a-b" or single "n".
+local function parse_ve_range(ve)
+    ve = trim(ve or "")
+    local a,b = ve:match("(%d+)%s*-%s*(%d+)")
+    if a and b then
+        return tonumber(a), tonumber(b)
+    end
+    local single = ve:match("(%d+)")
+    if single then
+        local n = tonumber(single)
+        return n, n
+    end
+    return nil, nil
+end
+
+-- How many audio channels does this instrument return, based on VE range length.
+-- Example: "19-20" -> 2, "101-104" -> 4.
+-- For bus sends, we cap to MASTER_NCHANNELS (busses are typically 4ch).
+local function channel_count_from_ve_for_bus(ve)
+    local a, b = parse_ve_range(ve)
+    if a and b then
+        local n = math.max(1, (b - a + 1))
+        if n > MASTER_NCHANNELS then n = MASTER_NCHANNELS end
+        return n
+    end
+    return MASTER_NCHANNELS
+end
+
+local current_parent = nil
+for _, rr in ipairs(raw_rows) do
+    local ctrl = trim(rr.ctrl or "")
+    local lib = trim(rr.lib or "")
+    local tname = trim(rr.name or "")
+    local audio_send_to = trim(rr.audio_send_to or "")
+    local ve = trim(rr.ve or "")
+    local midi_bus = trim(rr.midi_bus or "")
+    local midi_chan = trim(rr.midi_chan or "")
+    local patch = trim(rr.patch or "")
+
+    local is_fx = (tostring(lib or ""):upper() == "FX")
+
+    -- Start row: CTRL present
+    if ctrl ~= "" then
+        if not ctrl_set[ctrl] then ctrl_set[ctrl] = true end
+
+        if is_fx then
+            table.insert(rows, {type="fx", ctrl=ctrl, lib=lib, name=tname, ve=ve, midi_bus=midi_bus, midi_chan=midi_chan, audio_send_to=audio_send_to})
+            if audio_send_to ~= "" then bus_set[audio_send_to] = true end
+            current_parent = nil
+        else
+            -- multi-audio parent row: VE=0 => M-only instrument, children define audio returns
+            if tname ~= "" and is_zero_ve(ve) then
+                current_parent = {
+                    ctrl = ctrl,
+                    lib = lib,
+                    name = tname,
+                    midi_bus = midi_bus,
+                    midi_chan = midi_chan,
+                    -- For multi-audio instruments, parent Audio Send To is authoritative.
+                    bus = audio_send_to,
+                }
+                table.insert(rows, {type="multi_audio_parent", ctrl=ctrl, lib=lib, name=tname, ve=ve, midi_bus=midi_bus, midi_chan=midi_chan, audio_send_to=audio_send_to, parent=current_parent})
+                table.insert(instrument_items, {kind="multi_audio", parent=current_parent, children={}})
+                if audio_send_to ~= "" then bus_set[audio_send_to] = true end
+            else
+                current_parent = nil
+                -- normal instrument pair row
+                if tname ~= "" then
+                    table.insert(rows, {type="pair", ctrl=ctrl, lib=lib, name=tname, ve=ve, midi_bus=midi_bus, midi_chan=midi_chan, audio_send_to=audio_send_to})
+                    if audio_send_to ~= "" then bus_set[audio_send_to] = true end
+                    table.insert(instrument_items, {kind="pair", ctrl=ctrl, lib=lib, name=tname, ve=ve, midi_bus=midi_bus, audio_send_to=audio_send_to})
+                end
+            end
+        end
+    else
+        -- Continuation row: CTRL empty
+        if current_parent and tname ~= "" then
+            -- Multi-audio child return row
+            table.insert(rows, {
+                type = "multi_audio_child",
+                ctrl = current_parent.ctrl,
+                lib = current_parent.lib,
+                name = tname,
+                ve = ve,
+                midi_bus = midi_bus,
+                midi_chan = midi_chan,
+                -- Child audio returns inherit bus from parent instrument row.
+                audio_send_to = current_parent.bus or "",
+                parent_name = current_parent.name,
+                parent_lib = current_parent.lib,
+            })
+
+            -- Update ordering child list
+            local last_item = instrument_items[#instrument_items]
+            if last_item and last_item.kind == "multi_audio" and last_item.parent == current_parent then
+                table.insert(last_item.children, {name=tname, ve=ve})
+            end
+
+            if (current_parent.bus or "") ~= "" then bus_set[current_parent.bus] = true end
+        else
+            -- Likely a multi-MIDI articulation row (Track Name empty) or noise; ignore for track building.
+        end
+    end
+end
+dbg("Built actionable entries: " .. tostring(#rows))
 
 -- Prompt for Colors & Order CSV before creating any tracks (optional)
 local color_map = {}
@@ -172,23 +313,19 @@ do
 end
 
 -- compute per-CTRL required source channels (max channel index needed)
+-- based on all entries that actually reference VE audio channels.
 local ctrl_needs = {}
 for _, r in ipairs(rows) do
     local ctrl = r.ctrl
     local ve = r.ve or ""
-    -- parse range like '1-4' or single number
-    local a,b = ve:match("(%d+)%s*-%s*(%d+)")
-    local endch = nil
-    if a and b then endch = tonumber(b) end
-    if not endch then
-        local single = ve:match("(%d+)")
-        if single then endch = tonumber(single) end
-    end
-    if endch then
-        ctrl_needs[ctrl] = math.max(ctrl_needs[ctrl] or 0, endch)
-    else
-        -- default to at least 4 channels
-        ctrl_needs[ctrl] = math.max(ctrl_needs[ctrl] or 0, 4)
+    if ctrl and ctrl ~= "" and not is_zero_ve(ve) then
+        local _a, endch = parse_ve_range(ve)
+        if endch then
+            ctrl_needs[ctrl] = math.max(ctrl_needs[ctrl] or 0, endch)
+        else
+            -- default to at least 4 channels
+            ctrl_needs[ctrl] = math.max(ctrl_needs[ctrl] or 0, 4)
+        end
     end
 end
 do
@@ -207,11 +344,15 @@ do
     table.sort(tmp)
     dbg("CTRL candidates: " .. (#tmp>0 and table.concat(tmp, ", ") or "(none)"))
 end
--- Preserve CTRL order as encountered in CSV
+-- Preserve CTRL order as encountered in CSV (raw rows)
 local ctrl_order = {}
 local seen = {}
-for _, r in ipairs(rows) do
-    if r.ctrl and not seen[r.ctrl] then seen[r.ctrl]=true table.insert(ctrl_order, r.ctrl) end
+for _, r in ipairs(raw_rows) do
+    local c = trim(r.ctrl or "")
+    if c ~= "" and not seen[c] then
+        seen[c]=true
+        table.insert(ctrl_order, c)
+    end
 end
 
 for _, ctrlname in ipairs(ctrl_order) do
@@ -422,11 +563,11 @@ local function receive_from_src_exists(src, dest)
     return false
 end
 for i, r in ipairs(rows) do
-    dbg(string.format("Processing row %d: CTRL=%s | Lib=%s | Name=%s | VE=%s | MidiBus=%s", i, tostring(r.ctrl), tostring(r.lib), tostring(r.name), tostring(r.ve), tostring(r.midi_bus)))
-    local ctrl = r.ctrl
-    local lib = r.lib
-    local tname = r.name
-    local ve = r.ve
+    dbg(string.format("Processing entry %d: Type=%s | CTRL=%s | Lib=%s | Name=%s | VE=%s | MidiBus=%s | Bus=%s", i, tostring(r.type), tostring(r.ctrl), tostring(r.lib), tostring(r.name), tostring(r.ve), tostring(r.midi_bus), tostring(r.audio_send_to)))
+    local ctrl = tostring(r.ctrl or "")
+    local lib = tostring(r.lib or "")
+    local tname = tostring(r.name or "")
+    local ve = tostring(r.ve or "")
     local midi_bus = tonumber(r.midi_bus) or nil
 
     if tname == "" then goto skip end
@@ -462,20 +603,8 @@ for i, r in ipairs(rows) do
         if bus_tr and bus_name ~= "" then
             pcall(function() reaper.SetMediaTrackInfo_Value(FX, "B_MAINSEND", 0) end)
             -- create stereo send pairs from FX -> Bus mapping 1/2->1/2, 3/4->3/4, etc.
-            local start_ch = 1
-            local a,b = (ve or ""):match("(%d+)%s*-%s*(%d+)")
-            local end_ch = nil
-            if a and b then end_ch = tonumber(b) end
-            if not end_ch then
-                local single = (ve or ""):match("(%d+)")
-                if single then end_ch = tonumber(single) end
-            end
-            if not end_ch then end_ch = start_ch + (MASTER_NCHANNELS - 1) end
-            local channel_count = math.max(1, (end_ch - start_ch + 1))
-            if channel_count > MASTER_NCHANNELS then
-                dbg(string.format("  FX channel count %d exceeds MASTER_NCHANNELS (%d) — capping to master value", channel_count, MASTER_NCHANNELS))
-                channel_count = MASTER_NCHANNELS
-            end
+            -- IMPORTANT: VE strings like "19-20" are absolute channel numbers; we need the range length.
+            local channel_count = channel_count_from_ve_for_bus(ve)
 
             local pairs = math.floor(channel_count / 2)
             local has_odd = (channel_count % 2) == 1
@@ -598,7 +727,241 @@ for i, r in ipairs(rows) do
             dbg("Warning: CTRL track not found for " .. tostring(ctrl))
         end
 
-        created[#created+1] = {A=FX, M=nil}
+        created[#created+1] = {A=FX, M=nil, kind="fx"}
+        goto skip
+    end
+
+    -- Multi-audio parent: create M only, no A receives.
+    if r.type == "multi_audio_parent" then
+        local base = (lib ~= "" and (lib .. " " .. tname) or tname)
+        local M_name = "M " .. base
+        local M = find_track_by_name(M_name) or find_track_by_name("D " .. M_name)
+        local createdM = false
+        if M then
+            dbg("  Found existing M track (multi-audio parent): " .. M_name)
+        else
+            local idxM = reaper.CountTracks(0)
+            reaper.InsertTrackAtIndex(idxM, true)
+            M = reaper.GetTrack(0, idxM)
+            reaper.GetSetMediaTrackInfo_String(M, "P_NAME", M_name, true)
+            createdM = true
+            dbg("  Created M track (multi-audio parent): " .. M_name)
+        end
+
+        -- disable parent/master send for MIDI track
+        pcall(function() reaper.SetMediaTrackInfo_Value(M, "B_MAINSEND", 0) end)
+
+        if createdM then
+            local newMname = "D " .. M_name
+            pcall(function() reaper.GetSetMediaTrackInfo_String(M, "P_NAME", newMname, true) end)
+            pcall(function() reaper.SetMediaTrackInfo_Value(M, "B_SHOWINTCP", 0) end)
+            pcall(function() reaper.SetMediaTrackInfo_Value(M, "B_SHOWINMIXER", 0) end)
+            dbg("  Set newly created M parent track to deactivated and hidden: " .. newMname)
+        end
+
+        -- Optional: apply color based on parent bus
+        do
+            local bus_name = (r.parent and r.parent.bus) or (r.audio_send_to or "")
+            local bus_key = (bus_name or ""):lower():gsub("^%s+", ""):gsub("%s+$", "")
+            local assigned_hex = nil
+            if bus_key ~= "" then assigned_hex = color_map[bus_key] end
+            if not assigned_hex then assigned_hex = default_color_hex end
+            local native_color = (assigned_hex and native_from_hex(assigned_hex)) or nil
+            if native_color and createdM then
+                set_track_color(M, native_color)
+                dbg(string.format("Applied color %s to %s (multi-audio parent bus hint=%s)", tostring(assigned_hex), M_name, tostring(bus_name)))
+            end
+        end
+
+        -- routing: M sends MIDI to CTRL (bus only; channel remains 0 as per existing behavior)
+        local src_track = ctrl_tracks[ctrl]
+        if src_track then
+            if receive_from_src_exists(M, src_track) or (midi_bus and send_has_midi(M, src_track, midi_bus)) then
+                dbg(string.format("    MIDI send already exists from M parent to CTRL bus=%s (skipping)", tostring(midi_bus)))
+            else
+                local sendidx = reaper.CreateTrackSend(M, src_track)
+                if sendidx and sendidx >= 0 then
+                    dbg(string.format("    Created MIDI send from M parent to CTRL: sendidx=%d", sendidx))
+                    -- disable audio
+                    reaper.BR_GetSetTrackSendInfo(M, 0, sendidx, "I_SRCCHAN", true, -1)
+                    reaper.BR_GetSetTrackSendInfo(M, 0, sendidx, "I_DSTCHAN", true, -1)
+                    -- midi mapping: source bus fixed to 1, destination from csv if present
+                    reaper.BR_GetSetTrackSendInfo(M, 0, sendidx, "I_MIDI_SRCBUS", true, 1)
+                    if midi_bus then reaper.BR_GetSetTrackSendInfo(M, 0, sendidx, "I_MIDI_DSTBUS", true, midi_bus) end
+                    reaper.BR_GetSetTrackSendInfo(M, 0, sendidx, "I_MIDI_SRCCHAN", true, 0)
+                    reaper.BR_GetSetTrackSendInfo(M, 0, sendidx, "I_MIDI_DSTCHAN", true, 0)
+                    reaper.BR_GetSetTrackSendInfo(M, 0, sendidx, "D_VOL", true, 1.0)
+                    reaper.BR_GetSetTrackSendInfo(M, 0, sendidx, "B_MUTE", true, 0.0)
+                end
+            end
+        else
+            dbg("Warning: CTRL track not found for " .. tostring(ctrl))
+        end
+
+        created[#created+1] = {A=nil, M=M, kind="multi_audio_parent"}
+        goto skip
+    end
+
+    -- Multi-audio child: create A only, receives audio from CTRL, optionally sends to bus.
+    if r.type == "multi_audio_child" then
+        local parent_label = tostring(r.parent_lib or "") .. " " .. tostring(r.parent_name or "")
+        parent_label = trim(parent_label)
+        local A_display = string.format("%s (%s)", tname, parent_label)
+        local A_name = "A " .. A_display
+
+        local A = find_track_by_name(A_name) or find_track_by_name("D " .. A_name)
+        local createdA = false
+        if A then
+            dbg("  Found existing multi-audio A track: " .. A_name)
+        else
+            local idxA = reaper.CountTracks(0)
+            reaper.InsertTrackAtIndex(idxA, true)
+            A = reaper.GetTrack(0, idxA)
+            reaper.GetSetMediaTrackInfo_String(A, "P_NAME", A_name, true)
+            createdA = true
+            dbg("  Created multi-audio A track: " .. A_name)
+        end
+
+        -- disable parent/master send for A track
+        pcall(function() reaper.SetMediaTrackInfo_Value(A, "B_MAINSEND", 0) end)
+
+        if createdA then
+            local newAname = "D " .. A_name
+            pcall(function() reaper.GetSetMediaTrackInfo_String(A, "P_NAME", newAname, true) end)
+            pcall(function() reaper.SetMediaTrackInfo_Value(A, "B_SHOWINTCP", 0) end)
+            pcall(function() reaper.SetMediaTrackInfo_Value(A, "B_SHOWINMIXER", 0) end)
+            dbg("  Set newly created multi-audio A track to deactivated and hidden: " .. newAname)
+        end
+
+        -- routing: A -> its Audio Bus (multi-audio instruments always use parent bus; blank means: do not create any sends)
+        local bus_name = r.audio_send_to or ""
+        if bus_name ~= "" then
+            local bus_tr = bus_tracks[bus_name]
+            if not bus_tr then
+                dbg("Warning: Audio Bus track not found for name: " .. tostring(bus_name))
+            else
+                -- IMPORTANT: VE strings like "19-20" are absolute channel numbers; we need the range length.
+                local channel_count = channel_count_from_ve_for_bus(ve)
+
+                local pairs = math.floor(channel_count / 2)
+                local has_odd = (channel_count % 2) == 1
+                for pair = 0, pairs-1 do
+                    local pair_src = pair * 2
+                    local pair_dst = pair * 2
+                    if send_has_dest_and_chans(A, bus_tr, pair_src, pair_dst) then
+                        dbg(string.format("  Audio send pair already exists from %s to bus %s (pair src=%d)", A_name, bus_name, pair_src))
+                    else
+                        local sidx = reaper.CreateTrackSend(A, bus_tr)
+                        if sidx and sidx >= 0 then
+                            dbg(string.format("  Created audio send from %s to bus %s (sendidx=%d pair_src=%d)", A_name, bus_name, sidx, pair_src))
+                            pcall(function()
+                                reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_SRCCHAN", true, pair_src)
+                                reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_DSTCHAN", true, pair_dst)
+                                reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_MIDI_SRCBUS", true, -1)
+                                reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_MIDI_DSTBUS", true, -1)
+                                reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_MIDI_SRCCHAN", true, -1)
+                                reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_MIDI_DSTCHAN", true, -1)
+                                reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "D_VOL", true, 1.0)
+                                reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "B_MUTE", true, 0.0)
+                            end)
+                        end
+                    end
+                end
+                if has_odd then
+                    local last_src = pairs * 2
+                    local last_dst = pairs * 2
+                    if last_src < MASTER_NCHANNELS then
+                        if not send_has_dest_and_chans(A, bus_tr, last_src, last_dst) then
+                            local sidx = reaper.CreateTrackSend(A, bus_tr)
+                            if sidx and sidx >= 0 then
+                                dbg(string.format("  Created single-channel audio send from %s to bus %s (sendidx=%d src=%d)", A_name, bus_name, sidx, last_src))
+                                pcall(function()
+                                    reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_SRCCHAN", true, last_src)
+                                    reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_DSTCHAN", true, last_dst)
+                                    reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_MIDI_SRCBUS", true, -1)
+                                    reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_MIDI_DSTBUS", true, -1)
+                                    reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_MIDI_SRCCHAN", true, -1)
+                                    reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_MIDI_DSTCHAN", true, -1)
+                                    reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "D_VOL", true, 1.0)
+                                    reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "B_MUTE", true, 0.0)
+                                end)
+                            end
+                        end
+                    end
+                end
+            end
+        end
+
+        -- Apply coloring for this A track based on its bus (only if newly created)
+        do
+            local bus_key = (bus_name or ""):lower():gsub("^%s+", ""):gsub("%s+$", "")
+            local assigned_hex = nil
+            if bus_key ~= "" then assigned_hex = color_map[bus_key] end
+            if not assigned_hex then assigned_hex = default_color_hex end
+            local native_color = (assigned_hex and native_from_hex(assigned_hex)) or nil
+            if native_color and createdA then
+                set_track_color(A, native_color)
+                dbg(string.format("Applied color %s to %s (bus=%s)", tostring(assigned_hex), A_name, tostring(bus_name)))
+            end
+        end
+
+        -- routing: A receives audio from CTRL based on VE range
+        local src_track = ctrl_tracks[ctrl]
+        if src_track then
+            local start_ch = 1
+            local a,b = (ve or ""):match("(%d+)%s*-%s*(%d+)")
+            local end_ch = nil
+            if a and b then
+                start_ch = tonumber(a) or start_ch
+                end_ch = tonumber(b)
+            else
+                local single = (ve or ""):match("(%d+)")
+                local single_n = tonumber(single)
+                if single_n then start_ch = single_n end
+                end_ch = start_ch + 1 -- default stereo if unspecified on child
+            end
+            local src_start = start_ch - 1
+            local channel_count = math.max(1, (end_ch - start_ch + 1))
+            reaper.SetMediaTrackInfo_Value(A, "I_NCHAN", channel_count)
+            dbg(string.format("  Multi-audio A track %s I_NCHAN set to %d (VE %s)", A_name, channel_count, tostring(ve)))
+
+            local pairs = math.floor(channel_count / 2)
+            local has_odd = (channel_count % 2) == 1
+            if receive_from_src_exists(src_track, A) or send_exists_to_dest(src_track, A) then
+                dbg(string.format("    At least one send already exists from CTRL to %s — skipping channel creation to avoid duplicates.", A_name))
+            else
+                for pair = 0, pairs-1 do
+                    local pair_src = src_start + pair*2
+                    local pair_dst = pair*2
+                    local sendidx = reaper.CreateTrackSend(src_track, A)
+                    if sendidx and sendidx >= 0 then
+                        dbg(string.format("    Created stereo send to multi-audio A: sendidx=%d pair=%d src=%d dst=%d", sendidx, pair, pair_src, pair_dst))
+                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_SRCCHAN", true, pair_src)
+                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_DSTCHAN", true, pair_dst)
+                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_MIDI_SRCBUS", true, -1)
+                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_MIDI_DSTBUS", true, -1)
+                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_MIDI_SRCCHAN", true, -1)
+                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_MIDI_DSTCHAN", true, -1)
+                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "D_VOL", true, 1.0)
+                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "B_MUTE", true, 0.0)
+                    end
+                end
+                if has_odd then
+                    local last_src = src_start + pairs*2
+                    local last_dst = pairs*2
+                    local sendidx = reaper.CreateTrackSend(src_track, A)
+                    if sendidx and sendidx >= 0 then
+                        dbg(string.format("    Created single-channel send to multi-audio A: sendidx=%d src=%d dst=%d", sendidx, last_src, last_dst))
+                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_SRCCHAN", true, last_src)
+                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_DSTCHAN", true, last_dst)
+                    end
+                end
+            end
+        else
+            dbg("Warning: CTRL track not found for " .. tostring(ctrl))
+        end
+
+        created[#created+1] = {A=A, M=nil, kind="multi_audio_child"}
         goto skip
     end
 
@@ -607,7 +970,7 @@ for i, r in ipairs(rows) do
     -- find or create A track (idempotent)
     local A_name = "A " .. base
     local M_name = "M " .. base
-    local A = find_track_by_name(A_name)
+    local A = find_track_by_name(A_name) or find_track_by_name("D " .. A_name)
     local createdA = false
     if A then
         dbg("  Found existing A track: " .. A_name)
@@ -621,7 +984,7 @@ for i, r in ipairs(rows) do
     end
 
     -- find or create M track (idempotent)
-    local M = find_track_by_name(M_name)
+    local M = find_track_by_name(M_name) or find_track_by_name("D " .. M_name)
     local createdM = false
     if M then
         dbg("  Found existing M track: " .. M_name)
@@ -664,22 +1027,8 @@ for i, r in ipairs(rows) do
             dbg("Warning: Audio Bus track not found for name: " .. tostring(bus_name))
         else
             -- create stereo send pairs from A -> Bus mapping 1/2->1/2, 3/4->3/4, etc.
-            -- determine channel count for this A track from VE field in CSV (as used for CTRL->A mapping later)
-            local start_ch = 1
-            local a,b = (ve or ""):match("(%d+)%s*-%s*(%d+)")
-            local end_ch = nil
-            if a and b then end_ch = tonumber(b) end
-            if not end_ch then
-                local single = (ve or ""):match("(%d+)")
-                if single then end_ch = tonumber(single) end
-            end
-            if not end_ch then end_ch = start_ch + (MASTER_NCHANNELS - 1) end
-            local channel_count = math.max(1, (end_ch - start_ch + 1))
-            -- Never create more send channel pairs than MASTER_NCHANNELS permits
-            if channel_count > MASTER_NCHANNELS then
-                dbg(string.format("  Channel count %d exceeds MASTER_NCHANNELS (%d) — capping to master value", channel_count, MASTER_NCHANNELS))
-                channel_count = MASTER_NCHANNELS
-            end
+            -- IMPORTANT: VE strings like "19-20" are absolute channel numbers; we need the range length.
+            local channel_count = channel_count_from_ve_for_bus(ve)
 
             local pairs = math.floor(channel_count / 2)
             local has_odd = (channel_count % 2) == 1
@@ -841,14 +1190,14 @@ for i, r in ipairs(rows) do
         end
     end
 
-    created[#created+1] = {A=A, M=M}
+    created[#created+1] = {A=A, M=M, kind="pair"}
 
     ::skip::
 end
 
 reaper.TrackList_AdjustWindows(false)
 
--- Final ordering pass: Instruments (A/M pairs) -> FX -> Busses -> CTRL
+-- Final ordering pass: Instruments (incl. multi-audio groups) -> FX -> Busses -> CTRL
 do
     -- Build a map of bus -> position (exact matching) and a lookup for DEFAULT.
     -- If no positions CSV was provided, fall back to deterministic ordering.
@@ -867,48 +1216,90 @@ do
     end
     local default_pos = pos_map["DEFAULT"]
 
-    -- 1) Reorder instrument A/M pairs to the top, bucketed by bus order (CSV order preserved within each bucket)
+    -- 1) Reorder instruments to the top.
+    -- Normal A/M pairs are bucketed by bus order.
+    -- Multi-audio groups are kept together as a block (A returns first, then parent M),
+    -- and bucketed by the first child bus if any, otherwise DEFAULT/NO_BUS.
     do
         local buckets = {}
         for _, bname in ipairs(ordered_buses) do buckets[bname] = {} end
 
-        for _, r in ipairs(rows) do
-            local is_fx = (tostring(r.lib or ""):upper() == "FX")
-            if is_fx then goto continue_instr end
+        for _, item in ipairs(instrument_items) do
+            if item.kind == "pair" then
+                local base = (item.lib ~= "" and (item.lib .. " " .. item.name) or item.name)
+                local A_name = "A " .. base
+                local D_A_name = "D " .. A_name
+                local M_name = "M " .. base
+                local D_M_name = "D " .. M_name
+                local A_tr = find_track_by_name(A_name) or find_track_by_name(D_A_name)
+                local M_tr = find_track_by_name(M_name) or find_track_by_name(D_M_name)
+                if A_tr then
+                    local bus = item.audio_send_to or ""
+                    local target_bus = nil
+                    if bus == "" then
+                        if default_pos then target_bus = "DEFAULT" end
+                    else
+                        if pos_map[bus] then target_bus = bus
+                        else
+                            if default_pos then target_bus = "DEFAULT" end
+                        end
+                    end
 
-            local base = (r.lib ~= "" and (r.lib .. " " .. r.name) or r.name)
-            local A_name = "A " .. base
-            local D_A_name = "D " .. A_name
-            local M_name = "M " .. base
-            local D_M_name = "D " .. M_name
-            local A_tr = find_track_by_name(A_name) or find_track_by_name(D_A_name)
-            local M_tr = find_track_by_name(M_name) or find_track_by_name(D_M_name)
-            if not A_tr then goto continue_instr end
+                    if not target_bus then
+                        target_bus = ordered_buses[1]
+                        if not target_bus then
+                            target_bus = "__NO_BUS__"
+                            if not buckets[target_bus] then table.insert(ordered_buses, target_bus) buckets[target_bus] = {} end
+                        end
+                    end
 
-            local bus = r.audio_send_to or ""
-            local target_bus = nil
-            if bus == "" then
-                if default_pos then target_bus = "DEFAULT" end
-            else
-                if pos_map[bus] then target_bus = bus
-                else
-                    if default_pos then target_bus = "DEFAULT" end
+                    if not buckets[target_bus] then buckets[target_bus] = {} end
+                    table.insert(buckets[target_bus], {kind="pair", A=A_tr, M=M_tr, bus=target_bus})
+                end
+            elseif item.kind == "multi_audio" then
+                local parent = item.parent
+                if parent then
+                    local parent_base = (parent.lib ~= "" and (parent.lib .. " " .. parent.name) or parent.name)
+                    local M_name = "M " .. parent_base
+                    local D_M_name = "D " .. M_name
+                    local M_tr = find_track_by_name(M_name) or find_track_by_name(D_M_name)
+
+                    local tracks = {}
+                    -- child A returns first
+                    for _, ch in ipairs(item.children or {}) do
+                        local plabel = trim(tostring(parent.lib or "") .. " " .. tostring(parent.name or ""))
+                        local A_display = string.format("%s (%s)", tostring(ch.name or ""), plabel)
+                        local A_name = "A " .. A_display
+                        local D_A_name = "D " .. A_name
+                        local A_tr = find_track_by_name(A_name) or find_track_by_name(D_A_name)
+                        if A_tr then table.insert(tracks, A_tr) end
+                    end
+                    if M_tr then table.insert(tracks, M_tr) end
+
+                    if #tracks > 0 then
+                        local bus = tostring(parent.bus or "")
+                        local target_bus = nil
+                        if bus == "" then
+                            if default_pos then target_bus = "DEFAULT" end
+                        else
+                            if pos_map[bus] then target_bus = bus
+                            else
+                                if default_pos then target_bus = "DEFAULT" end
+                            end
+                        end
+                        if not target_bus then
+                            target_bus = ordered_buses[1]
+                            if not target_bus then
+                                target_bus = "__NO_BUS__"
+                                if not buckets[target_bus] then table.insert(ordered_buses, target_bus) buckets[target_bus] = {} end
+                            end
+                        end
+
+                        if not buckets[target_bus] then buckets[target_bus] = {} end
+                        table.insert(buckets[target_bus], {kind="multi_audio", tracks=tracks, bus=target_bus})
+                    end
                 end
             end
-
-            -- if no positions file and no DEFAULT, just bucket into the first bus bucket (or a synthetic one)
-            if not target_bus then
-                target_bus = ordered_buses[1]
-                if not target_bus then
-                    target_bus = "__NO_BUS__"
-                    if not buckets[target_bus] then table.insert(ordered_buses, target_bus) buckets[target_bus] = {} end
-                end
-            end
-
-            if not buckets[target_bus] then buckets[target_bus] = {} end
-            table.insert(buckets[target_bus], {A=A_tr, M=M_tr, A_name=A_name, M_name=M_name, bus=target_bus})
-
-            ::continue_instr::
         end
 
         local final_pairs = {}
@@ -923,13 +1314,24 @@ do
         local instrument_track_count = 0
         for i = #final_pairs, 1, -1 do
             local p = final_pairs[i]
-            if p and p.A then
+            if p and p.kind == "pair" and p.A then
                 for j = 0, reaper.CountTracks(0)-1 do reaper.SetTrackSelected(reaper.GetTrack(0,j), false) end
                 reaper.SetTrackSelected(p.A, true)
                 if p.M then reaper.SetTrackSelected(p.M, true) end
                 reaper.ReorderSelectedTracks(insert_index, 0)
                 instrument_track_count = instrument_track_count + 1
                 if p.M then instrument_track_count = instrument_track_count + 1 end
+            elseif p and p.kind == "multi_audio" and p.tracks then
+                -- Move each track individually (reverse) to guarantee stable internal order.
+                for k = #p.tracks, 1, -1 do
+                    local tr = p.tracks[k]
+                    if tr then
+                        for j = 0, reaper.CountTracks(0)-1 do reaper.SetTrackSelected(reaper.GetTrack(0,j), false) end
+                        reaper.SetTrackSelected(tr, true)
+                        reaper.ReorderSelectedTracks(insert_index, 0)
+                        instrument_track_count = instrument_track_count + 1
+                    end
+                end
             end
         end
 
@@ -1020,14 +1422,20 @@ reaper.Undo_EndBlock("jg_MCTM: Build tracks from CSV", -1)
 do
     local pair_count = 0
     local fx_count = 0
+    local multi_audio_parent_count = 0
+    local multi_audio_child_count = 0
     for _, entry in ipairs(created) do
         if entry and entry.A and entry.M then
             pair_count = pair_count + 1
-        elseif entry and entry.A and not entry.M then
+        elseif entry and entry.kind == "fx" then
             fx_count = fx_count + 1
+        elseif entry and entry.kind == "multi_audio_parent" then
+            multi_audio_parent_count = multi_audio_parent_count + 1
+        elseif entry and entry.kind == "multi_audio_child" then
+            multi_audio_child_count = multi_audio_child_count + 1
         end
     end
-    dbg(string.format("Created %d A/M pairs and %d FX tracks.", pair_count, fx_count))
+    dbg(string.format("Created %d A/M pairs, %d multi-audio parents, %d multi-audio child A tracks, and %d FX tracks.", pair_count, multi_audio_parent_count, multi_audio_child_count, fx_count))
 end
 do
     local keys = {}

@@ -1,5 +1,5 @@
 --[[
-Reaper Lua Script: Stable toggle 'D ' prefix and visibility for A/M track pairs
+Reaper Lua Script: Stable toggle 'D ' prefix and visibility for A/M track groups
 Author: JG and ChatGPT
 --]]
 
@@ -20,59 +20,77 @@ add_script_dir_to_package_path()
 local ok, mctm = pcall(require, "jg_MCTM_helper")
 if not ok or not mctm then reaper.ShowConsoleMsg("Could not require 'jg_MCTM_helper': " .. tostring(mctm) .. "\n") return end
 
-local function getPartnerName(name)
-    -- Use helper to strip prefixes and build partner name preserving the A/M token
-    local parsed = mctm.parse(name)
-    local base = parsed.name
-    if base == "" then return nil end
-    if mctm.is_audio(parsed) then
-        return "M " .. base
-    elseif mctm.is_midi(parsed) then
-        return "A " .. base
-    end
-    return nil
+local function trim(s)
+    return (tostring(s or ""):gsub("^%s+", ""):gsub("%s+$", ""))
 end
 
-local function findTrackByName(searchName, excludeTrack)
-    -- finds a track by matching the base instrument name (ignores leading D)
-    -- excludeTrack: optional Reaper track object to skip (avoid returning the same track)
-    local searchBase = mctm.parse(searchName).name
+-- Build a set of MIDI base names present in the project.
+local function build_midi_base_set()
+    local set = {}
     for i = 0, reaper.CountTracks(0) - 1 do
         local tr = reaper.GetTrack(0, i)
-        if excludeTrack and tr == excludeTrack then goto continue end
-        local _, trName = reaper.GetTrackName(tr, "")
-        local parsed = mctm.parse(trName)
-        if parsed.name == searchBase then
-            return tr
+        local _, name = reaper.GetTrackName(tr)
+        local parsed = mctm.parse(name)
+        if parsed and mctm.is_midi(parsed) then
+            local base = trim(parsed.name)
+            if base ~= "" then set[base] = true end
         end
-        ::continue::
     end
-    return nil
+    return set
 end
 
-local function hasPrefix(name, prefix)
-    return name:sub(1, #prefix) == prefix
+-- Group identity key:
+-- - For normal A/M pairs: base name itself
+-- - For multi-audio child A tracks: use the trailing parenthesized suffix only if it matches an existing MIDI base
+local function group_key_from_parsed(parsed, midi_bases)
+    if not parsed then return "" end
+    local base = trim(parsed.name)
+    if base == "" then return "" end
+
+    if mctm.is_audio(parsed) then
+        local inside = base:match("%((.-)%)%s*$")
+        if inside then
+            inside = trim(inside)
+            if inside ~= "" and midi_bases and midi_bases[inside] then
+                return inside
+            end
+        end
+    end
+
+    return base
 end
 
--- Sammle Tracks zur Verarbeitung (ausgewählte + deren Partner)
+-- Collect tracks to process (selected track groups)
+local midi_bases = build_midi_base_set()
 local selCount = reaper.CountSelectedTracks(0)
-local tracksToProcess = {}
-
+local selected_group_keys = {}
 for i = 0, selCount - 1 do
     local track = reaper.GetSelectedTrack(0, i)
-    tracksToProcess[track] = true
-        local _, name = reaper.GetTrackName(track, "")
-        local partnerName = getPartnerName(name)
-        if partnerName then
-            local partnerTrack = findTrackByName(partnerName, track)
-            if partnerTrack then tracksToProcess[partnerTrack] = true end
+    local _, name = reaper.GetTrackName(track)
+    local parsed = mctm.parse(name)
+    if parsed and (mctm.is_audio(parsed) or mctm.is_midi(parsed)) then
+        local gk = group_key_from_parsed(parsed, midi_bases)
+        if gk ~= "" then selected_group_keys[gk] = true end
+    end
+end
+
+local tracksToProcess = {}
+for i = 0, reaper.CountTracks(0) - 1 do
+    local tr = reaper.GetTrack(0, i)
+    local _, name = reaper.GetTrackName(tr)
+    local parsed = mctm.parse(name)
+    if parsed and (mctm.is_audio(parsed) or mctm.is_midi(parsed)) then
+        local gk = group_key_from_parsed(parsed, midi_bases)
+        if gk ~= "" and selected_group_keys[gk] then
+            tracksToProcess[tr] = true
         end
+    end
 end
 
 -- Bestimme, ob deaktiviert oder reaktiviert werden soll
 local deactivate = false
 for track, _ in pairs(tracksToProcess) do
-    local _, name = reaper.GetTrackName(track, "")
+    local _, name = reaper.GetTrackName(track)
     local parsed = mctm.parse(name)
     if not mctm.is_disabled(parsed) then
         deactivate = true
@@ -80,9 +98,9 @@ for track, _ in pairs(tracksToProcess) do
     end
 end
 
--- Anwenden des Toggles (synchronisiert für beide Partner)
+-- Apply toggle (synchronized for the whole track group)
 for track, _ in pairs(tracksToProcess) do
-    local _, name = reaper.GetTrackName(track, "")
+    local _, name = reaper.GetTrackName(track)
     local parsed = mctm.parse(name)
 
     if deactivate then
@@ -117,5 +135,5 @@ for track, _ in pairs(tracksToProcess) do
 end
 
 reaper.TrackList_AdjustWindows(false)
-reaper.Undo_EndBlock("Toggle 'D ' prefix and visibility (stable)", -1)
+reaper.Undo_EndBlock("Toggle 'D ' prefix and visibility (track groups)", -1)
 

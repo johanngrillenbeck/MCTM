@@ -17,7 +17,7 @@ add_script_dir_to_package_path()
 
 local ok, mctm = pcall(require, "jg_MCTM_helper")
 if not ok or not mctm then reaper.ShowConsoleMsg("Could not require 'jg_MCTM_helper': " .. tostring(mctm) .. "\n") return end
-local selected_pairs = {}
+local selected_groups = {}
 local show_window = true  -- Fenster-Status
 local last_routing_error_fingerprint = nil
 
@@ -27,6 +27,41 @@ end
 
 local function canonical_name(name)
     return trim(name):lower()
+end
+
+-- Track Group detection (supports multi-audio child A tracks)
+local function build_midi_base_set()
+    local set = {}
+    for i = 0, reaper.CountTracks(0) - 1 do
+        local tr = reaper.GetTrack(0, i)
+        local _, name = reaper.GetTrackName(tr)
+        local parsed = mctm.parse(name)
+        if parsed and mctm.is_midi(parsed) then
+            local base = trim(parsed.name)
+            if base ~= "" then set[base] = true end
+        end
+    end
+    return set
+end
+
+local function group_key_from_parsed(parsed, midi_bases)
+    if not parsed then return "" end
+    local base = trim(parsed.name)
+    if base == "" then return "" end
+
+    -- Multi-audio child A tracks are named like: "<child> (<LIB PARENT>)"
+    -- Use the inside parentheses as group key only if a matching MIDI base exists.
+    if mctm.is_audio(parsed) then
+        local inside = base:match("%((.-)%)%s*$")
+        if inside then
+            inside = trim(inside)
+            if inside ~= "" and midi_bases and midi_bases[inside] then
+                return inside
+            end
+        end
+    end
+
+    return base
 end
 
 local function isRelevantTrack(track)
@@ -117,49 +152,80 @@ local function getBusForAudioTrack(audio_track)
     return nil, nil
 end
 
-local function getTrackPairs()
+local function getTrackGroups()
     -- returns:
-    -- - ordered list of canonical keys
-    -- - pairs map keyed by canonical instrument name
+    -- - ordered list of canonical group keys
+    -- - groups map keyed by canonical group name
     local order = {}
-    local pairs = {}
+    local groups = {}
+
+    local midi_bases = build_midi_base_set()
 
     for i = 0, reaper.CountTracks(0) - 1 do
         local track = reaper.GetTrack(0, i)
         if isRelevantTrack(track) then
             local _, parsed = parseTrack(track)
-            local key = canonical_name(parsed.name)
-            if key ~= "" then
-                local entry = pairs[key]
-                if not entry then
-                    entry = {
-                        key = key,
-                        name = parsed.name,
-                        audio_track = nil,
-                        midi_track = nil,
-                        disabled = false,
-                    }
-                    pairs[key] = entry
-                    table.insert(order, key)
+            if parsed and (mctm.is_audio(parsed) or mctm.is_midi(parsed)) then
+                local group_name = group_key_from_parsed(parsed, midi_bases)
+                local key = canonical_name(group_name)
+                if key ~= "" then
+                    local entry = groups[key]
+                    if not entry then
+                        entry = {
+                            key = key,
+                            name = group_name,
+                            audio_tracks = {},
+                            midi_track = nil,
+                            disabled = false,
+                        }
+                        groups[key] = entry
+                        table.insert(order, key)
+                    end
+
+                    if mctm.is_audio(parsed) then
+                        table.insert(entry.audio_tracks, track)
+                    end
+                    if mctm.is_midi(parsed) then
+                        -- Prefer first MIDI track found for this group
+                        if not entry.midi_track then entry.midi_track = track end
+                    end
+                    if mctm.is_disabled(parsed) then entry.disabled = true end
                 end
-                if mctm.is_audio(parsed) then entry.audio_track = track end
-                if mctm.is_midi(parsed) then entry.midi_track = track end
-                if mctm.is_disabled(parsed) then entry.disabled = true end
             end
         end
     end
 
     table.sort(order, function(a, b)
-        return (pairs[a].name or a):lower() < (pairs[b].name or b):lower()
+        return (groups[a].name or a):lower() < (groups[b].name or b):lower()
     end)
 
-    return order, pairs
+    return order, groups
 end
 
-local function getDesiredChecked(key, pair)
-    local v = selected_pairs[key]
+local function getBusForGroup(group)
+    if not group or not group.audio_tracks or #group.audio_tracks == 0 then
+        return nil, nil
+    end
+    local bus = nil
+    for _, atr in ipairs(group.audio_tracks) do
+        local b, err = getBusForAudioTrack(atr)
+        if err then return nil, err end
+        if b then
+            if not bus then
+                bus = b
+            elseif bus ~= b then
+                local gname = tostring(group.name or group.key)
+                return nil, string.format("Group '%s' routes to multiple busses (multi-audio mismatch).", gname)
+            end
+        end
+    end
+    return bus, nil
+end
+
+local function getDesiredChecked(key, group)
+    local v = selected_groups[key]
     if v == nil then
-        return not (pair and pair.disabled)
+        return not (group and group.disabled)
     end
     return v
 end
@@ -196,7 +262,7 @@ function loop()
     show_window = open -- Fenster-Flag aktualisieren
 
     if visible then
-        local pair_order, pair_map = getTrackPairs()
+        local group_order, group_map = getTrackGroups()
 
         -- Build bus groups
         local bus_groups = {}
@@ -211,11 +277,11 @@ function loop()
             return bus_groups[bus_key]
         end
 
-        for _, key in ipairs(pair_order) do
-            local pair = pair_map[key]
+        for _, key in ipairs(group_order) do
+            local group_entry = group_map[key]
             local bus_track, err = nil, nil
-            if pair and pair.audio_track then
-                bus_track, err = getBusForAudioTrack(pair.audio_track)
+            if group_entry then
+                bus_track, err = getBusForGroup(group_entry)
             end
 
             if err then
@@ -251,18 +317,18 @@ function loop()
             local group = bus_groups[bus_key]
             if group and group.items then
                 table.sort(group.items, function(a, b)
-                    local pa, pb = pair_map[a], pair_map[b]
-                    return (pa and pa.name or a):lower() < (pb and pb.name or b):lower()
+                    local ga, gb = group_map[a], group_map[b]
+                    return (ga and ga.name or a):lower() < (gb and gb.name or b):lower()
                 end)
             end
         end
 
         if reaper.ImGui_Button(ctx, "Select All") then
-            for _, key in ipairs(pair_order) do selected_pairs[key] = true end
+            for _, key in ipairs(group_order) do selected_groups[key] = true end
         end
         reaper.ImGui_SameLine(ctx)
         if reaper.ImGui_Button(ctx, "Deselect All") then
-            for _, key in ipairs(pair_order) do selected_pairs[key] = false end
+            for _, key in ipairs(group_order) do selected_groups[key] = false end
         end
 
         reaper.ImGui_SameLine(ctx)
@@ -300,20 +366,20 @@ function loop()
                 local changed_set = {}
                 local changed_tracks = {}
 
-                for _, key in ipairs(pair_order) do
-                    local pair = pair_map[key]
-                    local desired = getDesiredChecked(key, pair)
+                for _, key in ipairs(group_order) do
+                    local grp = group_map[key]
+                    local desired = getDesiredChecked(key, grp)
 
-                    if desired and pair and pair.midi_track then
-                        table.insert(final_m_selection, pair.midi_track)
+                    if desired and grp and grp.midi_track then
+                        table.insert(final_m_selection, grp.midi_track)
                     end
 
-                    if pair then
-                        local any_track = pair.midi_track or pair.audio_track
-                        if (not desired) and (not pair.disabled) then
+                    if grp then
+                        local any_track = grp.midi_track or (grp.audio_tracks and grp.audio_tracks[1])
+                        if (not desired) and (not grp.disabled) then
                             if any_track then table.insert(to_disable, any_track) end
                             if any_track and not changed_set[any_track] then changed_set[any_track] = true; table.insert(changed_tracks, any_track) end
-                        elseif desired and pair.disabled then
+                        elseif desired and grp.disabled then
                             if any_track then table.insert(to_enable, any_track) end
                             if any_track and not changed_set[any_track] then changed_set[any_track] = true; table.insert(changed_tracks, any_track) end
                         end
@@ -403,12 +469,12 @@ function loop()
                     reaper.ImGui_Text(ctx, group.bus_name or "")
                     if reaper.ImGui_Indent then reaper.ImGui_Indent(ctx, 12) end
                     for _, key in ipairs(group.items or {}) do
-                        local pair = pair_map[key]
-                        local label = ((pair and pair.name) or key) .. "##" .. key
-                        local checked = getDesiredChecked(key, pair)
+                        local grp = group_map[key]
+                        local label = ((grp and grp.name) or key) .. "##" .. key
+                        local checked = getDesiredChecked(key, grp)
                         local changed, new_state = reaper.ImGui_Checkbox(ctx, label, checked)
                         if changed then
-                            selected_pairs[key] = new_state
+                            selected_groups[key] = new_state
                         end
                     end
                     if reaper.ImGui_Indent then reaper.ImGui_Unindent(ctx, 12) end
