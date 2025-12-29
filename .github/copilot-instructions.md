@@ -94,6 +94,10 @@ local new = mctm.format_label({"M"}, "Viola") -- "M Viola"
  Routing conventions:
    - Audio from `CTRL` to `A` tracks in ascending quad groups: first selected `A` receives source channels 1–4, second 5–8, etc.; each destination is set to 4 channels; sends are created as two stereo pairs per quad; MIDI on these sends is disabled.
      - Reference: [jg_MCTM_Recieve from CTRL - ascending quad audio no midi.lua](jg_MCTM_Recieve%20from%20CTRL%20-%20ascending%20quad%20audio%20no%20midi.lua)
+   - Mono and odd VE ranges for `CTRL` → `A`/`FX` routing are supported via the CSV `From VE Audiotrack` field:
+     - Single number (e.g. `3`) means mono source channel 3.
+     - Odd range (e.g. `1-3`) means stereo `1-2` plus mono `3` (prevents overlapping stereo mappings like `3/4`, `4/5`, ...).
+     - Implementation detail (REAPER send encoding): set `I_SRCCHAN` to `(start0 + 1024)` for mono, or `start0` for stereo; keep `I_DSTCHAN` as the destination channel offset (0-based).
    - MIDI from selected tracks to a chosen `CTRL` track on ascending MIDI busses: first selected track → bus 1, second → bus 2, omni channel (0), audio disabled (`I_SRCCHAN`/`I_DSTCHAN = -1`). Optional pre-clean disables existing MIDI routing.
      - Reference: [jg_MCTM_Send to CTRL - ascending MIDI busses no audio.lua](jg_MCTM_Send%20to%20CTRL%20-%20ascending%20MIDI%20busses%20no%20audio.lua)
    - VEPro activation/deactivation via `CTRL` track envelopes named like `"<Index> <Instrument> /Disable"`: if any track in the group has `D`, set target value 1 (deactivate); otherwise 0 (activate). Points are inserted and sorted to create short ramps.

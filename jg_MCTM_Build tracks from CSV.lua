@@ -172,12 +172,76 @@ local function parse_ve_range(ve)
     if a and b then
         return tonumber(a), tonumber(b)
     end
-    local single = ve:match("(%d+)")
+    local single = ve:match("^%s*(%d+)%s*$")
     if single then
         local n = tonumber(single)
         return n, n
     end
     return nil, nil
+end
+
+-- Like parse_ve_range(), but uses a default channel span when VE is missing/invalid.
+-- default_span is channel count (e.g. 4 for quad, 2 for stereo). Starts at channel 1.
+local function parse_ve_range_with_default(ve, default_span)
+    local a, b = parse_ve_range(ve)
+    if a and b then return a, b end
+    local span = tonumber(default_span) or 4
+    if span < 1 then span = 1 end
+    return 1, span
+end
+
+local function ve_channel_count(start_ch, end_ch)
+    start_ch = tonumber(start_ch) or 1
+    end_ch = tonumber(end_ch) or start_ch
+    if end_ch < start_ch then start_ch, end_ch = end_ch, start_ch end
+    return math.max(1, (end_ch - start_ch + 1))
+end
+
+local function ctrl_srcchan_value(src_start_zero_based, is_mono)
+    local base = tonumber(src_start_zero_based) or 0
+    if is_mono then
+        -- I_SRCCHAN mono encoding: (srcchan>>10)==1
+        return base + 1024
+    end
+    return base
+end
+
+-- Returns list of segments that cover a VE range.
+-- Each segment maps either a stereo pair (2ch) or a mono channel (1ch, for odd/mono ranges).
+-- Segment fields:
+--   src_start0 : source channel offset (0-based)
+--   dst_start0 : destination channel offset (0-based, in stereo-pair steps)
+--   is_mono    : true if this segment is mono
+local function ve_segments(start_ch, end_ch)
+    local count = ve_channel_count(start_ch, end_ch)
+    local src_start0 = (tonumber(start_ch) or 1) - 1
+
+    local segments = {}
+    local pairs = math.floor(count / 2)
+    local has_odd = (count % 2) == 1
+
+    for pair = 0, pairs - 1 do
+        table.insert(segments, {
+            src_start0 = src_start0 + pair * 2,
+            dst_start0 = pair * 2,
+            is_mono = false,
+        })
+    end
+    if has_odd then
+        table.insert(segments, {
+            src_start0 = src_start0 + pairs * 2,
+            dst_start0 = pairs * 2,
+            is_mono = true,
+        })
+    end
+    return segments, count, pairs, has_odd
+end
+
+local function required_dst_nchan_for_segments(pairs, has_odd)
+    local n = (tonumber(pairs) or 0) * 2
+    if has_odd then n = n + 2 end
+    if n < 2 then n = 2 end
+    return n
 end
 
 -- How many audio channels does this instrument return, based on VE range length.
@@ -562,6 +626,87 @@ local function receive_from_src_exists(src, dest)
     end
     return false
 end
+
+local function get_send_mapping(src, sendidx)
+    local vsrc = nil
+    local vdst = nil
+    do
+        local ok1, a = pcall(reaper.BR_GetSetTrackSendInfo, src, 0, sendidx, "I_SRCCHAN", false, 0)
+        local ok2, b = pcall(reaper.BR_GetSetTrackSendInfo, src, 0, sendidx, "I_DSTCHAN", false, 0)
+        if ok1 then vsrc = tonumber(a) end
+        if ok2 then vdst = tonumber(b) end
+    end
+    if vsrc == nil or vdst == nil then
+        local ok1, a = pcall(reaper.GetTrackSendInfo_Value, src, 0, sendidx, "I_SRCCHAN")
+        local ok2, b = pcall(reaper.GetTrackSendInfo_Value, src, 0, sendidx, "I_DSTCHAN")
+        if ok1 then vsrc = tonumber(a) end
+        if ok2 then vdst = tonumber(b) end
+    end
+    return vsrc, vdst
+end
+
+-- Ensure a send exists from src->dest with the desired mapping.
+-- If desired is mono and an existing send matches but is stereo, upgrade it to mono.
+local function ensure_audio_send(src, dest, desired_srcchan, desired_dstchan)
+    local desired_src_val = tonumber(desired_srcchan) or 0
+    local desired_dst_val = tonumber(desired_dstchan) or 0
+    local ns = reaper.GetTrackNumSends(src, 0)
+    local dest_name = nil
+    pcall(function() local ok, n = reaper.GetTrackName(dest) if ok then dest_name = n end end)
+    if not dest_name then dest_name = "" end
+
+    for s = 0, (ns or 0) - 1 do
+        local ok, dst = pcall(reaper.BR_GetSetTrackSendInfo, src, 0, s, "P_DESTTRACK", false, 0)
+        if ok and dst then
+            local okn, n = pcall(reaper.GetTrackName, dst)
+            if okn and n and n == dest_name then
+                local vsrc, vdst = get_send_mapping(src, s)
+                if vsrc ~= nil and vdst ~= nil then
+                    if vsrc == desired_src_val and vdst == desired_dst_val then
+                        return true, false
+                    end
+
+                    -- If mono is desired, and existing mapping is stereo at same start/dst, upgrade to mono.
+                    local desired_mono = desired_src_val >= 1024
+                    if desired_mono then
+                        local desired_start0 = desired_src_val - 1024
+                        local existing_is_stereo = ((math.floor((tonumber(vsrc) or 0) / 1024)) == 0)
+                        if existing_is_stereo and tonumber(vsrc) == desired_start0 and tonumber(vdst) == desired_dst_val then
+                            pcall(function()
+                                reaper.BR_GetSetTrackSendInfo(src, 0, s, "I_SRCCHAN", true, desired_src_val)
+                                reaper.BR_GetSetTrackSendInfo(src, 0, s, "I_DSTCHAN", true, desired_dst_val)
+                                reaper.BR_GetSetTrackSendInfo(src, 0, s, "I_MIDI_SRCBUS", true, -1)
+                                reaper.BR_GetSetTrackSendInfo(src, 0, s, "I_MIDI_DSTBUS", true, -1)
+                                reaper.BR_GetSetTrackSendInfo(src, 0, s, "I_MIDI_SRCCHAN", true, -1)
+                                reaper.BR_GetSetTrackSendInfo(src, 0, s, "I_MIDI_DSTCHAN", true, -1)
+                                reaper.BR_GetSetTrackSendInfo(src, 0, s, "D_VOL", true, 1.0)
+                                reaper.BR_GetSetTrackSendInfo(src, 0, s, "B_MUTE", true, 0.0)
+                            end)
+                            return true, true
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    local sendidx = reaper.CreateTrackSend(src, dest)
+    if sendidx and sendidx >= 0 then
+        pcall(function()
+            reaper.BR_GetSetTrackSendInfo(src, 0, sendidx, "I_SRCCHAN", true, desired_src_val)
+            reaper.BR_GetSetTrackSendInfo(src, 0, sendidx, "I_DSTCHAN", true, desired_dst_val)
+            reaper.BR_GetSetTrackSendInfo(src, 0, sendidx, "I_MIDI_SRCBUS", true, -1)
+            reaper.BR_GetSetTrackSendInfo(src, 0, sendidx, "I_MIDI_DSTBUS", true, -1)
+            reaper.BR_GetSetTrackSendInfo(src, 0, sendidx, "I_MIDI_SRCCHAN", true, -1)
+            reaper.BR_GetSetTrackSendInfo(src, 0, sendidx, "I_MIDI_DSTCHAN", true, -1)
+            reaper.BR_GetSetTrackSendInfo(src, 0, sendidx, "D_VOL", true, 1.0)
+            reaper.BR_GetSetTrackSendInfo(src, 0, sendidx, "B_MUTE", true, 0.0)
+        end)
+        return true, true
+    end
+
+    return false, false
+end
 for i, r in ipairs(rows) do
     dbg(string.format("Processing entry %d: Type=%s | CTRL=%s | Lib=%s | Name=%s | VE=%s | MidiBus=%s | Bus=%s", i, tostring(r.type), tostring(r.ctrl), tostring(r.lib), tostring(r.name), tostring(r.ve), tostring(r.midi_bus), tostring(r.audio_send_to)))
     local ctrl = tostring(r.ctrl or "")
@@ -666,61 +811,20 @@ for i, r in ipairs(rows) do
         -- routing: FX receives audio from CTRL (stereo/quad/etc depending on VE range)
         local src_track = ctrl_tracks[ctrl]
         if src_track then
-            local start_ch = 1
-            local a,b = (ve or ""):match("(%d+)%s*-%s*(%d+)")
-            local end_ch = nil
-            if a and b then
-                start_ch = tonumber(a) or start_ch
-                end_ch = tonumber(b)
-            else
-                local single = (ve or ""):match("(%d+)")
-                local single_n = tonumber(single)
-                if single_n then start_ch = single_n end
-                end_ch = start_ch + 3
-            end
-            local src_start = start_ch - 1
-            local channel_count = math.max(1, (end_ch - start_ch + 1))
-            reaper.SetMediaTrackInfo_Value(FX, "I_NCHAN", channel_count)
-            dbg(string.format("  FX track %s I_NCHAN set to %d (VE %s)", FX_name, channel_count, tostring(ve)))
+            local start_ch, end_ch = parse_ve_range_with_default(ve, 4)
+            local segments, _count, pairs, has_odd = ve_segments(start_ch, end_ch)
+            local dest_nchan = required_dst_nchan_for_segments(pairs, has_odd)
+            reaper.SetMediaTrackInfo_Value(FX, "I_NCHAN", dest_nchan)
+            dbg(string.format("  FX track %s I_NCHAN set to %d (VE %s)", FX_name, dest_nchan, tostring(ve)))
 
-            local pairs = math.floor(channel_count / 2)
-            local has_odd = (channel_count % 2) == 1
-            if receive_from_src_exists(src_track, FX) or send_exists_to_dest(src_track, FX) then
-                dbg(string.format("    At least one send already exists from CTRL to %s — skipping channel creation to avoid duplicates.", FX_name))
-            else
-                for pair = 0, pairs-1 do
-                    local pair_src = src_start + pair*2
-                    local pair_dst = pair*2
-                    local sendidx = reaper.CreateTrackSend(src_track, FX)
-                    if sendidx and sendidx >= 0 then
-                        dbg(string.format("    Created stereo send to FX: sendidx=%d pair=%d src=%d dst=%d", sendidx, pair, pair_src, pair_dst))
-                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_SRCCHAN", true, pair_src)
-                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_DSTCHAN", true, pair_dst)
-                        pcall(function()
-                            reaper.SetTrackSendInfo_Value(src_track, 0, sendidx, "I_SRCCHAN", pair_src)
-                            reaper.SetTrackSendInfo_Value(src_track, 0, sendidx, "I_DSTCHAN", pair_dst)
-                        end)
-                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_MIDI_SRCBUS", true, -1)
-                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_MIDI_DSTBUS", true, -1)
-                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_MIDI_SRCCHAN", true, -1)
-                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_MIDI_DSTCHAN", true, -1)
-                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "D_VOL", true, 1.0)
-                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "B_MUTE", true, 0.0)
-                    end
-                end
-                if has_odd then
-                    local last_src = src_start + pairs*2
-                    local last_dst = pairs*2
-                    local sendidx = reaper.CreateTrackSend(src_track, FX)
-                    if sendidx and sendidx >= 0 then
-                        dbg(string.format("    Created single-channel send to FX: sendidx=%d src=%d dst=%d", sendidx, last_src, last_dst))
-                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_SRCCHAN", true, last_src)
-                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_DSTCHAN", true, last_dst)
-                        pcall(function()
-                            reaper.SetTrackSendInfo_Value(src_track, 0, sendidx, "I_SRCCHAN", last_src)
-                            reaper.SetTrackSendInfo_Value(src_track, 0, sendidx, "I_DSTCHAN", last_dst)
-                        end)
-                    end
+            for idx, seg in ipairs(segments) do
+                local desired_src = ctrl_srcchan_value(seg.src_start0, seg.is_mono)
+                local desired_dst = seg.dst_start0
+                local ok_send, changed = ensure_audio_send(src_track, FX, desired_src, desired_dst)
+                if ok_send then
+                    dbg(string.format("    Ensured %s send to FX: seg=%d src=%d%s dst=%d%s", seg.is_mono and "mono" or "stereo", idx, seg.src_start0, seg.is_mono and "(mono)" or "", seg.dst_start0, changed and " (created/updated)" or ""))
+                else
+                    dbg(string.format("    Warning: failed ensuring send to FX for seg=%d", idx))
                 end
             end
         else
@@ -908,53 +1012,20 @@ for i, r in ipairs(rows) do
         -- routing: A receives audio from CTRL based on VE range
         local src_track = ctrl_tracks[ctrl]
         if src_track then
-            local start_ch = 1
-            local a,b = (ve or ""):match("(%d+)%s*-%s*(%d+)")
-            local end_ch = nil
-            if a and b then
-                start_ch = tonumber(a) or start_ch
-                end_ch = tonumber(b)
-            else
-                local single = (ve or ""):match("(%d+)")
-                local single_n = tonumber(single)
-                if single_n then start_ch = single_n end
-                end_ch = start_ch + 1 -- default stereo if unspecified on child
-            end
-            local src_start = start_ch - 1
-            local channel_count = math.max(1, (end_ch - start_ch + 1))
-            reaper.SetMediaTrackInfo_Value(A, "I_NCHAN", channel_count)
-            dbg(string.format("  Multi-audio A track %s I_NCHAN set to %d (VE %s)", A_name, channel_count, tostring(ve)))
+            local start_ch, end_ch = parse_ve_range_with_default(ve, 2)
+            local segments, _count, pairs, has_odd = ve_segments(start_ch, end_ch)
+            local dest_nchan = required_dst_nchan_for_segments(pairs, has_odd)
+            reaper.SetMediaTrackInfo_Value(A, "I_NCHAN", dest_nchan)
+            dbg(string.format("  Multi-audio A track %s I_NCHAN set to %d (VE %s)", A_name, dest_nchan, tostring(ve)))
 
-            local pairs = math.floor(channel_count / 2)
-            local has_odd = (channel_count % 2) == 1
-            if receive_from_src_exists(src_track, A) or send_exists_to_dest(src_track, A) then
-                dbg(string.format("    At least one send already exists from CTRL to %s — skipping channel creation to avoid duplicates.", A_name))
-            else
-                for pair = 0, pairs-1 do
-                    local pair_src = src_start + pair*2
-                    local pair_dst = pair*2
-                    local sendidx = reaper.CreateTrackSend(src_track, A)
-                    if sendidx and sendidx >= 0 then
-                        dbg(string.format("    Created stereo send to multi-audio A: sendidx=%d pair=%d src=%d dst=%d", sendidx, pair, pair_src, pair_dst))
-                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_SRCCHAN", true, pair_src)
-                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_DSTCHAN", true, pair_dst)
-                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_MIDI_SRCBUS", true, -1)
-                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_MIDI_DSTBUS", true, -1)
-                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_MIDI_SRCCHAN", true, -1)
-                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_MIDI_DSTCHAN", true, -1)
-                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "D_VOL", true, 1.0)
-                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "B_MUTE", true, 0.0)
-                    end
-                end
-                if has_odd then
-                    local last_src = src_start + pairs*2
-                    local last_dst = pairs*2
-                    local sendidx = reaper.CreateTrackSend(src_track, A)
-                    if sendidx and sendidx >= 0 then
-                        dbg(string.format("    Created single-channel send to multi-audio A: sendidx=%d src=%d dst=%d", sendidx, last_src, last_dst))
-                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_SRCCHAN", true, last_src)
-                        reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_DSTCHAN", true, last_dst)
-                    end
+            for idx, seg in ipairs(segments) do
+                local desired_src = ctrl_srcchan_value(seg.src_start0, seg.is_mono)
+                local desired_dst = seg.dst_start0
+                local ok_send, changed = ensure_audio_send(src_track, A, desired_src, desired_dst)
+                if ok_send then
+                    dbg(string.format("    Ensured %s send to multi-audio A: seg=%d src=%d%s dst=%d%s", seg.is_mono and "mono" or "stereo", idx, seg.src_start0, seg.is_mono and "(mono)" or "", seg.dst_start0, changed and " (created/updated)" or ""))
+                else
+                    dbg(string.format("    Warning: failed ensuring send to multi-audio A for seg=%d", idx))
                 end
             end
         else
@@ -1100,68 +1171,20 @@ for i, r in ipairs(rows) do
     -- routing: A receives audio from CTRL (stereo or quad depending on VE range)
     local src_track = ctrl_tracks[ctrl]
     if src_track then
-        -- parse ve field like '1-4' -> take first number
-        local start_ch = 1
-        local a,b = ve:match("(%d+)%s*-%s*(%d+)")
-        local end_ch = nil
-        if a and b then
-            start_ch = tonumber(a) or start_ch
-            end_ch = tonumber(b)
-        else
-            local single = ve:match("(%d+)")
-            local single_n = tonumber(single)
-            if single_n then start_ch = single_n end
-            end_ch = start_ch + 3 -- default quad if unspecified
-        end
-        local src_start = start_ch - 1 -- zero-based
-        local channel_count = math.max(1, (end_ch - start_ch + 1))
-        -- ensure destination track has sufficient input channels (use channel_count)
-        reaper.SetMediaTrackInfo_Value(A, "I_NCHAN", channel_count)
-        dbg(string.format("  A track %s I_NCHAN set to %d (VE %s)", A_name, channel_count, tostring(ve)))
+        local start_ch, end_ch = parse_ve_range_with_default(ve, 4)
+        local segments, _count, pairs, has_odd = ve_segments(start_ch, end_ch)
+        local dest_nchan = required_dst_nchan_for_segments(pairs, has_odd)
+        reaper.SetMediaTrackInfo_Value(A, "I_NCHAN", dest_nchan)
+        dbg(string.format("  A track %s I_NCHAN set to %d (VE %s)", A_name, dest_nchan, tostring(ve)))
 
-        -- number of stereo pairs to create (each pair = 2 channels)
-        local pairs = math.floor(channel_count / 2)
-        local has_odd = (channel_count % 2) == 1
-
-        -- prefer checking receives on destination for robustness; fallback to send_exists_to_dest
-        if receive_from_src_exists(src_track, A) or send_exists_to_dest(src_track, A) then
-            dbg(string.format("    At least one send already exists from CTRL to %s — skipping channel creation to avoid duplicates.", A_name))
-        else
-            -- create stereo pairs
-            for pair = 0, pairs-1 do
-                local pair_src = src_start + pair*2
-                local pair_dst = pair*2
-                local sendidx = reaper.CreateTrackSend(src_track, A)
-                if sendidx and sendidx >= 0 then
-                    dbg(string.format("    Created stereo send to A: sendidx=%d pair=%d src=%d dst=%d", sendidx, pair, pair_src, pair_dst))
-                    reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_SRCCHAN", true, pair_src)
-                    reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_DSTCHAN", true, pair_dst)
-                    pcall(function()
-                        reaper.SetTrackSendInfo_Value(src_track, 0, sendidx, "I_SRCCHAN", pair_src)
-                        reaper.SetTrackSendInfo_Value(src_track, 0, sendidx, "I_DSTCHAN", pair_dst)
-                    end)
-                    reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_MIDI_SRCBUS", true, -1)
-                    reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_MIDI_DSTBUS", true, -1)
-                    reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_MIDI_SRCCHAN", true, -1)
-                    reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_MIDI_DSTCHAN", true, -1)
-                    reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "D_VOL", true, 1.0)
-                    reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "B_MUTE", true, 0.0)
-                end
-            end
-            -- if odd channel left, create single-channel send for the remaining channel
-            if has_odd then
-                local last_src = src_start + pairs*2
-                local last_dst = pairs*2
-                local sendidx = reaper.CreateTrackSend(src_track, A)
-                if sendidx and sendidx >= 0 then
-                    dbg(string.format("    Created single-channel send to A: sendidx=%d src=%d dst=%d", sendidx, last_src, last_dst))
-                    reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_SRCCHAN", true, last_src)
-                    reaper.BR_GetSetTrackSendInfo(src_track, 0, sendidx, "I_DSTCHAN", true, last_dst)
-                    pcall(function()
-                        reaper.SetTrackSendInfo_Value(src_track, 0, sendidx, "I_SRCCHAN", last_src)
-                        reaper.SetTrackSendInfo_Value(src_track, 0, sendidx, "I_DSTCHAN", last_dst)
-                    end)
-                end
+        for idx, seg in ipairs(segments) do
+            local desired_src = ctrl_srcchan_value(seg.src_start0, seg.is_mono)
+            local desired_dst = seg.dst_start0
+            local ok_send, changed = ensure_audio_send(src_track, A, desired_src, desired_dst)
+            if ok_send then
+                dbg(string.format("    Ensured %s send to A: seg=%d src=%d%s dst=%d%s", seg.is_mono and "mono" or "stereo", idx, seg.src_start0, seg.is_mono and "(mono)" or "", seg.dst_start0, changed and " (created/updated)" or ""))
+            else
+                dbg(string.format("    Warning: failed ensuring send to A for seg=%d", idx))
             end
         end
     else
