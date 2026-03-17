@@ -1,55 +1,89 @@
 # Media Composer Template Manager (MCTM)
 
-Der MCTM ist eine Sammlung von Reaper-Skripten, die das Arbeiten mit großen Orchestertemplates vereinfachen soll.
+MCTM is a collection of Reaper scripts designed to make working with large orchestral templates easier.
 
-Design-Philosophie
+## Design Philosophy
 
-- Alle Tracks bekommen Prefixe, damit der Status eines Tracks in einem für Menschen lesbaren Format gespeichert ist.
-- Weil Reaper nicht zwischen Audio- und MIDI-Tracks unterscheidet, ist es für den User wichtig, auf welchem Track er sich befindet.
+### Instruments
+- Reaper does not distinguish between Audio and MIDI tracks. We need a Midi Track and Audio Track(s) per Instrument, so:
+- Every track gets *prefixes* (A and M) so the status of a track is stored in a human-readable format.
 
-Prefix-Übersicht
+Each virtual instrument exists as a pairing of tracks: one or more audio tracks and one MIDI track. The `D` prefix tells the system that the user does not need that track pair; display/filter functions ignore such tracks. There is a script that allows you to "disable" a track. This hides it from view and applies the D Prefix.
 
-- `A` : Audiotrack
-- `M` : MIDI-Track
-- `D` : deaktivierter Track (wird vom System ignoriert)
-- `CTRL` : Track, der z. B. eine VEPro-Instanz hostet (VSTi)
+### FX and Bus Tracks
+- Same goes for tracks that the user designates FX Sends and Busses. 
 
-Konvention
+### Prefix Overview
 
-Jedes virtuelle Instrument tritt nur in einem Track-Paar aus Audio- und MIDI-Track auf. Das Prefix `D` sagt dem System, dass der User das Track-Paar nicht braucht; Funktionen zum Anzeigen/Filtern ignorieren solche Tracks.
+- `A` : Audio track -> shown only in Mixer by default but can be shown in TCP via script (e.g. when you have bounced MIDI to Audio)
+- `M` : MIDI track -> never shown in Mixer
+- `D` : Disabled track (ignored by the system)
+- `CTRL` : Track that hosts something like a VEPro instance (VSTi)
 
-Library: `mctm.lua`
 
-Wichtige Funktionen (kurz):
+# Included scripts
+note: for easier reading the `jg_MCTM_` prefix and filename (.lua) are ommited.
+
+## Building your template
+
+### Recieve from CTRL - ascending quad audio no midi
+Route audio from a selected CTRL track into selected audio tracks using ascending quad channel groups; does not route MIDI.
+
+### Send to CTRL - ascending MIDI busses no audio
+Route MIDI from selected tracks into a selected CTRL track using ascending MIDI busses; audio routing is disabled.
+
+### Build tracks from CSV
+Create project tracks from the CSV template, naming them and setting up MIDI/audio group structure.
+
+### Build Reabank from CSV
+Generate a Reaticulate .reabank file from the CSV template for importing articulations and keyswitches.
+
+## Using your template
+
+### Choose Tracks
+Choose your instruments in a more comfortable way compared to the track manager.
+Instruments are grouped by Bus they are routed to.
+Select the instruments and `apply selection`.
+
+### Toggle D Prefix and Visibility for track pair
+Best used as a shortcut in your main toolbar to deactivate a track group.
+You only have to select one track of the group, it will toggle activation and visibility for all of them.
+
+### Toggle Track Pair Visibility
+Toggle TCP visibility for MIDI/audio instrument pair to bring up the one that is currently hidden from the pair or hide the one that is selected.
+
+### Toggle TCP Visibility A
+Toggle TCP visibility for all audio (`A`) tracks in the project to quickly declutter the track list.
+
+### Toggle TCP Visibility M
+Toggle TCP visibility for all MIDI (`M`) tracks in the project to quickly declutter the track list.
+
+## Helper script
+
+This script is required for other scripts to work. You would not execute it from Reaper directly.
+
+Key functions (brief):
 
 - `parse(label)` -> { prefixes = {...}, name = "..." }
-- `findPairs(tracks, opts)` -> table mit key = canonical name -> { name=..., audio=label?, midi=label?, ctrl=label?, disabled=bool }
+- `findPairs(tracks, opts)` -> table with key = canonical name -> { name=..., audio=label?, midi=label?, ctrl=label?, disabled=bool }
 - `is_audio(parsed)`, `is_midi(parsed)`, `is_ctrl(parsed)`, `is_disabled(parsed)`
 - `format_label(prefixes, name)`
 
-Beispiele
+Examples
 
 1) Parsing:
 
 - `M Violin` -> prefixes = {"M"}, name = "Violin"
-- `D M Viola` -> prefixes = {"D","M"}, name = "Viola" (wird normalerweise ignoriert)
+- `D M Viola` -> prefixes = {"D","M"}, name = "Viola" (normally ignored)
 - `CTRL VEHost` -> prefixes = {"CTRL"}, name = "VEHost"
 
 2) findPairs:
+Returns a table that, for each instrument, provides the existing track labels for audio/MIDI/CTRL and indicates whether it is `disabled`.
 
-Gibt eine Tabelle zurück, die zu jedem Instrument die vorhandenen Track-Labels für Audio/MIDI/CTRL liefert und `disabled` angibt.
+## currently defunct
 
-Wie benutzen
+### Set all CTRL Envelopes Active
+Due to VEpro tending to crash when activating many instruments at once via envelopes, I will not develop this further until I have tried VEpro 8.
 
-Lege `mctm.lua` in dasselbe Verzeichnis wie deine Skripte. In einem Script kannst du es mit `local mctm = dofile("mctm.lua")` laden (oder `require` verwenden, wenn dein package.path passt).
-
-Beispiel-Demo: `hello world.lua` im selben Ordner zeigt eine kleine Demo.
-
-Weiteres
-
-- Erweiterungen: Funktionen zum Umbenennen, Toggling von Präfixen, oder Reaper-API-Integration (Track-Objekte statt Strings) lassen sich hinzufügen.
-- Tests: Kleine Unit-Tests könnten hinzugefügt werden, um Parsing-Edgecases abzudecken (leere Namen, mehrere Bindestriche, Sonderzeichen).
-
-Lizenz
-
-Dieses Repository enthält persönliche Skripte für Reaper. Passe sie nach Bedarf an.
+### Toggle VEPro Activation depending on D Prefix
+Due to VEpro tending to crash when activating many instruments at once via envelopes, I will not develop this further until I have tried VEpro 8.

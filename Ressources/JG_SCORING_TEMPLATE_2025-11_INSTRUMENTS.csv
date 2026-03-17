@@ -167,8 +167,8 @@ CTRLVE3;OTBP;Cymbals;MetalPerc;49-52;13;1;Zildjian 14'';SINE;75
 ;;;;;;3;Meinl 18'';;75
 ;;;;;;4;Sabian 20'';;75
 CTRLVE3;OTBP;Piatti;MetalPerc;53-56;14;1;15'';SINE;77
-;;;;;;2;19'';;76
-;;;;;;3;20'';;76
+;;;;;;2;19'';;0
+;;;;;;3;20'';;0
 CTRLVE3;OTBP;Tamtams;MetalPerc;57-60;15;1;65cm;SINE;32
 ;;;;;;2;85cm;;32
 ;;;;;;3;105cm;;32
@@ -205,7 +205,7 @@ CTRLVE3;OTBP;Tom;MidPerc;101-104;26;1;13'';SINE;32
 ;;;;;;2;14'';;32
 ;;;;;;3;15'';;32
 ;;;;;;4;16'';;32
-CTRLVE3;Mod;Pianoteq;Piano;105-112;27;1;Steinway Model D New York;Pianoteq;0
+CTRLVE3;Mod;Pianoteq;Piano;105-108;27;1;Steinway Model D New York;Pianoteq;0
 CTRLVE3;;;;113-116;29;1;;;0
 CTRLVE3;;;;117-120;30;1;;;0
 CTRLVE3;FX;Ret 1 (CTRLVE3);;121-122;0;0;;;
@@ -684,33 +684,33 @@ CTRLVE8;FX;Ret 1 (CTRLVE8);;97-98;0;0;;;
 CTRLVE8;FX;Ret 2 (CTRLVE8);;99-100;0;0;;;
 CTRLVE8;FX;Ret 3 (CTRLVE8);;101-102;0;0;;;
 CTRLVE8;FX;Ret 4 (CTRLVE8);;103-104;0;0;;;
-CTRLVE9;VT;Auras Altis;;1-2;1;1;Init;Decent Sampler;
-CTRLVE9;VT;Auras Eraphine (Folder);;3-4;2;1;Ensemble Strings - Frost Viola;Decent Sampler;
-;;;;;;;Ensemble Voices - Aah;;
-;;;;;;;Ensemble Voices - Eeh;;
-;;;;;;;Ensemble Voices - Ooh;;
-;;;;;;;Ensemble Voices - Phrases;;
-;;;;;;;Pads - Just The Drones;;
-;;;;;;;Strings - Frost Viola;;
-;;;;;;;Voices - Aah;;
-;;;;;;;Voices - Eeh;;
-;;;;;;;Voices - Ooh;;
-;;;;;;;Voices - Phrases;;
-CTRLVE9;VT;Auras Lair;;5-6;3;1;Init;Decent Sampler;
-CTRLVE9;VT;Auras Lichen;;7-8;4;1;Init;Decent Sampler;
-CTRLVE9;VT;Auras Rooms;;9-10;5;1;Init;Decent Sampler;
-CTRLVE9;VT;Auras Veils;;11-12;6;1;Init;Decent Sampler;
-CTRLVE9;VT;Solaris;;13-14;7;1;Init;Decent Sampler;
-CTRLVE9;VT;Strands;;15-16;8;1;Init;Decent Sampler;
-CTRLVE9;DS;Tri-Timbral Flocks;;17-18;9;1;Init;Decent Sampler;
-CTRLVE9;DS;Mandrolia;;19-20;10;1;Init;Decent Sampler;
-CTRLVE9;DS;Echorda (Folder);;21-22;11;1;ECHORDA 3 Baby Grand;Decent Sampler;
+CTRLVE9;VT;Auras Altis;PadSynth;1-2;1;1;Init;Decent Sampler;
+CTRLVE9;VT;Auras Eraphine (Folder);Choir;3-4;2;1;Ensemble Strings - Frost Viola;Decent Sampler;
+;;;;;;2;Ensemble Voices - Aah;;
+;;;;;;3;Ensemble Voices - Eeh;;
+;;;;;;4;Ensemble Voices - Ooh;;
+;;;;;;5;Ensemble Voices - Phrases;;
+;;;;;;6;Pads - Just The Drones;;
+;;;;;;7;Strings - Frost Viola;;
+;;;;;;8;Voices - Aah;;
+;;;;;;9;Voices - Eeh;;
+;;;;;;10;Voices - Ooh;;
+;;;;;;11;Voices - Phrases;;
+CTRLVE9;VT;Auras Lair;PadSynth;5-6;3;1;Init;Decent Sampler;
+CTRLVE9;VT;Auras Lichen;PadSynth;7-8;4;1;Init;Decent Sampler;
+CTRLVE9;VT;Auras Rooms;PadSynth;9-10;5;1;Init;Decent Sampler;
+CTRLVE9;VT;Auras Veils;PadSynth;11-12;6;1;Init;Decent Sampler;
+CTRLVE9;VT;Solaris;PadSynth;13-14;7;1;Init;Decent Sampler;
+CTRLVE9;VT;Strands;MidStr;15-16;8;1;Init;Decent Sampler;
+CTRLVE9;DS;Tri-Timbral Flocks;MidStr;17-18;9;1;Init;Decent Sampler;
+CTRLVE9;DS;Mandrolia;MidStr;19-20;10;1;Init;Decent Sampler;
+CTRLVE9;DS;Echorda (Folder);Piano;21-22;11;1;ECHORDA 3 Baby Grand;Decent Sampler;
 ;;;;;;2;ECHORDA 3 Upright;;
 ;;;;;;3;ECHORDA 3;;
 ;;;;;;4;ECHORDA 2 Full;;
 ;;;;;;5;ECHORDA 2;;
-CTRLVE9;DS;Broken Piano;;23-24;12;1;Init;Decent Sampler;
-CTRLVE9;DS;Antique Pad;;25-26;13;1;Init;Decent Sampler;
+CTRLVE9;DS;Broken Piano;Piano;23-24;12;1;Init;Decent Sampler;
+CTRLVE9;DS;Antique Pad;PadSynth;25-26;13;1;Init;Decent Sampler;
 CTRLVE9;SP;LABS 1;;27-28;14;1;Init;LABS;
 CTRLVE9;SP;LABS 2;;29-30;15;1;Init;LABS;
 CTRLVE9;SP;LABS 3;;31-32;16;1;Init;LABS;
@@ -721,18 +721,18 @@ CTRLVE9;SP;LABS 7;;39-40;20;1;Init;LABS;
 CTRLVE9;SP;LABS 8;;41-42;21;1;Init;LABS;
 CTRLVE9;SP;LABS 9;;43-44;22;1;Init;LABS;
 CTRLVE9;SP;LABS 10;;45-46;23;1;Init;LABS;
-CTRLVE9;SR;Hainbach - Landfill Totems;;47-48;24;1;Init;Spitfire;
-CTRLVE9;SR;Lea Bertucci - Acoustic Shadows;;49-50;25;1;Init;Spitfire;
-CTRLVE9;SR;Cinematic Frozen Strings;;51-52;26;1;Init;Spitfire;
-CTRLVE9;SR;Cinematic Soft Piano;;53-54;27;1;Init;Spitfire;
-CTRLVE9;SR;Mrs Mills Piano;;55-56;28;1;Init;Spitfire;
-CTRLVE9;IK;Modo Bass;;57-58;29;1;Init;Modo Bass;
+CTRLVE9;SR;Hainbach - Landfill Totems;PadSynth;47-48;24;1;Init;Spitfire;
+CTRLVE9;SR;Lea Bertucci - Acoustic Shadows;MidBr;49-50;25;1;Init;Spitfire;
+CTRLVE9;SR;Cinematic Frozen Strings;HiStr;51-52;26;1;Init;Spitfire;
+CTRLVE9;SR;Cinematic Soft Piano;Piano;53-54;27;1;Init;Spitfire;
+CTRLVE9;SR;Mrs Mills Piano;Piano;55-56;28;1;Init;Spitfire;
+CTRLVE9;IK;Modo Bass;LoStr;57-58;29;1;Init;Modo Bass;
 CTRLVE9;FX;Ret 1 (CTRLVE9);;121-122;0;0;;;
 CTRLVE9;FX;Ret 2 (CTRLVE9);;123-124;0;0;;;
 CTRLVE9;FX;Ret 3 (CTRLVE9);;125-126;0;0;;;
 CTRLVE9;FX;Ret 4 (CTRLVE9);;127-128;0;0;;;
 CTRLVE10;XLN;Addictive Drums 1;Drums;0;1;1;Init;Addictive Drums;
-;;FX;;1-2;;;;;
+;;FX;;1-2;1;1;;;
 ;;Kick;;3;1;1;Init;Addictive Drums;
 ;;Snare;;4;1;1;Init;Addictive Drums;
 ;;HiHat;;5;1;1;Init;Addictive Drums;
@@ -747,10 +747,10 @@ CTRLVE10;XLN;Addictive Drums 1;Drums;0;1;1;Init;Addictive Drums;
 ;;Room;;15-16;1;1;Init;Addictive Drums;
 ;;Bus;;17-18;1;1;Init;Addictive Drums;
 CTRLVE10;XLN;Addictive Drums 2;Drums;0;2;1;Init;Addictive Drums;
-;;FX;;19-20;;;;;
-;;Kick;;21;1;1;Init;Addictive Drums;
-;;Snare;;22;1;1;Init;Addictive Drums;
-;;HiHat;;23;1;1;Init;Addictive Drums;
+;;FX;;19-20;2;1;;;
+;;Kick;;21;2;1;Init;Addictive Drums;
+;;Snare;;22;2;1;Init;Addictive Drums;
+;;HiHat;;23;2;1;Init;Addictive Drums;
 ;;Tom 1;;24;2;1;Init;Addictive Drums;
 ;;Tom 2;;25;2;1;Init;Addictive Drums;
 ;;Tom 3;;26;2;1;Init;Addictive Drums;
@@ -761,7 +761,7 @@ CTRLVE10;XLN;Addictive Drums 2;Drums;0;2;1;Init;Addictive Drums;
 ;;OH;;31-32;2;1;Init;Addictive Drums;
 ;;Room;;33-34;2;1;Init;Addictive Drums;
 ;;Bus;;35-36;2;1;Init;Addictive Drums;
-CTRLVE9;IK;Modo Drum 1;Drums;0;3;1;Init;Modo Drum;
+CTRLVE10;IK;Modo Drum 1;Drums;0;3;1;Init;Modo Drum;
 ;;1/2;;37-38;3;1;Init;Modo Drum;
 ;;3/4;;39-40;3;1;Init;Modo Drum;
 ;;5/6;;41-42;3;1;Init;Modo Drum;
@@ -778,7 +778,7 @@ CTRLVE9;IK;Modo Drum 1;Drums;0;3;1;Init;Modo Drum;
 ;;27/28;;63-64;3;1;Init;Modo Drum;
 ;;29/30;;65-66;3;1;Init;Modo Drum;
 ;;31/32;;67-68;3;1;Init;Modo Drum;
-CTRLVE9;IK;Modo Drum 2;Drums;0;4;1;Init;Modo Drum;
+CTRLVE10;IK;Modo Drum 2;Drums;0;4;1;Init;Modo Drum;
 ;;1/2;;69-70;4;1;Init;Modo Drum;
 ;;3/4;;71-72;4;1;Init;Modo Drum;
 ;;5/6;;73-74;4;1;Init;Modo Drum;
@@ -795,17 +795,84 @@ CTRLVE9;IK;Modo Drum 2;Drums;0;4;1;Init;Modo Drum;
 ;;27/28;;95-96;4;1;Init;Modo Drum;
 ;;29/30;;97-98;4;1;Init;Modo Drum;
 ;;31/32;;99-100;4;1;Init;Modo Drum;
-;;;;101-102;;;;;
-;;;;103-104;;;;;
-;;;;105-106;;;;;
-;;;;107-108;;;;;
-;;;;109-110;;;;;
-;;;;111-112;;;;;
-;;;;113-114;;;;;
-;;;;115-116;;;;;
-;;;;117-118;;;;;
-;;;;119-120;;;;;
-;;;;121-122;;;;;
-;;;;123-124;;;;;
-;;;;125-126;;;;;
-;;;;127-128;;;;;
+CTRLVE10;;;;101-102;5;1;;;
+CTRLVE10;;;;103-104;6;1;;;
+CTRLVE10;;;;105-106;7;1;;;
+CTRLVE10;;;;107-108;8;1;;;
+CTRLVE10;;;;109-110;9;1;;;
+CTRLVE10;;;;111-112;10;1;;;
+CTRLVE10;;;;113-114;11;1;;;
+CTRLVE10;FX;Ret 1 (CTRLVE10);;117-118;;;;;
+CTRLVE10;FX;Ret 2 (CTRLVE10);;119-120;;;;;
+CTRLVE10;FX;Ret 3 (CTRLVE10);;121-122;;;;;
+CTRLVE10;FX;Ret 4 (CTRLVE10);;123-124;;;;;
+CTRLVE10;FX;Ret 5 (CTRLVE10);;125-126;;;;;
+CTRLVE10;FX;Ret 6 (CTRLVE10);;127-128;;;;;
+CTRLVE11;SPA1;Woodwinds High;HiWW;1-4;1;1;Woods High;Kontakt Player;155
+;;;;;;2;Woods High - Legato;Kontakt Player;0
+;;;;;;3;Woods High - Time Machine;Kontakt Player;155
+;;;;;;4;Woods High (Legacy);Kontakt Player;156
+CTRLVE11;SPA1;Woodwinds Low;LoWW;5-8;2;1;Woods Low;Kontakt Player;157
+;;;;;;2;Woods Low - Legato;Kontakt Player;0
+;;;;;;3;Woods Low - Time Machine;Kontakt Player;0
+;;;;;;4;Woods Low (Legacy);Kontakt Player;158
+CTRLVE11;SPA1;Brass High;HiBr;9-12;3;1;Brass High;Kontakt Player;155
+;;;;;;2;Brass High - Legato;Kontakt Player;0
+;;;;;;3;Brass High - Time Machine;Kontakt Player;155
+;;;;;;4;Brass High (Legacy);Kontakt Player;158
+;;;;;;5;Trumpets XL;Kontakt Player;159
+CTRLVE11;SPA1;Brass Mid;MidBr;13-16;4;1;Brass Mid;Kontakt Player;157
+;;;;;;2;Brass Mid - Legato;Kontakt Player;0
+;;;;;;3;Brass Mid - Time Machine;Kontakt Player;0
+;;;;;;4;Brass Mid (Legacy);Kontakt Player;0
+;;;;;;5;Horns XL;Kontakt Player;159
+CTRLVE11;SPA1;Brass Low;LoBr;17-20;5;1;Brass Low;Kontakt Player;155
+;;;;;;2;Brass Low - Legato;Kontakt Player;0
+;;;;;;3;Brass Low - Time Machine;Kontakt Player;155
+;;;;;;4;Brass Low (Legacy);Kontakt Player;158
+;;;;;;5;Brass XL;Kontakt Player;159
+CTRLVE11;SPA1;Strings High;HiStr;21-24;6;1;Strings;Kontakt Player;160
+;;;;;;2;Strings High Octave - Legato;Kontakt Player;0
+;;;;;;3;Strings High Octave CS - Legato;Kontakt Player;0
+;;;;;;4;Strings High Runs;Kontakt Player;163
+;;;;;;5;Strings - Time Machine;Kontakt Player;160
+;;;;;;6;Strings High (Legacy);Kontakt Player;161
+;;;;;;7;Strings High XL;Kontakt Player;162
+CTRLVE11;SPA1;Strings Mid;MidStr;25-28;7;1;Strings;Kontakt Player;160
+;;;;;;2;Strings Mid - Legato;Kontakt Player;0
+;;;;;;3;Strings Mid CS - Legato;Kontakt Player;0
+;;;;;;4;Strings Full (Octave) - Legato;Kontakt Player;0
+;;;;;;5;Strings Full (Octave) CS - Legato;Kontakt Player;0
+;;;;;;6;Strings - Time Machine;Kontakt Player;160
+;;;;;;7;Strings XL;Kontakt Player;162
+CTRLVE11;SPA1;Strings Low;LoStr;29-32;8;1;Strings;Kontakt Player;160
+;;;;;;2;Strings Low Octave - Legato;Kontakt Player;0
+;;;;;;3;Strings Low Octave CS - Legato;Kontakt Player;0
+;;;;;;4;Strings Low - Runs;Kontakt Player;164
+;;;;;;5;Strings - Time Machine;Kontakt Player;160
+;;;;;;6;Strings Low (Legacy);Kontakt Player;165
+;;;;;;7;Strings Low XL;Kontakt Player;157
+CTRLVE11;SPA1;Darwin Percussion Ensemble;LoPerc;33-36;9;1;Darwin Percussion Ensemble;Kontakt Player;0
+CTRLVE11;SPA1;Easter Island;LoPerc;37-40;10;1;Easter Island;Kontakt Player;0
+CTRLVE11;SPA1;Hyper Toms;LoPerc;41-44;11;1;Hyper Toms;Kontakt Player;0
+CTRLVE11;SPA1;XXL Percussion;LoPerc;45-48;12;1;XXL Percussion;Kontakt Player;0
+CTRLVE11;SPA1;Cymbals and Gongs;MetalPerc;49-52;13;1;Cymbals and Gongs;Kontakt Player;0
+CTRLVE11;SPA1;Swells;MetalPerc;53-56;14;1;Swells;Kontakt Player;0
+CTRLVE11;SPA1;Brunel Loops 1;MidPerc;57-58;15;1;Brunel Loops 1;Kontakt Player;0
+CTRLVE11;SPA1;Brunel Loops 2;MidPerc;59-60;16;1;Brunel Loops 2;Kontakt Player;0
+CTRLVE11;SPA1;Brunel Loops 3;MidPerc;61-62;17;1;Brunel Loops 3;Kontakt Player;0
+CTRLVE11;SPA1;Brunel Loops 4;MidPerc;63-64;18;1;Brunel Loops 4;Kontakt Player;0
+CTRLVE11;SPA1;Brunel Loops 5;MidPerc;65-66;19;1;Brunel Loops 5;Kontakt Player;0
+CTRLVE11;SPA1;Steam Drones;PadSynth;67-68;20;1;Steam Drones;Kontakt Player;0
+CTRLVE11;SPA1;Steam Pads;PadSynth;69-70;21;1;Steam Pads;Kontakt Player;0
+CTRLVE11;SPA1;Steam Plucks;PluckSynth;71-72;22;1;Steam Plucks;Kontakt Player;0
+CTRLVE11;SPA1;Steam Hybrid;PadSynth;73-74;23;1;Steam Hybrid;Kontakt Player;0
+CTRLVE11;SPA1;Steam 1;PadSynth;75-76;24;1;Steam 1;Kontakt Player;0
+CTRLVE11;SPA1;Steam 2;PadSynth;77-78;25;1;Steam 2;Kontakt Player;0
+CTRLVE11;SPA1;Piano;Piano;79-82;26;1;Piano;Kontakt Player;166
+CTRLVE11;FX;Ret 1 (CTRLVE11);;117-118;;;;;
+CTRLVE11;FX;Ret 2 (CTRLVE11);;119-120;;;;;
+CTRLVE11;FX;Ret 3 (CTRLVE11);;121-122;;;;;
+CTRLVE11;FX;Ret 4 (CTRLVE11);;123-124;;;;;
+CTRLVE11;FX;Ret 5 (CTRLVE11);;125-126;;;;;
+CTRLVE11;FX;Ret 6 (CTRLVE11);;127-128;;;;;
