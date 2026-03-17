@@ -117,27 +117,27 @@ ID;Articulation Name;Note
 8;Trills sforzando;35
 8;Playable runs + LEG;36
 8;Playable runs;37
-9;Sustains + LEG;24
-9;Sustains;25
-9;Portato long;26
-9;Portato short;27
-9;Sforzando;28
-9;Fortepiano;29
-9;Staccato;30
-9;Staccato short;31
-9;Doubles;32
-9;Triples;33
-9;Trills;34
-10;Sustains + LEG;24
-10;Sustains;25
-10;Portato long;26
-10;Portato short;27
-10;Sforzando;28
-10;Staccato;29
-10;Staccato short;30
-10;Doubles;31
-10;Triples;32
-10;Trills;33
+9;Sustains + LEG;96
+9;Sustains;97
+9;Portato long;98
+9;Portato short;99
+9;Sforzando;100
+9;Fortepiano;101
+9;Staccato;102
+9;Staccato short;103
+9;Doubles;104
+9;Triples;105
+9;Trills;106
+10;Sustains + LEG;96
+10;Sustains;97
+10;Portato long;98
+10;Portato short;99
+10;Sforzando;100
+10;Staccato;101
+10;Staccato short;102
+10;Doubles;103
+10;Triples;104
+10;Trills;105
 11;Sustains + LEG;24
 11;Sustains;25
 11;Sustains soft;26
@@ -780,117 +780,117 @@ ID;Articulation Name;Note
 75;Rolls brush;28
 75;Dynamics brush;29
 77;Single hits;24
-77;Scratches;
+77;Scratches;25
 79;Single hits normal;24
-79;Single hits timp mallet;
-79;Single hits vibes mallet;
-79;Rolls normal;
-79;Rolls timp mallets;
-79;Rolls vibes maiiet;
-79;Dynamics normal;
-79;Dynamics timp mallet;
-79;Dynamics vibe mallet;
+79;Single hits timp mallet;25
+79;Single hits vibes mallet;26
+79;Rolls normal;27
+79;Rolls timp mallets;28
+79;Rolls vibes maiiet;29
+79;Dynamics normal;30
+79;Dynamics timp mallet;31
+79;Dynamics vibe mallet;32
 80;Single hits;24
-80;Rolls;
+80;Rolls;25
 81;Single hits;24
-81;Glissando;
+81;Glissando;25
 82;Metal 1;24
-82;Metal 2;
-82;Glass;
-82;Bamboo;
-82;Seashell tree single hits;
-82;Seashell tree dynamics;
-82;Glissandi;
+82;Metal 2;25
+82;Glass;26
+82;Bamboo;27
+82;Seashell tree single hits;28
+82;Seashell tree dynamics;29
+82;Glissandi;30
 83;Templeblocks 1;24
-83;Templeblocks 2;
-83;Templeblocks 3;
-83;Templeblocks 4;
+83;Templeblocks 2;25
+83;Templeblocks 3;26
+83;Templeblocks 4;27
 84;Body Percussion;24
-84;Shakers;
-84;Castanets;
-84;Claves;
-84;Guiro;
-84;Guiro dynamics;
+84;Shakers;25
+84;Castanets;26
+84;Claves;27
+84;Guiro;28
+84;Guiro dynamics;29
 86;Sleigh Bells;24
-86;Railroad Bell;
-86;Ship Bells;
-86;Finger Cymbals;
-86;Windmaker;
-86;Cab Horns;
-86;Drumsticks;
-86;Vibraslap;
-86;Bird Call;
-86;Cuckoo;
-86;Duck Call;
-86;Fog Horn;
+86;Railroad Bell;25
+86;Ship Bells;26
+86;Finger Cymbals;27
+86;Windmaker;28
+86;Cab Horns;29
+86;Drumsticks;30
+86;Vibraslap;31
+86;Bird Call;32
+86;Cuckoo;33
+86;Duck Call;34
+86;Fog Horn;35
 87;Single hits;24
-87;Single hits muted;
+87;Single hits muted;25
 88;Single hits;24
-88;Fortepiano;
-88;Rolls long;
-88;Rolls short;
-88;Crescendo very long;
-88;Crescendo long;
-88;Crescendo medium;
-88;Crescendo short;
-88;Crescendo very short;
-88;Decrescendo;
-88;Diminuendo long;
-88;Diminuendo short;
-88;Glissandi;
-88;Repetitions 1/4;
-88;Repetitions 1/8;
-88;Repetitions 1/16;
-88;Repetitions 1/32;
-88;Weather thunder sfx;
+88;Fortepiano;25
+88;Rolls long;26
+88;Rolls short;27
+88;Crescendo very long;28
+88;Crescendo long;29
+88;Crescendo medium;30
+88;Crescendo short;31
+88;Crescendo very short;32
+88;Decrescendo;33
+88;Diminuendo long;34
+88;Diminuendo short;35
+88;Glissandi;36
+88;Repetitions 1/4;37
+88;Repetitions 1/8;38
+88;Repetitions 1/16;39
+88;Repetitions 1/32;40
+88;Weather thunder sfx;41
 89;Sustains sul tasto morph;24
-89;Sustains random swells;
-89;Pizzicato stutter;
-89;Swells short;
+89;Sustains random swells;25
+89;Pizzicato stutter;26
+89;Swells short;27
 90;Sustains + LEG;24
-90;Sustains;
-90;Sustains sul tasto;
-90;Sustains random swells;
-90;Sustains random sul pont;
-90;Tremolo;
-90;Sul ponticello morph;
-90;Flageolet morph;
-90;Portato;
-90;Decrescendo;
-90;Crescendo;
-90;Swells long;
-90;Swells expressive;
-90;Swells tremolo morph;
-90;Swells short;
-90;Staccato;
-90;Pizzicato;
-90;Pizzicato hammer on & pull off;
-90;Pizzicato slides;
-90;Noises;
+90;Sustains;25
+90;Sustains sul tasto;26
+90;Sustains random swells;27
+90;Sustains random sul pont;28
+90;Tremolo;29
+90;Sul ponticello morph;30
+90;Flageolet morph;31
+90;Portato;32
+90;Decrescendo;33
+90;Crescendo;34
+90;Swells long;35
+90;Swells expressive;36
+90;Swells tremolo morph;37
+90;Swells short;38
+90;Staccato;39
+90;Pizzicato;40
+90;Pizzicato hammer on & pull off;41
+90;Pizzicato slides;42
+90;Noises;43
 91;Sustains mmh nene morph;24
-91;Sustains aah;
-91;Sustains mmh;
-91;Sustains uuh;
-91;Sustains uuh bends;
-91;Whispers;
+91;Sustains aah;25
+91;Sustains mmh;26
+91;Sustains uuh;27
+91;Sustains uuh bends;28
+91;Whispers;29
 92;Sustains aah;24
-92;Sustains mmh;
-92;Sustains uuh;
-92;Sustains uuh bends;
-92;Sustains nene;
-92;Sustains vowel morph;
-92;Sustains vowel morph ai;
-92;Sustains vowel morph uo;
-92;Marcato;
-92;Marcato Didi;
-92;Staccato;
-92;Gestures kuroo;
-92;Gestures lieeh;
-92;Gestures noaah;
-92;Whispers;
-92;Consonants long;
-92;Consonants;
-92;Noises;
+92;Sustains mmh;25
+92;Sustains uuh;26
+92;Sustains uuh bends;27
+92;Sustains nene;28
+92;Sustains vowel morph;29
+92;Sustains vowel morph ai;30
+92;Sustains vowel morph uo;31
+92;Marcato;32
+92;Marcato Didi;33
+92;Staccato;34
+92;Gestures kuroo;35
+92;Gestures lieeh;36
+92;Gestures noaah;37
+92;Whispers;38
+92;Consonants long;39
+92;Consonants;40
+92;Noises;41
 93;Single hits;24
 93;Rolls;
 93;Hand hits;
