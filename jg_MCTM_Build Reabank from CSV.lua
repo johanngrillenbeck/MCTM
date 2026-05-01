@@ -134,13 +134,14 @@ local function parse_instruments(lines)
     -- Continuation rows: name empty, inherit current instrument context
     local target_key = current_key
     if target_key and target_key ~= "" then
-      -- Patches: if patch present and midi_ch present, add
-      if patch ~= "" and midi_ch then
-        table.insert(instruments[target_key].patches, { patch = patch, midi_channel = midi_ch })
-      end
-      -- Keyswitch: Key Sw ID of 0 means no keyswitches; otherwise capture the ID
       local idn = tonumber(key_id)
-      if idn and idn ~= 0 then instruments[target_key].keyswitch_id = instruments[target_key].keyswitch_id or idn end
+      local patch_ks_id = (idn and idn ~= 0) and idn or nil
+      -- Patches: if patch present and midi_ch present, add (with per-patch keyswitch_id)
+      if patch ~= "" and midi_ch then
+        table.insert(instruments[target_key].patches, { patch = patch, midi_channel = midi_ch, keyswitch_id = patch_ks_id })
+      end
+      -- Keyswitch: also store at instrument level for single-patch fallback
+      if patch_ks_id then instruments[target_key].keyswitch_id = instruments[target_key].keyswitch_id or patch_ks_id end
     end
   end
 
@@ -183,52 +184,46 @@ local function build_banks_for_instrument(inst, ks_map)
   local name = trim(inst.track_name)
   if name == "" then return {} end
 
-  -- Determine features
   local multi_patch = (#(inst.patches or {}) > 1)
-
-  local ks_rows = nil
-  if inst.keyswitch_id then ks_rows = ks_map[inst.keyswitch_id] end
-  local has_keyswitches = ks_rows and #ks_rows > 0
-
   local banks = {}
 
-  -- Case 1: Multi-patch + keyswitches => one bank per patch, keyswitches only
-  if multi_patch and has_keyswitches then
-    -- keep CSV order for patches
+  if multi_patch then
+    -- Multi-patch: one bank per patch, each using its own keyswitch_id
     for _, p in ipairs(inst.patches) do
-      local patch_name = trim(p.patch)
-      local ch = tonumber(p.midi_channel)
-      local group_label = (lib ~= "" and name ~= "" and (lib .. " / " .. name)) or (name ~= "" and name or lib)
-      local bank_header_name = (lib ~= "" and name ~= "" and patch_name ~= "" and (lib .. " - " .. name .. " - " .. patch_name))
-                              or (patch_name ~= "" and patch_name or ((lib ~= "" and (lib .. " - " .. name)) or name))
-
-      local buf = {}
-      buf[#buf+1] = ("//! g=\"%s\" n=\"%s\""):format(group_label or "", patch_name)
-      buf[#buf+1] = ("Bank * * %s"):format(bank_header_name)
-
-      -- keyswitch programs only, keep CSV order — assign sequential program numbers
-      local next_prog = 1
-      for _, row in ipairs(ks_rows) do
-        local prog = next_prog
-        next_prog = next_prog + 1
-        local aname = trim(row.name)
-        if row.note and tonumber(row.note) then
-          buf[#buf+1] = ("//! o=-note:%d"):format(tonumber(row.note))
+      local p_ks_rows = p.keyswitch_id and ks_map[p.keyswitch_id]
+      if not p_ks_rows or #p_ks_rows == 0 then
+        -- No keyswitches for this patch, skip it
+      else
+        local patch_name = trim(p.patch)
+        local group_label = (lib ~= "" and name ~= "" and (lib .. " / " .. name)) or (name ~= "" and name or lib)
+        local bank_header_name = (lib ~= "" and name ~= "" and patch_name ~= "" and (lib .. " - " .. name .. " - " .. patch_name))
+                                or (patch_name ~= "" and patch_name or ((lib ~= "" and (lib .. " - " .. name)) or name))
+        local buf = {}
+        buf[#buf+1] = ("//! g=\"%s\" n=\"%s\""):format(group_label or "", patch_name)
+        buf[#buf+1] = ("Bank * * %s"):format(bank_header_name)
+        local next_prog = 1
+        for _, row in ipairs(p_ks_rows) do
+          local prog = next_prog
+          next_prog = next_prog + 1
+          local aname = trim(row.name)
+          if row.note and tonumber(row.note) then
+            buf[#buf+1] = ("//! o=-note:%d"):format(tonumber(row.note))
+          end
+          buf[#buf+1] = ("%d %s"):format(prog, aname ~= "" and aname or ("KS " .. tostring(prog)))
         end
-        buf[#buf+1] = ("%d %s"):format(prog, aname ~= "" and aname or ("KS " .. tostring(prog)))
+        banks[#banks+1] = table.concat(buf, "\n") .. "\n\n"
       end
-
-      banks[#banks+1] = table.concat(buf, "\n") .. "\n\n"
     end
     return banks
   end
 
-  -- Case 2: Multi-patch + no keyswitches => single bank with channel routing
-  -- We no longer generate multi-patch banks without keyswitches; skip
-  -- if multi_patch and not has_keyswitches then return {} end
+  -- Single-patch: use patch's keyswitch_id, fall back to instrument-level
+  local single_patch = inst.patches[1]
+  local single_ks_id = (single_patch and single_patch.keyswitch_id) or inst.keyswitch_id
+  local ks_rows = single_ks_id and ks_map[single_ks_id]
+  local has_keyswitches = ks_rows and #ks_rows > 0
 
-  -- Case 3: Single patch + keyswitches => single bank with keyswitches only
-  if (not multi_patch) and has_keyswitches then
+  if has_keyswitches then
     local bank_header_name = (lib ~= "" and (lib .. " - " .. name)) or name
     local buf = {}
     buf[#buf+1] = ("//! g=\"%s\" n=\"%s\""):format(lib, name)
@@ -247,7 +242,7 @@ local function build_banks_for_instrument(inst, ks_map)
     return banks
   end
 
-  -- Case 4: Single patch + no keyswitches => skip
+  -- No keyswitches => skip
   return banks
 end
 
