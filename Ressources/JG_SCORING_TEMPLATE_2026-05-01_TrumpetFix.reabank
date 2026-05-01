@@ -1,0 +1,6265 @@
+//! g="OTBW" n="Piccolo Flute"
+Bank * * OTBW - Piccolo Flute
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains accented
+//! o=-note:27
+4 Marcato long
+//! o=-note:28
+5 Marcato short
+//! o=-note:29
+6 Staccato
+//! o=-note:30
+7 Staccato short
+//! o=-note:31
+8 Repetitions 1/16
+//! o=-note:32
+9 Repetitions 1/8 triplet
+//! o=-note:33
+10 Trills
+//! o=-note:34
+11 Trills single
+//! o=-note:35
+12 Trills sforzando
+//! o=-note:36
+13 Playable runs + LEG
+//! o=-note:37
+14 Playable runs
+
+//! g="OTBW" n="Flute 1"
+Bank * * OTBW - Flute 1
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Portato long
+//! o=-note:27
+4 Portato short
+//! o=-note:28
+5 Sforzando
+//! o=-note:29
+6 Staccato
+//! o=-note:30
+7 Staccato short
+//! o=-note:31
+8 Doubles
+//! o=-note:32
+9 Triples
+//! o=-note:33
+10 Trills
+//! o=-note:34
+11 Trills measured
+//! o=-note:35
+12 Trills single
+//! o=-note:36
+13 Trills sforzando
+//! o=-note:37
+14 Playable runs + LEG
+//! o=-note:38
+15 Playable runs
+
+//! g="OTBW" n="Flute 2"
+Bank * * OTBW - Flute 2
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains accented
+//! o=-note:27
+4 Marcato long
+//! o=-note:28
+5 Marcato short
+//! o=-note:29
+6 Staccato
+//! o=-note:30
+7 Staccato short
+//! o=-note:31
+8 Repetitions 1/16
+//! o=-note:32
+9 Repetitions 1/8 triplet
+//! o=-note:33
+10 Trills
+//! o=-note:34
+11 Trills single
+//! o=-note:35
+12 Trills sforzando
+//! o=-note:36
+13 Playable runs + LEG
+//! o=-note:37
+14 Playable runs
+
+//! g="OTBW" n="Flute 3"
+Bank * * OTBW - Flute 3
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sustains accented
+//! o=-note:28
+5 Marcato long
+//! o=-note:29
+6 Portato long
+//! o=-note:30
+7 Marcato short
+//! o=-note:31
+8 Portato short
+//! o=-note:32
+9 Staccato
+//! o=-note:33
+10 Staccato short
+//! o=-note:34
+11 Repetitions 1/16
+//! o=-note:35
+12 Repetitions 1/8 triplet
+//! o=-note:36
+13 Trills
+//! o=-note:37
+14 Trills measured down
+//! o=-note:38
+15 Trills measured up
+//! o=-note:39
+16 Trills single
+//! o=-note:40
+17 Trills sforzando
+//! o=-note:41
+18 Playable runs + LEG
+//! o=-note:42
+19 Playable runs
+
+//! g="OTBW" n="Alto Flute"
+Bank * * OTBW - Alto Flute
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Portato long
+//! o=-note:28
+5 Portato short
+//! o=-note:29
+6 Staccato short
+//! o=-note:30
+7 Playable runs + LEG
+//! o=-note:31
+8 Playable runs
+
+//! g="OTBW" n="Oboe 1"
+Bank * * OTBW - Oboe 1
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sustains accented
+//! o=-note:28
+5 Marcato long
+//! o=-note:29
+6 Portato long
+//! o=-note:30
+7 Marcato short
+//! o=-note:31
+8 Portato short
+//! o=-note:32
+9 Staccato
+//! o=-note:33
+10 Staccato short
+//! o=-note:34
+11 Repetitions 1/16
+//! o=-note:35
+12 Repetitions 1/8 triplet
+//! o=-note:36
+13 Trills
+//! o=-note:37
+14 Trills measured down
+//! o=-note:38
+15 Trills measured up
+//! o=-note:39
+16 Trills single
+//! o=-note:40
+17 Trills sforzando
+//! o=-note:41
+18 Playable runs + LEG
+//! o=-note:42
+19 Playable runs
+
+//! g="OTBW" n="Oboe 2"
+Bank * * OTBW - Oboe 2
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sustains accented
+//! o=-note:28
+5 Marcato long
+//! o=-note:29
+6 Portato long
+//! o=-note:30
+7 Marcato short
+//! o=-note:31
+8 Portato short
+//! o=-note:32
+9 Staccato
+//! o=-note:33
+10 Staccato short
+//! o=-note:34
+11 Repetitions 1/16
+//! o=-note:35
+12 Repetitions 1/8 triplet
+//! o=-note:36
+13 Trills
+//! o=-note:37
+14 Trills single
+//! o=-note:38
+15 Trills sforzando
+//! o=-note:39
+16 Playable runs + LEG
+//! o=-note:40
+17 Playable runs
+
+//! g="OTBW" n="English Horn"
+Bank * * OTBW - English Horn
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sustains accented
+//! o=-note:28
+5 Marcato long
+//! o=-note:29
+6 Portato long
+//! o=-note:30
+7 Marcato short
+//! o=-note:31
+8 Portato short
+//! o=-note:32
+9 Staccato
+//! o=-note:33
+10 Staccato short
+//! o=-note:34
+11 Repetitions 1/16
+//! o=-note:35
+12 Repetitions 1/8 triplet
+//! o=-note:36
+13 Trills
+//! o=-note:37
+14 Trills single
+//! o=-note:38
+15 Trills sforzando
+//! o=-note:39
+16 Playable runs + LEG
+//! o=-note:40
+17 Playable runs
+
+//! g="OTBW" n="Clarinet 1"
+Bank * * OTBW - Clarinet 1
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sustains accented
+//! o=-note:28
+5 Marcato long
+//! o=-note:29
+6 Portato long
+//! o=-note:30
+7 Marcato short
+//! o=-note:31
+8 Portato short
+//! o=-note:32
+9 Staccato
+//! o=-note:33
+10 Staccato short
+//! o=-note:34
+11 Repetitions 1/16
+//! o=-note:35
+12 Repetitions 1/8 triplet
+//! o=-note:36
+13 Trills
+//! o=-note:37
+14 Trills single
+//! o=-note:38
+15 Trills sforzando
+//! o=-note:39
+16 Playable runs + LEG
+//! o=-note:40
+17 Playable runs
+
+//! g="OTBW" n="Clarinet 2"
+Bank * * OTBW - Clarinet 2
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Marcato long
+//! o=-note:27
+4 Marcato short
+//! o=-note:28
+5 Staccato
+//! o=-note:29
+6 Staccato short
+//! o=-note:30
+7 Doubles
+//! o=-note:31
+8 Triples
+//! o=-note:32
+9 Trills
+//! o=-note:33
+10 Trills measured
+//! o=-note:34
+11 Trills single
+//! o=-note:35
+12 Trills sforzando
+//! o=-note:36
+13 Playable runs + LEG
+//! o=-note:37
+14 Playable runs
+
+//! g="OTBW" n="Bassoon 1"
+Bank * * OTBW - Bassoon 1
+//! o=-note:96
+1 Sustains + LEG
+//! o=-note:97
+2 Sustains
+//! o=-note:98
+3 Portato long
+//! o=-note:99
+4 Portato short
+//! o=-note:100
+5 Sforzando
+//! o=-note:101
+6 Fortepiano
+//! o=-note:102
+7 Staccato
+//! o=-note:103
+8 Staccato short
+//! o=-note:104
+9 Doubles
+//! o=-note:105
+10 Triples
+//! o=-note:106
+11 Trills
+
+//! g="OTBW" n="Bassoon 2"
+Bank * * OTBW - Bassoon 2
+//! o=-note:96
+1 Sustains + LEG
+//! o=-note:97
+2 Sustains
+//! o=-note:98
+3 Portato long
+//! o=-note:99
+4 Portato short
+//! o=-note:100
+5 Sforzando
+//! o=-note:101
+6 Staccato
+//! o=-note:102
+7 Staccato short
+//! o=-note:103
+8 Doubles
+//! o=-note:104
+9 Triples
+//! o=-note:105
+10 Trills
+
+//! g="OTBB / Trumpet 1" n="Trumpet 1"
+Bank * * OTBB - Trumpet 1 - Trumpet 1
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sustains accented
+//! o=-note:28
+5 Marcato long
+//! o=-note:29
+6 Marcato short
+//! o=-note:30
+7 Staccato
+//! o=-note:31
+8 Staccato short
+//! o=-note:32
+9 Repetitions 1/16 phrase
+//! o=-note:33
+10 Repetitions 1/16 continuous
+//! o=-note:34
+11 Repetitions triplets phrase
+//! o=-note:35
+12 Repetitions triplets continuous
+//! o=-note:36
+13 Fortepiano
+//! o=-note:37
+14 Crescendo long
+//! o=-note:38
+15 Crescendo short
+//! o=-note:39
+16 Swells long
+//! o=-note:40
+17 Swells short
+//! o=-note:41
+18 Trills
+//! o=-note:42
+19 Playable runs + LEG
+//! o=-note:43
+20 Playable runs
+
+//! g="OTBB / Trumpet 1" n="Trumpet 1 Zampano"
+Bank * * OTBB - Trumpet 1 - Trumpet 1 Zampano
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+
+//! g="OTBB / Trumpet 2" n="Trumpet 2"
+Bank * * OTBB - Trumpet 2 - Trumpet 2
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sustains accented
+//! o=-note:28
+5 Sustains bold
+//! o=-note:29
+6 Marcato long
+//! o=-note:30
+7 Marcato short
+//! o=-note:31
+8 Staccato
+//! o=-note:32
+9 Staccato short
+//! o=-note:33
+10 Repetitions 1/16 phrase
+//! o=-note:34
+11 Repetitions 1/16 continuous
+//! o=-note:35
+12 Repetitions triplets phrase
+//! o=-note:36
+13 Repetitions triplets continuous
+//! o=-note:37
+14 Fortepiano
+//! o=-note:38
+15 Crescendo long
+//! o=-note:39
+16 Crescendo short
+//! o=-note:40
+17 Swells long
+//! o=-note:41
+18 Swells short
+//! o=-note:42
+19 Trills
+//! o=-note:43
+20 Playable runs + LEG
+//! o=-note:44
+21 Playable runs
+
+//! g="OTBB / Trumpet 2" n="Trumpet 2 Zampano"
+Bank * * OTBB - Trumpet 2 - Trumpet 2 Zampano
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Marcato long
+//! o=-note:28
+5 Marcato short
+//! o=-note:29
+6 Staccato
+
+//! g="OTBB" n="Trumpet 3"
+Bank * * OTBB - Trumpet 3
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sustains accented
+//! o=-note:28
+5 Marcato long
+//! o=-note:29
+6 Marcato short
+//! o=-note:30
+7 Staccato
+//! o=-note:31
+8 Staccato short
+//! o=-note:32
+9 Repetitions 1/16 phrase
+//! o=-note:33
+10 Repetitions 1/16 continuous
+//! o=-note:34
+11 Repetitions triplets phrase
+//! o=-note:35
+12 Repetitions triplets continuous
+//! o=-note:36
+13 Fortepiano
+//! o=-note:37
+14 Crescendo long
+//! o=-note:38
+15 Crescendo short
+//! o=-note:39
+16 Swells long
+//! o=-note:40
+17 Swells short
+//! o=-note:41
+18 Trills
+//! o=-note:42
+19 Playable runs + LEG
+//! o=-note:43
+20 Playable runs
+
+//! g="OTBB" n="Trumpet Ens"
+Bank * * OTBB - Trumpet Ens
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sustains accented
+//! o=-note:28
+5 Sustains bold
+//! o=-note:29
+6 Marcato long
+//! o=-note:30
+7 Marcato short
+//! o=-note:31
+8 Staccato
+//! o=-note:32
+9 Staccato short
+//! o=-note:33
+10 Repetitions 1/16 phrase
+//! o=-note:34
+11 Repetitions 1/16 continuous
+//! o=-note:35
+12 Repetitions triplets phrase
+//! o=-note:36
+13 Repetitions triplets continuous
+//! o=-note:37
+14 Fortepiano
+//! o=-note:38
+15 Crescendo long
+//! o=-note:39
+16 Crescendo short
+//! o=-note:40
+17 Swells long
+//! o=-note:41
+18 Swells short
+//! o=-note:42
+19 Trills
+//! o=-note:43
+20 Playable runs + LEG
+//! o=-note:44
+21 Playable runs
+
+//! g="OTBB" n="Horn 1"
+Bank * * OTBB - Horn 1
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sustains accented
+//! o=-note:28
+5 Sustains bold
+//! o=-note:29
+6 Marcato long
+//! o=-note:30
+7 Marcato short
+//! o=-note:31
+8 Staccato
+//! o=-note:32
+9 Staccato short
+//! o=-note:33
+10 Repetitions 1/16 phrase
+//! o=-note:34
+11 Repetitions 1/16 continuous
+//! o=-note:35
+12 Repetitions triplets phrase
+//! o=-note:36
+13 Repetitions triplets continuous
+//! o=-note:37
+14 Fortepiano
+//! o=-note:38
+15 Crescendo long
+//! o=-note:39
+16 Crescendo short
+//! o=-note:40
+17 Swells long
+//! o=-note:41
+18 Swells short
+//! o=-note:42
+19 Trills
+//! o=-note:43
+20 Playable runs + LEG
+//! o=-note:44
+21 Playable runs
+
+//! g="OTBB" n="Horn 2"
+Bank * * OTBB - Horn 2
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sustains accented
+//! o=-note:28
+5 Sustains bold
+//! o=-note:29
+6 Marcato long
+//! o=-note:30
+7 Marcato short
+//! o=-note:31
+8 Staccato
+//! o=-note:32
+9 Staccato short
+//! o=-note:33
+10 Repetitions 1/16 phrase
+//! o=-note:34
+11 Repetitions 1/16 continuous
+//! o=-note:35
+12 Repetitions triplets phrase
+//! o=-note:36
+13 Repetitions triplets continuous
+//! o=-note:37
+14 Fortepiano
+//! o=-note:38
+15 Crescendo long
+//! o=-note:39
+16 Crescendo short
+//! o=-note:40
+17 Swells long
+//! o=-note:41
+18 Swells short
+//! o=-note:42
+19 Trills
+//! o=-note:43
+20 Playable runs + LEG
+//! o=-note:44
+21 Playable runs
+
+//! g="OTBB" n="Horn 3"
+Bank * * OTBB - Horn 3
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sustains accented
+//! o=-note:28
+5 Sustains bold
+//! o=-note:29
+6 Marcato long
+//! o=-note:30
+7 Marcato short
+//! o=-note:31
+8 Staccato
+//! o=-note:32
+9 Staccato short
+//! o=-note:33
+10 Repetitions 1/16 phrase
+//! o=-note:34
+11 Repetitions 1/16 continuous
+//! o=-note:35
+12 Repetitions triplets phrase
+//! o=-note:36
+13 Repetitions triplets continuous
+//! o=-note:37
+14 Fortepiano
+//! o=-note:38
+15 Crescendo long
+//! o=-note:39
+16 Crescendo short
+//! o=-note:40
+17 Swells long
+//! o=-note:41
+18 Swells short
+//! o=-note:42
+19 Trills
+//! o=-note:43
+20 Playable runs + LEG
+//! o=-note:44
+21 Playable runs
+
+//! g="OTBB" n="Horn 4"
+Bank * * OTBB - Horn 4
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sustains accented
+//! o=-note:28
+5 Sustains bold
+//! o=-note:29
+6 Marcato long
+//! o=-note:30
+7 Marcato short
+//! o=-note:31
+8 Staccato
+//! o=-note:32
+9 Staccato short
+//! o=-note:33
+10 Repetitions 1/16 phrase
+//! o=-note:34
+11 Repetitions 1/16 continuous
+//! o=-note:35
+12 Repetitions triplets phrase
+//! o=-note:36
+13 Repetitions triplets continuous
+//! o=-note:37
+14 Fortepiano
+//! o=-note:38
+15 Crescendo long
+//! o=-note:39
+16 Crescendo short
+//! o=-note:40
+17 Swells long
+//! o=-note:41
+18 Swells short
+//! o=-note:42
+19 Trills
+//! o=-note:43
+20 Playable runs + LEG
+//! o=-note:44
+21 Playable runs
+
+//! g="OTBB / Horn Ens" n="Horn Ensemble"
+Bank * * OTBB - Horn Ens - Horn Ensemble
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sustains accented
+//! o=-note:28
+5 Sustains bold
+//! o=-note:29
+6 Marcato long
+//! o=-note:30
+7 Marcato short
+//! o=-note:31
+8 Staccato
+//! o=-note:32
+9 Staccato short
+//! o=-note:33
+10 Repetitions 1/16 phrase
+//! o=-note:34
+11 Repetitions 1/16 continuous
+//! o=-note:35
+12 Repetitions triplets phrase
+//! o=-note:36
+13 Repetitions triplets continuous
+//! o=-note:37
+14 Fortepiano
+//! o=-note:38
+15 Crescendo long
+//! o=-note:39
+16 Crescendo short
+//! o=-note:40
+17 Swells long
+//! o=-note:41
+18 Swells short
+//! o=-note:42
+19 Trills
+//! o=-note:43
+20 Playable runs + LEG
+//! o=-note:44
+21 Playable runs
+
+//! g="OTBB / Horn Ens" n="Horn Ensemble Bells Up"
+Bank * * OTBB - Horn Ens - Horn Ensemble Bells Up
+//! o=-note:24
+1 Sustains
+//! o=-note:25
+2 Marcato long
+//! o=-note:26
+3 Marcato short
+//! o=-note:27
+4 Staccato
+
+//! g="OTBS / 1st Violins" n="Longs and Shorts"
+Bank * * OTBS - 1st Violins - Longs and Shorts
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sustains accented
+//! o=-note:28
+5 Sustains blurred
+//! o=-note:29
+6 Espressivo long
+//! o=-note:30
+7 Espressivo blurred
+//! o=-note:31
+8 Portato long
+//! o=-note:32
+9 Portato short
+//! o=-note:33
+10 Portato blurred
+//! o=-note:34
+11 Martele bold
+//! o=-note:35
+12 Staccato
+//! o=-note:36
+13 Staccato blurred
+//! o=-note:37
+14 Spiccato
+//! o=-note:38
+15 Spiccato serial
+//! o=-note:39
+16 Spiccato short
+//! o=-note:40
+17 Spiccato blurred
+//! o=-note:41
+18 Staccato bold
+//! o=-note:42
+19 Pizzicato
+//! o=-note:43
+20 Pizzicato tremolo
+//! o=-note:44
+21 Pizzicato serial
+//! o=-note:45
+22 Doubles
+//! o=-note:46
+23 Triplets
+//! o=-note:47
+24 Ostinato Arp + LEG
+//! o=-note:48
+25 Ostinato Arp
+
+//! g="OTBS / 1st Violins" n="Ornaments"
+Bank * * OTBS - 1st Violins - Ornaments
+//! o=-note:24
+1 Tremolo
+//! o=-note:25
+2 Tremolo accented
+//! o=-note:26
+3 Tremolo short
+//! o=-note:27
+4 Tremolo short decorative
+//! o=-note:28
+5 Trills
+//! o=-note:29
+6 Trills accented
+//! o=-note:30
+7 Trills short
+//! o=-note:31
+8 Trills short decorative
+
+//! g="OTBS / 1st Violins" n="Dynamics"
+Bank * * OTBS - 1st Violins - Dynamics
+//! o=-note:24
+1 Crescendo long
+//! o=-note:25
+2 Crescendo short
+//! o=-note:26
+3 Decrescendo long
+//! o=-note:27
+4 Decrescendo short
+//! o=-note:28
+5 Swells long
+//! o=-note:29
+6 Swells short
+//! o=-note:30
+7 Swells long rebow
+//! o=-note:31
+8 Swells short rebow
+
+//! g="OTBS / 1st Violins" n="Repetitions"
+Bank * * OTBS - 1st Violins - Repetitions
+//! o=-note:24
+1 Repetitions 16th
+//! o=-note:25
+2 Repetitions triplets
+
+//! g="OTBS / 1st Violins" n="Octave Scale Runs"
+Bank * * OTBS - 1st Violins - Octave Scale Runs
+//! o=-note:24
+1 C maj
+//! o=-note:25
+2 C# maj
+//! o=-note:26
+3 D maj
+//! o=-note:27
+4 D# maj
+//! o=-note:28
+5 E maj
+//! o=-note:29
+6 F maj
+//! o=-note:30
+7 F# maj
+//! o=-note:31
+8 G maj
+//! o=-note:32
+9 G# maj
+//! o=-note:33
+10 A maj
+//! o=-note:34
+11 A# maj
+//! o=-note:35
+12 B maj
+
+//! g="OTBS / 1st Violins" n="Special Bows"
+Bank * * OTBS - 1st Violins - Special Bows
+//! o=-note:24
+1 Sul tasto sustains + LEG
+//! o=-note:25
+2 Sul tasto sustains
+//! o=-note:26
+3 sul tasto sustains soft + LEG
+//! o=-note:27
+4 sul tasto sustains soft
+//! o=-note:28
+5 Sul tasto portato long
+//! o=-note:29
+6 Sul tasto portato short
+//! o=-note:30
+7 Sul tasto tremolo
+//! o=-note:31
+8 Harmaonics sustains
+//! o=-note:32
+9 Harmonics staccato
+//! o=-note:33
+10 Harmonics tremolo
+//! o=-note:34
+11 Sul ponticello sustains + LEG
+//! o=-note:35
+12 Sul penticello sustains
+//! o=-note:36
+13 Sul ponticello staccato
+//! o=-note:37
+14 Sul ponticello tremolo
+//! o=-note:38
+15 Sul ponticello tremolo accented
+//! o=-note:39
+16 Col legno
+
+//! g="OTBS / 2nd Violins" n="Longs and Shorts"
+Bank * * OTBS - 2nd Violins - Longs and Shorts
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sustains accented
+//! o=-note:28
+5 Espressivo long
+//! o=-note:29
+6 Espressivo short
+//! o=-note:30
+7 Portato long
+//! o=-note:31
+8 Portato short
+//! o=-note:32
+9 Martele bold
+//! o=-note:33
+10 Staccato
+//! o=-note:34
+11 Staccato bold
+//! o=-note:35
+12 Staccato blurred
+//! o=-note:36
+13 Spiccato
+//! o=-note:37
+14 Spiccato serial
+//! o=-note:38
+15 Pizzicato
+//! o=-note:39
+16 Doubles
+//! o=-note:40
+17 Triplets
+
+//! g="OTBS / 2nd Violins" n="Ornaments"
+Bank * * OTBS - 2nd Violins - Ornaments
+//! o=-note:24
+1 Tremolo
+//! o=-note:25
+2 Tremolo accented
+//! o=-note:26
+3 Tremolo short
+//! o=-note:27
+4 Tremolo short decorative
+//! o=-note:28
+5 Trills
+//! o=-note:29
+6 Trills accented
+//! o=-note:30
+7 Trills short
+//! o=-note:31
+8 Trills short decorative
+
+//! g="OTBS / 2nd Violins" n="Dynamics"
+Bank * * OTBS - 2nd Violins - Dynamics
+//! o=-note:24
+1 Crescendo long
+//! o=-note:25
+2 Crescendo short
+//! o=-note:26
+3 Decrescendo long
+//! o=-note:27
+4 Decrescendo short
+//! o=-note:28
+5 Swells long
+//! o=-note:29
+6 Swells short
+//! o=-note:30
+7 Swells long rebow
+//! o=-note:31
+8 Swells short rebow
+
+//! g="OTBS / 2nd Violins" n="Repetitions"
+Bank * * OTBS - 2nd Violins - Repetitions
+//! o=-note:24
+1 Repetitions 16th
+//! o=-note:25
+2 Repetitions triplets
+
+//! g="OTBS / 2nd Violins" n="Octave Scale Runs"
+Bank * * OTBS - 2nd Violins - Octave Scale Runs
+//! o=-note:24
+1 C maj
+//! o=-note:25
+2 C# maj
+//! o=-note:26
+3 D maj
+//! o=-note:27
+4 D# maj
+//! o=-note:28
+5 E maj
+//! o=-note:29
+6 F maj
+//! o=-note:30
+7 F# maj
+//! o=-note:31
+8 G maj
+//! o=-note:32
+9 G# maj
+//! o=-note:33
+10 A maj
+//! o=-note:34
+11 A# maj
+//! o=-note:35
+12 B maj
+
+//! g="OTBS / 2nd Violins" n="Special Bows"
+Bank * * OTBS - 2nd Violins - Special Bows
+//! o=-note:24
+1 Sul tasto sustains + LEG
+//! o=-note:25
+2 Sul tasto sustains
+//! o=-note:26
+3 sul tasto sustains soft + LEG
+//! o=-note:27
+4 sul tasto sustains soft
+//! o=-note:28
+5 Sul tasto portato long
+//! o=-note:29
+6 Sul tasto portato short
+//! o=-note:30
+7 Sul tasto tremolo
+//! o=-note:31
+8 Harmaonics sustains
+//! o=-note:32
+9 Harmonics staccato
+//! o=-note:33
+10 Harmonics tremolo
+//! o=-note:34
+11 Sul ponticello sustains + LEG
+//! o=-note:35
+12 Sul penticello sustains
+//! o=-note:36
+13 Sul ponticello staccato
+//! o=-note:37
+14 Sul ponticello tremolo
+//! o=-note:38
+15 Sul ponticello tremolo accented
+//! o=-note:39
+16 Col legno
+
+//! g="OTBS / Violas" n="Longs and Shorts"
+Bank * * OTBS - Violas - Longs and Shorts
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sustains accented
+//! o=-note:28
+5 Espressivo long
+//! o=-note:29
+6 Espressivo short
+//! o=-note:30
+7 Portato long
+//! o=-note:31
+8 Portato short
+//! o=-note:32
+9 Martele bold
+//! o=-note:33
+10 Staccato
+//! o=-note:34
+11 Staccato bold
+//! o=-note:35
+12 Staccato blurred
+//! o=-note:36
+13 Spiccato
+//! o=-note:37
+14 Spiccato serial
+//! o=-note:38
+15 Pizzicato
+//! o=-note:39
+16 Pizzicato serial
+
+//! g="OTBS / Violas" n="Ornaments"
+Bank * * OTBS - Violas - Ornaments
+//! o=-note:24
+1 Tremolo
+//! o=-note:25
+2 Tremolo accented
+//! o=-note:26
+3 Tremolo short
+//! o=-note:27
+4 Tremolo short decorative
+//! o=-note:28
+5 Trills
+//! o=-note:29
+6 Trills accented
+//! o=-note:30
+7 Trills short decorative
+
+//! g="OTBS / Violas" n="Dynamics"
+Bank * * OTBS - Violas - Dynamics
+//! o=-note:24
+1 Crescendo long
+//! o=-note:25
+2 Crescendo short
+//! o=-note:26
+3 Decrescendo long
+//! o=-note:27
+4 Decrescendo short
+//! o=-note:28
+5 Swells long
+//! o=-note:29
+6 Swells short
+//! o=-note:30
+7 Swells long rebow
+//! o=-note:31
+8 Swells short rebow
+
+//! g="OTBS / Violas" n="Repetitions"
+Bank * * OTBS - Violas - Repetitions
+//! o=-note:24
+1 Repetitions 16th
+//! o=-note:25
+2 Repetitions triplets
+
+//! g="OTBS / Violas" n="Special Bows"
+Bank * * OTBS - Violas - Special Bows
+//! o=-note:24
+1 Sul tasto sustains + LEG
+//! o=-note:25
+2 Sul tasto sustains
+//! o=-note:26
+3 sul tasto sustains soft + LEG
+//! o=-note:27
+4 sul tasto sustains soft
+//! o=-note:28
+5 Sul tasto portato long
+//! o=-note:29
+6 Sul tasto portato short
+//! o=-note:30
+7 Sul tasto tremolo
+//! o=-note:31
+8 Harmaonics sustains
+//! o=-note:32
+9 Harmonics staccato
+//! o=-note:33
+10 Harmonics tremolo
+//! o=-note:34
+11 Sul ponticello sustains + LEG
+//! o=-note:35
+12 Sul penticello sustains
+//! o=-note:36
+13 Sul ponticello staccato
+//! o=-note:37
+14 Sul ponticello tremolo
+//! o=-note:38
+15 Sul ponticello tremolo accented
+//! o=-note:39
+16 Col legno
+
+//! g="OTBS / Celli" n="Longs and Shorts"
+Bank * * OTBS - Celli - Longs and Shorts
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sustains accented
+//! o=-note:28
+5 Espressivo long
+//! o=-note:29
+6 Espressivo short
+//! o=-note:30
+7 Portato long
+//! o=-note:31
+8 Portato short
+//! o=-note:32
+9 Martele bold
+//! o=-note:33
+10 Staccato
+//! o=-note:34
+11 Staccato blurred
+//! o=-note:35
+12 Spiccato
+//! o=-note:36
+13 Spiccato serial
+//! o=-note:37
+14 Pizzicato
+//! o=-note:38
+15 Ostinato Arp + LEG
+//! o=-note:39
+16 Ostinato Arp
+
+//! g="OTBS / Celli" n="Ornaments"
+Bank * * OTBS - Celli - Ornaments
+//! o=-note:24
+1 Tremolo
+//! o=-note:25
+2 Tremolo accented
+//! o=-note:26
+3 Tremolo short
+//! o=-note:27
+4 Tremolo short decorative
+//! o=-note:28
+5 Trills
+//! o=-note:29
+6 Trills accented
+//! o=-note:30
+7 Trills short decorative
+
+//! g="OTBS / Celli" n="Dynamics"
+Bank * * OTBS - Celli - Dynamics
+//! o=-note:24
+1 Crescendo long
+//! o=-note:25
+2 Crescendo short
+//! o=-note:26
+3 Decrescendo long
+//! o=-note:27
+4 Decrescendo short
+//! o=-note:28
+5 Swells long
+//! o=-note:29
+6 Swells short
+//! o=-note:30
+7 Swells long rebow
+//! o=-note:31
+8 Swells short rebow
+
+//! g="OTBS / Celli" n="Repetitions"
+Bank * * OTBS - Celli - Repetitions
+//! o=-note:24
+1 Repetitions 16th
+//! o=-note:25
+2 Repetitions triplets
+
+//! g="OTBS / Celli" n="Octave Scale Runs"
+Bank * * OTBS - Celli - Octave Scale Runs
+//! o=-note:24
+1 C maj
+//! o=-note:25
+2 C# maj
+//! o=-note:26
+3 D maj
+//! o=-note:27
+4 D# maj
+//! o=-note:28
+5 E maj
+//! o=-note:29
+6 F maj
+//! o=-note:30
+7 F# maj
+//! o=-note:31
+8 G maj
+//! o=-note:32
+9 G# maj
+//! o=-note:33
+10 A maj
+//! o=-note:34
+11 A# maj
+//! o=-note:35
+12 B maj
+
+//! g="OTBS / Celli" n="Special Bows"
+Bank * * OTBS - Celli - Special Bows
+//! o=-note:24
+1 Sul tasto sustains + LEG
+//! o=-note:25
+2 Sul tasto sustains
+//! o=-note:26
+3 sul tasto sustains soft + LEG
+//! o=-note:27
+4 sul tasto sustains soft
+//! o=-note:28
+5 Sul tasto portato long
+//! o=-note:29
+6 Sul tasto portato short
+//! o=-note:30
+7 Sul tasto tremolo
+//! o=-note:31
+8 Harmaonics sustains
+//! o=-note:32
+9 Harmonics staccato
+//! o=-note:33
+10 Harmonics tremolo
+//! o=-note:34
+11 Sul ponticello sustains + LEG
+//! o=-note:35
+12 Sul penticello sustains
+//! o=-note:36
+13 Sul ponticello staccato
+//! o=-note:37
+14 Sul ponticello tremolo
+//! o=-note:38
+15 Sul ponticello tremolo accented
+//! o=-note:39
+16 Col legno
+
+//! g="OTBS / Basses" n="Longs and Shorts"
+Bank * * OTBS - Basses - Longs and Shorts
+//! o=-note:24
+1 Sustains
+//! o=-note:25
+2 Sustains soft
+//! o=-note:26
+3 Sustains accented
+//! o=-note:27
+4 Espressivo long
+//! o=-note:28
+5 Espressivo short
+//! o=-note:29
+6 Portato long
+//! o=-note:30
+7 Portato short
+//! o=-note:31
+8 Martele bold
+//! o=-note:32
+9 Staccato
+//! o=-note:33
+10 Staccato bold
+//! o=-note:34
+11 Spiccato
+//! o=-note:35
+12 Spiccato serial
+//! o=-note:36
+13 Pizzicato
+
+//! g="OTBS / Basses" n="Ornaments"
+Bank * * OTBS - Basses - Ornaments
+//! o=-note:24
+1 Tremolo
+//! o=-note:25
+2 Tremolo accented
+//! o=-note:26
+3 Trills
+
+//! g="OTBS / Basses" n="Dynamics"
+Bank * * OTBS - Basses - Dynamics
+//! o=-note:24
+1 Crescendo long
+//! o=-note:25
+2 Crescendo short
+//! o=-note:26
+3 Decrescendo long
+//! o=-note:27
+4 Decrescendo short
+//! o=-note:28
+5 Swells long
+//! o=-note:29
+6 Swells short
+//! o=-note:30
+7 Swells long rebow
+//! o=-note:31
+8 Swells short rebow
+
+//! g="OTBS / Basses" n="Repetitions"
+Bank * * OTBS - Basses - Repetitions
+//! o=-note:24
+1 Repetitions 16th
+//! o=-note:25
+2 Repetitions triplets
+
+//! g="OTBS / Basses" n="Special Bows"
+Bank * * OTBS - Basses - Special Bows
+//! o=-note:24
+1 Sul tasto sustains + LEG
+//! o=-note:25
+2 Sul tasto sustains
+//! o=-note:26
+3 sul tasto sustains soft + LEG
+//! o=-note:27
+4 sul tasto sustains soft
+//! o=-note:28
+5 Sul tasto portato long
+//! o=-note:29
+6 Sul tasto portato short
+//! o=-note:30
+7 Sul tasto tremolo
+//! o=-note:31
+8 Harmaonics sustains
+//! o=-note:32
+9 Harmonics staccato
+//! o=-note:33
+10 Sul penticello sustains
+//! o=-note:34
+11 Sul ponticello tremolo
+//! o=-note:35
+12 Col legno
+
+//! g="OTBSFC" n="Violin I"
+Bank * * OTBSFC - Violin I
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sustains accented
+//! o=-note:28
+5 Portato long
+//! o=-note:29
+6 Portato short
+//! o=-note:30
+7 Staccato
+//! o=-note:31
+8 Spiccato
+//! o=-note:32
+9 Pizzicato
+//! o=-note:33
+10 Tremolo
+//! o=-note:34
+11 Trills
+
+//! g="OTBSFC" n="Violin II"
+Bank * * OTBSFC - Violin II
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sustains accented
+//! o=-note:28
+5 Portato long
+//! o=-note:29
+6 Portato short
+//! o=-note:30
+7 Staccato
+//! o=-note:31
+8 Spiccato
+//! o=-note:32
+9 Pizzicato
+//! o=-note:33
+10 Tremolo
+//! o=-note:34
+11 Trills
+
+//! g="OTBSFC" n="Viola"
+Bank * * OTBSFC - Viola
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sustains accented
+//! o=-note:28
+5 Portato long
+//! o=-note:29
+6 Portato short
+//! o=-note:30
+7 Staccato
+//! o=-note:31
+8 Spiccato
+//! o=-note:32
+9 Pizzicato
+//! o=-note:33
+10 Tremolo
+//! o=-note:34
+11 Trills
+
+//! g="OTBSFC" n="Cello"
+Bank * * OTBSFC - Cello
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sustains accented
+//! o=-note:28
+5 Portato long
+//! o=-note:29
+6 Portato short
+//! o=-note:30
+7 Staccato
+//! o=-note:31
+8 Spiccato
+//! o=-note:32
+9 Pizzicato
+//! o=-note:33
+10 Tremolo
+//! o=-note:34
+11 Trills
+
+//! g="OTBSFC" n="Bass"
+Bank * * OTBSFC - Bass
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sustains accented
+//! o=-note:28
+5 Portato long
+//! o=-note:29
+6 Portato short
+//! o=-note:30
+7 Staccato
+//! o=-note:31
+8 Spiccato
+//! o=-note:32
+9 Pizzicato
+//! o=-note:33
+10 Tremolo
+//! o=-note:34
+11 Trills
+
+//! g="OTBB" n="Trombone 1"
+Bank * * OTBB - Trombone 1
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sustains accented
+//! o=-note:28
+5 Sustains bold
+//! o=-note:29
+6 Marcato long
+//! o=-note:30
+7 Marcato short
+//! o=-note:31
+8 Staccato
+//! o=-note:32
+9 Staccato short
+//! o=-note:33
+10 Repetitions 1/16 phrase
+//! o=-note:34
+11 Repetitions 1/16 continuous
+//! o=-note:35
+12 Repetitions triplets phrase
+//! o=-note:36
+13 Repetitions triplets continuous
+//! o=-note:37
+14 Fortepiano
+//! o=-note:38
+15 Crescendo long
+//! o=-note:39
+16 Crescendo short
+//! o=-note:40
+17 Swells long
+//! o=-note:41
+18 Swells short
+
+//! g="OTBB" n="Trombone 2"
+Bank * * OTBB - Trombone 2
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sustains accented
+//! o=-note:28
+5 Sustains bold
+//! o=-note:29
+6 Marcato long
+//! o=-note:30
+7 Marcato short
+//! o=-note:31
+8 Staccato
+//! o=-note:32
+9 Staccato short
+//! o=-note:33
+10 Repetitions 1/16 phrase
+//! o=-note:34
+11 Repetitions 1/16 continuous
+//! o=-note:35
+12 Repetitions triplets phrase
+//! o=-note:36
+13 Repetitions triplets continuous
+//! o=-note:37
+14 Fortepiano
+//! o=-note:38
+15 Crescendo long
+//! o=-note:39
+16 Crescendo short
+//! o=-note:40
+17 Swells long
+//! o=-note:41
+18 Swells short
+
+//! g="OTBB" n="Bass Trombone"
+Bank * * OTBB - Bass Trombone
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sustains accented
+//! o=-note:28
+5 Sustains bold
+//! o=-note:29
+6 Marcato long
+//! o=-note:30
+7 Marcato short
+//! o=-note:31
+8 Staccato
+//! o=-note:32
+9 Staccato short
+//! o=-note:33
+10 Repetitions 1/16 phrase
+//! o=-note:34
+11 Repetitions 1/16 continuous
+//! o=-note:35
+12 Repetitions triplets phrase
+//! o=-note:36
+13 Repetitions triplets continuous
+//! o=-note:37
+14 Fortepiano
+//! o=-note:38
+15 Crescendo long
+//! o=-note:39
+16 Crescendo short
+//! o=-note:40
+17 Swells long
+//! o=-note:41
+18 Swells short
+
+//! g="OTBB" n="Trombone Ens"
+Bank * * OTBB - Trombone Ens
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sustains accented
+//! o=-note:28
+5 Marcato long
+//! o=-note:29
+6 Marcato short
+//! o=-note:30
+7 Staccato
+//! o=-note:31
+8 Staccato short
+//! o=-note:32
+9 Repetitions 1/16 phrase
+//! o=-note:33
+10 Repetitions 1/16 continuous
+//! o=-note:34
+11 Repetitions triplets phrase
+//! o=-note:35
+12 Repetitions triplets continuous
+//! o=-note:36
+13 Fortepiano
+//! o=-note:37
+14 Crescendo long
+//! o=-note:38
+15 Crescendo short
+//! o=-note:39
+16 Swells long
+//! o=-note:40
+17 Swells short
+
+//! g="OTBB" n="Tuba"
+Bank * * OTBB - Tuba
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sustains accented
+//! o=-note:28
+5 Marcato long
+//! o=-note:29
+6 Marcato short
+//! o=-note:30
+7 Staccato
+//! o=-note:31
+8 Staccato short
+//! o=-note:32
+9 Repetitions 1/16 phrase
+//! o=-note:33
+10 Repetitions 1/16 continuous
+//! o=-note:34
+11 Repetitions triplets phrase
+//! o=-note:35
+12 Repetitions triplets continuous
+//! o=-note:36
+13 Fortepiano
+//! o=-note:37
+14 Crescendo long
+//! o=-note:38
+15 Crescendo short
+//! o=-note:39
+16 Swells long
+//! o=-note:40
+17 Swells short
+//! o=-note:41
+18 Trills
+//! o=-note:42
+19 Playable runs + LEG
+//! o=-note:43
+20 Playable runs
+
+//! g="OTTHB" n="Full Brass"
+Bank * * OTTHB - Full Brass
+//! o=-note:24
+1 Sustains
+//! o=-note:25
+2 Marcato Short
+//! o=-note:26
+3 Staccatissimo
+
+//! g="OTTHB" n="Trumpet"
+Bank * * OTTHB - Trumpet
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sforzando Sustains
+//! o=-note:28
+5 Marcato Long
+//! o=-note:29
+6 Marcato Short
+//! o=-note:30
+7 Staccato
+//! o=-note:31
+8 Staccatissimo
+//! o=-note:32
+9 Rips
+
+//! g="OTTHB" n="Trumpets a3"
+Bank * * OTTHB - Trumpets a3
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sforzando Sustains
+//! o=-note:28
+5 Marcato Long
+//! o=-note:29
+6 Marcato Short
+//! o=-note:30
+7 Staccato
+//! o=-note:31
+8 Staccatissimo
+//! o=-note:32
+9 Rips
+
+//! g="OTTHB" n="Trumpets a6"
+Bank * * OTTHB - Trumpets a6
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sforzando Sustains
+//! o=-note:28
+5 Marcato Long
+//! o=-note:29
+6 Marcato Short
+//! o=-note:30
+7 Staccato
+//! o=-note:31
+8 Staccatissimo
+//! o=-note:32
+9 Rips
+
+//! g="OTTHB" n="French Horn"
+Bank * * OTTHB - French Horn
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sforzando Sustains
+//! o=-note:28
+5 Marcato Long
+//! o=-note:29
+6 Marcato Short
+//! o=-note:30
+7 Staccato
+//! o=-note:31
+8 Staccatissimo
+//! o=-note:32
+9 Rips
+
+//! g="OTTHB" n="French Horns a4"
+Bank * * OTTHB - French Horns a4
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sforzando Sustains
+//! o=-note:28
+5 Marcato Long
+//! o=-note:29
+6 Marcato Short
+//! o=-note:30
+7 Staccato
+//! o=-note:31
+8 Staccatissimo
+//! o=-note:32
+9 Rips
+
+//! g="OTTHB" n="French Horns a6"
+Bank * * OTTHB - French Horns a6
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sforzando Sustains
+//! o=-note:28
+5 Marcato Long
+//! o=-note:29
+6 Marcato Short
+//! o=-note:30
+7 Staccato
+//! o=-note:31
+8 Staccatissimo
+//! o=-note:32
+9 Rips
+
+//! g="OTTHB" n="French Horns a12"
+Bank * * OTTHB - French Horns a12
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sforzando Sustains
+//! o=-note:28
+5 Marcato Long
+//! o=-note:29
+6 Marcato Short
+//! o=-note:30
+7 Staccato
+//! o=-note:31
+8 Staccatissimo
+//! o=-note:32
+9 Rips
+
+//! g="OTTHB" n="Trombone"
+Bank * * OTTHB - Trombone
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sforzando Sustains
+//! o=-note:28
+5 Marcato Long
+//! o=-note:29
+6 Marcato Short
+//! o=-note:30
+7 Staccato
+//! o=-note:31
+8 Staccatissimo
+//! o=-note:32
+9 Rips
+
+//! g="OTTHB" n="Trombones a3"
+Bank * * OTTHB - Trombones a3
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sforzando Sustains
+//! o=-note:28
+5 Marcato Long
+//! o=-note:29
+6 Marcato Short
+//! o=-note:30
+7 Staccato
+//! o=-note:31
+8 Staccatissimo
+//! o=-note:32
+9 Rips
+
+//! g="OTTHB" n="Trombones a6"
+Bank * * OTTHB - Trombones a6
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sforzando Sustains
+//! o=-note:28
+5 Marcato Long
+//! o=-note:29
+6 Marcato Short
+//! o=-note:30
+7 Staccato
+//! o=-note:31
+8 Staccatissimo
+//! o=-note:32
+9 Rips
+
+//! g="OTTHB" n="Trombones a12"
+Bank * * OTTHB - Trombones a12
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sforzando Sustains
+//! o=-note:28
+5 Marcato Long
+//! o=-note:29
+6 Marcato Short
+//! o=-note:30
+7 Staccato
+//! o=-note:31
+8 Staccatissimo
+
+//! g="OTTHB" n="Bass Trombones a3"
+Bank * * OTTHB - Bass Trombones a3
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sforzando Sustains
+//! o=-note:28
+5 Marcato Long
+//! o=-note:29
+6 Marcato Short
+//! o=-note:30
+7 Staccato
+//! o=-note:31
+8 Staccatissimo
+//! o=-note:32
+9 Rips
+
+//! g="OTTHB" n="Cimbassi a3"
+Bank * * OTTHB - Cimbassi a3
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sforzando Sustains
+//! o=-note:28
+5 Marcato Long
+//! o=-note:29
+6 Marcato Short
+//! o=-note:30
+7 Staccato
+//! o=-note:31
+8 Staccatissimo
+//! o=-note:32
+9 Rips
+
+//! g="OTTHB" n="Tuba"
+Bank * * OTTHB - Tuba
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sforzando Sustains
+//! o=-note:28
+5 Marcato Long
+//! o=-note:29
+6 Marcato Short
+//! o=-note:30
+7 Staccato
+//! o=-note:31
+8 Staccatissimo
+//! o=-note:32
+9 Rips
+
+//! g="OTBP / Roto Toms" n="6''"
+Bank * * OTBP - Roto Toms - 6''
+//! o=-note:24
+1 Single Hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Dynamics
+
+//! g="OTBP / Roto Toms" n="8''"
+Bank * * OTBP - Roto Toms - 8''
+//! o=-note:24
+1 Single Hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Dynamics
+
+//! g="OTBP / Roto Toms" n="10''"
+Bank * * OTBP - Roto Toms - 10''
+//! o=-note:24
+1 Single Hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Dynamics
+
+//! g="OTBP / Roto Toms" n="12''"
+Bank * * OTBP - Roto Toms - 12''
+//! o=-note:24
+1 Single Hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Dynamics
+
+//! g="OTBP / Roto Toms" n="14''"
+Bank * * OTBP - Roto Toms - 14''
+//! o=-note:24
+1 Single Hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Dynamics
+
+//! g="OTBP / Roto Toms" n="18''"
+Bank * * OTBP - Roto Toms - 18''
+//! o=-note:24
+1 Single Hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Dynamics
+
+//! g="OTBP / Timbales" n="13''"
+Bank * * OTBP - Timbales - 13''
+//! o=-note:24
+1 Single Hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Dynamics
+
+//! g="OTBP / Timbales" n="14''"
+Bank * * OTBP - Timbales - 14''
+//! o=-note:24
+1 Single Hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Dynamics
+
+//! g="OTBP / Bongos" n="Set 1"
+Bank * * OTBP - Bongos - Set 1
+//! o=-note:24
+1 Single Hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Dynamics
+
+//! g="OTBP / Bongos" n="Set 2"
+Bank * * OTBP - Bongos - Set 2
+//! o=-note:24
+1 Single Hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Dynamics
+
+//! g="OTBP" n="Congas"
+Bank * * OTBP - Congas
+//! o=-note:24
+1 Single Hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Dynamics
+
+//! g="OTBP" n="Celesta"
+Bank * * OTBP - Celesta
+//! o=-note:24
+1 Sustains
+//! o=-note:25
+2 Staccato
+
+//! g="OTBP" n="Vibraphone"
+Bank * * OTBP - Vibraphone
+//! o=-note:24
+1 Sustains normal mallets
+//! o=-note:25
+2 Sustains soft mallets
+//! o=-note:26
+3 Staccato normal mallets
+//! o=-note:27
+4 Staccato soft mallets
+//! o=-note:28
+5 Tremolo
+//! o=-note:29
+6 Glissando
+
+//! g="OTBP" n="Marimba"
+Bank * * OTBP - Marimba
+//! o=-note:24
+1 Single hits normal mallets
+//! o=-note:25
+2 Single hits soft mallet
+//! o=-note:26
+3 Single hits hard mallets
+//! o=-note:27
+4 Tremolo
+//! o=-note:28
+5 Tremolo soft
+
+//! g="OTBP" n="Xylophone"
+Bank * * OTBP - Xylophone
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Glissando
+//! o=-note:26
+3 Tremolo
+
+//! g="OTBP" n="Crotales"
+Bank * * OTBP - Crotales
+//! o=-note:24
+1 Sustains
+//! o=-note:25
+2 Stopped
+//! o=-note:26
+3 Muted
+//! o=-note:27
+4 Bowed
+
+//! g="OTBP" n="Glockenspiel"
+Bank * * OTBP - Glockenspiel
+//! o=-note:24
+1 Sustains normal mallets
+//! o=-note:25
+2 Sustains soft mallets
+//! o=-note:26
+3 Sustains hard mallets
+//! o=-note:27
+4 Staccato
+//! o=-note:28
+5 Tremolo short
+//! o=-note:29
+6 Tremolo sforzando
+//! o=-note:30
+7 Glissando normal mallets
+//! o=-note:31
+8 Glissando soft mallets
+
+//! g="OTBP" n="Tubular Bells"
+Bank * * OTBP - Tubular Bells
+//! o=-note:24
+1 Sustains soft mallets
+//! o=-note:25
+2 Sustains hard mallets
+//! o=-note:26
+3 Staccato soft mallets
+//! o=-note:27
+4 Staccato hard mallets
+
+//! g="OTBP" n="Cow Bells"
+Bank * * OTBP - Cow Bells
+//! o=-note:24
+1 Single hits soft mallets
+//! o=-note:25
+2 Single hits hard mallets
+//! o=-note:26
+3 Tremolo
+
+//! g="OTBP / Cymbals" n="Zildjian 14''"
+Bank * * OTBP - Cymbals - Zildjian 14''
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Dynamics
+//! o=-note:27
+4 Single hits brush
+//! o=-note:28
+5 Rolls brush
+//! o=-note:29
+6 Dynamics brush
+
+//! g="OTBP / Cymbals" n="Zildjian 16''"
+Bank * * OTBP - Cymbals - Zildjian 16''
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Dynamics
+//! o=-note:27
+4 Single hits brush
+//! o=-note:28
+5 Rolls brush
+//! o=-note:29
+6 Dynamics brush
+
+//! g="OTBP / Cymbals" n="Meinl 18''"
+Bank * * OTBP - Cymbals - Meinl 18''
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Dynamics
+//! o=-note:27
+4 Single hits brush
+//! o=-note:28
+5 Rolls brush
+//! o=-note:29
+6 Dynamics brush
+
+//! g="OTBP / Cymbals" n="Sabian 20''"
+Bank * * OTBP - Cymbals - Sabian 20''
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Dynamics
+//! o=-note:27
+4 Single hits brush
+//! o=-note:28
+5 Rolls brush
+//! o=-note:29
+6 Dynamics brush
+
+//! g="OTBP / Piatti" n="15''"
+Bank * * OTBP - Piatti - 15''
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Scratches
+
+//! g="OTBP / Tamtams" n="65cm"
+Bank * * OTBP - Tamtams - 65cm
+//! o=-note:24
+1 Single Hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Dynamics
+
+//! g="OTBP / Tamtams" n="85cm"
+Bank * * OTBP - Tamtams - 85cm
+//! o=-note:24
+1 Single Hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Dynamics
+
+//! g="OTBP / Tamtams" n="105cm"
+Bank * * OTBP - Tamtams - 105cm
+//! o=-note:24
+1 Single Hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Dynamics
+
+//! g="OTBP / Tamtams" n="130cm"
+Bank * * OTBP - Tamtams - 130cm
+//! o=-note:24
+1 Single hits normal
+//! o=-note:25
+2 Single hits timp mallet
+//! o=-note:26
+3 Single hits vibes mallet
+//! o=-note:27
+4 Rolls normal
+//! o=-note:28
+5 Rolls timp mallets
+//! o=-note:29
+6 Rolls vibes maiiet
+//! o=-note:30
+7 Dynamics normal
+//! o=-note:31
+8 Dynamics timp mallet
+//! o=-note:32
+9 Dynamics vibe mallet
+
+//! g="OTBP / Thunder Sheets" n="1"
+Bank * * OTBP - Thunder Sheets - 1
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTBP / Thunder Sheets" n="2"
+Bank * * OTBP - Thunder Sheets - 2
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTBP / Small Metals" n="Bell Tree"
+Bank * * OTBP - Small Metals - Bell Tree
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Glissando
+
+//! g="OTBP / Small Metals" n="Triangles"
+Bank * * OTBP - Small Metals - Triangles
+//! o=-note:24
+1 Single Hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Dynamics
+
+//! g="OTBP / Small Metals" n="Chimes"
+Bank * * OTBP - Small Metals - Chimes
+//! o=-note:24
+1 Metal 1
+//! o=-note:25
+2 Metal 2
+//! o=-note:26
+3 Glass
+//! o=-note:27
+4 Bamboo
+//! o=-note:28
+5 Seashell tree single hits
+//! o=-note:29
+6 Seashell tree dynamics
+//! o=-note:30
+7 Glissandi
+
+//! g="OTBP" n="Woodblocks"
+Bank * * OTBP - Woodblocks
+//! o=-note:24
+1 Templeblocks 1
+//! o=-note:25
+2 Templeblocks 2
+//! o=-note:26
+3 Templeblocks 3
+//! o=-note:27
+4 Templeblocks 4
+
+//! g="OTBP" n="Tambourines"
+Bank * * OTBP - Tambourines
+//! o=-note:24
+1 Single Hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Dynamics
+
+//! g="OTBP" n="Toys"
+Bank * * OTBP - Toys
+//! o=-note:24
+1 Sleigh Bells
+//! o=-note:25
+2 Railroad Bell
+//! o=-note:26
+3 Ship Bells
+//! o=-note:27
+4 Finger Cymbals
+//! o=-note:28
+5 Windmaker
+//! o=-note:29
+6 Cab Horns
+//! o=-note:30
+7 Drumsticks
+//! o=-note:31
+8 Vibraslap
+//! o=-note:32
+9 Bird Call
+//! o=-note:33
+10 Cuckoo
+//! o=-note:34
+11 Duck Call
+//! o=-note:35
+12 Fog Horn
+
+//! g="OTBP / Timpani" n="Timpani Normal Mallets"
+Bank * * OTBP - Timpani - Timpani Normal Mallets
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Fortepiano
+//! o=-note:26
+3 Rolls long
+//! o=-note:27
+4 Rolls short
+//! o=-note:28
+5 Crescendo very long
+//! o=-note:29
+6 Crescendo long
+//! o=-note:30
+7 Crescendo medium
+//! o=-note:31
+8 Crescendo short
+//! o=-note:32
+9 Crescendo very short
+//! o=-note:33
+10 Decrescendo
+//! o=-note:34
+11 Diminuendo long
+//! o=-note:35
+12 Diminuendo short
+//! o=-note:36
+13 Glissandi
+//! o=-note:37
+14 Repetitions 1/4
+//! o=-note:38
+15 Repetitions 1/8
+//! o=-note:39
+16 Repetitions 1/16
+//! o=-note:40
+17 Repetitions 1/32
+//! o=-note:41
+18 Weather thunder sfx
+
+//! g="OTBP / Timpani" n="Timpani Soft Mallets"
+Bank * * OTBP - Timpani - Timpani Soft Mallets
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTBP / Timpani" n="Timpani Hard Mallets"
+Bank * * OTBP - Timpani - Timpani Hard Mallets
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTBP / Timpani" n="Timpani Impact"
+Bank * * OTBP - Timpani - Timpani Impact
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Single hits muted
+
+//! g="OTBP / Timpani" n="Timpani Baroque Mallets"
+Bank * * OTBP - Timpani - Timpani Baroque Mallets
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTBP / Bass Drum" n="28''"
+Bank * * OTBP - Bass Drum - 28''
+//! o=-note:24
+1 Single Hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Dynamics
+
+//! g="OTBP / Bass Drum" n="34''"
+Bank * * OTBP - Bass Drum - 34''
+//! o=-note:24
+1 Single Hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Dynamics
+
+//! g="OTBP / Bass Drum" n="36''"
+Bank * * OTBP - Bass Drum - 36''
+//! o=-note:24
+1 Single Hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Dynamics
+
+//! g="OTBP / Bass Drum" n="40''"
+Bank * * OTBP - Bass Drum - 40''
+//! o=-note:24
+1 Single Hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Dynamics
+
+//! g="OTBP / Snare Drum" n="Majestic Pro Snare 1 14''"
+Bank * * OTBP - Snare Drum - Majestic Pro Snare 1 14''
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Single hits off
+//! o=-note:26
+3 Rolls
+//! o=-note:27
+4 Rolls off
+//! o=-note:28
+5 Dynamics
+//! o=-note:29
+6 Dynamics off
+
+//! g="OTBP / Snare Drum" n="Majestic Pro Snare 2 14''"
+Bank * * OTBP - Snare Drum - Majestic Pro Snare 2 14''
+//! o=-note:24
+1 Single hits on 1
+//! o=-note:25
+2 Single hits on 2
+//! o=-note:26
+3 Rolls on 1
+//! o=-note:27
+4 Rolls on 2
+//! o=-note:28
+5 Dynamics on 1
+//! o=-note:29
+6 Dynamics on 2
+
+//! g="OTBP / Snare Drum" n="Dresdner Snare 13''"
+Bank * * OTBP - Snare Drum - Dresdner Snare 13''
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Single hits off
+//! o=-note:26
+3 Rolls
+//! o=-note:27
+4 Rolls off
+//! o=-note:28
+5 Dynamics
+//! o=-note:29
+6 Dynamics off
+
+//! g="OTBP / Snare Drum" n="Piccolo Snare 13''"
+Bank * * OTBP - Snare Drum - Piccolo Snare 13''
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Single hits off
+//! o=-note:26
+3 Rolls
+//! o=-note:27
+4 Rolls off
+//! o=-note:28
+5 Dynamics
+//! o=-note:29
+6 Dynamics off
+
+//! g="OTBP / Snare Drum" n="Field Drum 14''"
+Bank * * OTBP - Snare Drum - Field Drum 14''
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Single hits off
+//! o=-note:26
+3 Rolls
+//! o=-note:27
+4 Rolls off
+//! o=-note:28
+5 Dynamics
+//! o=-note:29
+6 Dynamics off
+
+//! g="OTBP / Snare Drum" n="Tenor Drum 16''"
+Bank * * OTBP - Snare Drum - Tenor Drum 16''
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Single hits off
+//! o=-note:26
+3 Rolls
+//! o=-note:27
+4 Rolls off
+//! o=-note:28
+5 Dynamics
+//! o=-note:29
+6 Dynamics off
+
+//! g="OTBP / Snare Drum" n="Basler Drum 16''"
+Bank * * OTBP - Snare Drum - Basler Drum 16''
+//! o=-note:24
+1 Single Hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Dynamics
+
+//! g="OTBP / Snare Drum" n="Firecracker Snare 10''"
+Bank * * OTBP - Snare Drum - Firecracker Snare 10''
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Single hits off
+//! o=-note:26
+3 Rolls
+//! o=-note:27
+4 Rolls off
+//! o=-note:28
+5 Dynamics
+//! o=-note:29
+6 Dynamics off
+
+//! g="OTBP / Tom" n="13''"
+Bank * * OTBP - Tom - 13''
+//! o=-note:24
+1 Single Hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Dynamics
+
+//! g="OTBP / Tom" n="14''"
+Bank * * OTBP - Tom - 14''
+//! o=-note:24
+1 Single Hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Dynamics
+
+//! g="OTBP / Tom" n="15''"
+Bank * * OTBP - Tom - 15''
+//! o=-note:24
+1 Single Hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Dynamics
+
+//! g="OTBP / Tom" n="16''"
+Bank * * OTBP - Tom - 16''
+//! o=-note:24
+1 Single Hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Dynamics
+
+//! g="OTMA4" n="High Strings"
+Bank * * OTMA4 - High Strings
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Power Sustains + LEG
+//! o=-note:27
+4 Power Sustains
+//! o=-note:28
+5 Sustains martele
+//! o=-note:29
+6 Marcato martele
+//! o=-note:30
+7 Staccato short
+//! o=-note:31
+8 Staccato blurred
+//! o=-note:32
+9 Staccato martele
+//! o=-note:33
+10 Marcato overpressure
+//! o=-note:34
+11 Staccato overpressure
+//! o=-note:35
+12 Octave rips
+//! o=-note:36
+13 Pizzicato col legno to bartok
+//! o=-note:37
+14 Ricochet
+//! o=-note:38
+15 Upbeats single
+//! o=-note:39
+16 Upbeats double
+//! o=-note:40
+17 Upbeats triple
+//! o=-note:41
+18 Tremolo sul ponticello accented
+//! o=-note:42
+19 Trills sul ponticello accented
+//! o=-note:43
+20 Crescendo short
+//! o=-note:44
+21 Crescendo short tremolo
+//! o=-note:45
+22 Crescendo short trills
+//! o=-note:46
+23 Diminuendo tremolo long
+//! o=-note:47
+24 Diminuendo tremolo short
+//! o=-note:48
+25 Trills short
+
+//! g="OTMA4" n="Mid Strings"
+Bank * * OTMA4 - Mid Strings
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Power Sustains + LEG
+//! o=-note:27
+4 Power Sustains
+//! o=-note:28
+5 Sustains martele
+//! o=-note:29
+6 Marcato martele
+//! o=-note:30
+7 Marcato overpressure
+//! o=-note:31
+8 Staccato short
+//! o=-note:32
+9 Staccato martele
+//! o=-note:33
+10 Staccato blurred
+//! o=-note:34
+11 Staccato overpressure
+//! o=-note:35
+12 Ricochet
+//! o=-note:36
+13 Octave rips
+//! o=-note:37
+14 Upbeats single
+//! o=-note:38
+15 Upbeats double
+//! o=-note:39
+16 Upbeats triple
+//! o=-note:40
+17 Crescendo short
+//! o=-note:41
+18 Crescendo short tremolo
+//! o=-note:42
+19 Crescendo short trills
+//! o=-note:43
+20 Diminuendo tremolo long
+//! o=-note:44
+21 Diminuendo tremolo short
+//! o=-note:45
+22 Trills short
+
+//! g="OTMA4" n="Low Strings"
+Bank * * OTMA4 - Low Strings
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Power Sustains + LEG
+//! o=-note:27
+4 Power Sustains
+//! o=-note:28
+5 Sustains martele
+//! o=-note:29
+6 Marcato martele
+//! o=-note:30
+7 Marcato overpressure
+//! o=-note:31
+8 Staccato short
+//! o=-note:32
+9 Staccato blurred
+//! o=-note:33
+10 Staccato martele
+//! o=-note:34
+11 Staccato overpressure
+//! o=-note:35
+12 Octave rips
+//! o=-note:36
+13 Pizzicato col legno to bartok
+//! o=-note:37
+14 Ricochet
+//! o=-note:38
+15 Upbeats single
+//! o=-note:39
+16 Upbeats double
+//! o=-note:40
+17 Upbeats triple
+//! o=-note:41
+18 Tremolo sul ponticello accented
+//! o=-note:42
+19 Trills sul ponticello accented
+//! o=-note:43
+20 Crescendo short
+//! o=-note:44
+21 Crescendo short tremolo
+//! o=-note:45
+22 Crescendo short trills
+//! o=-note:46
+23 Diminuendo tremolo long
+//! o=-note:47
+24 Diminuendo tremolo short
+//! o=-note:48
+25 Trills short
+
+//! g="OTMA4" n="Flute & Piccolo"
+Bank * * OTMA4 - Flute & Piccolo
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Power Sustains + LEG
+//! o=-note:27
+4 Power Sustains
+//! o=-note:28
+5 Sustains overblown
+//! o=-note:29
+6 Marcato overblown
+//! o=-note:30
+7 Staccato short
+//! o=-note:31
+8 Staccato overblown
+//! o=-note:32
+9 Ricochet
+//! o=-note:33
+10 Octave rips
+//! o=-note:34
+11 Upbeats single
+//! o=-note:35
+12 Upbeats double
+//! o=-note:36
+13 Upbeats triple
+//! o=-note:37
+14 Crescendo short
+//! o=-note:38
+15 Crescendo short flutter
+//! o=-note:39
+16 Trills short
+
+//! g="OTMA4" n="Flute, Oboe & Clarinet"
+Bank * * OTMA4 - Flute, Oboe & Clarinet
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Power Sustains + LEG
+//! o=-note:27
+4 Power Sustains
+//! o=-note:28
+5 Sustains overblown
+//! o=-note:29
+6 Marcato overblown
+//! o=-note:30
+7 Staccato short
+//! o=-note:31
+8 Staccato overblown
+//! o=-note:32
+9 Ricochet
+//! o=-note:33
+10 Octave rips
+//! o=-note:34
+11 Upbeats single
+//! o=-note:35
+12 Upbeats double
+//! o=-note:36
+13 Upbeats triple
+//! o=-note:37
+14 Crescendo short
+//! o=-note:38
+15 Crescendo short flutter
+//! o=-note:39
+16 Trills short
+
+//! g="OTMA4" n="Bass Oboe & Basset Horn"
+Bank * * OTMA4 - Bass Oboe & Basset Horn
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Power Sustains + LEG
+//! o=-note:27
+4 Power Sustains
+//! o=-note:28
+5 Sustains overblown
+//! o=-note:29
+6 Marcato overblown
+//! o=-note:30
+7 Staccato short
+//! o=-note:31
+8 Staccato overblown
+//! o=-note:32
+9 Ricochet
+//! o=-note:33
+10 Octave rips
+//! o=-note:34
+11 Upbeats single
+//! o=-note:35
+12 Upbeats double
+//! o=-note:36
+13 Upbeats triple
+//! o=-note:37
+14 Crescendo short
+//! o=-note:38
+15 Crescendo short flutter
+//! o=-note:39
+16 Trills short
+
+//! g="OTMA4" n="Horn, Wagner Tuba & Trombone"
+Bank * * OTMA4 - Horn, Wagner Tuba & Trombone
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains martele
+//! o=-note:27
+4 Marcato martele
+//! o=-note:28
+5 Staccato short
+//! o=-note:29
+6 Staccato martele
+//! o=-note:30
+7 Ricochet
+//! o=-note:31
+8 Octave glissando
+//! o=-note:32
+9 Upbeats single
+//! o=-note:33
+10 Upbeats double
+//! o=-note:34
+11 Upbeats triple
+//! o=-note:35
+12 Crescendo short
+//! o=-note:36
+13 Crescendo short flutter
+//! o=-note:37
+14 Decrescendo short
+//! o=-note:38
+15 Trills short
+
+//! g="OTMA4" n="Trumpet & Muted Trumpet"
+Bank * * OTMA4 - Trumpet & Muted Trumpet
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Power Sustains + LEG
+//! o=-note:27
+4 Power Sustains
+//! o=-note:28
+5 Sustains martele
+//! o=-note:29
+6 Marcato martele long
+//! o=-note:30
+7 Marcato martele short
+//! o=-note:31
+8 Staccato short
+//! o=-note:32
+9 Staccato martele
+//! o=-note:33
+10 Ricochet
+//! o=-note:34
+11 Upbeats single
+//! o=-note:35
+12 Upbeats double
+//! o=-note:36
+13 Upbeats triple
+//! o=-note:37
+14 Crescendo short
+//! o=-note:38
+15 Crescendo short flutter
+//! o=-note:39
+16 Decrescendo short
+//! o=-note:40
+17 Trills short
+
+//! g="OTMA4" n="Flute, English Horn & Muted Trumpet"
+Bank * * OTMA4 - Flute, English Horn & Muted Trumpet
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains martele
+//! o=-note:27
+4 Marcato martele
+//! o=-note:28
+5 Staccato short
+//! o=-note:29
+6 Staccato martele
+//! o=-note:30
+7 Ricochet
+//! o=-note:31
+8 Octave rips
+//! o=-note:32
+9 Octave glissandi
+//! o=-note:33
+10 Upbeats single
+//! o=-note:34
+11 Upbeats double
+//! o=-note:35
+12 Upbeats triple
+//! o=-note:36
+13 Crescendo short
+//! o=-note:37
+14 Crescendo short flutter
+//! o=-note:38
+15 Crescendo short trills
+//! o=-note:39
+16 Decrescendo short
+//! o=-note:40
+17 Trills short
+
+//! g="OTMA4" n="Bassoon & Horn"
+Bank * * OTMA4 - Bassoon & Horn
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Power Sustains + LEG
+//! o=-note:27
+4 Power Sustains
+//! o=-note:28
+5 Sustains martele
+//! o=-note:29
+6 Marcato martele
+//! o=-note:30
+7 Staccato short
+//! o=-note:31
+8 Staccato martele
+//! o=-note:32
+9 Octave rips
+//! o=-note:33
+10 Octave glissando
+//! o=-note:34
+11 Upbeats single
+//! o=-note:35
+12 Upbeats double
+//! o=-note:36
+13 Upbeats triple
+//! o=-note:37
+14 Crescendo short
+//! o=-note:38
+15 Crescendo short flutter
+//! o=-note:39
+16 Crescendo short trills
+//! o=-note:40
+17 Decrescendo short
+
+//! g="OTMA4" n="Bass Clarinet & Muted Bass Trombone"
+Bank * * OTMA4 - Bass Clarinet & Muted Bass Trombone
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains martele
+//! o=-note:27
+4 Marcato martele
+//! o=-note:28
+5 Staccato short
+//! o=-note:29
+6 Staccato martele
+//! o=-note:30
+7 Ricochet
+//! o=-note:31
+8 Octave rips
+//! o=-note:32
+9 Octave glissando
+//! o=-note:33
+10 Upbeats single
+//! o=-note:34
+11 Upbeats double
+//! o=-note:35
+12 Upbeats triple
+//! o=-note:36
+13 Crescendo short
+//! o=-note:37
+14 Crescendo short flutter
+//! o=-note:38
+15 Decrescendo short
+
+//! g="OTMA4" n="Bass Clarinet, Bass Saxophone"
+Bank * * OTMA4 - Bass Clarinet, Bass Saxophone
+//! o=-note:24
+1 Sustains
+//! o=-note:25
+2 Power Sustains + LEG
+//! o=-note:26
+3 Power Sustains
+//! o=-note:27
+4 Sustains martele
+//! o=-note:28
+5 Marcato martele
+//! o=-note:29
+6 Staccato short
+//! o=-note:30
+7 Staccato martele
+//! o=-note:31
+8 Ricochet
+//! o=-note:32
+9 Octave rips
+//! o=-note:33
+10 Octave glissando
+//! o=-note:34
+11 Upbeats single
+//! o=-note:35
+12 Upbeats double
+//! o=-note:36
+13 Upbeats triple
+//! o=-note:37
+14 Crescendo short
+//! o=-note:38
+15 Crescendo short flutter
+//! o=-note:39
+16 Crescendo short trills
+//! o=-note:40
+17 Decrescendo short
+//! o=-note:41
+18 Trills short
+
+//! g="OTMA4" n="Contrabassoon, Euphonium & Tuba"
+Bank * * OTMA4 - Contrabassoon, Euphonium & Tuba
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains martele
+//! o=-note:27
+4 Marcato martele
+//! o=-note:28
+5 Staccato short
+//! o=-note:29
+6 Staccato martele
+//! o=-note:30
+7 Upbeats single
+//! o=-note:31
+8 Upbeats double
+//! o=-note:32
+9 Upbeats triple
+//! o=-note:33
+10 Octave glissando
+//! o=-note:34
+11 Crescendo short
+//! o=-note:35
+12 Crescendo short flutter
+//! o=-note:36
+13 Decrescendo short
+
+//! g="OTMA4" n="Female Choir"
+Bank * * OTMA4 - Female Choir
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Power Sustains + LEG
+//! o=-note:27
+4 Power Sustains
+//! o=-note:28
+5 Marcato shouts
+//! o=-note:29
+6 Staccato shouts noise
+//! o=-note:30
+7 Staccato shouts
+//! o=-note:31
+8 Octave rips
+//! o=-note:32
+9 Crescendo short
+
+//! g="OTMA4" n="Male Choir"
+Bank * * OTMA4 - Male Choir
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Power Sustains + LEG
+//! o=-note:27
+4 Power Sustains
+//! o=-note:28
+5 Marcato shouts
+//! o=-note:29
+6 Staccato shouts
+//! o=-note:30
+7 Octave rips
+//! o=-note:31
+8 Crescendo short
+
+//! g="OTMA4" n="Marimba, Xylophone & Piano"
+Bank * * OTMA4 - Marimba, Xylophone & Piano
+//! o=-note:24
+1 Staccato short
+//! o=-note:25
+2 Ricochet
+//! o=-note:26
+3 Tremolo
+//! o=-note:27
+4 Upbeats single
+//! o=-note:28
+5 Upbeats double
+//! o=-note:29
+6 Upbeats triple
+
+//! g="OTMA4" n="Tuned Toms & Timpani"
+Bank * * OTMA4 - Tuned Toms & Timpani
+//! o=-note:24
+1 Hits
+//! o=-note:25
+2 Marcato Martele
+//! o=-note:26
+3 Tremolo
+//! o=-note:27
+4 Ricochet
+//! o=-note:28
+5 Upbeats Single
+//! o=-note:29
+6 Upbeats Double
+//! o=-note:30
+7 Upbeats Triple
+//! o=-note:31
+8 Crescendo Short
+//! o=-note:32
+9 Diminuendo Short
+
+//! g="OTMA4" n="Kick Drum Ensemble"
+Bank * * OTMA4 - Kick Drum Ensemble
+//! o=-note:24
+1 Single Hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Dynamics
+
+//! g="OTMA4" n="Low Drums"
+Bank * * OTMA4 - Low Drums
+//! o=-note:24
+1 Single Hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Dynamics
+
+//! g="OTMA4" n="Cassa Anvil Thundersheet"
+Bank * * OTMA4 - Cassa Anvil Thundersheet
+//! o=-note:24
+1 Single Hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Dynamics
+
+//! g="OTMA4" n="Metal 1"
+Bank * * OTMA4 - Metal 1
+//! o=-note:24
+1 Single Hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Dynamics
+
+//! g="OTMA4" n="Metal 2"
+Bank * * OTMA4 - Metal 2
+//! o=-note:24
+1 Single Hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Dynamics
+
+//! g="OTSA" n="String Quartet"
+Bank * * OTSA - String Quartet
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Octave sustains + LEG
+//! o=-note:27
+4 Octave sustains
+//! o=-note:28
+5 Sustains non-vibrato
+//! o=-note:29
+6 Portato long
+//! o=-note:30
+7 Portato short
+//! o=-note:31
+8 Staccato
+//! o=-note:32
+9 Spiccato
+//! o=-note:33
+10 Pizzicato
+//! o=-note:34
+11 Tremolo
+//! o=-note:35
+12 Crescendo long
+//! o=-note:36
+13 Crescendo medium
+//! o=-note:37
+14 Crescendo short
+//! o=-note:38
+15 Swells long
+//! o=-note:39
+16 Swells short
+//! o=-note:40
+17 Arpeggios major
+//! o=-note:41
+18 Arpeggios minor
+//! o=-note:42
+19 Arpeggios major TM
+//! o=-note:43
+20 Arpeggios minor TM
+//! o=-note:44
+21 Irregular repetitions
+//! o=-note:45
+22 Irregular crescendos
+//! o=-note:46
+23 Irregular slow accent
+//! o=-note:47
+24 Irregular flybys
+
+//! g="OTSA" n="Solo Viola"
+Bank * * OTSA - Solo Viola
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Portato long
+//! o=-note:27
+4 Portato short
+//! o=-note:28
+5 Spiccato
+//! o=-note:29
+6 Arpeggios major
+//! o=-note:30
+7 Arpeggios minor
+//! o=-note:31
+8 Arpeggios open
+//! o=-note:32
+9 Arpeggios major TM
+//! o=-note:33
+10 Arpeggios minor TM
+//! o=-note:34
+11 Arpeggios open TM
+//! o=-note:35
+12 Irregular repetitions
+//! o=-note:36
+13 Irregular crescendos
+//! o=-note:37
+14 Circular bowing
+
+//! g="OTSA" n="Solo Cello"
+Bank * * OTSA - Solo Cello
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Portato long
+//! o=-note:27
+4 Portato short
+//! o=-note:28
+5 Spiccato
+//! o=-note:29
+6 Arpeggios major
+//! o=-note:30
+7 Arpeggios minor
+//! o=-note:31
+8 Arpeggios open
+//! o=-note:32
+9 Arpeggios major TM
+//! o=-note:33
+10 Arpeggios minor TM
+//! o=-note:34
+11 Arpeggios open TM
+//! o=-note:35
+12 Irregular repetitions
+//! o=-note:36
+13 Irregular crescendos
+//! o=-note:37
+14 Irregular drops 5th
+//! o=-note:38
+15 Irregular drops bursts
+//! o=-note:39
+16 Irregular drops min2nd
+//! o=-note:40
+17 Irregular drops maj2nd
+//! o=-note:41
+18 Circular bowing
+
+//! g="OTSA / Female Ensemble" n="Female Ensemble Main Artics"
+Bank * * OTSA - Female Ensemble - Female Ensemble Main Artics
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains pad ahs
+//! o=-note:27
+4 Sustains pad ehs
+//! o=-note:28
+5 Sustains pad uhs
+//! o=-note:29
+6 Syllables long
+//! o=-note:30
+7 Syllables short
+//! o=-note:31
+8 Crescendo long ohs
+//! o=-note:32
+9 Crescendo mid ohs
+//! o=-note:33
+10 Crescendo short ohs
+//! o=-note:34
+11 Crescendo long humming
+//! o=-note:35
+12 Crescendo mid humming
+//! o=-note:36
+13 Crescendo short humming
+//! o=-note:37
+14 Swells long ohs
+//! o=-note:38
+15 Swells short ohs
+//! o=-note:39
+16 Swells long humming
+//! o=-note:40
+17 Swells short humming
+
+//! g="OTSA / Female Ensemble" n="Female Ensemble Special Artics"
+Bank * * OTSA - Female Ensemble - Female Ensemble Special Artics
+//! o=-note:24
+1 Irregular buzzing hum
+//! o=-note:25
+2 Irregular crescendo
+//! o=-note:26
+3 Irregular drifting
+//! o=-note:27
+4 Irregular glissando down
+//! o=-note:28
+5 Irregular primes English
+//! o=-note:29
+6 Irregular primes Estonian
+//! o=-note:30
+7 Irregular repetitions
+//! o=-note:31
+8 Irregular swell repetitions
+//! o=-note:32
+9 Irregular syllables
+//! o=-note:33
+10 Irregular tiktok
+//! o=-note:34
+11 Cascading vowels
+//! o=-note:35
+12 Cluster pads
+//! o=-note:36
+13 Cluster pads cascade
+
+//! g="OTSA / Male Ensemble" n="Male Ensemble Main Artics"
+Bank * * OTSA - Male Ensemble - Male Ensemble Main Artics
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains pad ahs
+//! o=-note:27
+4 Sustains pad ehs
+//! o=-note:28
+5 Sustains pad uhs
+//! o=-note:29
+6 Syllables long
+//! o=-note:30
+7 Syllables short
+//! o=-note:31
+8 Crescendo long ohs
+//! o=-note:32
+9 Crescendo mid ohs
+//! o=-note:33
+10 Crescendo short ohs
+//! o=-note:34
+11 Crescendo long humming
+//! o=-note:35
+12 Crescendo mid humming
+//! o=-note:36
+13 Crescendo short humming
+//! o=-note:37
+14 Swells long ohs
+//! o=-note:38
+15 Swells short ohs
+//! o=-note:39
+16 Swells long humming
+//! o=-note:40
+17 Swells short humming
+
+//! g="OTSA / Male Ensemble" n="Male Ensemble Special Artics"
+Bank * * OTSA - Male Ensemble - Male Ensemble Special Artics
+//! o=-note:24
+1 Irregular buzzing hum
+//! o=-note:25
+2 Irregular crescendo
+//! o=-note:26
+3 Irregular drifting
+//! o=-note:27
+4 Irregular primes English
+//! o=-note:28
+5 Irregular primes Estonian
+//! o=-note:29
+6 Irregular repetitions
+//! o=-note:30
+7 Irregular swell repetitions
+//! o=-note:31
+8 Irregular syllables
+//! o=-note:32
+9 Cascading vowels
+//! o=-note:33
+10 Cluster pads
+//! o=-note:34
+11 Cluster pads cascade
+
+//! g="OTSA" n="Solo Alto"
+Bank * * OTSA - Solo Alto
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Crescendo long
+//! o=-note:27
+4 Crescendo medium
+//! o=-note:28
+5 Crescendo short
+//! o=-note:29
+6 Swells long
+//! o=-note:30
+7 Swells short
+//! o=-note:31
+8 Irregular overtones fast
+//! o=-note:32
+9 Irregular overtones slow
+//! o=-note:33
+10 Irregular primes English
+//! o=-note:34
+11 Irreqular primes Estonian
+//! o=-note:35
+12 Irregular primes Russian
+//! o=-note:36
+13 Irregular repetitions
+//! o=-note:37
+14 Irregular syllables 1
+//! o=-note:38
+15 Irregular syllables 2
+//! o=-note:39
+16 Irregular syllables 3
+//! o=-note:40
+17 Irregular tiktok
+
+//! g="OTSA" n="Solo Basso"
+Bank * * OTSA - Solo Basso
+//! o=-note:24
+1 Sustains oh + LEG
+//! o=-note:25
+2 Sustains oh
+//! o=-note:26
+3 Sustains uh + LEG
+//! o=-note:27
+4 Sustains uh
+//! o=-note:28
+5 Crescendo long
+//! o=-note:29
+6 Crescendo medium
+//! o=-note:30
+7 Crescendo short
+//! o=-note:31
+8 Swells Long
+//! o=-note:32
+9 Swells short
+//! o=-note:33
+10 Irregular primes English
+//! o=-note:34
+11 Irregular primes Estonian
+//! o=-note:35
+12 Irregular primes Russian
+//! o=-note:36
+13 Irregular repetitions
+//! o=-note:37
+14 Irregular syllables
+//! o=-note:38
+15 Irregular overtones
+
+//! g="OTSA / Kannel, Harp and Piano" n="Kannel, Harp and Piano"
+Bank * * OTSA - Kannel, Harp and Piano - Kannel, Harp and Piano
+//! o=-note:24
+1 Sustains
+//! o=-note:25
+2 Staccato
+//! o=-note:26
+3 Irregular repetitions
+//! o=-note:27
+4 Irregular swells
+//! o=-note:28
+5 Irregular drops
+//! o=-note:29
+6 Irregular arps major
+//! o=-note:30
+7 Irregular arps minor
+
+//! g="OTSA / Kannel, Harp and Piano" n="Solo Kannel"
+Bank * * OTSA - Kannel, Harp and Piano - Solo Kannel
+//! o=-note:24
+1 Sustains
+//! o=-note:25
+2 Staccato
+//! o=-note:26
+3 Tremolo
+//! o=-note:27
+4 Tremolo crescendo long
+//! o=-note:28
+5 Tremolo crescendo mid
+//! o=-note:29
+6 Tremolo crescendo short
+//! o=-note:30
+7 Tremolo swells long
+//! o=-note:31
+8 Tremolo swells short
+//! o=-note:32
+9 Arpeggios open
+//! o=-note:33
+10 Arpeggios open TM
+
+//! g="OTSA / Kannel, Harp and Piano" n="Solo Harp"
+Bank * * OTSA - Kannel, Harp and Piano - Solo Harp
+//! o=-note:24
+1 Sustains
+//! o=-note:25
+2 Staccato
+//! o=-note:26
+3 Tremolo irregular swells
+//! o=-note:27
+4 Irregular octave Drops
+//! o=-note:28
+5 Irregular repetitions
+//! o=-note:29
+6 Arpeggios open 1
+//! o=-note:30
+7 Arpeggios open 2
+
+//! g="OTSA / Kannel, Harp and Piano" n="Solo Piano"
+Bank * * OTSA - Kannel, Harp and Piano - Solo Piano
+//! o=-note:24
+1 Sustains
+//! o=-note:25
+2 Staccato
+//! o=-note:26
+3 Irregular repetitions
+//! o=-note:27
+4 Irregular arps
+//! o=-note:28
+5 Irregular drops
+//! o=-note:29
+6 Noises
+
+//! g="OTSA" n="Tubular Bells"
+Bank * * OTSA - Tubular Bells
+//! o=-note:24
+1 Soft mallets
+//! o=-note:25
+2 Medium mallets
+//! o=-note:26
+3 Hard mallets
+//! o=-note:27
+4 Water bucket
+
+//! g="OTSA / Glockenspiel and Crotales" n="Glockenspiel and Crotales"
+Bank * * OTSA - Glockenspiel and Crotales - Glockenspiel and Crotales
+//! o=-note:24
+1 Single hits soft
+//! o=-note:25
+2 Single hits medium
+//! o=-note:26
+3 Single hits hard
+//! o=-note:27
+4 Glissando soft up
+//! o=-note:28
+5 Glissando soft up down
+//! o=-note:29
+6 Glissando soft down
+//! o=-note:30
+7 Glissando soft down up
+//! o=-note:31
+8 Glissando soft fast
+//! o=-note:32
+9 Glissando hard up
+//! o=-note:33
+10 Glissando hard up down
+//! o=-note:34
+11 Glissando hard down
+//! o=-note:35
+12 Glissando hard down up
+//! o=-note:36
+13 Glissando hard fast
+
+//! g="OTSA / Glockenspiel and Crotales" n="Glockenspiel"
+Bank * * OTSA - Glockenspiel and Crotales - Glockenspiel
+//! o=-note:24
+1 Single bows
+//! o=-note:25
+2 Bowed textures
+
+//! g="OTSA / Glockenspiel and Crotales" n="Crotales"
+Bank * * OTSA - Glockenspiel and Crotales - Crotales
+//! o=-note:24
+1 Single bows
+//! o=-note:25
+2 Bowed textures
+
+//! g="OTSA" n="Vibraphone"
+Bank * * OTSA - Vibraphone
+//! o=-note:24
+1 Single hits random vibrato
+//! o=-note:25
+2 Single bows
+//! o=-note:26
+3 Texture random vibrato
+
+//! g="OTSA" n="Chimes"
+Bank * * OTSA - Chimes
+//! o=-note:24
+1 Effects soft mallets
+//! o=-note:25
+2 Effects medium mallets
+//! o=-note:26
+3 Effects hard mallets
+//! o=-note:27
+4 Effects bowed
+
+//! g="OTSA" n="Thundersheet"
+Bank * * OTSA - Thundersheet
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Single bows
+//! o=-note:26
+3 Brush Effects
+//! o=-note:27
+4 Needle glissando effects
+//! o=-note:28
+5 Rubber ball effects
+
+//! g="OTSA" n="Tamtam"
+Bank * * OTSA - Tamtam
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Brush Effects
+//! o=-note:26
+3 Needle glissando effects
+//! o=-note:27
+4 Rubber ball effects
+
+//! g="OTSA" n="Gran Cassa"
+Bank * * OTSA - Gran Cassa
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rubber ball effects
+
+//! g="OTSA" n="Timpani"
+Bank * * OTSA - Timpani
+//! o=-note:24
+1 Bowls on timpani mallets
+//! o=-note:25
+2 Cymbals on timpani bowed
+
+//! g="OTSA" n="Wind Gong"
+Bank * * OTSA - Wind Gong
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Bowed
+//! o=-note:26
+3 Rubber ball effects
+
+//! g="OTPV / 1st Violins" n="1st Violins"
+Bank * * OTPV - 1st Violins - 1st Violins
+//! o=-note:0
+1 Sustains + LEG
+//! o=-note:1
+2 Sustains
+//! o=-note:2
+3 Sustains soft
+//! o=-note:3
+4 Sustains whispered + LEG
+//! o=-note:4
+5 Sustains whispered
+//! o=-note:5
+6 Sustains whispered soft
+//! o=-note:6
+7 Portato
+//! o=-note:7
+8 Marcato
+//! o=-note:8
+9 Staccato
+//! o=-note:9
+10 Spiccato
+//! o=-note:10
+11 Pizzicato
+//! o=-note:11
+12 Tremolo
+//! o=-note:12
+13 Tremolo short
+//! o=-note:13
+14 Trills
+//! o=-note:14
+15 Measured trills
+//! o=-note:15
+16 Harmonics sustains
+//! o=-note:16
+17 Harmonics tremolo
+
+//! g="OTPV / 1st Violins" n="gestures"
+Bank * * OTPV - 1st Violins - gestures
+//! o=-note:0
+1 Finger tremolo
+//! o=-note:1
+2 Glissando 5th
+//! o=-note:2
+3 Glissando oct
+//! o=-note:3
+4 Glissando 2oct
+//! o=-note:4
+5 Glissando trills 5th
+//! o=-note:5
+6 Glissando trills oct
+//! o=-note:6
+7 Glissando trills 2oct
+//! o=-note:7
+8 Glissando fx
+//! o=-note:8
+9 Waving longs
+//! o=-note:9
+10 Upbeats up
+//! o=-note:10
+11 Upbeats down
+//! o=-note:11
+12 Runs
+//! o=-note:12
+13 Runs aleatoric
+//! o=-note:13
+14 Accelerando climax
+
+//! g="OTPV / 2nd Violins" n="2nd Violins"
+Bank * * OTPV - 2nd Violins - 2nd Violins
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains soft
+//! o=-note:27
+4 Sustains whispered + LEG
+//! o=-note:28
+5 Sustains whispered
+//! o=-note:29
+6 Sustains whispered soft
+//! o=-note:30
+7 Portato
+//! o=-note:31
+8 Marcato
+//! o=-note:32
+9 Staccato
+//! o=-note:33
+10 Spiccato
+//! o=-note:34
+11 Pizzicato
+//! o=-note:35
+12 Tremolo
+//! o=-note:36
+13 Tremolo short
+//! o=-note:37
+14 Trills
+//! o=-note:38
+15 Harmonics sustains
+//! o=-note:39
+16 Harmonics tremolo
+
+//! g="OTPV / 2nd Violins" n="gestures"
+Bank * * OTPV - 2nd Violins - gestures
+//! o=-note:0
+1 Finger tremolo
+//! o=-note:1
+2 Glissando 5th
+//! o=-note:2
+3 Glissando oct
+//! o=-note:3
+4 Glissando 2oct
+//! o=-note:4
+5 Glissando trills 5th
+//! o=-note:5
+6 Glissando trills oct
+//! o=-note:6
+7 Glissando trills 2oct
+//! o=-note:7
+8 Glissando fx
+//! o=-note:8
+9 Waving longs
+//! o=-note:9
+10 Upbeats up
+//! o=-note:10
+11 Upbeats down
+//! o=-note:11
+12 Runs
+//! o=-note:12
+13 Runs aleatoric
+//! o=-note:13
+14 Accelerando climax
+
+//! g="OTPV / Violas" n="Violas"
+Bank * * OTPV - Violas - Violas
+//! o=-note:0
+1 Sustains + LEG
+//! o=-note:1
+2 Sustains
+//! o=-note:2
+3 Sustains soft
+//! o=-note:3
+4 Sustains whispered + LEG
+//! o=-note:4
+5 Sustains whispered
+//! o=-note:5
+6 Sustains whispered soft
+//! o=-note:6
+7 Portato
+//! o=-note:7
+8 Marcato
+//! o=-note:8
+9 Staccato
+//! o=-note:9
+10 Spiccato
+//! o=-note:10
+11 Pizzicato
+//! o=-note:11
+12 Tremolo
+//! o=-note:12
+13 Tremolo short
+//! o=-note:13
+14 Trills
+//! o=-note:14
+15 Measured trills
+//! o=-note:15
+16 Harmonics sustains
+//! o=-note:16
+17 Harmonics tremolo
+
+//! g="OTPV / Violas" n="gestures"
+Bank * * OTPV - Violas - gestures
+//! o=-note:0
+1 Finger tremolo
+//! o=-note:1
+2 Glissando 5th
+//! o=-note:2
+3 Glissando oct
+//! o=-note:3
+4 Glissando 2oct
+//! o=-note:4
+5 Glissando trills 5th
+//! o=-note:5
+6 Glissando trills oct
+//! o=-note:6
+7 Glissando trills 2oct
+//! o=-note:7
+8 Glissando fx
+//! o=-note:8
+9 Waving longs
+//! o=-note:9
+10 Upbeats up
+//! o=-note:10
+11 Upbeats down
+//! o=-note:11
+12 Runs
+//! o=-note:12
+13 Runs aleatoric
+//! o=-note:13
+14 Accelerando climax
+
+//! g="OTPV / Celli" n="Celli"
+Bank * * OTPV - Celli - Celli
+//! o=-note:0
+1 Sustains + LEG
+//! o=-note:1
+2 Sustains
+//! o=-note:2
+3 Sustains soft
+//! o=-note:3
+4 Sustains whispered + LEG
+//! o=-note:4
+5 Sustains whispered
+//! o=-note:5
+6 Sustains whispered soft
+//! o=-note:6
+7 Portato
+//! o=-note:7
+8 Marcato
+//! o=-note:8
+9 Staccato
+//! o=-note:9
+10 Spiccato
+//! o=-note:10
+11 Pizzicato
+//! o=-note:11
+12 Tremolo
+//! o=-note:12
+13 Tremolo short
+//! o=-note:13
+14 Trills
+//! o=-note:14
+15 Measured trills
+//! o=-note:15
+16 Harmonics sustains
+//! o=-note:16
+17 Harmonics tremolo
+
+//! g="OTPV / Celli" n="gestures"
+Bank * * OTPV - Celli - gestures
+//! o=-note:0
+1 Finger tremolo
+//! o=-note:1
+2 Glissando 5th
+//! o=-note:2
+3 Glissando oct
+//! o=-note:3
+4 Glissando 2oct
+//! o=-note:4
+5 Glissando trills 5th
+//! o=-note:5
+6 Glissando trills oct
+//! o=-note:6
+7 Glissando trills 2oct
+//! o=-note:7
+8 Glissando fx
+//! o=-note:8
+9 Waving longs
+//! o=-note:9
+10 Upbeats up
+//! o=-note:10
+11 Upbeats down
+//! o=-note:11
+12 Runs
+//! o=-note:12
+13 Runs aleatoric
+//! o=-note:13
+14 Accelerando climax
+
+//! g="OTPV / Basses" n="Basses"
+Bank * * OTPV - Basses - Basses
+//! o=-note:40
+1 Sustains + LEG
+//! o=-note:24
+2 Sustains
+//! o=-note:25
+3 Sustains soft
+//! o=-note:26
+4 Portato
+//! o=-note:27
+5 Marcato
+//! o=-note:28
+6 Staccato
+//! o=-note:29
+7 Spiccato
+//! o=-note:30
+8 Pizzicato
+//! o=-note:31
+9 Tremolo
+//! o=-note:32
+10 Tremolo short
+
+//! g="OTPV / Basses" n="gestures"
+Bank * * OTPV - Basses - gestures
+//! o=-note:24
+1 Glissando 5th
+//! o=-note:25
+2 Glissando oct
+//! o=-note:26
+3 Glissando 2oct
+//! o=-note:27
+4 Glissando trills 5th
+//! o=-note:28
+5 Glissando trills oct
+//! o=-note:29
+6 Glissando trills 2oct
+//! o=-note:30
+7 Glissando fx
+//! o=-note:31
+8 Waving longs
+//! o=-note:32
+9 Accelerando climax
+
+//! g="OTPV / Violin I FC" n="Violin I FC"
+Bank * * OTPV - Violin I FC - Violin I FC
+//! o=-note:24
+1 Sustains lyrical + LEG
+//! o=-note:25
+2 Sustains lyrical
+//! o=-note:26
+3 Sustains lyrical soft
+//! o=-note:27
+4 Sustains expressive + LEG
+//! o=-note:28
+5 Sustains expressive
+//! o=-note:29
+6 Sustains expressive soft
+//! o=-note:30
+7 Sustains sul tasto + LEG
+//! o=-note:31
+8 Sustains sul tasto
+//! o=-note:32
+9 Sustains sul tasto soft
+//! o=-note:33
+10 Portato
+//! o=-note:34
+11 Marcato
+//! o=-note:35
+12 Staccato
+//! o=-note:36
+13 Spiccato
+//! o=-note:37
+14 Pizzicato
+//! o=-note:38
+15 Tremolo
+//! o=-note:39
+16 Tremolo short
+//! o=-note:40
+17 Trills
+//! o=-note:41
+18 Harmonics sustains
+//! o=-note:42
+19 Harmonics tremolo
+
+//! g="OTPV / Violin I FC" n="gestures"
+Bank * * OTPV - Violin I FC - gestures
+//! o=-note:24
+1 Glissando 5th
+//! o=-note:25
+2 Glissando oct
+//! o=-note:26
+3 Glissando 2oct
+//! o=-note:27
+4 Glissando trills 5th
+//! o=-note:28
+5 Glissando trills oct
+//! o=-note:29
+6 Glissando trills 2oct
+//! o=-note:30
+7 Glissando fx
+//! o=-note:31
+8 Trills short
+//! o=-note:32
+9 Trills single
+//! o=-note:33
+10 Waving longs
+//! o=-note:34
+11 Upbeats up
+//! o=-note:35
+12 Upbeats down
+
+//! g="OTPV / Violin II FC" n="Violin II FC"
+Bank * * OTPV - Violin II FC - Violin II FC
+//! o=-note:24
+1 Sustains lyrical + LEG
+//! o=-note:25
+2 Sustains lyrical
+//! o=-note:26
+3 Sustains lyrical soft
+//! o=-note:27
+4 Sustains expressive + LEG
+//! o=-note:28
+5 Sustains expressive
+//! o=-note:29
+6 Sustains expressive soft
+//! o=-note:30
+7 Sustains sul tasto + LEG
+//! o=-note:31
+8 Sustains sul tasto
+//! o=-note:32
+9 Sustains sul tasto soft
+//! o=-note:33
+10 Portato
+//! o=-note:34
+11 Marcato
+//! o=-note:35
+12 Staccato
+//! o=-note:36
+13 Spiccato
+//! o=-note:37
+14 Pizzicato
+//! o=-note:38
+15 Tremolo
+//! o=-note:39
+16 Tremolo short
+//! o=-note:40
+17 Trills
+//! o=-note:41
+18 Harmonics sustains
+//! o=-note:42
+19 Harmonics tremolo
+
+//! g="OTPV / Violin II FC" n="gestures"
+Bank * * OTPV - Violin II FC - gestures
+//! o=-note:24
+1 Glissando 5th
+//! o=-note:25
+2 Glissando oct
+//! o=-note:26
+3 Glissando 2oct
+//! o=-note:27
+4 Glissando trills 5th
+//! o=-note:28
+5 Glissando trills oct
+//! o=-note:29
+6 Glissando trills 2oct
+//! o=-note:30
+7 Glissando fx
+//! o=-note:31
+8 Trills short
+//! o=-note:32
+9 Trills single
+//! o=-note:33
+10 Waving longs
+//! o=-note:34
+11 Upbeats up
+//! o=-note:35
+12 Upbeats down
+
+//! g="OTPV / Viola FC" n="Viola FC"
+Bank * * OTPV - Viola FC - Viola FC
+//! o=-note:24
+1 Sustains lyrical + LEG
+//! o=-note:25
+2 Sustains lyrical
+//! o=-note:26
+3 Sustains lyrical soft
+//! o=-note:27
+4 Sustains expressive + LEG
+//! o=-note:28
+5 Sustains expressive
+//! o=-note:29
+6 Sustains expressive soft
+//! o=-note:30
+7 Sustains sul tasto + LEG
+//! o=-note:31
+8 Sustains sul tasto
+//! o=-note:32
+9 Sustains sul tasto soft
+//! o=-note:33
+10 Portato
+//! o=-note:34
+11 Marcato
+//! o=-note:35
+12 Staccato
+//! o=-note:36
+13 Spiccato
+//! o=-note:37
+14 Pizzicato
+//! o=-note:38
+15 Tremolo
+//! o=-note:39
+16 Tremolo short
+//! o=-note:40
+17 Trills
+//! o=-note:41
+18 Harmonics sustains
+//! o=-note:42
+19 Harmonics tremolo
+
+//! g="OTPV / Viola FC" n="gestures"
+Bank * * OTPV - Viola FC - gestures
+//! o=-note:24
+1 Glissando 5th
+//! o=-note:25
+2 Glissando oct
+//! o=-note:26
+3 Glissando 2oct
+//! o=-note:27
+4 Glissando trills 5th
+//! o=-note:28
+5 Glissando trills oct
+//! o=-note:29
+6 Glissando trills 2oct
+//! o=-note:30
+7 Glissando fx
+//! o=-note:31
+8 Trills short
+//! o=-note:32
+9 Trills single
+//! o=-note:33
+10 Waving longs
+//! o=-note:34
+11 Upbeats up
+//! o=-note:35
+12 Upbeats down
+
+//! g="OTPV / Cello FC" n="Cello FC"
+Bank * * OTPV - Cello FC - Cello FC
+//! o=-note:24
+1 Sustains lyrical + LEG
+//! o=-note:25
+2 Sustains lyrical
+//! o=-note:26
+3 Sustains lyrical soft
+//! o=-note:27
+4 Sustains expressive + LEG
+//! o=-note:28
+5 Sustains expressive
+//! o=-note:29
+6 Sustains expressive soft
+//! o=-note:30
+7 Sustains sul tasto + LEG
+//! o=-note:31
+8 Sustains sul tasto
+//! o=-note:32
+9 Sustains sul tasto soft
+//! o=-note:33
+10 Portato
+//! o=-note:34
+11 Marcato
+//! o=-note:35
+12 Staccato
+//! o=-note:36
+13 Spiccato
+//! o=-note:37
+14 Pizzicato
+//! o=-note:38
+15 Tremolo
+//! o=-note:39
+16 Tremolo short
+//! o=-note:40
+17 Trills
+//! o=-note:41
+18 Harmonics sustains
+//! o=-note:42
+19 Harmonics tremolo
+
+//! g="OTPV / Cello FC" n="gestures"
+Bank * * OTPV - Cello FC - gestures
+//! o=-note:24
+1 Glissando 5th
+//! o=-note:25
+2 Glissando oct
+//! o=-note:26
+3 Glissando 2oct
+//! o=-note:27
+4 Glissando trills 5th
+//! o=-note:28
+5 Glissando trills oct
+//! o=-note:29
+6 Glissando trills 2oct
+//! o=-note:30
+7 Glissando fx
+//! o=-note:31
+8 Trills short
+//! o=-note:32
+9 Trills single
+//! o=-note:33
+10 Waving longs
+//! o=-note:34
+11 Upbeats up
+//! o=-note:35
+12 Upbeats down
+
+//! g="OTPV / Bass FC" n="Bass FC"
+Bank * * OTPV - Bass FC - Bass FC
+//! o=-note:36
+1 Sustains lyrical + LEG
+//! o=-note:24
+2 Sustains lyrical
+//! o=-note:25
+3 Sustains lyrical soft
+//! o=-note:26
+4 Portato
+//! o=-note:27
+5 Marcato
+//! o=-note:28
+6 Staccato
+//! o=-note:29
+7 Spiccato
+//! o=-note:30
+8 Pizzicato
+
+//! g="OTPV / Bass FC" n="gestures"
+Bank * * OTPV - Bass FC - gestures
+//! o=-note:24
+1 Glissando 5th
+//! o=-note:25
+2 Glissando oct
+//! o=-note:26
+3 Glissando 2oct
+//! o=-note:27
+4 Glissando trills 5th
+//! o=-note:28
+5 Glissando trills oct
+//! o=-note:29
+6 Glissando trills 2oct
+//! o=-note:30
+7 Glissando fx
+//! o=-note:31
+8 Waving longs
+
+//! g="OTam" n="Amber String Quartet"
+Bank * * OTam - Amber String Quartet
+//! o=-note:24
+1 Sustains sul tasto morph
+//! o=-note:25
+2 Sustains random swells
+//! o=-note:26
+3 Pizzicato stutter
+//! o=-note:27
+4 Swells short
+
+//! g="OTam" n="1st Violin"
+Bank * * OTam - 1st Violin
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains sul tasto
+//! o=-note:27
+4 Sustains random swells
+//! o=-note:28
+5 Sustains random sul pont
+//! o=-note:29
+6 Tremolo
+//! o=-note:30
+7 Sul ponticello morph
+//! o=-note:31
+8 Flageolet morph
+//! o=-note:32
+9 Portato
+//! o=-note:33
+10 Decrescendo
+//! o=-note:34
+11 Crescendo
+//! o=-note:35
+12 Swells long
+//! o=-note:36
+13 Swells expressive
+//! o=-note:37
+14 Swells tremolo morph
+//! o=-note:38
+15 Swells short
+//! o=-note:39
+16 Staccato
+//! o=-note:40
+17 Pizzicato
+//! o=-note:41
+18 Pizzicato hammer on & pull off
+//! o=-note:42
+19 Pizzicato slides
+//! o=-note:43
+20 Noises
+
+//! g="OTam" n="2nd Violin"
+Bank * * OTam - 2nd Violin
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains sul tasto
+//! o=-note:27
+4 Sustains random swells
+//! o=-note:28
+5 Sustains random sul pont
+//! o=-note:29
+6 Tremolo
+//! o=-note:30
+7 Sul ponticello morph
+//! o=-note:31
+8 Flageolet morph
+//! o=-note:32
+9 Portato
+//! o=-note:33
+10 Decrescendo
+//! o=-note:34
+11 Crescendo
+//! o=-note:35
+12 Swells long
+//! o=-note:36
+13 Swells expressive
+//! o=-note:37
+14 Swells tremolo morph
+//! o=-note:38
+15 Swells short
+//! o=-note:39
+16 Staccato
+//! o=-note:40
+17 Pizzicato
+//! o=-note:41
+18 Pizzicato hammer on & pull off
+//! o=-note:42
+19 Pizzicato slides
+//! o=-note:43
+20 Noises
+
+//! g="OTam" n="Viola"
+Bank * * OTam - Viola
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains sul tasto
+//! o=-note:27
+4 Sustains random swells
+//! o=-note:28
+5 Sustains random sul pont
+//! o=-note:29
+6 Tremolo
+//! o=-note:30
+7 Sul ponticello morph
+//! o=-note:31
+8 Flageolet morph
+//! o=-note:32
+9 Portato
+//! o=-note:33
+10 Decrescendo
+//! o=-note:34
+11 Crescendo
+//! o=-note:35
+12 Swells long
+//! o=-note:36
+13 Swells expressive
+//! o=-note:37
+14 Swells tremolo morph
+//! o=-note:38
+15 Swells short
+//! o=-note:39
+16 Staccato
+//! o=-note:40
+17 Pizzicato
+//! o=-note:41
+18 Pizzicato hammer on & pull off
+//! o=-note:42
+19 Pizzicato slides
+//! o=-note:43
+20 Noises
+
+//! g="OTam" n="Cello"
+Bank * * OTam - Cello
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains sul tasto
+//! o=-note:27
+4 Sustains random swells
+//! o=-note:28
+5 Sustains random sul pont
+//! o=-note:29
+6 Tremolo
+//! o=-note:30
+7 Sul ponticello morph
+//! o=-note:31
+8 Flageolet morph
+//! o=-note:32
+9 Portato
+//! o=-note:33
+10 Decrescendo
+//! o=-note:34
+11 Crescendo
+//! o=-note:35
+12 Swells long
+//! o=-note:36
+13 Swells expressive
+//! o=-note:37
+14 Swells tremolo morph
+//! o=-note:38
+15 Swells short
+//! o=-note:39
+16 Staccato
+//! o=-note:40
+17 Pizzicato
+//! o=-note:41
+18 Pizzicato hammer on & pull off
+//! o=-note:42
+19 Pizzicato slides
+//! o=-note:43
+20 Noises
+
+//! g="OTba" n="Babel ensemble"
+Bank * * OTba - Babel ensemble
+//! o=-note:24
+1 Sustains mmh nene morph
+//! o=-note:25
+2 Sustains aah
+//! o=-note:26
+3 Sustains mmh
+//! o=-note:27
+4 Sustains uuh
+//! o=-note:28
+5 Sustains uuh bends
+//! o=-note:29
+6 Whispers
+
+//! g="OTba" n="Soprano"
+Bank * * OTba - Soprano
+//! o=-note:24
+1 Sustains aah
+//! o=-note:25
+2 Sustains mmh
+//! o=-note:26
+3 Sustains uuh
+//! o=-note:27
+4 Sustains uuh bends
+//! o=-note:28
+5 Sustains nene
+//! o=-note:29
+6 Sustains vowel morph
+//! o=-note:30
+7 Sustains vowel morph ai
+//! o=-note:31
+8 Sustains vowel morph uo
+//! o=-note:32
+9 Marcato
+//! o=-note:33
+10 Marcato Didi
+//! o=-note:34
+11 Staccato
+//! o=-note:35
+12 Gestures kuroo
+//! o=-note:36
+13 Gestures lieeh
+//! o=-note:37
+14 Gestures noaah
+//! o=-note:38
+15 Whispers
+//! o=-note:39
+16 Consonants long
+//! o=-note:40
+17 Consonants
+//! o=-note:41
+18 Noises
+
+//! g="OTba" n="Alto"
+Bank * * OTba - Alto
+//! o=-note:24
+1 Sustains aah
+//! o=-note:25
+2 Sustains mmh
+//! o=-note:26
+3 Sustains uuh
+//! o=-note:27
+4 Sustains uuh bends
+//! o=-note:28
+5 Sustains nene
+//! o=-note:29
+6 Sustains vowel morph
+//! o=-note:30
+7 Sustains vowel morph ai
+//! o=-note:31
+8 Sustains vowel morph uo
+//! o=-note:32
+9 Marcato
+//! o=-note:33
+10 Marcato Didi
+//! o=-note:34
+11 Staccato
+//! o=-note:35
+12 Gestures kuroo
+//! o=-note:36
+13 Gestures lieeh
+//! o=-note:37
+14 Gestures noaah
+//! o=-note:38
+15 Whispers
+//! o=-note:39
+16 Consonants long
+//! o=-note:40
+17 Consonants
+//! o=-note:41
+18 Noises
+
+//! g="OTba" n="Bass"
+Bank * * OTba - Bass
+//! o=-note:24
+1 Sustains aah
+//! o=-note:25
+2 Sustains mmh
+//! o=-note:26
+3 Sustains uuh
+//! o=-note:27
+4 Sustains uuh bends
+//! o=-note:28
+5 Sustains nene
+//! o=-note:29
+6 Sustains vowel morph
+//! o=-note:30
+7 Sustains vowel morph ai
+//! o=-note:31
+8 Sustains vowel morph uo
+//! o=-note:32
+9 Marcato
+//! o=-note:33
+10 Marcato Didi
+//! o=-note:34
+11 Staccato
+//! o=-note:35
+12 Gestures kuroo
+//! o=-note:36
+13 Gestures lieeh
+//! o=-note:37
+14 Gestures noaah
+//! o=-note:38
+15 Whispers
+//! o=-note:39
+16 Consonants long
+//! o=-note:40
+17 Consonants
+//! o=-note:41
+18 Noises
+
+//! g="OTar / Ensembles" n="Greenwood"
+Bank * * OTar - Ensembles - Greenwood
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTar / Ensembles" n="Of trees and roots"
+Bank * * OTar - Ensembles - Of trees and roots
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTar / Ensembles" n="Native rustle"
+Bank * * OTar - Ensembles - Native rustle
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTar / Ensembles" n="Canopy of leaves"
+Bank * * OTar - Ensembles - Canopy of leaves
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTar / Ensembles" n="Percussion of the forest"
+Bank * * OTar - Ensembles - Percussion of the forest
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTar / Branches" n="Brushwood"
+Bank * * OTar - Branches - Brushwood
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTar / Branches" n="Small sticks"
+Bank * * OTar - Branches - Small sticks
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTar / Branches" n="Medium sticks flams"
+Bank * * OTar - Branches - Medium sticks flams
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTar / Branches" n="Medium sticks flams on foliage"
+Bank * * OTar - Branches - Medium sticks flams on foliage
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTar / Branches" n="Sticks on small trunk"
+Bank * * OTar - Branches - Sticks on small trunk
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTar / Branches" n="Subwood"
+Bank * * OTar - Branches - Subwood
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTar / Rustling leaves & Shaker" n="Branch with leaves"
+Bank * * OTar - Rustling leaves & Shaker - Branch with leaves
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Hand hits
+//! o=-note:27
+4 Hand rolls
+
+//! g="OTar / Rustling leaves & Shaker" n="Large branch with leaves"
+Bank * * OTar - Rustling leaves & Shaker - Large branch with leaves
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+//! o=-note:26
+3 Stick hits
+//! o=-note:27
+4 Stick rolls
+
+//! g="OTar / Rustling leaves & Shaker" n="Pine cone rainmaker"
+Bank * * OTar - Rustling leaves & Shaker - Pine cone rainmaker
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTar / Rustling leaves & Shaker" n="Pine cone rainmaker falls"
+Bank * * OTar - Rustling leaves & Shaker - Pine cone rainmaker falls
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTar / Rustling leaves & Shaker" n="Acorn basket"
+Bank * * OTar - Rustling leaves & Shaker - Acorn basket
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTar / Rustling leaves & Shaker" n="Beechnut shaker"
+Bank * * OTar - Rustling leaves & Shaker - Beechnut shaker
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTar / Roots" n="Root 1"
+Bank * * OTar - Roots - Root 1
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTar / Roots" n="Root 2"
+Bank * * OTar - Roots - Root 2
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTar / Roots" n="Root 3"
+Bank * * OTar - Roots - Root 3
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTar / Roots" n="Root 4"
+Bank * * OTar - Roots - Root 4
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTar / Roots" n="Root 5"
+Bank * * OTar - Roots - Root 5
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTar / Roots" n="Root 6"
+Bank * * OTar - Roots - Root 6
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTda / Ensembles" n="Full ensemble"
+Bank * * OTda - Ensembles - Full ensemble
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTda / Ensembles" n="Deep ensemble"
+Bank * * OTda - Ensembles - Deep ensemble
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTda / Ensembles" n="Punch ensemble"
+Bank * * OTda - Ensembles - Punch ensemble
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTda / Ensembles" n="Concert drum Ensemble"
+Bank * * OTda - Ensembles - Concert drum Ensemble
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTda / Single Instruments" n="Concert drums"
+Bank * * OTda - Single Instruments - Concert drums
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTda / Single Instruments" n="Gun 1"
+Bank * * OTda - Single Instruments - Gun 1
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTda / Single Instruments" n="Gun 2"
+Bank * * OTda - Single Instruments - Gun 2
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTda / Single Instruments" n="Dragon drum"
+Bank * * OTda - Single Instruments - Dragon drum
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTda / Single Instruments" n="Dragon drum XL"
+Bank * * OTda - Single Instruments - Dragon drum XL
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTda / Single Instruments" n="Giant bass drum"
+Bank * * OTda - Single Instruments - Giant bass drum
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTda / Percussion" n="Hyper punch ensemble"
+Bank * * OTda - Percussion - Hyper punch ensemble
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTda / Percussion" n="Loose big ensemble"
+Bank * * OTda - Percussion - Loose big ensemble
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTda / Percussion" n="Soft and full ensemble"
+Bank * * OTda - Percussion - Soft and full ensemble
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTda / Percussion" n="Soft and wide ensemble"
+Bank * * OTda - Percussion - Soft and wide ensemble
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTda / Percussion" n="No mercy ensemble"
+Bank * * OTda - Percussion - No mercy ensemble
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTma" n="Verrophone"
+Bank * * OTma - Verrophone
+//! o=-note:24
+1 Sustains
+//! o=-note:25
+2 Portato
+//! o=-note:26
+3 Staccato
+//! o=-note:27
+4 Plucked
+//! o=-note:28
+5 Plucked fingernail
+//! o=-note:29
+6 Plucked doubles
+//! o=-note:30
+7 Plucked FX
+//! o=-note:31
+8 Gestures HT
+//! o=-note:32
+9 Gestures WH
+//! o=-note:33
+10 Chords
+//! o=-note:34
+11 FX
+
+//! g="OTor / Ensembles" n="Tuned metal ensemble 1"
+Bank * * OTor - Ensembles - Tuned metal ensemble 1
+//! o=-note:24
+1 Sustains
+//! o=-note:25
+2 Sustains mallets
+
+//! g="OTor" n="Caisa"
+Bank * * OTor - Caisa
+//! o=-note:24
+1 Sustains
+//! o=-note:25
+2 Sustains edge
+//! o=-note:26
+3 Sustains rods
+//! o=-note:27
+4 Doubles rods
+//! o=-note:28
+5 Triples rods
+//! o=-note:29
+6 Tremolo
+//! o=-note:30
+7 Tremolo edge
+//! o=-note:31
+8 Tremolo rods
+//! o=-note:32
+9 Swells long
+//! o=-note:33
+10 Swells short
+
+//! g="OTor" n="Tongue drum"
+Bank * * OTor - Tongue drum
+//! o=-note:24
+1 Sustains
+//! o=-note:25
+2 Sustains paintbrush
+//! o=-note:26
+3 Sustains paintbrush fx
+//! o=-note:27
+4 Doubles paintbrush
+//! o=-note:28
+5 Doubles paintbrush fx
+//! o=-note:29
+6 Triples Paintbrush
+//! o=-note:30
+7 Triples paintbrush fx
+//! o=-note:31
+8 Tremolo
+//! o=-note:32
+9 Tremolo paintbrush
+//! o=-note:33
+10 Tremolo paintbrush fx
+//! o=-note:34
+11 Swells long
+//! o=-note:35
+12 Swells short
+
+//! g="OTor" n="Hapi drum"
+Bank * * OTor - Hapi drum
+//! o=-note:24
+1 Sustains
+//! o=-note:25
+2 Sustains soft mallet
+//! o=-note:26
+3 Doubles soft mallet
+//! o=-note:27
+4 Triples soft mallet
+//! o=-note:28
+5 Tremolo
+//! o=-note:29
+6 Tremolo soft mallets
+
+//! g="OTor" n="Kalimba"
+Bank * * OTor - Kalimba
+//! o=-note:24
+1 Sustains
+//! o=-note:25
+2 Sustains hard mallet
+
+//! g="OTor" n="Alto glockenspiel"
+Bank * * OTor - Alto glockenspiel
+//! o=-note:24
+1 Sustains finger
+//! o=-note:25
+2 Tremolo finger
+
+//! g="OTor" n="Tuned gongs"
+Bank * * OTor - Tuned gongs
+//! o=-note:24
+1 Sustains
+//! o=-note:25
+2 Sustains soft mallet
+
+//! g="OTor" n="Cup chimes"
+Bank * * OTor - Cup chimes
+//! o=-note:24
+1 Sustains
+//! o=-note:25
+2 FX
+
+//! g="OTor" n="Bell"
+Bank * * OTor - Bell
+//! o=-note:24
+1 Sustains plastic mallet
+//! o=-note:25
+2 Sustains leather mallet
+//! o=-note:26
+3 Sustains cotton mallet
+//! o=-note:27
+4 Sustains metal mallet
+//! o=-note:28
+5 Sustains metal mallet 2
+//! o=-note:29
+6 Sustains FX
+//! o=-note:30
+7 FX
+
+//! g="OTor" n="Pete-Engelhart"
+Bank * * OTor - Pete-Engelhart
+//! o=-note:24
+1 Sustains
+//! o=-note:25
+2 Doubles
+//! o=-note:26
+3 Triples
+//! o=-note:27
+4 Tremolo
+
+//! g="OTor" n="Champagne cooler"
+Bank * * OTor - Champagne cooler
+//! o=-note:24
+1 Sustains
+//! o=-note:25
+2 Tremolo
+
+//! g="OTum" n="Flute Ensemble"
+Bank * * OTum - Flute Ensemble
+//! o=-note:24
+1 Sustains motion morph
+//! o=-note:25
+2 Sustains mood morph
+//! o=-note:26
+3 Staccato
+//! o=-note:27
+4 Finger-tapping
+
+//! g="OTum" n="High Flute"
+Bank * * OTum - High Flute
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains no vib
+//! o=-note:27
+4 Sustains ornament
+//! o=-note:28
+5 Sustains random overblown
+//! o=-note:29
+6 Sustains bending
+//! o=-note:30
+7 Portato
+//! o=-note:31
+8 Upbeat double
+//! o=-note:32
+9 Staccato
+//! o=-note:33
+10 Finger-tapping
+
+//! g="OTum" n="Mid Flute"
+Bank * * OTum - Mid Flute
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains no vib
+//! o=-note:27
+4 Sustains str vib
+//! o=-note:28
+5 Sustains ornament
+//! o=-note:29
+6 Sustains random overblown
+//! o=-note:30
+7 Sustains bending
+//! o=-note:31
+8 Portato
+//! o=-note:32
+9 Upbeat double
+//! o=-note:33
+10 Staccato
+//! o=-note:34
+11 Finger-tapping
+
+//! g="OTum" n="Low Flute"
+Bank * * OTum - Low Flute
+//! o=-note:24
+1 Sustains soft
+//! o=-note:25
+2 Trills
+//! o=-note:26
+3 Pizzicato stuttering
+//! o=-note:27
+4 Upbeat double
+//! o=-note:28
+5 Staccato
+//! o=-note:29
+6 Finger-tapping
+
+//! g="OTum" n="Humming Man"
+Bank * * OTum - Humming Man
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Humming and whispering
+//! o=-note:27
+4 Swells long
+//! o=-note:28
+5 Swells short
+//! o=-note:29
+6 Staccato
+
+//! g="OTum" n="Rainmaker"
+Bank * * OTum - Rainmaker
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Falls
+//! o=-note:26
+3 Rolling
+//! o=-note:27
+4 Upbeats
+//! o=-note:28
+5 Random textures
+
+//! g="OTum" n="Shaman Drum"
+Bank * * OTum - Shaman Drum
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Single hits damped
+//! o=-note:26
+3 Hand scrapes
+
+//! g="OTum" n="Frame Drum"
+Bank * * OTum - Frame Drum
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Single hits damped
+//! o=-note:26
+3 Superball
+
+//! g="OTum" n="Gong Drum"
+Bank * * OTum - Gong Drum
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Single hits damped
+
+//! g="OTpa" n="Piano"
+Bank * * OTpa - Piano
+//! o=-note:0
+1 Pure
+//! o=-note:1
+2 Felt
+//! o=-note:2
+3 Felt low
+//! o=-note:3
+4 Sustains plectrum
+//! o=-note:4
+5 Strokes plectrum
+//! o=-note:5
+6 Sustains finger
+//! o=-note:6
+7 Strokes paintbrush
+//! o=-note:7
+8 Tremolo paintbrush morph
+
+//! g="OTwh" n="Ensemble"
+Bank * * OTwh - Ensemble
+//! o=-note:24
+1 Sustains
+//! o=-note:25
+2 Sustains pitched
+//! o=-note:26
+3 Swells long
+//! o=-note:27
+4 Swells expressive
+//! o=-note:28
+5 Swells short
+
+//! g="OTwh" n="Flute"
+Bank * * OTwh - Flute
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains fragile
+//! o=-note:27
+4 Sustains whispered
+//! o=-note:28
+5 Sustains whistle tones
+//! o=-note:29
+6 Portato
+//! o=-note:30
+7 Staccato short
+//! o=-note:31
+8 Tongue rams
+//! o=-note:32
+9 Swells long
+//! o=-note:33
+10 Swells expressive
+//! o=-note:34
+11 Swells short
+//! o=-note:35
+12 Trills
+//! o=-note:36
+13 Irregular staccato
+//! o=-note:37
+14 Finger-tapping
+
+//! g="OTwh" n="Cornet con sordino"
+Bank * * OTwh - Cornet con sordino
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains fragile
+//! o=-note:27
+4 Portato
+//! o=-note:28
+5 Staccato short
+//! o=-note:29
+6 Swells fong
+//! o=-note:30
+7 Swells expressive
+//! o=-note:31
+8 Swells short
+//! o=-note:32
+9 Finger-tapping
+
+//! g="OTwh" n="Flugelhorn"
+Bank * * OTwh - Flugelhorn
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains fragile
+//! o=-note:27
+4 Sustains pedal tones
+//! o=-note:28
+5 Portato
+//! o=-note:29
+6 Staccato short
+//! o=-note:30
+7 Swells long
+//! o=-note:31
+8 Swells expressive
+//! o=-note:32
+9 Swells short
+//! o=-note:33
+10 Finger-tapping
+
+//! g="OTwh" n="Bass clarinet"
+Bank * * OTwh - Bass clarinet
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains fragile
+//! o=-note:27
+4 Sustains harmonic bursts
+//! o=-note:28
+5 Portato
+//! o=-note:29
+6 Staccato short
+//! o=-note:30
+7 Swells long
+//! o=-note:31
+8 Swells expressive
+//! o=-note:32
+9 Swells short
+//! o=-note:33
+10 Trills
+//! o=-note:34
+11 Irregular staccato
+//! o=-note:35
+12 Simple multiphonics
+//! o=-note:36
+13 Complex multiphonics
+//! o=-note:37
+14 Finger-tapping
+
+//! g="OTop" n="Falsetto"
+Bank * * OTop - Falsetto
+//! o=-note:24
+1 Sustains ooh + LEG
+//! o=-note:25
+2 Sustains ooh
+//! o=-note:26
+3 Sustains aah + LEG
+//! o=-note:27
+4 Sustains aah
+//! o=-note:28
+5 Syllables long
+//! o=-note:29
+6 Syllables short
+//! o=-note:30
+7 Swells long
+//! o=-note:31
+8 Swells expressive
+//! o=-note:32
+9 Swells short
+//! o=-note:33
+10 Hand Percussion
+
+//! g="OTop" n="Trumpet"
+Bank * * OTop - Trumpet
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Portato
+//! o=-note:27
+4 Staccato
+//! o=-note:28
+5 Staccato short
+//! o=-note:29
+6 Sustains random flutter
+//! o=-note:30
+7 Sustains random stutter
+//! o=-note:31
+8 Sustains random trills
+//! o=-note:32
+9 Sustains bending
+//! o=-note:33
+10 Sustains fragile
+//! o=-note:34
+11 Swells long
+//! o=-note:35
+12 Swells short
+//! o=-note:36
+13 Motions
+
+//! g="OTop" n="Electric Guitar"
+Bank * * OTop - Electric Guitar
+//! o=-note:24
+1 Chords and motions
+//! o=-note:25
+2 Chords and motions sliced
+//! o=-note:26
+3 Chords and motions short
+
+//! g="OTkh" n="Balafon"
+Bank * * OTkh - Balafon
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Single hits finger
+//! o=-note:26
+3 Single hits rubber
+//! o=-note:27
+4 Single hits rods
+//! o=-note:28
+5 Single hits brush
+//! o=-note:29
+6 Tremolo
+//! o=-note:30
+7 Tremolo finger
+//! o=-note:31
+8 Tremolo rubber
+//! o=-note:32
+9 Tremolo rods
+//! o=-note:33
+10 Tremolo brush
+//! o=-note:34
+11 Brushed stroke long
+//! o=-note:35
+12 Brushed stroke short
+//! o=-note:36
+13 FX wooden scratches
+//! o=-note:37
+14 FX squeaky scratches
+//! o=-note:38
+15 FX glissandi
+
+//! g="OTkh" n="Dholak"
+Bank * * OTkh - Dholak
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Single hits damped
+//! o=-note:26
+3 Upbeats
+//! o=-note:27
+4 Bends up
+//! o=-note:28
+5 Bends down
+//! o=-note:29
+6 Rolls muted
+//! o=-note:30
+7 FX brushes
+
+//! g="OTkh" n="Prepared frame drum"
+Bank * * OTkh - Prepared frame drum
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Single hits damped
+//! o=-note:26
+3 Bends
+//! o=-note:27
+4 Upbeats
+//! o=-note:28
+5 Single hits
+//! o=-note:29
+6 Rolls
+
+//! g="OTkh" n="Prepared floor tom"
+Bank * * OTkh - Prepared floor tom
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTkh" n="Custom gamelan"
+Bank * * OTkh - Custom gamelan
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Single hits damped
+//! o=-note:26
+3 Rolls
+
+//! g="OTkh" n="Custom cymbals"
+Bank * * OTkh - Custom cymbals
+//! o=-note:24
+1 Single hits
+//! o=-note:25
+2 Rolls
+
+//! g="OTlo" n="Soprano chalumeau"
+Bank * * OTlo - Soprano chalumeau
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains flat
+//! o=-note:27
+4 Portato
+//! o=-note:28
+5 Marcato short
+//! o=-note:29
+6 Staccato
+//! o=-note:30
+7 Staccatissimo
+//! o=-note:31
+8 Swells
+//! o=-note:32
+9 Trills single
+
+//! g="OTlo" n="Alto chalumeau"
+Bank * * OTlo - Alto chalumeau
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains flat
+//! o=-note:27
+4 Portato
+//! o=-note:28
+5 Marcato short
+//! o=-note:29
+6 Staccato
+//! o=-note:30
+7 Staccatissimo
+//! o=-note:31
+8 Swells
+//! o=-note:32
+9 Trills single
+
+//! g="OTlo" n="Tenor chalumeau"
+Bank * * OTlo - Tenor chalumeau
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Sustains flat
+//! o=-note:27
+4 Portato
+//! o=-note:28
+5 Marcato short
+//! o=-note:29
+6 Staccato
+//! o=-note:30
+7 Staccatissimo
+//! o=-note:31
+8 Trills single
+
+//! g="OTlo" n="Bass chalumeau"
+Bank * * OTlo - Bass chalumeau
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Portato
+//! o=-note:27
+4 Marcato short
+//! o=-note:28
+5 Staccato
+//! o=-note:29
+6 Trills single
+
+//! g="OTlo" n="Musette accordion"
+Bank * * OTlo - Musette accordion
+//! o=-note:24
+1 Tremolo sustains soft
+//! o=-note:25
+2 Tremolo sustains immediate
+//! o=-note:26
+3 Tremolo sustains accented
+//! o=-note:27
+4 Tremolo chord performer
+//! o=-note:28
+5 Tremolo marcato short
+//! o=-note:29
+6 Tremolo staccato
+//! o=-note:30
+7 Tremolo staccatissimo
+//! o=-note:31
+8 Tremolo swells long
+//! o=-note:32
+9 Tremolo swells medium
+//! o=-note:33
+10 Tremolo swells short
+//! o=-note:34
+11 Tremolo crescendo long
+//! o=-note:35
+12 Tremolo crescendo medium
+//! o=-note:36
+13 Tremolo crescendo short
+//! o=-note:37
+14 Tremolo decrescendo long
+//! o=-note:38
+15 Tremolo decrescendo medium
+//! o=-note:39
+16 Tremolo decrescendo short
+//! o=-note:40
+17 Bassoon sustains soft
+//! o=-note:41
+18 Bassoon sustains immediate
+//! o=-note:42
+19 Bassoon sustains accented
+//! o=-note:43
+20 Bassoon chord performer
+//! o=-note:44
+21 Bassoon marcato short
+//! o=-note:45
+22 Bassoon staccato
+//! o=-note:46
+23 Bassoon staccatissimo
+
+//! g="OTlo" n="Musette accordion noises"
+Bank * * OTlo - Musette accordion noises
+//! o=-note:24
+1 Noises long
+//! o=-note:25
+2 Noises short
+
+//! g="OTlo" n="Tuba"
+Bank * * OTlo - Tuba
+//! o=-note:24
+1 Sustains + LEG
+//! o=-note:25
+2 Sustains
+//! o=-note:26
+3 Portato
+//! o=-note:27
+4 Staccato
+//! o=-note:28
+5 Staccatissimo
+//! o=-note:29
+6 Swells long
+//! o=-note:30
+7 Swells expressive
+//! o=-note:31
+8 Swells short
+//! o=-note:32
+9 Decrescendo
+//! o=-note:33
+10 Ornament portato
+//! o=-note:34
+11 Bends
+
+//! g="SPA1 / Woodwinds High" n="Woods High"
+Bank * * SPA1 - Woodwinds High - Woods High
+//! o=-note:0
+1 Short
+//! o=-note:1
+2 Long
+//! o=-note:2
+3 Short Arranged
+//! o=-note:3
+4 Long Arranged
+
+//! g="SPA1 / Woodwinds High" n="Woods High - Time Machine"
+Bank * * SPA1 - Woodwinds High - Woods High - Time Machine
+//! o=-note:0
+1 Short
+//! o=-note:1
+2 Long
+//! o=-note:2
+3 Short Arranged
+//! o=-note:3
+4 Long Arranged
+
+//! g="SPA1 / Woodwinds High" n="Woods High (Legacy)"
+Bank * * SPA1 - Woodwinds High - Woods High (Legacy)
+//! o=-note:0
+1 Short
+//! o=-note:1
+2 Short (Alt)
+//! o=-note:2
+3 FX 1
+//! o=-note:3
+4 FX 2
+//! o=-note:4
+5 FX 3 (Runs)
+
+//! g="SPA1 / Woodwinds Low" n="Woods Low"
+Bank * * SPA1 - Woodwinds Low - Woods Low
+//! o=-note:0
+1 Short
+//! o=-note:1
+2 Long
+
+//! g="SPA1 / Woodwinds Low" n="Woods Low (Legacy)"
+Bank * * SPA1 - Woodwinds Low - Woods Low (Legacy)
+//! o=-note:0
+1 Short
+//! o=-note:1
+2 FX 1
+//! o=-note:2
+3 FX2
+
+//! g="SPA1 / Brass High" n="Brass High"
+Bank * * SPA1 - Brass High - Brass High
+//! o=-note:0
+1 Short
+//! o=-note:1
+2 Long
+//! o=-note:2
+3 Short Arranged
+//! o=-note:3
+4 Long Arranged
+
+//! g="SPA1 / Brass High" n="Brass High - Time Machine"
+Bank * * SPA1 - Brass High - Brass High - Time Machine
+//! o=-note:0
+1 Short
+//! o=-note:1
+2 Long
+//! o=-note:2
+3 Short Arranged
+//! o=-note:3
+4 Long Arranged
+
+//! g="SPA1 / Brass High" n="Brass High (Legacy)"
+Bank * * SPA1 - Brass High - Brass High (Legacy)
+//! o=-note:0
+1 Short
+//! o=-note:1
+2 FX 1
+//! o=-note:2
+3 FX2
+
+//! g="SPA1 / Brass High" n="Trumpets XL"
+Bank * * SPA1 - Brass High - Trumpets XL
+//! o=-note:0
+1 Short
+//! o=-note:1
+2 Long
+//! o=-note:2
+3 Marcato dim
+
+//! g="SPA1 / Brass Mid" n="Brass Mid"
+Bank * * SPA1 - Brass Mid - Brass Mid
+//! o=-note:0
+1 Short
+//! o=-note:1
+2 Long
+
+//! g="SPA1 / Brass Mid" n="Horns XL"
+Bank * * SPA1 - Brass Mid - Horns XL
+//! o=-note:0
+1 Short
+//! o=-note:1
+2 Long
+//! o=-note:2
+3 Marcato dim
+
+//! g="SPA1 / Brass Low" n="Brass Low"
+Bank * * SPA1 - Brass Low - Brass Low
+//! o=-note:0
+1 Short
+//! o=-note:1
+2 Long
+//! o=-note:2
+3 Short Arranged
+//! o=-note:3
+4 Long Arranged
+
+//! g="SPA1 / Brass Low" n="Brass Low - Time Machine"
+Bank * * SPA1 - Brass Low - Brass Low - Time Machine
+//! o=-note:0
+1 Short
+//! o=-note:1
+2 Long
+//! o=-note:2
+3 Short Arranged
+//! o=-note:3
+4 Long Arranged
+
+//! g="SPA1 / Brass Low" n="Brass Low (Legacy)"
+Bank * * SPA1 - Brass Low - Brass Low (Legacy)
+//! o=-note:0
+1 Short
+//! o=-note:1
+2 FX 1
+//! o=-note:2
+3 FX2
+
+//! g="SPA1 / Brass Low" n="Brass XL"
+Bank * * SPA1 - Brass Low - Brass XL
+//! o=-note:0
+1 Short
+//! o=-note:1
+2 Long
+//! o=-note:2
+3 Marcato dim
+
+//! g="SPA1 / Strings High" n="Strings"
+Bank * * SPA1 - Strings High - Strings
+//! o=-note:0
+1 Spiccato
+//! o=-note:1
+2 Spicc / Stacc
+//! o=-note:2
+3 Pizzicato
+//! o=-note:3
+4 Col Legno
+//! o=-note:4
+5 Long
+//! o=-note:5
+6 Long CS
+//! o=-note:6
+7 Tremolo
+//! o=-note:7
+8 Low 8ves Short
+//! o=-note:8
+9 Low 8ves Long
+
+//! g="SPA1 / Strings High" n="Strings High Runs"
+Bank * * SPA1 - Strings High - Strings High Runs
+//! o=-note:0
+1 Chrom 1
+//! o=-note:1
+2 Chrom 2
+//! o=-note:2
+3 Chrom 3
+//! o=-note:3
+4 Chrom 4
+//! o=-note:4
+5 Chrom 5
+//! o=-note:5
+6 Chrom 6
+//! o=-note:6
+7 Chrom 7
+//! o=-note:7
+8 Chrom 8
+//! o=-note:8
+9 Chrom 9
+//! o=-note:9
+10 Chrom 10
+//! o=-note:10
+11 Maj 1
+//! o=-note:11
+12 Maj 2
+//! o=-note:12
+13 Maj 3
+//! o=-note:13
+14 Maj 4
+//! o=-note:14
+15 Maj 5
+//! o=-note:15
+16 Maj 6
+//! o=-note:16
+17 Min 1
+//! o=-note:17
+18 Min 2
+//! o=-note:18
+19 Min 3
+//! o=-note:19
+20 Min 4
+//! o=-note:20
+21 Min 5
+//! o=-note:21
+22 Min 6
+
+//! g="SPA1 / Strings High" n="Strings - Time Machine"
+Bank * * SPA1 - Strings High - Strings - Time Machine
+//! o=-note:0
+1 Spiccato
+//! o=-note:1
+2 Spicc / Stacc
+//! o=-note:2
+3 Pizzicato
+//! o=-note:3
+4 Col Legno
+//! o=-note:4
+5 Long
+//! o=-note:5
+6 Long CS
+//! o=-note:6
+7 Tremolo
+//! o=-note:7
+8 Low 8ves Short
+//! o=-note:8
+9 Low 8ves Long
+
+//! g="SPA1 / Strings High" n="Strings High (Legacy)"
+Bank * * SPA1 - Strings High - Strings High (Legacy)
+//! o=-note:0
+1 Short (Ostinatum)
+//! o=-note:1
+2 Spicc (Ostinatum)
+//! o=-note:2
+3 Short (Octave)
+//! o=-note:3
+4 Long (Octave)
+//! o=-note:4
+5 Long CS (Octave)
+//! o=-note:5
+6 FX 1
+//! o=-note:6
+7 FX 2
+//! o=-note:7
+8 FX 3
+
+//! g="SPA1 / Strings High" n="Strings High XL"
+Bank * * SPA1 - Strings High - Strings High XL
+//! o=-note:0
+1 Spiccato
+//! o=-note:1
+2 Pizzicato
+//! o=-note:2
+3 Col Legno
+//! o=-note:3
+4 Long
+//! o=-note:4
+5 Long Tremolo
+
+//! g="SPA1 / Strings Mid" n="Strings"
+Bank * * SPA1 - Strings Mid - Strings
+//! o=-note:0
+1 Spiccato
+//! o=-note:1
+2 Spicc / Stacc
+//! o=-note:2
+3 Pizzicato
+//! o=-note:3
+4 Col Legno
+//! o=-note:4
+5 Long
+//! o=-note:5
+6 Long CS
+//! o=-note:6
+7 Tremolo
+//! o=-note:7
+8 Low 8ves Short
+//! o=-note:8
+9 Low 8ves Long
+
+//! g="SPA1 / Strings Mid" n="Strings - Time Machine"
+Bank * * SPA1 - Strings Mid - Strings - Time Machine
+//! o=-note:0
+1 Spiccato
+//! o=-note:1
+2 Spicc / Stacc
+//! o=-note:2
+3 Pizzicato
+//! o=-note:3
+4 Col Legno
+//! o=-note:4
+5 Long
+//! o=-note:5
+6 Long CS
+//! o=-note:6
+7 Tremolo
+//! o=-note:7
+8 Low 8ves Short
+//! o=-note:8
+9 Low 8ves Long
+
+//! g="SPA1 / Strings Mid" n="Strings XL"
+Bank * * SPA1 - Strings Mid - Strings XL
+//! o=-note:0
+1 Spiccato
+//! o=-note:1
+2 Pizzicato
+//! o=-note:2
+3 Col Legno
+//! o=-note:3
+4 Long
+//! o=-note:4
+5 Long Tremolo
+
+//! g="SPA1 / Strings Low" n="Strings"
+Bank * * SPA1 - Strings Low - Strings
+//! o=-note:0
+1 Spiccato
+//! o=-note:1
+2 Spicc / Stacc
+//! o=-note:2
+3 Pizzicato
+//! o=-note:3
+4 Col Legno
+//! o=-note:4
+5 Long
+//! o=-note:5
+6 Long CS
+//! o=-note:6
+7 Tremolo
+//! o=-note:7
+8 Low 8ves Short
+//! o=-note:8
+9 Low 8ves Long
+
+//! g="SPA1 / Strings Low" n="Strings Low - Runs"
+Bank * * SPA1 - Strings Low - Strings Low - Runs
+//! o=-note:0
+1 Chrom 1
+//! o=-note:1
+2 Chrom 2
+//! o=-note:2
+3 Chrom 3
+//! o=-note:3
+4 Chrom 4
+//! o=-note:4
+5 Chrom 5
+//! o=-note:5
+6 Chrom 6
+//! o=-note:6
+7 Maj 1
+//! o=-note:7
+8 Maj 2
+//! o=-note:8
+9 Maj 3
+//! o=-note:9
+10 Maj 4
+//! o=-note:10
+11 Maj 5
+//! o=-note:11
+12 Maj 6
+//! o=-note:12
+13 Min 1
+//! o=-note:13
+14 Min 2
+//! o=-note:14
+15 Min 3
+//! o=-note:15
+16 Min 4
+//! o=-note:16
+17 Min 5
+//! o=-note:17
+18 Min 6
+
+//! g="SPA1 / Strings Low" n="Strings - Time Machine"
+Bank * * SPA1 - Strings Low - Strings - Time Machine
+//! o=-note:0
+1 Spiccato
+//! o=-note:1
+2 Spicc / Stacc
+//! o=-note:2
+3 Pizzicato
+//! o=-note:3
+4 Col Legno
+//! o=-note:4
+5 Long
+//! o=-note:5
+6 Long CS
+//! o=-note:6
+7 Tremolo
+//! o=-note:7
+8 Low 8ves Short
+//! o=-note:8
+9 Low 8ves Long
+
+//! g="SPA1 / Strings Low" n="Strings Low (Legacy)"
+Bank * * SPA1 - Strings Low - Strings Low (Legacy)
+//! o=-note:0
+1 Brush (Ostinatum)
+//! o=-note:1
+2 Spicc (Ostinatum)
+//! o=-note:2
+3 Short
+//! o=-note:3
+4 Long
+//! o=-note:4
+5 FX 1
+//! o=-note:5
+6 FX 2
+
+//! g="SPA1 / Strings Low" n="Strings Low XL"
+Bank * * SPA1 - Strings Low - Strings Low XL
+//! o=-note:0
+1 Short
+//! o=-note:1
+2 Long
+
+//! g="SPA1" n="Piano"
+Bank * * SPA1 - Piano
+//! o=-note:0
+1 Short
+//! o=-note:1
+2 Short (Mute)
+//! o=-note:2
+3 Short (Ring)
+//! o=-note:3
+4 FX Cluster
+//! o=-note:4
+5 FX Misc
+
