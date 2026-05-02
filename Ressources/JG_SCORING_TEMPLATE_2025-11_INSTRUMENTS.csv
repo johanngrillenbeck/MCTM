@@ -56,8 +56,8 @@ CTRLVE1;OTBSFC;Violin II;HiStr;109-112;28;1;Violin II FC;SINE;31
 CTRLVE1;OTBSFC;Viola;MidStr;113-116;29;1;Viola FC;SINE;31
 CTRLVE1;OTBSFC;Cello;LoStr;117-120;30;1;Cello FC;SINE;31
 CTRLVE1;OTBSFC;Bass;LoStr;121-124;31;1;Bass FC;SINE;31
-CTRLVE1;FX;Ret 1 (CTRLVE1);;125-126;;;;;
-CTRLVE1;FX;Ret 2 (CTRLVE1);;127-128;;;;;
+CTRLVE1;FX;Ret 1 (CTRLVE1);;125-126;;;;;0
+CTRLVE1;FX;Ret 2 (CTRLVE1);;127-128;;;;;0
 CTRLVE2;OTBB;Trombone 1;MidBr;1-4;1;1;Trombone 1;SINE;16
 CTRLVE2;OTBB;Trombone 2;MidBr;5-8;2;1;Trombone 2;SINE;16
 CTRLVE2;OTBB;Bass Trombone;LoBr;9-12;3;1;Bass Trombone;SINE;16
@@ -79,70 +79,70 @@ CTRLVE2;OTTHB;Bass Trombones a3  ;MidBr;69-72;18;1;Bass Trombones a3  ;SINE;153
 CTRLVE2;OTTHB;Cimbassi a3  ;LoBr;73-76;19;1;Cimbassi a3  ;SINE;153
 CTRLVE2;OTTHB;Tuba;LoBr;77-80;20;1;Tuba;SINE;153
 CTRLVE2;OTTHP;Performance Kit;LoPerc;81-84;21;1;Performance Kit  ;SINE;0
-CTRLVE2;OTTHP;Bass Drums;LoPerc;85-88;22;1;"Bass Drum 1 Low Tuning 20""  ";SINE;0
-;;;;;;2;"Bass Drum 1 High Tuning 20""  ";;0
-;;;;;;3;"Bass Drum 2 Low Tuning 20""  ";;0
-;;;;;;4;"Bass Drum 2 High Tuning 20""  ";;0
-;;;;;;5;"Bass Drum 2 Low Tuning 22""  ";;0
-;;;;;;6;"Bass Drum 3 Low Tuning 22""  ";;0
-;;;;;;7;"Bass Drum 3 High Tuning 22""  ";;0
-;;;;;;8;"Bass Drum 4 High Tuning 24""  ";;0
-;;;;;;9;"Bass Drum 4 High Tuning 24""  ";;0
-CTRLVE2;OTTHP;Surdos;LoPerc;89-92;23;1;"Surdo Low Tuning 18""  ";SINE;0
-;;;;;;2;"Surdo High Tuning 18""  ";;0
-;;;;;;3;"Surdo Low Tuning 20""  ";;0
-;;;;;;4;"Surdo High Tuning 20""  ";;0
-;;;;;;5;"Surdo Low Tuning 22""  ";;0
-;;;;;;6;"Surdo Medium Tuning 22""  ";;0
-;;;;;;7;"Surdo 2 Medium Tuning 22""  ";;0
-;;;;;;8;"Surdo High Tuning 22""  ";;0
-;;;;;;9;"Surdo Low Tuning 23""  ";;0
-;;;;;;10;"Surdo Medium Low Tuning 23""  ";;0
-;;;;;;11;"Surdo Medium Tuning 23""  ";;0
-;;;;;;12;"Surdo High Tuning 23""  ";;0
-CTRLVE2;OTTHP;Tupans;LoPerc;93-96;24;1;"Tupan Low Tuning 18""  ";SINE;0
-;;;;;;2;"Tupan High Tuning 18""  ";;0
-;;;;;;3;"Tupan Low Tuning 26""  ";;0
-;;;;;;4;"Tupan Mid Tuning 26""  ";;0
-;;;;;;5;"Tupan High Tuning 26""  ";;0
-CTRLVE2;OTTHP;Concert Toms;MidPerc;97-100;25;1;"Low Tuning 10""  ";SINE;0
-;;;;;;2;"High Tuning 10""  ";;0
-;;;;;;3;"Low Tuning 12""  ";;0
-;;;;;;4;"High Tuning 12""  ";;0
-;;;;;;5;"Low Tuning 13""  ";;0
-;;;;;;6;"High Tuning 13""  ";;0
-;;;;;;7;"Low Tuning 14""  ";;0
-;;;;;;8;"High Tuning 14""  ";;0
-CTRLVE2;OTTHP;Taye Toms;MidPerc;101-104;26;1;"Taye Tom 8""  ";SINE;0
-;;;;;;2;"Taye Tom 1 10""  ";;0
-;;;;;;3;"Taye Tom 2 10""  ";;0
-;;;;;;4;"Taye Tom 1 12""  ";;0
-;;;;;;5;"Taye Tom 2 12""  ";;0
-;;;;;;6;"Taye Tom 13""  ";;0
-;;;;;;7;"Taye Tom 16""  ";;0
-;;;;;;8;"Taye Tom 18""  ";;0
-CTRLVE2;OTTHP;Marching Band Drums;MidPerc;105-108;27;1;"8""  ";SINE;0
-;;;;;;2;"10""  ";;0
-;;;;;;3;"12""  ";;0
-;;;;;;4;"13""  ";;0
-;;;;;;5;"20""  ";;0
-;;;;;;6;"20""  ";;0
-CTRLVE2;OTTHP;Custom Drums;MidPerc;109-112;28;1;"Custom Tom Low Tuning 10""  ";SINE;0
-;;;;;;2;"Custom Tom High Tuning 10""  ";;0
-;;;;;;3;"Custom Tom Low Tuning 12""  ";;0
-;;;;;;4;"Custom Tom High Tuning 12""  ";;0
-;;;;;;5;"Custom Birch Low Tuning 12""  ";;0
-;;;;;;6;"Custom Birch High Tuning 12""  ";;0
-;;;;;;7;"Custom Stage 16""  ";;0
-;;;;;;8;"Custom Stage 18""  ";;0
-;;;;;;9;"Custom Birch Bass Drum 18""  ";;0
-;;;;;;10;Quad Toms  ;;0
+CTRLVE2;OTTHP;Bass Drums;LoPerc;85-88;22;1;Bass Drum 1 Low Tuning 20'';SINE;999
+;;;;;;2;Bass Drum 1 High Tuning 20'';;999
+;;;;;;3;Bass Drum 2 Low Tuning 20'';;999
+;;;;;;4;Bass Drum 2 High Tuning 20'';;999
+;;;;;;5;Bass Drum 2 Low Tuning 22'';;999
+;;;;;;6;Bass Drum 3 Low Tuning 22'';;999
+;;;;;;7;Bass Drum 3 High Tuning 22'';;999
+;;;;;;8;Bass Drum 4 Low Tuning 24'';;999
+;;;;;;9;Bass Drum 4 High Tuning 24'';;999
+CTRLVE2;OTTHP;Surdos;LoPerc;89-92;23;1;Surdo Low Tuning 18'';SINE;999
+;;;;;;2;Surdo High Tuning 18'';;999
+;;;;;;3;Surdo Low Tuning 20'';;999
+;;;;;;4;Surdo High Tuning 20'';;999
+;;;;;;5;Surdo Low Tuning 22'';;999
+;;;;;;6;Surdo Medium Tuning 22'';;999
+;;;;;;7;Surdo 2 Medium Tuning 22'';;999
+;;;;;;8;Surdo High Tuning 22'';;999
+;;;;;;9;Surdo Low Tuning 23'';;999
+;;;;;;10;Surdo Medium Low Tuning 23'';;999
+;;;;;;11;Surdo Medium Tuning 23'';;999
+;;;;;;12;Surdo High Tuning 23'';;999
+CTRLVE2;OTTHP;Tupans;LoPerc;93-96;24;1;Tupan Low Tuning 18'';SINE;999
+;;;;;;2;Tupan High Tuning 18'';;999
+;;;;;;3;Tupan Low Tuning 26'';;999
+;;;;;;4;Tupan Mid Tuning 26'';;999
+;;;;;;5;Tupan High Tuning 26'';;999
+CTRLVE2;OTTHP;Concert Toms;MidPerc;97-100;25;1;Low Tuning 10'';SINE;999
+;;;;;;2;High Tuning 10'';;999
+;;;;;;3;Low Tuning 12'';;999
+;;;;;;4;High Tuning 12'';;999
+;;;;;;5;Low Tuning 13'';;999
+;;;;;;6;High Tuning 13'';;999
+;;;;;;7;Low Tuning 14'';;999
+;;;;;;8;High Tuning 14'';;999
+CTRLVE2;OTTHP;Taye Toms;MidPerc;101-104;26;1;Taye Tom 8'';SINE;999
+;;;;;;2;Taye Tom 1 10'';;999
+;;;;;;3;Taye Tom 2 10'';;999
+;;;;;;4;Taye Tom 1 12'';;999
+;;;;;;5;Taye Tom 2 12'';;999
+;;;;;;6;Taye Tom 13'';;999
+;;;;;;7;Taye Tom 16'';;999
+;;;;;;8;Taye Tom 18'';;999
+CTRLVE2;OTTHP;Marching Band Drums;MidPerc;105-108;27;1;8'';SINE;999
+;;;;;;2;10'';;999
+;;;;;;3;12'';;999
+;;;;;;4;13'';;999
+;;;;;;5;20 Low Tuning'';;999
+;;;;;;6;20 High Tuning'';;999
+CTRLVE2;OTTHP;Custom Drums;MidPerc;109-112;28;1;Custom Tom Low Tuning 10'';SINE;999
+;;;;;;2;Custom Tom High Tuning 10'';;999
+;;;;;;3;Custom Tom Low Tuning 12'';;999
+;;;;;;4;Custom Tom High Tuning 12'';;999
+;;;;;;5;Custom Birch Low Tuning 12'';;999
+;;;;;;6;Custom Birch High Tuning 12'';;999
+;;;;;;7;Custom Stage 16'';;999
+;;;;;;8;Custom Stage 18'';;999
+;;;;;;9;Custom Birch Bass Drum 18'';;999
+;;;;;;10;Quad Toms;;999
 CTRLVE2;;;;113-116;29;1;;;0
 CTRLVE2;;;;117-120;30;1;;;0
 CTRLVE2;FX;Ret 1 (CTRLVE2);;121-122;0;0;;;0
 CTRLVE2;FX;Ret 2 (CTRLVE2);;123-124;0;0;;;0
-CTRLVE2;FX;Ret 3 (CTRLVE2);;125-126;0;0;;;
-CTRLVE2;FX;Ret 4 (CTRLVE2);;127-128;0;0;;;
+CTRLVE2;FX;Ret 3 (CTRLVE2);;125-126;0;0;;;0
+CTRLVE2;FX;Ret 4 (CTRLVE2);;127-128;0;0;;;0
 CTRLVE3;OTBP;Roto Toms;MidPerc;1-4;1;1;6'';SINE;32
 ;;;;;;2;8'';;32
 ;;;;;;3;10'';;32
@@ -167,8 +167,8 @@ CTRLVE3;OTBP;Cymbals;MetalPerc;49-52;13;1;Zildjian 14'';SINE;75
 ;;;;;;3;Meinl 18'';;75
 ;;;;;;4;Sabian 20'';;75
 CTRLVE3;OTBP;Piatti;MetalPerc;53-56;14;1;15'';SINE;77
-;;;;;;2;19'';;0
-;;;;;;3;20'';;0
+;;;;;;2;19'';;999
+;;;;;;3;20'';;999
 CTRLVE3;OTBP;Tamtams;MetalPerc;57-60;15;1;65cm;SINE;32
 ;;;;;;2;85cm;;32
 ;;;;;;3;105cm;;32
@@ -208,10 +208,10 @@ CTRLVE3;OTBP;Tom;MidPerc;101-104;26;1;13'';SINE;32
 CTRLVE3;Mod;Pianoteq;Piano;105-108;27;1;Steinway Model D New York;Pianoteq;0
 CTRLVE3;;;;113-116;29;1;;;0
 CTRLVE3;;;;117-120;30;1;;;0
-CTRLVE3;FX;Ret 1 (CTRLVE3);;121-122;0;0;;;
-CTRLVE3;FX;Ret 2 (CTRLVE3);;123-124;0;0;;;
-CTRLVE3;FX;Ret 3 (CTRLVE3);;125-126;0;0;;;
-CTRLVE3;FX;Ret 4 (CTRLVE3);;127-128;0;0;;;
+CTRLVE3;FX;Ret 1 (CTRLVE3);;121-122;0;0;;;0
+CTRLVE3;FX;Ret 2 (CTRLVE3);;123-124;0;0;;;0
+CTRLVE3;FX;Ret 3 (CTRLVE3);;125-126;0;0;;;0
+CTRLVE3;FX;Ret 4 (CTRLVE3);;127-128;0;0;;;0
 CTRLVE4;OTMA4;High Strings;HiStr;1-4;1;1;High Strings;SINE;135
 CTRLVE4;OTMA4;Mid Strings;MidStr;5-8;2;1;Mid Strings;SINE;136
 CTRLVE4;OTMA4;Low Strings;LoStr;9-12;3;1;Low Strings;SINE;137
@@ -249,8 +249,8 @@ CTRLVE4;OTSA;Kannel, Harp and Piano;TunedPerc;117-120;30;1;Kannel, Harp and Pian
 ;;;;;;4;Solo Piano;;47
 CTRLVE4;FX;Ret 1 (CTRLVE4);;121-122;0;0;;;0
 CTRLVE4;FX;Ret 2 (CTRLVE4);;123-124;0;0;;;0
-CTRLVE4;FX;Ret 3 (CTRLVE4);;125-126;0;0;;;
-CTRLVE4;FX;Ret 4 (CTRLVE4);;127-128;0;0;;;
+CTRLVE4;FX;Ret 3 (CTRLVE4);;125-126;0;0;;;0
+CTRLVE4;FX;Ret 4 (CTRLVE4);;127-128;0;0;;;0
 CTRLVE5;OTSA;Tubular Bells;TunedPerc;1-4;1;1;Tubular Bells;SINE;48
 CTRLVE5;OTSA;Glockenspiel and Crotales;TunedPerc;5-8;2;1;Glockenspiel and Crotales;SINE;49
 ;;;;;;2;Glockenspiel;SINE;50
@@ -353,15 +353,15 @@ CTRLVE5;OTPV;Cello FC;MidStr;93-96;24;1;Cello FC;SINE;63
 ;;;;;;2;gestures;;64
 CTRLVE5;OTPV;Bass FC;LoStr;97-100;25;1;Bass FC;SINE;65
 ;;;;;;2;gestures;;66
-CTRLVE5;;;;101-104;26;1;;;
-CTRLVE5;;;;105-108;27;1;;;
-CTRLVE5;;;;109-112;28;1;;;
-CTRLVE5;;;;113-116;29;1;;;
-CTRLVE5;;;;117-120;30;1;;;
-CTRLVE5;FX;Ret 1 (CTRLVE5);;121-122;0;0;;;
-CTRLVE5;FX;Ret 2 (CTRLVE5);;123-124;0;0;;;
-CTRLVE5;FX;Ret 3 (CTRLVE5);;125-126;0;0;;;
-CTRLVE5;FX;Ret 4 (CTRLVE5);;127-128;0;0;;;
+CTRLVE5;;;;101-104;26;1;;;0
+CTRLVE5;;;;105-108;27;1;;;0
+CTRLVE5;;;;109-112;28;1;;;0
+CTRLVE5;;;;113-116;29;1;;;0
+CTRLVE5;;;;117-120;30;1;;;0
+CTRLVE5;FX;Ret 1 (CTRLVE5);;121-122;0;0;;;0
+CTRLVE5;FX;Ret 2 (CTRLVE5);;123-124;0;0;;;0
+CTRLVE5;FX;Ret 3 (CTRLVE5);;125-126;0;0;;;0
+CTRLVE5;FX;Ret 4 (CTRLVE5);;127-128;0;0;;;0
 CTRLVE6;OTam;Amber String Quartet;HiStr;1-2;1;1;Amber String Quartet;SINE;89
 CTRLVE6;OTam;1st Violin;HiStr;3-4;2;1;1st Violin;SINE;90
 CTRLVE6;OTam;2nd Violin;HiStr;5-6;3;1;2nd Violin;SINE;90
@@ -515,10 +515,10 @@ CTRLVE6;OTor;Kicks;LoPerc;91-92;46;1;Cecropia;SINE;0
 ;;;;;;5;Timber bamboo;;0
 CTRLVE6;;;;93-94;47;1;;;0
 CTRLVE6;;;;95-96;48;1;;;0
-CTRLVE6;FX;Ret 1 (CTRLVE6);;97-98;0;0;;;
-CTRLVE6;FX;Ret 2 (CTRLVE6);;99-100;0;0;;;
-CTRLVE6;FX;Ret 3 (CTRLVE6);;101-102;0;0;;;
-CTRLVE6;FX;Ret 4 (CTRLVE6);;103-104;0;0;;;
+CTRLVE6;FX;Ret 1 (CTRLVE6);;97-98;0;0;;;0
+CTRLVE6;FX;Ret 2 (CTRLVE6);;99-100;0;0;;;0
+CTRLVE6;FX;Ret 3 (CTRLVE6);;101-102;0;0;;;0
+CTRLVE6;FX;Ret 4 (CTRLVE6);;103-104;0;0;;;0
 CTRLVE7;OTum;Flute Ensemble;HiWW;1-2;1;1;Flute Ensemble;SINE;107
 CTRLVE7;OTum;Percussion Ensemble;MidPerc;3-4;2;1;Percussion Ensemble;SINE;0
 CTRLVE7;OTum;High Flute;HiWW;5-6;3;1;High Flute;SINE;108
@@ -582,21 +582,21 @@ CTRLVE7;OTwh;Keys;Piano;55-56;28;1;Phase change;SINE;0
 CTRLVE7;OTop;Falsetto;Choir;57-58;29;1;Falsetto;SINE;122
 CTRLVE7;OTop;Trumpet;HiBr;59-60;30;1;Trumpet;SINE;123
 CTRLVE7;OTop;Electric Guitar;HiStr;61-62;31;1;Electric Guitar;SINE;124
-CTRLVE7;OTop;Pads;PadSynth;63-64;32;1;Dew;SINE;0
-;;;;;;2;Detour;;0
-;;;;;;3;Ava;;0
-;;;;;;4;Adrift;;0
-;;;;;;5;Noctilucent;;0
-;;;;;;6;Ayahuasca;;0
-;;;;;;7;Polar;;0
-CTRLVE7;OTop;Plucks;PluckSynth;65-66;33;1;Blood is blue;SINE;0
-;;;;;;2;Dearest;;0
-;;;;;;3;Unravel;;0
-;;;;;;4;Thorns;;0
-CTRLVE7;OTop;Keys;Piano;67-68;34;1;Freehand;SINE;0
-;;;;;;2;Silhouette;;0
-;;;;;;3;Far out dust;;0
-;;;;;;4;Notion;;0
+CTRLVE7;OTop;Pads;PadSynth;63-64;32;1;Dew;SINE;999
+;;;;;;2;Detour;;999
+;;;;;;3;Ava;;999
+;;;;;;4;Adrift;;999
+;;;;;;5;Noctilucent;;999
+;;;;;;6;Ayahuasca;;999
+;;;;;;7;Polar;;999
+CTRLVE7;OTop;Plucks;PluckSynth;65-66;33;1;Blood is blue;SINE;999
+;;;;;;2;Dearest;;999
+;;;;;;3;Unravel;;999
+;;;;;;4;Thorns;;999
+CTRLVE7;OTop;Keys;Piano;67-68;34;1;Freehand;SINE;999
+;;;;;;2;Silhouette;;999
+;;;;;;3;Far out dust;;999
+;;;;;;4;Notion;;999
 CTRLVE7;OTop;Opaline drum kit;MidPerc;69-70;35;1;Opaline drum kit;SINE;0
 CTRLVE7;OTkh;Balafon;MidPerc;71-72;36;1;Balafon;SINE;125
 CTRLVE7;OTkh;Dholak;MidPerc;73-74;37;1;Dholak;SINE;126
@@ -604,26 +604,26 @@ CTRLVE7;OTkh;Prepared frame drum;MidPerc;75-76;38;1;Prepared frame drum;SINE;127
 CTRLVE7;OTkh;Prepared floor tom;MidPerc;77-78;39;1;Prepared floor tom;SINE;80
 CTRLVE7;OTkh;Custom gamelan;MidPerc;79-80;40;1;Custom gamelan;SINE;128
 CTRLVE7;OTkh;Custom cymbals;MetalPerc;81-82;41;1;Custom cymbals;SINE;80
-CTRLVE7;OTkh;Pads;PadSynth;83-84;42;1;Meristem;SINE;0
-;;;;;;2;Toxicity;;0
-;;;;;;3;Exon;;0
-;;;;;;4;Populations;;0
-CTRLVE7;OTkh;Plucks;PluckSynth;85-86;43;1;Amnion;SINE;0
-;;;;;;2;Reagent;;0
-;;;;;;3;Molecules;;0
-;;;;;;4;Anaplasia;;0
-;;;;;;5;Mutation;;0
+CTRLVE7;OTkh;Pads;PadSynth;83-84;42;1;Meristem;SINE;999
+;;;;;;2;Toxicity;;999
+;;;;;;3;Exon;;999
+;;;;;;4;Populations;;999
+CTRLVE7;OTkh;Plucks;PluckSynth;85-86;43;1;Amnion;SINE;999
+;;;;;;2;Reagent;;999
+;;;;;;3;Molecules;;999
+;;;;;;4;Anaplasia;;999
+;;;;;;5;Mutation;;999
 CTRLVE7;OTkh;Membrane Bass;LoSynth;87-88;44;1;Membrane Bass;SINE;0
-CTRLVE7;OTkh;Percussion;MidPerc;89-90;45;1;Induction;SINE;0
-;;;;;;2;Plasmid;;0
-;;;;;;3;Genes;;0
+CTRLVE7;OTkh;Percussion;MidPerc;89-90;45;1;Induction;SINE;999
+;;;;;;2;Plasmid;;999
+;;;;;;3;Genes;;999
 CTRLVE7;;;;91-92;46;1;;;0
 CTRLVE7;;;;93-94;47;1;;;0
 CTRLVE7;;;;95-96;48;1;;;0
-CTRLVE7;FX;Ret 1 (CTRLVE7);;97-98;0;0;;;
-CTRLVE7;FX;Ret 2 (CTRLVE7);;99-100;0;0;;;
-CTRLVE7;FX;Ret 3 (CTRLVE7);;101-102;0;0;;;
-CTRLVE7;FX;Ret 4 (CTRLVE7);;103-104;0;0;;;
+CTRLVE7;FX;Ret 1 (CTRLVE7);;97-98;0;0;;;0
+CTRLVE7;FX;Ret 2 (CTRLVE7);;99-100;0;0;;;0
+CTRLVE7;FX;Ret 3 (CTRLVE7);;101-102;0;0;;;0
+CTRLVE7;FX;Ret 4 (CTRLVE7);;103-104;0;0;;;0
 CTRLVE8;OTlo;Soprano chalumeau;HiWW;1-2;1;1;Soprano chalumeau;SINE;129
 CTRLVE8;OTlo;Alto chalumeau;MidWW;3-4;2;1;Alto chalumeau;SINE;129
 CTRLVE8;OTlo;Tenor chalumeau;MidWW;5-6;3;1;Tenor chalumeau;SINE;130
@@ -680,134 +680,134 @@ CTRLVE8;V;Vital 1;PadSynth;89-90;45;1;Init;Vital;0
 CTRLVE8;V;Vital 2;PadSynth;91-92;46;1;Init;Vital;0
 CTRLVE8;V;Vital 3;PadSynth;93-94;47;1;Init;Vital;0
 CTRLVE8;V;Vital 4;PadSynth;95-96;48;1;Init;Vital;0
-CTRLVE8;FX;Ret 1 (CTRLVE8);;97-98;0;0;;;
-CTRLVE8;FX;Ret 2 (CTRLVE8);;99-100;0;0;;;
-CTRLVE8;FX;Ret 3 (CTRLVE8);;101-102;0;0;;;
-CTRLVE8;FX;Ret 4 (CTRLVE8);;103-104;0;0;;;
-CTRLVE9;VT;Auras Altis;PadSynth;1-2;1;1;Init;Decent Sampler;
-CTRLVE9;VT;Auras Eraphine (Folder);Choir;3-4;2;1;Ensemble Strings - Frost Viola;Decent Sampler;
-;;;;;;2;Ensemble Voices - Aah;;
-;;;;;;3;Ensemble Voices - Eeh;;
-;;;;;;4;Ensemble Voices - Ooh;;
-;;;;;;5;Ensemble Voices - Phrases;;
-;;;;;;6;Pads - Just The Drones;;
-;;;;;;7;Strings - Frost Viola;;
-;;;;;;8;Voices - Aah;;
-;;;;;;9;Voices - Eeh;;
-;;;;;;10;Voices - Ooh;;
-;;;;;;11;Voices - Phrases;;
-CTRLVE9;VT;Auras Lair;PadSynth;5-6;3;1;Init;Decent Sampler;
-CTRLVE9;VT;Auras Lichen;PadSynth;7-8;4;1;Init;Decent Sampler;
-CTRLVE9;VT;Auras Rooms;PadSynth;9-10;5;1;Init;Decent Sampler;
-CTRLVE9;VT;Auras Veils;PadSynth;11-12;6;1;Init;Decent Sampler;
-CTRLVE9;VT;Solaris;PadSynth;13-14;7;1;Init;Decent Sampler;
-CTRLVE9;VT;Strands;MidStr;15-16;8;1;Init;Decent Sampler;
-CTRLVE9;DS;Tri-Timbral Flocks;MidStr;17-18;9;1;Init;Decent Sampler;
-CTRLVE9;DS;Mandrolia;MidStr;19-20;10;1;Init;Decent Sampler;
-CTRLVE9;DS;Echorda (Folder);Piano;21-22;11;1;ECHORDA 3 Baby Grand;Decent Sampler;
-;;;;;;2;ECHORDA 3 Upright;;
-;;;;;;3;ECHORDA 3;;
-;;;;;;4;ECHORDA 2 Full;;
-;;;;;;5;ECHORDA 2;;
-CTRLVE9;DS;Broken Piano;Piano;23-24;12;1;Init;Decent Sampler;
-CTRLVE9;DS;Antique Pad;PadSynth;25-26;13;1;Init;Decent Sampler;
-CTRLVE9;SP;LABS 1;;27-28;14;1;Init;LABS;
-CTRLVE9;SP;LABS 2;;29-30;15;1;Init;LABS;
-CTRLVE9;SP;LABS 3;;31-32;16;1;Init;LABS;
-CTRLVE9;SP;LABS 4;;33-34;17;1;Init;LABS;
-CTRLVE9;SP;LABS 5;;35-36;18;1;Init;LABS;
-CTRLVE9;SP;LABS 6;;37-38;19;1;Init;LABS;
-CTRLVE9;SP;LABS 7;;39-40;20;1;Init;LABS;
-CTRLVE9;SP;LABS 8;;41-42;21;1;Init;LABS;
-CTRLVE9;SP;LABS 9;;43-44;22;1;Init;LABS;
-CTRLVE9;SP;LABS 10;;45-46;23;1;Init;LABS;
-CTRLVE9;SR;Hainbach - Landfill Totems;PadSynth;47-48;24;1;Init;Spitfire;
-CTRLVE9;SR;Lea Bertucci - Acoustic Shadows;MidBr;49-50;25;1;Init;Spitfire;
-CTRLVE9;SR;Cinematic Frozen Strings;HiStr;51-52;26;1;Init;Spitfire;
-CTRLVE9;SR;Cinematic Soft Piano;Piano;53-54;27;1;Init;Spitfire;
-CTRLVE9;SR;Mrs Mills Piano;Piano;55-56;28;1;Init;Spitfire;
-CTRLVE9;IK;Modo Bass;LoStr;57-58;29;1;Init;Modo Bass;
-CTRLVE9;FX;Ret 1 (CTRLVE9);;121-122;0;0;;;
-CTRLVE9;FX;Ret 2 (CTRLVE9);;123-124;0;0;;;
-CTRLVE9;FX;Ret 3 (CTRLVE9);;125-126;0;0;;;
-CTRLVE9;FX;Ret 4 (CTRLVE9);;127-128;0;0;;;
-CTRLVE10;XLN;Addictive Drums 1;Drums;0;1;1;Init;Addictive Drums;
-;;FX;;1-2;1;1;;;
-;;Kick;;3;1;1;Init;Addictive Drums;
-;;Snare;;4;1;1;Init;Addictive Drums;
-;;HiHat;;5;1;1;Init;Addictive Drums;
-;;Tom 1;;6;1;1;Init;Addictive Drums;
-;;Tom 2;;7;1;1;Init;Addictive Drums;
-;;Tom 3;;8;1;1;Init;Addictive Drums;
-;;Tom 4;;9;1;1;Init;Addictive Drums;
-;;Flexi 1;;10;1;1;Init;Addictive Drums;
-;;Flexi 2;;11;1;1;Init;Addictive Drums;
-;;Flexi 3;;12;1;1;Init;Addictive Drums;
-;;OH;;13-14;1;1;Init;Addictive Drums;
-;;Room;;15-16;1;1;Init;Addictive Drums;
-;;Bus;;17-18;1;1;Init;Addictive Drums;
-CTRLVE10;XLN;Addictive Drums 2;Drums;0;2;1;Init;Addictive Drums;
-;;FX;;19-20;2;1;;;
-;;Kick;;21;2;1;Init;Addictive Drums;
-;;Snare;;22;2;1;Init;Addictive Drums;
-;;HiHat;;23;2;1;Init;Addictive Drums;
-;;Tom 1;;24;2;1;Init;Addictive Drums;
-;;Tom 2;;25;2;1;Init;Addictive Drums;
-;;Tom 3;;26;2;1;Init;Addictive Drums;
-;;Tom 4;;27;2;1;Init;Addictive Drums;
-;;Flexi 1;;28;2;1;Init;Addictive Drums;
-;;Flexi 2;;29;2;1;Init;Addictive Drums;
-;;Flexi 3;;30;2;1;Init;Addictive Drums;
-;;OH;;31-32;2;1;Init;Addictive Drums;
-;;Room;;33-34;2;1;Init;Addictive Drums;
-;;Bus;;35-36;2;1;Init;Addictive Drums;
-CTRLVE10;IK;Modo Drum 1;Drums;0;3;1;Init;Modo Drum;
-;;1/2;;37-38;3;1;Init;Modo Drum;
-;;3/4;;39-40;3;1;Init;Modo Drum;
-;;5/6;;41-42;3;1;Init;Modo Drum;
-;;7/8;;43-44;3;1;Init;Modo Drum;
-;;9/10;;45-46;3;1;Init;Modo Drum;
-;;11/12;;47-48;3;1;Init;Modo Drum;
-;;13/14;;49-50;3;1;Init;Modo Drum;
-;;15/16;;51-52;3;1;Init;Modo Drum;
-;;17/18;;53-54;3;1;Init;Modo Drum;
-;;19/20;;55-56;3;1;Init;Modo Drum;
-;;21/22;;57-58;3;1;Init;Modo Drum;
-;;23/24;;59-60;3;1;Init;Modo Drum;
-;;25/26;;61-62;3;1;Init;Modo Drum;
-;;27/28;;63-64;3;1;Init;Modo Drum;
-;;29/30;;65-66;3;1;Init;Modo Drum;
-;;31/32;;67-68;3;1;Init;Modo Drum;
-CTRLVE10;IK;Modo Drum 2;Drums;0;4;1;Init;Modo Drum;
-;;1/2;;69-70;4;1;Init;Modo Drum;
-;;3/4;;71-72;4;1;Init;Modo Drum;
-;;5/6;;73-74;4;1;Init;Modo Drum;
-;;7/8;;75-76;4;1;Init;Modo Drum;
-;;9/10;;77-78;4;1;Init;Modo Drum;
-;;11/12;;79-80;4;1;Init;Modo Drum;
-;;13/14;;81-82;4;1;Init;Modo Drum;
-;;15/16;;83-84;4;1;Init;Modo Drum;
-;;17/18;;85-86;4;1;Init;Modo Drum;
-;;19/20;;87-88;4;1;Init;Modo Drum;
-;;21/22;;89-90;4;1;Init;Modo Drum;
-;;23/24;;91-92;4;1;Init;Modo Drum;
-;;25/26;;93-94;4;1;Init;Modo Drum;
-;;27/28;;95-96;4;1;Init;Modo Drum;
-;;29/30;;97-98;4;1;Init;Modo Drum;
-;;31/32;;99-100;4;1;Init;Modo Drum;
-CTRLVE10;;;;101-102;5;1;;;
-CTRLVE10;;;;103-104;6;1;;;
-CTRLVE10;;;;105-106;7;1;;;
-CTRLVE10;;;;107-108;8;1;;;
-CTRLVE10;;;;109-110;9;1;;;
-CTRLVE10;;;;111-112;10;1;;;
-CTRLVE10;;;;113-114;11;1;;;
-CTRLVE10;FX;Ret 1 (CTRLVE10);;117-118;;;;;
-CTRLVE10;FX;Ret 2 (CTRLVE10);;119-120;;;;;
-CTRLVE10;FX;Ret 3 (CTRLVE10);;121-122;;;;;
-CTRLVE10;FX;Ret 4 (CTRLVE10);;123-124;;;;;
-CTRLVE10;FX;Ret 5 (CTRLVE10);;125-126;;;;;
-CTRLVE10;FX;Ret 6 (CTRLVE10);;127-128;;;;;
+CTRLVE8;FX;Ret 1 (CTRLVE8);;97-98;0;0;;;0
+CTRLVE8;FX;Ret 2 (CTRLVE8);;99-100;0;0;;;0
+CTRLVE8;FX;Ret 3 (CTRLVE8);;101-102;0;0;;;0
+CTRLVE8;FX;Ret 4 (CTRLVE8);;103-104;0;0;;;0
+CTRLVE9;VT;Auras Altis;PadSynth;1-2;1;1;Init;Decent Sampler;0
+CTRLVE9;VT;Auras Eraphine (Folder);Choir;3-4;2;1;Ensemble Strings - Frost Viola;Decent Sampler;0
+;;;;;;2;Ensemble Voices - Aah;;0
+;;;;;;3;Ensemble Voices - Eeh;;0
+;;;;;;4;Ensemble Voices - Ooh;;0
+;;;;;;5;Ensemble Voices - Phrases;;0
+;;;;;;6;Pads - Just The Drones;;0
+;;;;;;7;Strings - Frost Viola;;0
+;;;;;;8;Voices - Aah;;0
+;;;;;;9;Voices - Eeh;;0
+;;;;;;10;Voices - Ooh;;0
+;;;;;;11;Voices - Phrases;;0
+CTRLVE9;VT;Auras Lair;PadSynth;5-6;3;1;Init;Decent Sampler;0
+CTRLVE9;VT;Auras Lichen;PadSynth;7-8;4;1;Init;Decent Sampler;0
+CTRLVE9;VT;Auras Rooms;PadSynth;9-10;5;1;Init;Decent Sampler;0
+CTRLVE9;VT;Auras Veils;PadSynth;11-12;6;1;Init;Decent Sampler;0
+CTRLVE9;VT;Solaris;PadSynth;13-14;7;1;Init;Decent Sampler;0
+CTRLVE9;VT;Strands;MidStr;15-16;8;1;Init;Decent Sampler;0
+CTRLVE9;DS;Tri-Timbral Flocks;MidStr;17-18;9;1;Init;Decent Sampler;0
+CTRLVE9;DS;Mandrolia;MidStr;19-20;10;1;Init;Decent Sampler;0
+CTRLVE9;DS;Echorda (Folder);Piano;21-22;11;1;ECHORDA 3 Baby Grand;Decent Sampler;0
+;;;;;;2;ECHORDA 3 Upright;;0
+;;;;;;3;ECHORDA 3;;0
+;;;;;;4;ECHORDA 2 Full;;0
+;;;;;;5;ECHORDA 2;;0
+CTRLVE9;DS;Broken Piano;Piano;23-24;12;1;Init;Decent Sampler;0
+CTRLVE9;DS;Antique Pad;PadSynth;25-26;13;1;Init;Decent Sampler;0
+CTRLVE9;SP;LABS 1;;27-28;14;1;Init;LABS;0
+CTRLVE9;SP;LABS 2;;29-30;15;1;Init;LABS;0
+CTRLVE9;SP;LABS 3;;31-32;16;1;Init;LABS;0
+CTRLVE9;SP;LABS 4;;33-34;17;1;Init;LABS;0
+CTRLVE9;SP;LABS 5;;35-36;18;1;Init;LABS;0
+CTRLVE9;SP;LABS 6;;37-38;19;1;Init;LABS;0
+CTRLVE9;SP;LABS 7;;39-40;20;1;Init;LABS;0
+CTRLVE9;SP;LABS 8;;41-42;21;1;Init;LABS;0
+CTRLVE9;SP;LABS 9;;43-44;22;1;Init;LABS;0
+CTRLVE9;SP;LABS 10;;45-46;23;1;Init;LABS;0
+CTRLVE9;SR;Hainbach - Landfill Totems;PadSynth;47-48;24;1;Init;Spitfire;0
+CTRLVE9;SR;Lea Bertucci - Acoustic Shadows;MidBr;49-50;25;1;Init;Spitfire;0
+CTRLVE9;SR;Cinematic Frozen Strings;HiStr;51-52;26;1;Init;Spitfire;0
+CTRLVE9;SR;Cinematic Soft Piano;Piano;53-54;27;1;Init;Spitfire;0
+CTRLVE9;SR;Mrs Mills Piano;Piano;55-56;28;1;Init;Spitfire;0
+CTRLVE9;IK;Modo Bass;LoStr;57-58;29;1;Init;Modo Bass;0
+CTRLVE9;FX;Ret 1 (CTRLVE9);;121-122;0;0;;;0
+CTRLVE9;FX;Ret 2 (CTRLVE9);;123-124;0;0;;;0
+CTRLVE9;FX;Ret 3 (CTRLVE9);;125-126;0;0;;;0
+CTRLVE9;FX;Ret 4 (CTRLVE9);;127-128;0;0;;;0
+CTRLVE10;XLN;Addictive Drums 1;Drums;0;1;1;Init;Addictive Drums;0
+;;FX;;1-2;1;1;Init;Addictive Drums;0
+;;Kick;;3;1;1;Init;Addictive Drums;0
+;;Snare;;4;1;1;Init;Addictive Drums;0
+;;HiHat;;5;1;1;Init;Addictive Drums;0
+;;Tom 1;;6;1;1;Init;Addictive Drums;0
+;;Tom 2;;7;1;1;Init;Addictive Drums;0
+;;Tom 3;;8;1;1;Init;Addictive Drums;0
+;;Tom 4;;9;1;1;Init;Addictive Drums;0
+;;Flexi 1;;10;1;1;Init;Addictive Drums;0
+;;Flexi 2;;11;1;1;Init;Addictive Drums;0
+;;Flexi 3;;12;1;1;Init;Addictive Drums;0
+;;OH;;13-14;1;1;Init;Addictive Drums;0
+;;Room;;15-16;1;1;Init;Addictive Drums;0
+;;Bus;;17-18;1;1;Init;Addictive Drums;0
+CTRLVE10;XLN;Addictive Drums 2;Drums;0;2;1;Init;Addictive Drums;0
+;;FX;;19-20;2;1;Init;Addictive Drums;0
+;;Kick;;21;2;1;Init;Addictive Drums;0
+;;Snare;;22;2;1;Init;Addictive Drums;0
+;;HiHat;;23;2;1;Init;Addictive Drums;0
+;;Tom 1;;24;2;1;Init;Addictive Drums;0
+;;Tom 2;;25;2;1;Init;Addictive Drums;0
+;;Tom 3;;26;2;1;Init;Addictive Drums;0
+;;Tom 4;;27;2;1;Init;Addictive Drums;0
+;;Flexi 1;;28;2;1;Init;Addictive Drums;0
+;;Flexi 2;;29;2;1;Init;Addictive Drums;0
+;;Flexi 3;;30;2;1;Init;Addictive Drums;0
+;;OH;;31-32;2;1;Init;Addictive Drums;0
+;;Room;;33-34;2;1;Init;Addictive Drums;0
+;;Bus;;35-36;2;1;Init;Addictive Drums;0
+CTRLVE10;IK;Modo Drum 1;Drums;0;3;1;Init;Modo Drum;0
+;;1/2;;37-38;3;1;Init;Modo Drum;0
+;;3/4;;39-40;3;1;Init;Modo Drum;0
+;;5/6;;41-42;3;1;Init;Modo Drum;0
+;;7/8;;43-44;3;1;Init;Modo Drum;0
+;;9/10;;45-46;3;1;Init;Modo Drum;0
+;;11/12;;47-48;3;1;Init;Modo Drum;0
+;;13/14;;49-50;3;1;Init;Modo Drum;0
+;;15/16;;51-52;3;1;Init;Modo Drum;0
+;;17/18;;53-54;3;1;Init;Modo Drum;0
+;;19/20;;55-56;3;1;Init;Modo Drum;0
+;;21/22;;57-58;3;1;Init;Modo Drum;0
+;;23/24;;59-60;3;1;Init;Modo Drum;0
+;;25/26;;61-62;3;1;Init;Modo Drum;0
+;;27/28;;63-64;3;1;Init;Modo Drum;0
+;;29/30;;65-66;3;1;Init;Modo Drum;0
+;;31/32;;67-68;3;1;Init;Modo Drum;0
+CTRLVE10;IK;Modo Drum 2;Drums;0;4;1;Init;Modo Drum;0
+;;1/2;;69-70;4;1;Init;Modo Drum;0
+;;3/4;;71-72;4;1;Init;Modo Drum;0
+;;5/6;;73-74;4;1;Init;Modo Drum;0
+;;7/8;;75-76;4;1;Init;Modo Drum;0
+;;9/10;;77-78;4;1;Init;Modo Drum;0
+;;11/12;;79-80;4;1;Init;Modo Drum;0
+;;13/14;;81-82;4;1;Init;Modo Drum;0
+;;15/16;;83-84;4;1;Init;Modo Drum;0
+;;17/18;;85-86;4;1;Init;Modo Drum;0
+;;19/20;;87-88;4;1;Init;Modo Drum;0
+;;21/22;;89-90;4;1;Init;Modo Drum;0
+;;23/24;;91-92;4;1;Init;Modo Drum;0
+;;25/26;;93-94;4;1;Init;Modo Drum;0
+;;27/28;;95-96;4;1;Init;Modo Drum;0
+;;29/30;;97-98;4;1;Init;Modo Drum;0
+;;31/32;;99-100;4;1;Init;Modo Drum;0
+CTRLVE10;;;;101-102;5;1;;;0
+CTRLVE10;;;;103-104;6;1;;;0
+CTRLVE10;;;;105-106;7;1;;;0
+CTRLVE10;;;;107-108;8;1;;;0
+CTRLVE10;;;;109-110;9;1;;;0
+CTRLVE10;;;;111-112;10;1;;;0
+CTRLVE10;;;;113-114;11;1;;;0
+CTRLVE10;FX;Ret 1 (CTRLVE10);;117-118;;;;;0
+CTRLVE10;FX;Ret 2 (CTRLVE10);;119-120;;;;;0
+CTRLVE10;FX;Ret 3 (CTRLVE10);;121-122;;;;;0
+CTRLVE10;FX;Ret 4 (CTRLVE10);;123-124;;;;;0
+CTRLVE10;FX;Ret 5 (CTRLVE10);;125-126;;;;;0
+CTRLVE10;FX;Ret 6 (CTRLVE10);;127-128;;;;;0
 CTRLVE11;SPA1;Woodwinds High;HiWW;1-4;1;1;Woods High;Kontakt Player;155
 ;;;;;;2;Woods High - Legato;Kontakt Player;0
 ;;;;;;3;Woods High - Time Machine;Kontakt Player;155
@@ -870,9 +870,9 @@ CTRLVE11;SPA1;Steam Hybrid;PadSynth;73-74;23;1;Steam Hybrid;Kontakt Player;0
 CTRLVE11;SPA1;Steam 1;PadSynth;75-76;24;1;Steam 1;Kontakt Player;0
 CTRLVE11;SPA1;Steam 2;PadSynth;77-78;25;1;Steam 2;Kontakt Player;0
 CTRLVE11;SPA1;Piano;Piano;79-82;26;1;Piano;Kontakt Player;166
-CTRLVE11;FX;Ret 1 (CTRLVE11);;117-118;;;;;
-CTRLVE11;FX;Ret 2 (CTRLVE11);;119-120;;;;;
-CTRLVE11;FX;Ret 3 (CTRLVE11);;121-122;;;;;
-CTRLVE11;FX;Ret 4 (CTRLVE11);;123-124;;;;;
-CTRLVE11;FX;Ret 5 (CTRLVE11);;125-126;;;;;
-CTRLVE11;FX;Ret 6 (CTRLVE11);;127-128;;;;;
+CTRLVE11;FX;Ret 1 (CTRLVE11);;117-118;;;;;0
+CTRLVE11;FX;Ret 2 (CTRLVE11);;119-120;;;;;0
+CTRLVE11;FX;Ret 3 (CTRLVE11);;121-122;;;;;0
+CTRLVE11;FX;Ret 4 (CTRLVE11);;123-124;;;;;0
+CTRLVE11;FX;Ret 5 (CTRLVE11);;125-126;;;;;0
+CTRLVE11;FX;Ret 6 (CTRLVE11);;127-128;;;;;0
