@@ -234,17 +234,29 @@ local function build_banks_for_instrument(inst, ks_map, styling_rules, default_s
 
   if multi_patch then
     -- Multi-patch: one bank per patch, each using its own keyswitch_id
+    local patch_idx = 0
     for _, p in ipairs(inst.patches) do
       local p_ks_rows = p.keyswitch_id and ks_map[p.keyswitch_id]
       if not p_ks_rows or #p_ks_rows == 0 then
         -- No keyswitches for this patch, skip it
       else
+        patch_idx = patch_idx + 1
         local patch_name = trim(p.patch)
         local group_label = (lib ~= "" and name ~= "" and (lib .. " / " .. name)) or (name ~= "" and name or lib)
-        local bank_header_name = (lib ~= "" and name ~= "" and patch_name ~= "" and (lib .. " - " .. name .. " - " .. patch_name))
-                                or (patch_name ~= "" and patch_name or ((lib ~= "" and (lib .. " - " .. name)) or name))
+        -- Avoid duplicate name in bank header when patch_name already starts with name
+        local patch_starts_with_name = (name ~= "" and patch_name:lower():sub(1, #name) == name:lower())
+        local bank_header_name
+        if lib ~= "" and name ~= "" and patch_name ~= "" then
+          if patch_starts_with_name then
+            bank_header_name = lib .. " - " .. patch_name
+          else
+            bank_header_name = lib .. " - " .. name .. " - " .. patch_name
+          end
+        else
+          bank_header_name = (patch_name ~= "" and patch_name or ((lib ~= "" and (lib .. " - " .. name)) or name))
+        end
         local buf = {}
-        buf[#buf+1] = ("//! g=\"%s\" n=\"%s\""):format(group_label or "", patch_name)
+        buf[#buf+1] = ("//! g=\"%s\" n=\"[Ch. %02d]    %s\""):format(group_label or "", patch_idx, patch_name)
         buf[#buf+1] = ("Bank * * %s"):format(bank_header_name)
         local next_prog = 1
         for _, row in ipairs(p_ks_rows) do

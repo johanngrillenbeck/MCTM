@@ -139,26 +139,26 @@ ID;Articulation Name;Note
 10;Doubles;103
 10;Triples;104
 10;Trills;105
-11;Sustains + LEG;24
-11;Sustains;25
-11;Sustains soft;26
-11;Sustains accented;27
-11;Marcato long;28
-11;Marcato short;29
-11;Staccato;30
-11;Staccato short;31
-11;Repetitions 1/16 phrase;32
-11;Repetitions 1/16 continuous;33
-11;Repetitions triplets phrase;34
-11;Repetitions triplets continuous;35
-11;Fortepiano;36
-11;Crescendo long;37
-11;Crescendo short;38
-11;Swells long;39
-11;Swells short;40
-11;Trills;41
-11;Playable runs + LEG;42
-11;Playable runs;43
+11;Sustains + LEG;0
+11;Sustains;1
+11;Sustains soft;2
+11;Sustains accented;3
+11;Marcato long;4
+11;Marcato short;5
+11;Staccato;6
+11;Staccato short;7
+11;Repetitions 1/16 phrase;8
+11;Repetitions 1/16 continuous;9
+11;Repetitions triplets phrase;10
+11;Repetitions triplets continuous;11
+11;Fortepiano;12
+11;Crescendo long;13
+11;Crescendo short;14
+11;Swells long;15
+11;Swells short;16
+11;Trills;17
+11;Playable runs + LEG;18
+11;Playable runs;19
 12;Sustains + LEG;24
 12;Sustains;25
 13;Sustains + LEG;24
@@ -227,172 +227,172 @@ ID;Articulation Name;Note
 17;Crescendo short;38
 17;Swells long;39
 17;Swells short;40
-18;Sustains + LEG;24
-18;Sustains;25
-18;Sustains soft;26
-18;Sustains accented;27
-18;Sustains blurred;28
-18;Espressivo long;29
-18;Espressivo blurred;30
-18;Portato long;31
-18;Portato short;32
-18;Portato blurred;33
-18;Martele bold;34
-18;Staccato;35
-18;Staccato blurred;36
-18;Spiccato;37
-18;Spiccato serial;38
-18;Spiccato short;39
-18;Spiccato blurred;40
-18;Staccato bold;41
-18;Pizzicato;42
-18;Pizzicato tremolo;43
-18;Pizzicato serial;44
-18;Doubles;45
-18;Triplets;46
-18;Ostinato Arp + LEG;47
-18;Ostinato Arp;48
-19;Tremolo;24
-19;Tremolo accented;25
-19;Tremolo short;26
-19;Tremolo short decorative;27
-19;Trills;28
-19;Trills accented;29
-19;Trills short;30
-19;Trills short decorative;31
-20;Crescendo long;24
-20;Crescendo short;25
-20;Decrescendo long;26
-20;Decrescendo short;27
-20;Swells long;28
-20;Swells short;29
-20;Swells long rebow;30
-20;Swells short rebow;31
-21;Repetitions 16th;24
-21;Repetitions triplets;25
-22;C maj;24
-22;C# maj;25
-22;D maj;26
-22;D# maj;27
-22;E maj;28
-22;F maj;29
-22;F# maj;30
-22;G maj;31
-22;G# maj;32
-22;A maj;33
-22;A# maj;34
-22;B maj;35
-23;Sustains + LEG;24
-23;Sustains;25
-23;Sustains soft;26
-23;Sustains accented;27
-23;Espressivo long;28
-23;Espressivo short;29
-23;Portato long;30
-23;Portato short;31
-23;Martele bold;32
-23;Staccato;33
-23;Staccato bold;34
-23;Staccato blurred;35
-23;Spiccato;36
-23;Spiccato serial;37
-23;Pizzicato;38
-23;Doubles;39
-23;Triplets;40
-24;Sustains + LEG;24
-24;Sustains;25
-24;Sustains soft;26
-24;Sustains accented;27
-24;Espressivo long;28
-24;Espressivo short;29
-24;Portato long;30
-24;Portato short;31
-24;Martele bold;32
-24;Staccato;33
-24;Staccato bold;34
-24;Staccato blurred;35
-24;Spiccato;36
-24;Spiccato serial;37
-24;Pizzicato;38
-24;Pizzicato serial;39
-25;Tremolo;24
-25;Tremolo accented;25
-25;Tremolo short;26
-25;Tremolo short decorative;27
-25;Trills;28
-25;Trills accented;29
-25;Trills short decorative;30
-26;Sustains + LEG;24
-26;Sustains;25
-26;Sustains soft;26
-26;Sustains accented;27
-26;Espressivo long;28
-26;Espressivo short;29
-26;Portato long;30
-26;Portato short;31
-26;Martele bold;32
-26;Staccato;33
-26;Staccato blurred;34
-26;Spiccato;35
-26;Spiccato serial;36
-26;Pizzicato;37
-26;Ostinato Arp + LEG;38
-26;Ostinato Arp;39
-27;Sustains;24
-27;Sustains soft;25
-27;Sustains accented;26
-27;Espressivo long;27
-27;Espressivo short;28
-27;Portato long;29
-27;Portato short;30
-27;Martele bold;31
-27;Staccato;32
-27;Staccato bold;33
-27;Spiccato;34
-27;Spiccato serial;35
-27;Pizzicato;36
-28;Tremolo;24
-28;Tremolo accented;25
-28;Trills;26
-29;Sul tasto sustains + LEG;24
-29;Sul tasto sustains;25
-29;sul tasto sustains soft + LEG;26
-29;sul tasto sustains soft;27
-29;Sul tasto portato long;28
-29;Sul tasto portato short;29
-29;Sul tasto tremolo;30
-29;Harmonics sustains;31
-29;Harmonics staccato;32
-29;Harmonics tremolo;33
-29;Sul ponticello sustains + LEG;34
-29;Sul ponticello sustains;35
-29;Sul ponticello staccato;36
-29;Sul ponticello tremolo;37
-29;Sul ponticello tremolo accented;38
-29;Col legno;39
-30;Sul tasto sustains + LEG;24
-30;Sul tasto sustains;25
-30;sul tasto sustains soft + LEG;26
-30;sul tasto sustains soft;27
-30;Sul tasto portato long;28
-30;Sul tasto portato short;29
-30;Sul tasto tremolo;30
-30;Harmaonics sustains;31
-30;Harmonics staccato;32
-30;Sul penticello sustains;33
-30;Sul ponticello tremolo;34
-30;Col legno;35
-31;Sustains + LEG;24
-31;Sustains;25
-31;Sustains soft;26
-31;Sustains accented;27
-31;Portato long;28
-31;Portato short;29
-31;Staccato;30
-31;Spiccato;31
-31;Pizzicato;32
-31;Tremolo;33
-31;Trills;34
+18;Sustains + LEG;0
+18;Sustains;1
+18;Sustains soft;2
+18;Sustains accented;3
+18;Sustains blurred;4
+18;Espressivo long;5
+18;Espressivo blurred;6
+18;Portato long;7
+18;Portato short;8
+18;Portato blurred;9
+18;Martele bold;10
+18;Staccato;11
+18;Staccato blurred;12
+18;Spiccato;13
+18;Spiccato serial;14
+18;Spiccato short;15
+18;Spiccato blurred;16
+18;Staccato bold;17
+18;Pizzicato;18
+18;Pizzicato tremolo;19
+18;Pizzicato serial;20
+18;Doubles;21
+18;Triplets;22
+18;Ostinato Arp + LEG;23
+18;Ostinato Arp;24
+19;Tremolo;0
+19;Tremolo accented;1
+19;Tremolo short;2
+19;Tremolo short decorative;3
+19;Trills;4
+19;Trills accented;5
+19;Trills short;6
+19;Trills short decorative;7
+20;Crescendo long;0
+20;Crescendo short;1
+20;Decrescendo long;2
+20;Decrescendo short;3
+20;Swells long;4
+20;Swells short;5
+20;Swells long rebow;6
+20;Swells short rebow;7
+21;Repetitions 16th;0
+21;Repetitions triplets;1
+22;C maj;0
+22;C# maj;1
+22;D maj;2
+22;D# maj;3
+22;E maj;4
+22;F maj;5
+22;F# maj;6
+22;G maj;7
+22;G# maj;8
+22;A maj;9
+22;A# maj;10
+22;B maj;11
+23;Sustains + LEG;0
+23;Sustains;1
+23;Sustains soft;2
+23;Sustains accented;3
+23;Espressivo long;4
+23;Espressivo short;5
+23;Portato long;6
+23;Portato short;7
+23;Martele bold;8
+23;Staccato;9
+23;Staccato bold;10
+23;Staccato blurred;11
+23;Spiccato;12
+23;Spiccato serial;13
+23;Pizzicato;14
+23;Doubles;15
+23;Triplets;16
+24;Sustains + LEG;0
+24;Sustains;1
+24;Sustains soft;2
+24;Sustains accented;3
+24;Espressivo long;4
+24;Espressivo short;5
+24;Portato long;6
+24;Portato short;7
+24;Martele bold;8
+24;Staccato;9
+24;Staccato bold;10
+24;Staccato blurred;11
+24;Spiccato;12
+24;Spiccato serial;13
+24;Pizzicato;14
+24;Pizzicato serial;15
+25;Tremolo;0
+25;Tremolo accented;1
+25;Tremolo short;2
+25;Tremolo short decorative;3
+25;Trills;4
+25;Trills accented;5
+25;Trills short decorative;6
+26;Sustains + LEG;0
+26;Sustains;1
+26;Sustains soft;2
+26;Sustains accented;3
+26;Espressivo long;4
+26;Espressivo short;5
+26;Portato long;6
+26;Portato short;7
+26;Martele bold;8
+26;Staccato;9
+26;Staccato blurred;10
+26;Spiccato;11
+26;Spiccato serial;12
+26;Pizzicato;13
+26;Ostinato Arp + LEG;14
+26;Ostinato Arp;15
+27;Sustains;0
+27;Sustains soft;1
+27;Sustains accented;2
+27;Espressivo long;3
+27;Espressivo short;4
+27;Portato long;5
+27;Portato short;6
+27;Martele bold;7
+27;Staccato;8
+27;Staccato bold;9
+27;Spiccato;10
+27;Spiccato serial;11
+27;Pizzicato;12
+28;Tremolo;0
+28;Tremolo accented;1
+28;Trills;2
+29;Sul tasto sustains + LEG;0
+29;Sul tasto sustains;1
+29;sul tasto sustains soft + LEG;2
+29;sul tasto sustains soft;3
+29;Sul tasto portato long;4
+29;Sul tasto portato short;5
+29;Sul tasto tremolo;6
+29;Harmonics sustains;7
+29;Harmonics staccato;8
+29;Harmonics tremolo;9
+29;Sul ponticello sustains + LEG;10
+29;Sul ponticello sustains;11
+29;Sul ponticello staccato;12
+29;Sul ponticello tremolo;13
+29;Sul ponticello tremolo accented;14
+29;Col legno;15
+30;Sul tasto sustains + LEG;0
+30;Sul tasto sustains;1
+30;sul tasto sustains soft + LEG;2
+30;sul tasto sustains soft;3
+30;Sul tasto portato long;4
+30;Sul tasto portato short;5
+30;Sul tasto tremolo;6
+30;Harmaonics sustains;7
+30;Harmonics staccato;8
+30;Sul penticello sustains;9
+30;Sul ponticello tremolo;10
+30;Col legno;11
+31;Sustains + LEG;0
+31;Sustains;1
+31;Sustains soft;2
+31;Sustains accented;3
+31;Portato long;4
+31;Portato short;5
+31;Staccato;6
+31;Spiccato;7
+31;Pizzicato;8
+31;Tremolo;9
+31;Trills;10
 32;Single Hits;24
 32;Rolls;25
 32;Dynamics;26
@@ -1455,15 +1455,15 @@ ID;Articulation Name;Note
 152;Sustains;24
 152;Marcato Short;25
 152;Staccatissimo;26
-153;Sustains + LEG;24
-153;Sustains;25
-153;Sustains soft;26
-153;Sforzando Sustains;27
-153;Marcato Long;28
-153;Marcato Short;29
-153;Staccato;30
-153;Staccatissimo;31
-153;Rips;32
+153;Sustains + LEG;0
+153;Sustains;1
+153;Sustains soft;2
+153;Sforzando Sustains;3
+153;Marcato Long;4
+153;Marcato Short;5
+153;Staccato;6
+153;Staccatissimo;7
+153;Rips;8
 154;Sustains + LEG;24
 154;Sustains;25
 154;Sustains soft;26

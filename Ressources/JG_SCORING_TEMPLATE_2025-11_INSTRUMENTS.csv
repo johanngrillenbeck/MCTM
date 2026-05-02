@@ -16,37 +16,37 @@ CTRLVE1;;;;;;2;Trumpet 1 Zampano;;12
 CTRLVE1;OTBB;Trumpet 2;HiBr;53-56;14;1;Trumpet 2;SINE;13
 CTRLVE1;;;;;;2;Trumpet 2 Zampano;;14
 CTRLVE1;OTBB;Trumpet 3;HiBr;57-60;15;1;Trumpet 3;SINE;11
-CTRLVE1;OTBB;Trumpet Ens;HiBr;61-64;16;1;Trumpet Ens;SINE;13
+CTRLVE1;OTBB;Trumpet Ensemble;HiBr;61-64;16;1;Trumpet Ensemble;SINE;13
 CTRLVE1;OTBB;Horn 1;HiBr;65-68;17;1;Horn 1;SINE;13
 CTRLVE1;OTBB;Horn 2;HiBr;69-72;18;1;Horn 2;SINE;13
 CTRLVE1;OTBB;Horn 3;HiBr;73-76;19;1;Horn 3;SINE;13
 CTRLVE1;OTBB;Horn 4;HiBr;77-80;20;1;Horn 4;SINE;13
-CTRLVE1;OTBB;Horn Ens;HiBr;81-84;21;1;Horn Ensemble;SINE;13
+CTRLVE1;OTBB;Horn Ensemble;HiBr;81-84;21;1;Horn Ensemble;SINE;13
 CTRLVE1;;;;;;2;Horn Ensemble Bells Up;;15
-CTRLVE1;OTBS;1st Violins;HiStr;85-88;22;1;Longs and Shorts;SINE;18
+CTRLVE1;OTBS;1st Violins;HiStr;85-88;22;1;1st Violins - Longs and Shorts;SINE;18
 CTRLVE1;;;;;;2;Ornaments;;19
 CTRLVE1;;;;;;3;Dynamics;;20
 CTRLVE1;;;;;;4;Repetitions;;21
 CTRLVE1;;;;;;5;Octave Scale Runs;;22
 CTRLVE1;;;;;;6;Special Bows;;29
-CTRLVE1;OTBS;2nd Violins;HiStr;89-92;23;1;Longs and Shorts;SINE;23
+CTRLVE1;OTBS;2nd Violins;HiStr;89-92;23;1;2nd Violins - Longs and Shorts;SINE;23
 CTRLVE1;;;;;;2;Ornaments;;19
 CTRLVE1;;;;;;3;Dynamics;;20
 CTRLVE1;;;;;;4;Repetitions;;21
 CTRLVE1;;;;;;5;Octave Scale Runs;;22
 CTRLVE1;;;;;;6;Special Bows;;29
-CTRLVE1;OTBS;Violas;MidStr;93-96;24;1;Longs and Shorts;SINE;24
+CTRLVE1;OTBS;Violas;MidStr;93-96;24;1;Violas - Longs and Shorts;SINE;24
 CTRLVE1;;;;;;2;Ornaments;;25
 CTRLVE1;;;;;;3;Dynamics;;20
 CTRLVE1;;;;;;4;Repetitions;;21
 CTRLVE1;;;;;;5;Special Bows;;29
-CTRLVE1;OTBS;Celli;LoStr;97-100;25;1;Longs and Shorts;SINE;26
+CTRLVE1;OTBS;Celli;LoStr;97-100;25;1;Celli - Longs and Shorts;SINE;26
 CTRLVE1;;;;;;2;Ornaments;;25
 CTRLVE1;;;;;;3;Dynamics;;20
 CTRLVE1;;;;;;4;Repetitions;;21
 CTRLVE1;;;;;;5;Octave Scale Runs;;22
 CTRLVE1;;;;;;6;Special Bows;;29
-CTRLVE1;OTBS;Basses;LoStr;101-104;26;1;Longs and Shorts;SINE;27
+CTRLVE1;OTBS;Basses;LoStr;101-104;26;1;Basses - Longs and Shorts;SINE;27
 CTRLVE1;;;;;;2;Ornaments;;28
 CTRLVE1;;;;;;3;Dynamics;;20
 CTRLVE1;;;;;;4;Repetitions;;21
@@ -121,12 +121,12 @@ CTRLVE2;OTTHP;Taye Toms;MidPerc;101-104;26;1;Taye Tom 8'';SINE;999
 ;;;;;;6;Taye Tom 13'';;999
 ;;;;;;7;Taye Tom 16'';;999
 ;;;;;;8;Taye Tom 18'';;999
-CTRLVE2;OTTHP;Marching Band Drums;MidPerc;105-108;27;1;8'';SINE;999
+CTRLVE2;OTTHP;Marching Band Drums;MidPerc;105-108;27;1;Marching Band Drums - 8'';SINE;999
 ;;;;;;2;10'';;999
 ;;;;;;3;12'';;999
 ;;;;;;4;13'';;999
-;;;;;;5;20 Low Tuning'';;999
-;;;;;;6;20 High Tuning'';;999
+;;;;;;5;20'' Low Tuning;;999
+;;;;;;6;20'' High Tuning;;999
 CTRLVE2;OTTHP;Custom Drums;MidPerc;109-112;28;1;Custom Tom Low Tuning 10'';SINE;999
 ;;;;;;2;Custom Tom High Tuning 10'';;999
 ;;;;;;3;Custom Tom Low Tuning 12'';;999
@@ -143,7 +143,7 @@ CTRLVE2;FX;Ret 1 (CTRLVE2);;121-122;0;0;;;0
 CTRLVE2;FX;Ret 2 (CTRLVE2);;123-124;0;0;;;0
 CTRLVE2;FX;Ret 3 (CTRLVE2);;125-126;0;0;;;0
 CTRLVE2;FX;Ret 4 (CTRLVE2);;127-128;0;0;;;0
-CTRLVE3;OTBP;Roto Toms;MidPerc;1-4;1;1;6'';SINE;32
+CTRLVE3;OTBP;Roto Toms;MidPerc;1-4;1;1;Roto Toms - 6'';SINE;32
 ;;;;;;2;8'';;32
 ;;;;;;3;10'';;32
 ;;;;;;4;12'';;32
