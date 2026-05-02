@@ -1,4 +1,5 @@
 ID;Articulation Name;Note
+0;Default Articulation;
 1;Sustains + LEG;24
 1;Sustains;25
 1;Sustains accented;26
@@ -360,11 +361,11 @@ ID;Articulation Name;Note
 29;Sul tasto portato long;28
 29;Sul tasto portato short;29
 29;Sul tasto tremolo;30
-29;Harmaonics sustains;31
+29;Harmonics sustains;31
 29;Harmonics staccato;32
 29;Harmonics tremolo;33
 29;Sul ponticello sustains + LEG;34
-29;Sul penticello sustains;35
+29;Sul ponticello sustains;35
 29;Sul ponticello staccato;36
 29;Sul ponticello tremolo;37
 29;Sul ponticello tremolo accented;38

@@ -178,8 +178,53 @@ local function parse_keyswitches(lines)
   return map
 end
 
+-- Parse KEY_SWITCH_STYLING: returns pre-sorted rules (longest first) and a default style.
+-- Each rule: { pattern_lower, icon, color }
+local function parse_styling(lines)
+  if not lines or #lines == 0 then
+    return {}, { icon = "note-quarter", color = "default" }
+  end
+  local header = split_semicolon_quoted(lines[1] or "")
+  local idx = {}
+  for i, h in ipairs(header) do idx[trim(h)] = i end
+  local I_NAME  = idx["Name Contains"] or 1
+  local I_ICON  = idx["i"] or 2
+  local I_COLOR = idx["c"] or 3
+
+  local rules = {}
+  local default_style = { icon = "note-quarter", color = "default" }
+  for r = 2, #lines do
+    local cols = split_semicolon_quoted(lines[r])
+    local name  = trim(cols[I_NAME]  or "")
+    local icon  = trim(cols[I_ICON]  or "")
+    local color = trim(cols[I_COLOR] or "")
+    if name ~= "" then
+      rules[#rules+1] = { pattern_lower = name:lower(), icon = icon, color = color }
+      if name:lower() == "standard" then
+        default_style = { icon = icon, color = color }
+      end
+    end
+  end
+  -- Sort by pattern length descending: longest (most specific) match wins
+  table.sort(rules, function(a, b) return #a.pattern_lower > #b.pattern_lower end)
+  return rules, default_style
+end
+
+-- Find best styling for an articulation name (case-insensitive substring match).
+-- Returns { icon, color }; logs a warning and returns default_style on no match.
+local function find_styling(aname, styling_rules, default_style)
+  local lower = aname:lower()
+  for _, rule in ipairs(styling_rules) do
+    if lower:find(rule.pattern_lower, 1, true) then
+      return { icon = rule.icon, color = rule.color }
+    end
+  end
+  log("STYLE WARNING: No match for articulation '" .. aname .. "' — applying Standard style")
+  return default_style
+end
+
 -- Build reabank text for one instrument
-local function build_banks_for_instrument(inst, ks_map)
+local function build_banks_for_instrument(inst, ks_map, styling_rules, default_style)
   local lib = trim(inst.lib_prefix)
   local name = trim(inst.track_name)
   if name == "" then return {} end
@@ -206,10 +251,18 @@ local function build_banks_for_instrument(inst, ks_map)
           local prog = next_prog
           next_prog = next_prog + 1
           local aname = trim(row.name)
+          local aname_str = aname ~= "" and aname or ("KS " .. tostring(prog))
+          local style = (styling_rules and #styling_rules > 0) and find_styling(aname_str, styling_rules, default_style) or nil
+          local annot = {}
           if row.note and tonumber(row.note) then
-            buf[#buf+1] = ("//! o=-note:%d"):format(tonumber(row.note))
+            annot[#annot+1] = ("o=-note:%d"):format(tonumber(row.note))
           end
-          buf[#buf+1] = ("%d %s"):format(prog, aname ~= "" and aname or ("KS " .. tostring(prog)))
+          if style then
+            annot[#annot+1] = ("c=%s"):format(style.color)
+            annot[#annot+1] = ("i=%s"):format(style.icon)
+          end
+          if #annot > 0 then buf[#buf+1] = "//! " .. table.concat(annot, " ") end
+          buf[#buf+1] = ("%d %s"):format(prog, aname_str)
         end
         banks[#banks+1] = table.concat(buf, "\n") .. "\n\n"
       end
@@ -233,10 +286,18 @@ local function build_banks_for_instrument(inst, ks_map)
       local prog = next_prog
       next_prog = next_prog + 1
       local aname = trim(row.name)
+      local aname_str = aname ~= "" and aname or ("KS " .. tostring(prog))
+      local style = (styling_rules and #styling_rules > 0) and find_styling(aname_str, styling_rules, default_style) or nil
+      local annot = {}
       if row.note and tonumber(row.note) then
-        buf[#buf+1] = ("//! o=-note:%d"):format(tonumber(row.note))
+        annot[#annot+1] = ("o=-note:%d"):format(tonumber(row.note))
       end
-      buf[#buf+1] = ("%d %s"):format(prog, aname ~= "" and aname or ("KS " .. tostring(prog)))
+      if style then
+        annot[#annot+1] = ("c=%s"):format(style.color)
+        annot[#annot+1] = ("i=%s"):format(style.icon)
+      end
+      if #annot > 0 then buf[#buf+1] = "//! " .. table.concat(annot, " ") end
+      buf[#buf+1] = ("%d %s"):format(prog, aname_str)
     end
     banks[#banks+1] = table.concat(buf, "\n") .. "\n\n"
     return banks
@@ -251,6 +312,7 @@ local instruments_csv = prompt_file("Choose INSTRUMENTS CSV", "csv")
 if not instruments_csv then log("Cancelled: INSTRUMENTS CSV path required.") return end
 local keyswitches_csv = prompt_file("Choose KEY_SWITCHES CSV", "csv")
 if not keyswitches_csv then log("Cancelled: KEY_SWITCHES CSV path required.") return end
+local styling_csv = prompt_file("Choose KEY_SWITCH_STYLING CSV (optional — Cancel to skip)", "csv")
 
 -- Let the user choose a path and filename for the new .reabank (suggest a name).
 local default_name = "JG_SCORING_TEMPLATE.reabank"
@@ -269,6 +331,19 @@ if not instr_lines then reaper.MB("Failed to read INSTRUMENTS CSV: "..tostring(e
 local ks_lines, err2 = read_lines(keyswitches_csv)
 if not ks_lines then reaper.MB("Failed to read KEY_SWITCHES CSV: "..tostring(err2), "Error", 0) return end
 
+local styling_rules, default_style = {}, { icon = "note-quarter", color = "default" }
+if styling_csv then
+  local st_lines, err3 = read_lines(styling_csv)
+  if st_lines then
+    styling_rules, default_style = parse_styling(st_lines)
+    log("Loaded " .. tostring(#styling_rules) .. " styling rules.")
+  else
+    log("WARNING: Could not read styling CSV: " .. tostring(err3))
+  end
+else
+  log("No styling CSV provided — articulations will have no c/i annotations.")
+end
+
 local instruments, instrument_order = parse_instruments(instr_lines)
 local ks_map = parse_keyswitches(ks_lines)
 
@@ -277,7 +352,7 @@ local outbuf = {}
 local skipped = 0
 for _, key in ipairs(instrument_order) do
   local inst = instruments[key]
-  local banks = build_banks_for_instrument(inst, ks_map)
+  local banks = build_banks_for_instrument(inst, ks_map, styling_rules, default_style)
   if banks and #banks > 0 then
     for _, btxt in ipairs(banks) do outbuf[#outbuf+1] = btxt end
   else

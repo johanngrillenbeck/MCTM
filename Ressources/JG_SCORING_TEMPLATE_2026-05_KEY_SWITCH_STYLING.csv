@@ -1,0 +1,57 @@
+Name Contains;i;c
+Standard;note-quarter;default
+Default Articulation;note-quarter;default
+Sustains + LEG;legato;legato
+Sustains;note-whole;long
+Sustains soft;light;long-light
+Sustains accented;accented-half;long-dark
+Sustains blurred;alt-wave-double;textured
+Espressivo long;bow-down;long
+Espressivo blurred;bow-down;textured
+Portato long;portato;long
+Portato short;portato;short
+Portato blurred;portato;textured
+Martele bold;accented-half;short
+Staccato;staccato;short
+Staccato blurred;staccato;textured
+Staccato bold;staccato;short-dark
+Staccato short;staccato;short-light
+Spiccato;spiccato;short
+Spiccato serial;spiccato;short
+Spiccato short;spiccato;short-light
+Spiccato blurred;spiccato;textured
+Pizzicato;pizz;short
+Doubles;note-sixteenth;short
+Triplets;note-sixteenth;short
+Ostinato Arp + LEG;ricochet;legato
+Ostinato Arp;ricochet;short
+Tremolo;tremolo;short
+Trills;trill;short
+Crescendo;crescendo;long
+Decrescendo;decrescendo;long
+Swells;note-whole;long
+Repetitions;note-sixteenth;short
+Sul tasto sustains;sul-tasto;long
+sul tasto sustains soft;sul-tasto;long-light
+Sul tasto portato;portato;long
+Sul tasto tremolo;tremolo;long
+Harmonics sustains;harmonics-natural;long
+Harmonics staccato;staccato-harmonics;long
+Harmonics tremolo;tremolo-harmonics;long
+Sul ponticello sustains + LEG;sul-pont;long
+Sul ponticello sustains;sul-pont;long
+Sul ponticello staccato;sul-pont;short
+Sul ponticello tremolo;tremolo;short
+Sul ponticello tremolo accented;tremolo;short
+Col legno;col-legno;short
+long;note-whole;long
+short;note-sixteenth;short
+rolls;tremolo;long
+portato;portato;long
+marcato;marcato-half;short
+stacc;staccato;short
+spicc;spiccato;short
+fx;fx;fx
+Playable runs;legato-runs;long
+Playable runs + LEG;legato-runs;legato
+Sforzando;sfz;long-dark
