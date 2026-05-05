@@ -192,24 +192,24 @@ ID;Articulation Name;Note
 15;Marcato long;25
 15;Marcato short;26
 15;Staccato;27
-16;Sustains + LEG;24
-16;Sustains;25
-16;Sustains soft;26
-16;Sustains accented;27
-16;Sustains bold;28
-16;Marcato long;29
-16;Marcato short;30
-16;Staccato;31
-16;Staccato short;32
-16;Repetitions 1/16 phrase;33
-16;Repetitions 1/16 continuous;34
-16;Repetitions triplets phrase;35
-16;Repetitions triplets continuous;36
-16;Fortepiano;37
-16;Crescendo long;38
-16;Crescendo short;39
-16;Swells long;40
-16;Swells short;41
+16;Sustains + LEG;0
+16;Sustains;1
+16;Sustains soft;2
+16;Sustains accented;3
+16;Sustains bold;4
+16;Marcato long;5
+16;Marcato short;6
+16;Staccato;7
+16;Staccato short;8
+16;Repetitions 1/16 phrase;9
+16;Repetitions 1/16 continuous;10
+16;Repetitions triplets phrase;11
+16;Repetitions triplets continuous;12
+16;Fortepiano;13
+16;Crescendo long;14
+16;Crescendo short;15
+16;Swells long;16
+16;Swells short;17
 17;Sustains + LEG;24
 17;Sustains;25
 17;Sustains soft;26
