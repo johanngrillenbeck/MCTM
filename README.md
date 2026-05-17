@@ -15,22 +15,19 @@ Each virtual instrument exists as a pairing of tracks: one or more audio tracks 
 
 ### Prefix Overview
 
-- `A` : Audio track -> shown only in Mixer by default but can be shown in TCP via script (e.g. when you have bounced MIDI to Audio)
-- `M` : MIDI track -> never shown in Mixer
-- `D` : Disabled track (ignored by the system)
-- `CTRL` : Track that hosts something like a VEPro instance (VSTi)
-
+- `CTRL`: Track that hosts something like a VEPro instance (VSTi). Routed to and from a CTRL track are tracks with the prefixes
+    - `A`: Audio track -> shown only in Mixer by default but can be shown in TCP via script (e.g. when you have bounced MIDI to Audio)
+    - `M`: MIDI track -> never shown in Mixer
+- `N`: Native track (VSTi hosted on an FX slot in Reaper -> traditional setup without using VEpro)
+- `D`: Disabled track (ignored by the MCTM scripts, such as "show all M tracks")
+- My CURSE script collection already introduces the following prefixes, which MCTM also relies on:
+    - `B`: Bus track (instrument groups for STEM-Export)
+    - `FX`: Send FX track (ideally routed to the same Bus as the source track to keep STEM export tidy)
 
 # Included scripts
 note: for easier reading the `jg_MCTM_` prefix and filename (.lua) are ommited.
 
 ## Building your template
-
-### Recieve from CTRL - ascending quad audio no midi
-Route audio from a selected CTRL track into selected audio tracks using ascending quad channel groups; does not route MIDI.
-
-### Send to CTRL - ascending MIDI busses no audio
-Route MIDI from selected tracks into a selected CTRL track using ascending MIDI busses; audio routing is disabled.
 
 ### Build tracks from CSV
 Create project tracks from the CSV template, naming them and setting up MIDI/audio group structure.
@@ -60,7 +57,7 @@ Toggle TCP visibility for all MIDI (`M`) tracks in the project to quickly declut
 
 ## Helper script
 
-This script is required for other scripts to work. You would not execute it from Reaper directly.
+This script is required for other scripts to work. It is not present in the action list.
 
 Key functions (brief):
 
@@ -85,5 +82,9 @@ Returns a table that, for each instrument, provides the existing track labels fo
 ### Set all CTRL Envelopes Active
 Due to VEpro tending to crash when activating many instruments at once via envelopes, I will not develop this further until I have tried VEpro 8.
 
+Update May 2026: Maybe the issue was Reaper's "Flush FX on start", which is activated by default for all VSTis and has to be disabled in each plugin's compatibility options.
+
 ### Toggle VEPro Activation depending on D Prefix
 Due to VEpro tending to crash when activating many instruments at once via envelopes, I will not develop this further until I have tried VEpro 8.
+
+Update May 2026: Maybe the issue was Reaper's "Flush FX on start", which is activated by default for all VSTis and has to be disabled in each plugin's compatibility options.
