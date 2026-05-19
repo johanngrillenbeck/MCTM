@@ -1,3 +1,4 @@
 .vscode/**
 .jg/**
 *.reabank
+.gems/**
