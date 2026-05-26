@@ -1,6 +1,8 @@
 # Media Composer Template Manager (MCTM)
 
-MCTM is a collection of Reaper scripts designed to make working with large orchestral templates easier.
+MCTM is a collection of Reaper scripts designed to make working with large orchestral templates easier. It is tailored to a workflow using Vienna Ensemble Pro (VEpro) as a plugin host, which (without this proposed workflow) leads to a lot of visual clutter in Reaper due to the need of separate tracks to handle MIDI sequencing and audio return.
+
+It is designed to be operated with stereo or four-channel (4.0) instrument-audio, since quad (Left, Right, Surround Left, Surround Right) is my preferred way of delivering a surround sound music mix to a film production.[^1]
 
 ## Design Philosophy
 1. Use CSV files as a single source of truth for template creation.
@@ -28,7 +30,7 @@ MCTM is a collection of Reaper scripts designed to make working with large orche
 - Same goes for the occasional "native" track ("N" prefix: a VSTi where Midi Sequencing and Audio return from the plugin should live on the same track). This allows us e.g. to use the same script to freeze a track for a complex multitrack VEpro Instrument (e.g. Drums with multiple return audio tracks) and a simple VSTi that lives directly on a track. Just one keyboard shortcut to memorize, and it should also handle all types of "multi-selections" so you can freeze tracks in parallel, which Reaper allows to be very fast, because it is able to render in parallel.
 
 # Included scripts
-note: for easier reading the `jg_MCTM_` prefix and filename (.lua) are ommited.
+Note: for easier reading the `jg_MCTM_` prefix and `.lua` extension are ommited, otherwise these headlines correspond to the exact script names.
 
 ## Building your template
 
@@ -91,3 +93,5 @@ Update May 2026: Maybe the issue was Reaper's "Flush FX on start", which is acti
 Due to VEpro tending to crash when activating many instruments at once via envelopes, I will not develop this further until I have tried VEpro 8.
 
 Update May 2026: Maybe the issue was Reaper's "Flush FX on start", which is activated by default for all VSTis and has to be disabled in each plugin's compatibility options.
+
+[^1]: 4.0 in this case is not to be confused with "Quadraphonic" or "Higher Order Ambisonics". The four channels map exactly to a standard 5.1 surround setup. The center channel is reserved for dialogue, the LFE for, well, Low Frequency Effects. Do note that in a 5.1 setup, the "surrounds" are not behind the listener, but more or less just "next to their ears". True "rears" are only introduced with 7.1. What this means is that you can use what in e.g. Orchestral Tools libraries is literally called "surround" mics perfectly for your surround channels, without switching around the panning or anything. Left is still left, right is still right, it's just that the speakers are placed at a more extreme position.
