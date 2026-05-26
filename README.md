@@ -29,6 +29,16 @@ It is designed to be operated with stereo or four-channel (4.0) instrument-audio
 - Same goes for tracks that the user designates FX Sends and Busses.
 - Same goes for the occasional "native" track ("N" prefix: a VSTi where Midi Sequencing and Audio return from the plugin should live on the same track). This allows us e.g. to use the same script to freeze a track for a complex multitrack VEpro Instrument (e.g. Drums with multiple return audio tracks) and a simple VSTi that lives directly on a track. Just one keyboard shortcut to memorize, and it should also handle all types of "multi-selections" so you can freeze tracks in parallel, which Reaper allows to be very fast, because it is able to render in parallel.
 
+### Why not just use the Track Manager (Ctrl + Shift + M)
+- The selection you make in the Track Manager must be applied to the tracks with an additional click that cannot be scripted.
+    - The track manager shows any and all tracks in the project, which might be very cluttered
+	- Although I coded the scripts to work regardless of which of the track pairs you select, being shown all tracks in the track manager doubles the list of entries to be even more humongous than it already is with a huge temple
+	- The custom GUI allows me to introduce usability improvements such as
+		- Select all
+		- Deselect all
+		- Filter by instrument groups or libraries or VST Instances, etc. 
+		- Apply certain commands 
+
 # Included scripts
 Note: for easier reading the `jg_MCTM_` prefix and `.lua` extension are ommited, otherwise these headlines correspond to the exact script names.
 
