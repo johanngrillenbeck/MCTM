@@ -3,15 +3,9 @@
 MCTM is a collection of Reaper scripts designed to make working with large orchestral templates easier.
 
 ## Design Philosophy
-
-### Instruments
-- Reaper does not distinguish between Audio and MIDI tracks. We need a Midi Track and Audio Track(s) per Instrument, so:
-- Every track gets *prefixes* (A and M) so the status of a track is stored in a human-readable format.
-
-Each virtual instrument exists as a pairing of tracks: one or more audio tracks and one MIDI track. The `D` prefix tells the system that the user does not need that track pair; display/filter functions ignore such tracks. There is a script that allows you to "disable" a track. This hides it from view and applies the D Prefix.
-
-### FX and Bus Tracks
-- Same goes for tracks that the user designates FX Sends and Busses. 
+1. Use CSV files as a single source of truth for template creation.
+2. Store track type and status in a prefix that is human readable and can influence script logic. 
+3. Be interoperable with other community scripts (e.g. Reaticulate).
 
 ### Prefix Overview
 
@@ -23,6 +17,15 @@ Each virtual instrument exists as a pairing of tracks: one or more audio tracks 
 - My CURSE script collection already introduces the following prefixes, which MCTM also relies on:
     - `B`: Bus track (instrument groups for STEM-Export)
     - `FX`: Send FX track (ideally routed to the same Bus as the source track to keep STEM export tidy)
+
+### Why even bother with Prefixes?
+- Reaper does not distinguish between track types. In other DAWs, there are "Instrument" tracks (for VSTi), Send FX tracks, Bus tracks, and so on.
+- This behavior of Reaper is actually great, because it's flexible. But this script collection was born out of a frustration that arises once you try to pair Reaper (or any DAW for that matter!) with Vienna Ensemble: The track count explodes! For VEpro in Reaper, we need a Midi Track to sequence and at least one return audio track per Instrument.
+- So this collection aims to offer smart visibility actions to help you navigate your projects that are based on a template with a humongous track count (I have 800+ tracks).
+- For this to work, we need to store the type and status of a track in a format that is both human readable and script-logic-ready. Introducing: Prefixes.
+- For VEpro specifically: each virtual instrument exists as a group of tracks: one or more audio tracks and one MIDI track. The `D` prefix tells the system that the user does not need that track pair; display/filter functions ignore such tracks. There is a script that allows you to "disable" a track. This hides it from view and applies the D Prefix.
+- Same goes for tracks that the user designates FX Sends and Busses.
+- Same goes for the occasional "native" track ("N" prefix: a VSTi where Midi Sequencing and Audio return from the plugin should live on the same track). This allows us e.g. to use the same script to freeze a track for a complex multitrack VEpro Instrument (e.g. Drums with multiple return audio tracks) and a simple VSTi that lives directly on a track. Just one keyboard shortcut to memorize, and it should also handle all types of "multi-selections" so you can freeze tracks in parallel, which Reaper allows to be very fast, because it is able to render in parallel.
 
 # Included scripts
 note: for easier reading the `jg_MCTM_` prefix and filename (.lua) are ommited.
