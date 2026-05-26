@@ -7,3 +7,5 @@ gem "just-the-docs", "0.12.0" # pinned to the current release
 # gem "just-the-docs"        # always download the latest release
 
 gem "logger", "~> 1.7"
+
+gem "reapack-index", "~> 1.2"

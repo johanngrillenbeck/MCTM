@@ -11,6 +11,11 @@ in
 pkgs.mkShell {
   buildInputs = [
     pkgs.ruby_4_0
+    pkgs.cmake
+    pkgs.pkg-config
+    pkgs.openssl
+    pkgs.zlib
+    pkgs.pandoc
   ];
 
   # Put gems in the project directory instead of ~/.gem
