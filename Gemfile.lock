@@ -1,90 +1,31 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    addressable (2.9.0)
+    addressable (2.9.2)
       public_suffix (>= 2.0.2, < 8.0)
-    base64 (0.3.0)
-    bigdecimal (4.1.2)
-    colorator (1.1.0)
     colorize (0.8.1)
-    concurrent-ruby (1.3.6)
-    csv (3.3.5)
-    em-websocket (0.5.3)
-      eventmachine (>= 0.12.9)
-      http_parser.rb (~> 0)
-    eventmachine (1.2.7)
-    ffi (1.17.4-arm64-darwin)
-    ffi (1.17.4-x86_64-linux-gnu)
-    forwardable-extended (2.6.0)
     gitable (0.4.0)
       addressable (~> 2.2, >= 2.2.7)
-    google-protobuf (4.34.1-arm64-darwin)
-      bigdecimal
-      rake (~> 13.3)
-    google-protobuf (4.34.1-x86_64-linux-gnu)
-      bigdecimal
-      rake (~> 13.3)
-    http_parser.rb (0.8.1)
-    i18n (1.14.8)
-      concurrent-ruby (~> 1.0)
-    jekyll (4.4.1)
-      addressable (~> 2.4)
-      base64 (~> 0.2)
-      colorator (~> 1.0)
-      csv (~> 3.0)
-      em-websocket (~> 0.5)
-      i18n (~> 1.0)
-      jekyll-sass-converter (>= 2.0, < 4.0)
-      jekyll-watch (~> 2.0)
-      json (~> 2.6)
-      kramdown (~> 2.3, >= 2.3.1)
-      kramdown-parser-gfm (~> 1.0)
-      liquid (~> 4.0)
-      mercenary (~> 0.3, >= 0.3.6)
-      pathutil (~> 0.9)
-      rouge (>= 3.0, < 5.0)
-      safe_yaml (~> 1.0)
-      terminal-table (>= 1.8, < 4.0)
-      webrick (~> 1.7)
-    jekyll-include-cache (0.2.1)
-      jekyll (>= 3.7, < 5.0)
-    jekyll-sass-converter (3.1.0)
-      sass-embedded (~> 1.75)
-    jekyll-seo-tag (2.9.0)
-      jekyll (>= 3.8, < 5.0)
-    jekyll-watch (2.2.1)
-      listen (~> 3.0)
-    json (2.19.5)
-    just-the-docs (0.12.0)
-      jekyll (>= 3.8.5)
-      jekyll-include-cache
-      jekyll-seo-tag (>= 2.0)
-      rake (>= 12.3.1)
-    kramdown (2.5.2)
-      rexml (>= 3.4.4)
-    kramdown-parser-gfm (1.1.0)
-      kramdown (~> 2.0)
-    liquid (4.0.4)
-    listen (3.10.0)
-      logger
-      rb-fsevent (~> 0.10, >= 0.10.3)
-      rb-inotify (~> 0.9, >= 0.9.10)
-    logger (1.7.0)
-    mercenary (0.4.0)
     metaheader (2.0.1)
-    nokogiri (1.19.3-arm64-darwin)
+    nokogiri (1.19.7-aarch64-linux-gnu)
       racc (~> 1.4)
-    nokogiri (1.19.3-x86_64-linux-gnu)
+    nokogiri (1.19.7-aarch64-linux-musl)
+      racc (~> 1.4)
+    nokogiri (1.19.7-arm-linux-gnu)
+      racc (~> 1.4)
+    nokogiri (1.19.7-arm-linux-musl)
+      racc (~> 1.4)
+    nokogiri (1.19.7-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.19.7-x86_64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.19.7-x86_64-linux-gnu)
+      racc (~> 1.4)
+    nokogiri (1.19.7-x86_64-linux-musl)
       racc (~> 1.4)
     pandoc-ruby (2.1.4)
-    pathutil (0.16.2)
-      forwardable-extended (~> 2.6)
     public_suffix (7.0.5)
     racc (1.8.1)
-    rake (13.4.2)
-    rb-fsevent (0.11.2)
-    rb-inotify (0.11.1)
-      ffi (~> 1.0)
     reapack-index (1.2.6)
       addressable (~> 2.4)
       colorize (~> 0.7)
@@ -94,29 +35,42 @@ GEM
       pandoc-ruby (= 2.1.4)
       rugged (~> 1.0)
       stable_sort (~> 1.1)
-    rexml (3.4.4)
-    rouge (4.7.0)
-    rugged (1.9.0)
-    safe_yaml (1.0.5)
-    sass-embedded (1.99.0-arm64-darwin)
-      google-protobuf (~> 4.31)
-    sass-embedded (1.99.0-x86_64-linux-gnu)
-      google-protobuf (~> 4.31)
+    rugged (1.9.6)
     stable_sort (1.1.0)
-    terminal-table (3.0.2)
-      unicode-display_width (>= 1.1.1, < 3)
-    unicode-display_width (2.6.0)
-    webrick (1.9.2)
 
 PLATFORMS
+  aarch64-linux-gnu
+  aarch64-linux-musl
+  arm-linux-gnu
+  arm-linux-musl
   arm64-darwin
+  x86_64-darwin
   x86_64-linux-gnu
+  x86_64-linux-musl
 
 DEPENDENCIES
-  jekyll (~> 4.4.1)
-  just-the-docs (= 0.12.0)
-  logger (~> 1.7)
   reapack-index (~> 1.2)
 
+CHECKSUMS
+  addressable (2.9.2) sha256=9117c7e7d6ee07230e75ce41fb9401ae55354dc654fcd0e862ba41d539e9a610
+  bundler (4.0.23) sha256=407ba8a1d928f412847f819aa5f8b6aef7c59fb51feb517112af8a165487287b
+  colorize (0.8.1) sha256=0ba0c2a58232f9b706dc30621ea6aa6468eeea120eb6f1ccc400105b90c4798c
+  gitable (0.4.0) sha256=69d42acf2e6c75ab417d0652dc1475bebc725daff70e369f417d94dfc5503743
+  metaheader (2.0.1) sha256=1d0dfbc1370e5b261772b9e1404d3352340692b751f6d86e704fb15723a40451
+  nokogiri (1.19.7-aarch64-linux-gnu) sha256=8f5e15d299602456406e1f03a9f3456cceb33a0722811e818d2ee2214eb4c84a
+  nokogiri (1.19.7-aarch64-linux-musl) sha256=efe0c3602e6e54521bc21c681930ce5568e2d11203de17400710b2b3ca2e4cb4
+  nokogiri (1.19.7-arm-linux-gnu) sha256=7fd1907125691aa89e838cc91161761c758b4e17bb32f0dd9b5515a82cc759af
+  nokogiri (1.19.7-arm-linux-musl) sha256=28d0ff0c87b6bb2e56580323a6fb049d5d4a02b94f0958fdd47e9ac146991c77
+  nokogiri (1.19.7-arm64-darwin) sha256=f27d7f25f4873fbc3aa35a2cc2fb680c98555fec1925348da439d0869d541142
+  nokogiri (1.19.7-x86_64-darwin) sha256=508e81e8c5f84aaa240dce981bf1c43faae60808726f0ce7024ee92effc5cafe
+  nokogiri (1.19.7-x86_64-linux-gnu) sha256=25865ccb462f714e712fdf8906fde07849cb6704a808e3d629d75baa5af5dd3b
+  nokogiri (1.19.7-x86_64-linux-musl) sha256=464d1f3dfb0d53cf54c0c6a7e23e8e91cf68ec3cafc2b27dc4a7682f2d9bf546
+  pandoc-ruby (2.1.4) sha256=245585c3141e0c4fa65e5050d75598e7072699e64f30bb4392c11e13852bf1f8
+  public_suffix (7.0.5) sha256=1a8bb08f1bbea19228d3bed6e5ed908d1cb4f7c2726d18bd9cadf60bc676f623
+  racc (1.8.1) sha256=4a7f6929691dbec8b5209a0b373bc2614882b55fc5d2e447a21aaa691303d62f
+  reapack-index (1.2.6) sha256=857040166a7d16d71a079bd1f9dae3e28bd5aaee242880b48a8a377e0e3e175a
+  rugged (1.9.6) sha256=c6e45250e51cdf19f6130d050e280ba8d6af475d4c76580f91377a59fe23d3c7
+  stable_sort (1.1.0) sha256=2bdc776be0168ae27a03ed3c72173702f61d63bd8d7bc839c8600a8a125f7cbc
+
 BUNDLED WITH
-  4.0.6
+  4.0.23

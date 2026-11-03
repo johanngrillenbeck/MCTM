@@ -1,11 +1,7 @@
-source 'https://rubygems.org'
+# frozen_string_literal: true
 
-gem "jekyll", "~> 4.4.1" # installed by `gem jekyll`
-# gem "webrick"        # required when using Ruby >= 3 and Jekyll <= 4.2.2
+source "https://rubygems.org"
 
-gem "just-the-docs", "0.12.0" # pinned to the current release
-# gem "just-the-docs"        # always download the latest release
-
-gem "logger", "~> 1.7"
+# gem "rails"
 
 gem "reapack-index", "~> 1.2"
