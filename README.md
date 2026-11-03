@@ -9,6 +9,12 @@ It is designed to be operated with stereo or four-channel (4.0) instrument-audio
 2. Store track type and status in a prefix that is human readable and can influence script logic. 
 3. Be interoperable with other community scripts (e.g. Reaticulate).
 
+## State of the project
+
+MCTM is currently under active development during my free time inbetween music projects. I actually use it on a daily basis, but I would **not** encourage adoption just yet.
+I consider myself still in the research phase for the best way to set certain standards, especially when it comes to the global unified template CSV.
+But if you somehow stumbled upon this now, have a read through and please do give me feedback on what you see and on how useful you imagine the functionality to be like.
+
 ### Prefix Overview
 
 - `CTRL`: Track that hosts something like a VEPro instance (VSTi). Routed to and from a CTRL track are tracks with the prefixes
