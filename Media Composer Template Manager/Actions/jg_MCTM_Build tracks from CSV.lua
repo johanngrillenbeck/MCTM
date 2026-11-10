@@ -102,8 +102,7 @@ for idx, line in ipairs(lines) do
     if line:match("^%s*$") then goto cont2 end
     local fields = split_semicolon(line)
 
-    -- New CSV layout (current):
-    -- CTRL; Library Prefix; Track Name; Audio Send To; From VE Audiotrack; Midi Bus; Midi Channel; Patch; Player/Instrument; Key Sw ID
+    -- Current CSV layout also includes Loopback Name and Loopback Ch in columns 11-12.
     local ctrl = trim(fields[1] or "")
     local lib = trim(fields[2] or "")
     local tname = trim(fields[3] or "")
@@ -112,6 +111,8 @@ for idx, line in ipairs(lines) do
     local midi_bus = trim(fields[6] or "")
     local midi_chan = trim(fields[7] or "")
     local patch = trim(fields[8] or "")
+    local loopback_name = trim(fields[11] or "")
+    local loopback_chan = trim(fields[12] or "")
 
     -- Back-compat for older layouts with fewer columns.
     if #fields < 8 then
@@ -140,6 +141,8 @@ for idx, line in ipairs(lines) do
         midi_bus = midi_bus,
         midi_chan = midi_chan,
         patch = patch,
+        loopback_name = loopback_name,
+        loopback_chan = loopback_chan,
     })
 
     ::cont2::
@@ -267,6 +270,8 @@ for _, rr in ipairs(raw_rows) do
     local midi_bus = trim(rr.midi_bus or "")
     local midi_chan = trim(rr.midi_chan or "")
     local patch = trim(rr.patch or "")
+    local loopback_name = trim(rr.loopback_name or "")
+    local loopback_chan = trim(rr.loopback_chan or "")
 
     local is_fx = (tostring(lib or ""):upper() == "FX")
 
@@ -290,14 +295,14 @@ for _, rr in ipairs(raw_rows) do
                     -- For multi-audio instruments, parent Audio Send To is authoritative.
                     bus = audio_send_to,
                 }
-                table.insert(rows, {type="multi_audio_parent", ctrl=ctrl, lib=lib, name=tname, ve=ve, midi_bus=midi_bus, midi_chan=midi_chan, audio_send_to=audio_send_to, parent=current_parent})
+                table.insert(rows, {type="multi_audio_parent", ctrl=ctrl, lib=lib, name=tname, ve=ve, midi_bus=midi_bus, midi_chan=midi_chan, audio_send_to=audio_send_to, loopback_name=loopback_name, loopback_chan=loopback_chan, parent=current_parent})
                 table.insert(instrument_items, {kind="multi_audio", parent=current_parent, children={}})
                 if audio_send_to ~= "" then bus_set[audio_send_to] = true end
             else
                 current_parent = nil
                 -- normal instrument pair row
                 if tname ~= "" then
-                    table.insert(rows, {type="pair", ctrl=ctrl, lib=lib, name=tname, ve=ve, midi_bus=midi_bus, midi_chan=midi_chan, audio_send_to=audio_send_to})
+                    table.insert(rows, {type="pair", ctrl=ctrl, lib=lib, name=tname, ve=ve, midi_bus=midi_bus, midi_chan=midi_chan, audio_send_to=audio_send_to, loopback_name=loopback_name, loopback_chan=loopback_chan})
                     if audio_send_to ~= "" then bus_set[audio_send_to] = true end
                     table.insert(instrument_items, {kind="pair", ctrl=ctrl, lib=lib, name=tname, ve=ve, midi_bus=midi_bus, audio_send_to=audio_send_to})
                 end
@@ -525,6 +530,98 @@ local function find_track_by_name(name)
     return nil
 end
 
+-- Resolve MIDI input names against REAPER's current device list each run.
+local midi_input_indices_by_name = nil
+local function get_midi_input_indices_by_name()
+    if midi_input_indices_by_name then return midi_input_indices_by_name end
+
+    midi_input_indices_by_name = {}
+    if type(reaper.GetNumMIDIInputs) ~= "function" or type(reaper.GetMIDIInputName) ~= "function" then
+        return midi_input_indices_by_name
+    end
+
+    local count = reaper.GetNumMIDIInputs()
+    for device_index = 0, (tonumber(count) or 0) - 1 do
+        local ok, device_name = reaper.GetMIDIInputName(device_index, "")
+        if ok and type(device_name) == "string" and device_name ~= "" then
+            local indices = midi_input_indices_by_name[device_name] or {}
+            indices[#indices + 1] = device_index
+            midi_input_indices_by_name[device_name] = indices
+        end
+    end
+    return midi_input_indices_by_name
+end
+
+-- Apply the CSV's hardware MIDI input and always map it to channel 1.
+-- A source channel of 1-16 is encoded in I_RECINPUT; the track chunk's
+-- MIDI_INPUT_CHANMAP value 0 maps any incoming channel to MIDI channel 1.
+local function ensure_m_track_midi_input(track, track_name, device_name, source_channel)
+    device_name = trim(device_name or "")
+    source_channel = trim(source_channel or "")
+    if device_name == "" or not source_channel:match("^%d+$") then
+        dbg(string.format("Warning: no complete Loopback Name/Ch for %s; preserving existing MIDI input.", track_name))
+        return false
+    end
+
+    local channel = tonumber(source_channel)
+    if not channel or channel < 1 or channel > 16 then
+        dbg(string.format("Warning: invalid Loopback Ch '%s' for %s; expected 1-16, preserving existing MIDI input.", source_channel, track_name))
+        return false
+    end
+
+    local matching_indices = get_midi_input_indices_by_name()[device_name]
+    if not matching_indices or #matching_indices == 0 then
+        dbg(string.format("Warning: MIDI input '%s' unavailable for %s; preserving existing MIDI input.", device_name, track_name))
+        return false
+    end
+    if #matching_indices > 1 then
+        dbg(string.format("Warning: MIDI input name '%s' is ambiguous for %s; preserving existing MIDI input.", device_name, track_name))
+        return false
+    end
+
+    local ok_chunk, chunk = reaper.GetTrackStateChunk(track, "", false)
+    if not ok_chunk or type(chunk) ~= "string" then
+        dbg(string.format("Warning: could not read track state for %s; preserving existing MIDI input.", track_name))
+        return false
+    end
+
+    -- Update an existing map setting, or insert one if the track has none.
+    local updated_chunk, map_count = chunk:gsub("MIDI_INPUT_CHANMAP%s+%-?%d+", "MIDI_INPUT_CHANMAP 0")
+    if map_count == 0 then
+        local insert_pos = updated_chunk:find("\nMIDIOUT") or updated_chunk:find("\nNAME")
+        if insert_pos then
+            updated_chunk = updated_chunk:sub(1, insert_pos)
+                .. "MIDI_INPUT_CHANMAP 0\n"
+                .. updated_chunk:sub(insert_pos + 1)
+        else
+            updated_chunk = "MIDI_INPUT_CHANMAP 0\n" .. updated_chunk
+        end
+    end
+
+    if updated_chunk ~= chunk then
+        local set_chunk_ok = reaper.SetTrackStateChunk(track, updated_chunk, false)
+        if not set_chunk_ok then
+            dbg(string.format("Warning: could not set channel-1 mapping for %s; MIDI input was not changed.", track_name))
+            return false
+        end
+    end
+
+    -- MIDI I_RECINPUT: bit 12 selects MIDI, bits 5-10 select device, low
+    -- five bits select the source channel (1-16; 0 means all channels).
+    local desired_input = 4096 + matching_indices[1] * 32 + channel
+    local current_input = tonumber(reaper.GetMediaTrackInfo_Value(track, "I_RECINPUT"))
+    if current_input ~= desired_input then
+        local set_input_ok = reaper.SetMediaTrackInfo_Value(track, "I_RECINPUT", desired_input)
+        if not set_input_ok then
+            dbg(string.format("Warning: failed to set MIDI input '%s' channel %d for %s.", device_name, channel, track_name))
+            return false
+        end
+    end
+
+    dbg(string.format("  Ensured MIDI input for %s: %s, channel %d, mapped to channel 1.", track_name, device_name, channel))
+    return true
+end
+
 local function send_has_dest_and_chans(src, dest, src_chan, dst_chan)
     local ns = reaper.GetTrackNumSends(src, 0)
     -- precompute dest name for comparison
@@ -714,6 +811,8 @@ for i, r in ipairs(rows) do
     local tname = tostring(r.name or "")
     local ve = tostring(r.ve or "")
     local midi_bus = tonumber(r.midi_bus) or nil
+    local loopback_name = tostring(r.loopback_name or "")
+    local loopback_chan = tostring(r.loopback_chan or "")
 
     if tname == "" then goto skip end
 
@@ -862,6 +961,8 @@ for i, r in ipairs(rows) do
             pcall(function() reaper.SetMediaTrackInfo_Value(M, "B_SHOWINMIXER", 0) end)
             dbg("  Set newly created M parent track to deactivated and hidden: " .. newMname)
         end
+
+        ensure_m_track_midi_input(M, M_name, loopback_name, loopback_chan)
 
         -- Optional: apply color based on parent bus
         do
@@ -1089,6 +1190,8 @@ for i, r in ipairs(rows) do
         dbg("  Set newly created M track to deactivated and hidden: " .. newMname)
         -- color will be applied after routing is processed (see below)
     end
+
+    ensure_m_track_midi_input(M, M_name, loopback_name, loopback_chan)
 
     -- routing: A -> its Audio Bus (if specified)
     local bus_name = r.audio_send_to or ""
