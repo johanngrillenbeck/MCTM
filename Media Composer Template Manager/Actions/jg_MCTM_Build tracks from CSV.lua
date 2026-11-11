@@ -622,187 +622,283 @@ local function ensure_m_track_midi_input(track, track_name, device_name, source_
     return true
 end
 
+local function get_send_value(track, category, sendidx, parameter)
+    local ok, value = pcall(reaper.GetTrackSendInfo_Value, track, category, sendidx, parameter)
+    if ok then return tonumber(value) end
+    return nil
+end
+
+local function get_br_send_value(track, category, sendidx, parameter)
+    if type(reaper.BR_GetSetTrackSendInfo) ~= "function" then return nil end
+    local ok, value = pcall(reaper.BR_GetSetTrackSendInfo, track, category, sendidx, parameter, false, 0)
+    if ok then return tonumber(value) end
+    return nil
+end
+
+local function set_br_send_value(track, category, sendidx, parameter, value)
+    if type(reaper.BR_GetSetTrackSendInfo) ~= "function" then return false end
+    local ok = pcall(reaper.BR_GetSetTrackSendInfo, track, category, sendidx, parameter, true, value)
+    return ok
+end
+
+-- REAPER's core send-info API returns actual track pointers for P_DESTTRACK
+-- and P_SRCTRACK. These are safer identifiers than track names, which need
+-- not be unique. I_RECV_IDX is not a GetTrackSendInfo_Value attribute, so
+-- find receives by enumerating the destination's receive list instead.
+local function send_targets_track(src, dest, sendidx)
+    local send_dest = reaper.GetTrackSendInfo_Value(src, 0, sendidx, "P_DESTTRACK")
+    if send_dest ~= dest then return false end
+
+    local receive_count = reaper.GetTrackNumSends(dest, -1)
+    for receive_idx = 0, receive_count - 1 do
+        local receive_src = reaper.GetTrackSendInfo_Value(dest, -1, receive_idx, "P_SRCTRACK")
+        if receive_src == src then return true end
+    end
+    return false
+end
+
+-- Verify that send-side and receive-side views report the same routing and
+-- send controls. Match a receive by its source pointer and mirrored metadata;
+-- receive order is independent of send order and there is no send-side receive
+-- index exposed by GetTrackSendInfo_Value.
+local function send_receive_metadata_matches(src, dest, sendidx)
+    local fields = {
+        "I_SRCCHAN", "I_DSTCHAN", "D_VOL", "D_PAN", "D_PANLAW",
+        "B_MUTE", "B_PHASE", "B_MONO", "I_SENDMODE",
+    }
+    local midi_fields = {"I_MIDI_SRCBUS", "I_MIDI_DSTBUS", "I_MIDI_SRCCHAN", "I_MIDI_DSTCHAN"}
+    local send_link = get_br_send_value(src, 0, sendidx, "I_MIDI_LINK_VOLPAN")
+    local receive_count = reaper.GetTrackNumSends(dest, -1)
+
+    for receive_idx = 0, receive_count - 1 do
+        if reaper.GetTrackSendInfo_Value(dest, -1, receive_idx, "P_SRCTRACK") == src then
+            local matches = true
+            for _, field in ipairs(fields) do
+                local send_value = get_send_value(src, 0, sendidx, field)
+                local receive_value = get_send_value(dest, -1, receive_idx, field)
+                if send_value == nil or receive_value == nil or send_value ~= receive_value then
+                    matches = false
+                    break
+                end
+            end
+
+            if matches then
+                for _, field in ipairs(midi_fields) do
+                    local send_value = get_br_send_value(src, 0, sendidx, field)
+                    local receive_value = get_br_send_value(dest, -1, receive_idx, field)
+                    if send_value == nil or receive_value == nil or send_value ~= receive_value then
+                        matches = false
+                        break
+                    end
+                end
+            end
+
+            if matches and send_link ~= nil then
+                local receive_link = get_br_send_value(dest, -1, receive_idx, "I_MIDI_LINK_VOLPAN")
+                if receive_link ~= nil and send_link ~= receive_link then
+                    matches = false
+                end
+            end
+
+            if matches then return true end
+        end
+    end
+    return false
+end
+
+local function set_audio_send_metadata(src, sendidx, src_chan, dst_chan)
+    local changed = false
+    local function set_if_different(parameter, value)
+        local current = get_send_value(src, 0, sendidx, parameter)
+        if current == nil or current ~= value then
+            reaper.SetTrackSendInfo_Value(src, 0, sendidx, parameter, value)
+            changed = true
+        end
+    end
+
+    set_if_different("I_SRCCHAN", src_chan)
+    set_if_different("I_DSTCHAN", dst_chan)
+    for _, parameter in ipairs({"I_MIDI_SRCBUS", "I_MIDI_DSTBUS", "I_MIDI_SRCCHAN", "I_MIDI_DSTCHAN"}) do
+        if get_br_send_value(src, 0, sendidx, parameter) ~= -1 then
+            set_br_send_value(src, 0, sendidx, parameter, -1)
+            changed = true
+        end
+    end
+    set_if_different("D_VOL", 1.0)
+    set_if_different("B_MUTE", 0.0)
+    return changed
+end
+
+local function audio_route_matches(src, dest, sendidx, src_chan, dst_chan)
+    return get_send_value(src, 0, sendidx, "I_SRCCHAN") == src_chan
+        and get_send_value(src, 0, sendidx, "I_DSTCHAN") == dst_chan
+        and get_br_send_value(src, 0, sendidx, "I_MIDI_SRCBUS") == -1
+        and get_br_send_value(src, 0, sendidx, "I_MIDI_DSTBUS") == -1
+        and get_br_send_value(src, 0, sendidx, "I_MIDI_SRCCHAN") == -1
+        and get_br_send_value(src, 0, sendidx, "I_MIDI_DSTCHAN") == -1
+        and send_receive_metadata_matches(src, dest, sendidx)
+end
+
+-- Keep one instance of a matching source/destination/channel route and remove
+-- duplicate instances. Remove from high indices down so indices remain valid.
+local function remove_duplicate_audio_routes(src, dest, src_chan, dst_chan, keep_idx)
+    local duplicates = {}
+    local count = reaper.GetTrackNumSends(src, 0)
+    for sendidx = 0, count - 1 do
+        if sendidx ~= keep_idx and send_targets_track(src, dest, sendidx)
+            and audio_route_matches(src, dest, sendidx, src_chan, dst_chan) then
+            table.insert(duplicates, sendidx)
+        end
+    end
+    for i = #duplicates, 1, -1 do
+        reaper.RemoveTrackSend(src, 0, duplicates[i])
+    end
+end
+
+-- Match exact endpoints and channel mapping. Repair the script-managed MIDI,
+-- volume, and mute properties on a match, and collapse duplicate routes.
 local function send_has_dest_and_chans(src, dest, src_chan, dst_chan)
-    local ns = reaper.GetTrackNumSends(src, 0)
-    -- precompute dest name for comparison
-    local dest_name = nil
-    pcall(function() local ok, n = reaper.GetTrackName(dest) if ok then dest_name = n end end)
-
-    for s = 0, ns-1 do
-        -- get the destination reported by BR
-        local ok, dst = pcall(reaper.BR_GetSetTrackSendInfo, src, 0, s, "P_DESTTRACK", false, 0)
-        if not ok or not dst then goto continue_send end
-
-        -- determine if this send points to our dest (compare name)
-        local same = false
-        local okn, n = pcall(reaper.GetTrackName, dst)
-        if okn and n and dest_name and n == dest_name then same = true end
-
-        if same then
-            -- try to read channel mapping via BR
-            local ok1, vsrc = pcall(reaper.BR_GetSetTrackSendInfo, src, 0, s, "I_SRCCHAN", false, 0)
-            local ok2, vdst = pcall(reaper.BR_GetSetTrackSendInfo, src, 0, s, "I_DSTCHAN", false, 0)
-            local vsrcn = (ok1 and tonumber(vsrc)) or nil
-            local vdstn = (ok2 and tonumber(vdst)) or nil
-
-            -- exact match
-            if vsrcn and vdstn and vsrcn == tonumber(src_chan) and vdstn == tonumber(dst_chan) then return true end
-
-            -- lenient pair-match: if existing send covers either channel of the stereo pair, treat as present
-            if vsrcn and vdstn then
-                if (vsrcn == tonumber(src_chan) or vsrcn == tonumber(src_chan)+1) and (vdstn == tonumber(dst_chan) or vdstn == tonumber(dst_chan)+1) then
-                    return true
-                end
-            end
-
-            -- fallback: try core API to get numeric channel values
-            local okf, fsrc = pcall(reaper.GetTrackSendInfo_Value, src, 0, s, "I_SRCCHAN")
-            local okg2, fdst = pcall(reaper.GetTrackSendInfo_Value, src, 0, s, "I_DSTCHAN")
-            local fsrcn = (okf and tonumber(fsrc)) or nil
-            local fdstn = (okg2 and tonumber(fdst)) or nil
-            if fsrcn and fdstn then
-                if fsrcn == tonumber(src_chan) and fdstn == tonumber(dst_chan) then return true end
-                if (fsrcn == tonumber(src_chan) or fsrcn == tonumber(src_chan)+1) and (fdstn == tonumber(dst_chan) or fdstn == tonumber(dst_chan)+1) then return true end
-            end
-        end
-        ::continue_send::
-    end
-
-    return false
-end
-
-local function send_has_midi(src, dest, midi_dstbus)
-    local ns = reaper.GetTrackNumSends(src, 0)
-    -- precompute dest name
-    local dest_name = nil
-    pcall(function() local ok, n = reaper.GetTrackName(dest) if ok then dest_name = n end end)
-    for s = 0, ns-1 do
-        local ok, dst = pcall(reaper.BR_GetSetTrackSendInfo, src, 0, s, "P_DESTTRACK", false, 0)
-        if ok then
-            local okn, n = pcall(reaper.GetTrackName, dst)
-            if okn and n and dest_name and n == dest_name then
-                local okm, mb = pcall(reaper.BR_GetSetTrackSendInfo, src, 0, s, "I_MIDI_DSTBUS", false, 0)
-                if okm and tonumber(mb) == tonumber(midi_dstbus) then return true end
-                -- fallback to core API
-                local okf, fmb = pcall(reaper.GetTrackSendInfo_Value, src, 0, s, "I_MIDI_DSTBUS")
-                if okf and tonumber(fmb) == tonumber(midi_dstbus) then return true end
+    src_chan = tonumber(src_chan) or 0
+    dst_chan = tonumber(dst_chan) or 0
+    local count = reaper.GetTrackNumSends(src, 0)
+    local matched_idx = nil
+    for sendidx = 0, count - 1 do
+        if send_targets_track(src, dest, sendidx) then
+            local current_src = get_send_value(src, 0, sendidx, "I_SRCCHAN")
+            local current_dst = get_send_value(src, 0, sendidx, "I_DSTCHAN")
+            local legacy_stereo_match = src_chan >= 1024
+                and current_src == src_chan - 1024
+                and current_dst == dst_chan
+            if (current_src == src_chan and current_dst == dst_chan) or legacy_stereo_match then
+                matched_idx = sendidx
+                break
             end
         end
     end
-    return false
+    if not matched_idx then return false end
+
+    set_audio_send_metadata(src, matched_idx, src_chan, dst_chan)
+    remove_duplicate_audio_routes(src, dest, src_chan, dst_chan, matched_idx)
+    return true
 end
 
--- check if a send exists from src track to dest track (any audio send)
-local function send_exists_to_dest(src, dest)
-    local ns = reaper.GetTrackNumSends(src, 0)
-    -- compare by name for robustness
-    local dest_name = nil
-    pcall(function() local ok, n = reaper.GetTrackName(dest) if ok then dest_name = n end end)
-    for s = 0, ns-1 do
-        local ok, dst = pcall(reaper.BR_GetSetTrackSendInfo, src, 0, s, "P_DESTTRACK", false, 0)
-        if ok and dst then
-            local okn, n = pcall(reaper.GetTrackName, dst)
-            if okn and n and dest_name and n == dest_name then return true end
-        end
-    end
-    return false
-end
-
--- check if dest track has any receives from src track (more robust in some hosts)
-local function receive_from_src_exists(src, dest)
-    local rcount = reaper.GetTrackNumSends(dest, -1)
-    if rcount == 0 then return false end
-    local ok_srcname, src_name = pcall(function() local ok2, tn = reaper.GetTrackName(src) if ok2 then return tn end end)
-    if not ok_srcname or not src_name then src_name = "" end
-    for i = 0, rcount-1 do
-        local ok, sptr = pcall(reaper.BR_GetSetTrackSendInfo, dest, -1, i, "P_SRCTRACK", false, 0)
-        if ok and sptr then
-            local okn, n = pcall(function() local ok2, tn = reaper.GetTrackName(sptr) if ok2 then return tn end end)
-            if okn and n and src_name ~= "" and n == src_name then return true end
-        end
-    end
-    return false
-end
-
-local function get_send_mapping(src, sendidx)
-    local vsrc = nil
-    local vdst = nil
-    do
-        local ok1, a = pcall(reaper.BR_GetSetTrackSendInfo, src, 0, sendidx, "I_SRCCHAN", false, 0)
-        local ok2, b = pcall(reaper.BR_GetSetTrackSendInfo, src, 0, sendidx, "I_DSTCHAN", false, 0)
-        if ok1 then vsrc = tonumber(a) end
-        if ok2 then vdst = tonumber(b) end
-    end
-    if vsrc == nil or vdst == nil then
-        local ok1, a = pcall(reaper.GetTrackSendInfo_Value, src, 0, sendidx, "I_SRCCHAN")
-        local ok2, b = pcall(reaper.GetTrackSendInfo_Value, src, 0, sendidx, "I_DSTCHAN")
-        if ok1 then vsrc = tonumber(a) end
-        if ok2 then vdst = tonumber(b) end
-    end
-    return vsrc, vdst
-end
-
--- Ensure a send exists from src->dest with the desired mapping.
--- If desired is mono and an existing send matches but is stereo, upgrade it to mono.
+-- Ensure a send exists from src->dest with the desired audio mapping. Legacy
+-- stereo sends at the same start can be upgraded when a mono source is wanted.
 local function ensure_audio_send(src, dest, desired_srcchan, desired_dstchan)
-    local desired_src_val = tonumber(desired_srcchan) or 0
-    local desired_dst_val = tonumber(desired_dstchan) or 0
-    local ns = reaper.GetTrackNumSends(src, 0)
-    local dest_name = nil
-    pcall(function() local ok, n = reaper.GetTrackName(dest) if ok then dest_name = n end end)
-    if not dest_name then dest_name = "" end
+    local desired_src = tonumber(desired_srcchan) or 0
+    local desired_dst = tonumber(desired_dstchan) or 0
+    local count = reaper.GetTrackNumSends(src, 0)
+    local matched_idx = nil
 
-    for s = 0, (ns or 0) - 1 do
-        local ok, dst = pcall(reaper.BR_GetSetTrackSendInfo, src, 0, s, "P_DESTTRACK", false, 0)
-        if ok and dst then
-            local okn, n = pcall(reaper.GetTrackName, dst)
-            if okn and n and n == dest_name then
-                local vsrc, vdst = get_send_mapping(src, s)
-                if vsrc ~= nil and vdst ~= nil then
-                    if vsrc == desired_src_val and vdst == desired_dst_val then
-                        return true, false
-                    end
+    for sendidx = 0, count - 1 do
+        if send_targets_track(src, dest, sendidx) then
+            local current_src = get_send_value(src, 0, sendidx, "I_SRCCHAN")
+            local current_dst = get_send_value(src, 0, sendidx, "I_DSTCHAN")
+            local legacy_stereo_match = desired_src >= 1024
+                and current_src == desired_src - 1024
+                and current_dst == desired_dst
+            if (current_src == desired_src and current_dst == desired_dst) or legacy_stereo_match then
+                matched_idx = sendidx
+                break
+            end
+        end
+    end
 
-                    -- If mono is desired, and existing mapping is stereo at same start/dst, upgrade to mono.
-                    local desired_mono = desired_src_val >= 1024
-                    if desired_mono then
-                        local desired_start0 = desired_src_val - 1024
-                        local existing_is_stereo = ((math.floor((tonumber(vsrc) or 0) / 1024)) == 0)
-                        if existing_is_stereo and tonumber(vsrc) == desired_start0 and tonumber(vdst) == desired_dst_val then
-                            pcall(function()
-                                reaper.BR_GetSetTrackSendInfo(src, 0, s, "I_SRCCHAN", true, desired_src_val)
-                                reaper.BR_GetSetTrackSendInfo(src, 0, s, "I_DSTCHAN", true, desired_dst_val)
-                                reaper.BR_GetSetTrackSendInfo(src, 0, s, "I_MIDI_SRCBUS", true, -1)
-                                reaper.BR_GetSetTrackSendInfo(src, 0, s, "I_MIDI_DSTBUS", true, -1)
-                                reaper.BR_GetSetTrackSendInfo(src, 0, s, "I_MIDI_SRCCHAN", true, -1)
-                                reaper.BR_GetSetTrackSendInfo(src, 0, s, "I_MIDI_DSTCHAN", true, -1)
-                                reaper.BR_GetSetTrackSendInfo(src, 0, s, "D_VOL", true, 1.0)
-                                reaper.BR_GetSetTrackSendInfo(src, 0, s, "B_MUTE", true, 0.0)
-                            end)
-                            return true, true
-                        end
-                    end
+    local created_send = false
+    if not matched_idx then
+        matched_idx = reaper.CreateTrackSend(src, dest)
+        if not matched_idx or matched_idx < 0 then return false, false end
+        created_send = true
+    end
+
+    local changed = set_audio_send_metadata(src, matched_idx, desired_src, desired_dst)
+    remove_duplicate_audio_routes(src, dest, desired_src, desired_dst, matched_idx)
+    return true, created_send or changed
+end
+
+local function midi_route_matches(src, dest, sendidx, src_bus, dst_bus, src_channel, dst_channel)
+    return get_send_value(src, 0, sendidx, "I_SRCCHAN") == -1
+        and get_send_value(src, 0, sendidx, "I_DSTCHAN") == -1
+        and get_br_send_value(src, 0, sendidx, "I_MIDI_SRCBUS") == src_bus
+        and get_br_send_value(src, 0, sendidx, "I_MIDI_DSTBUS") == dst_bus
+        and get_br_send_value(src, 0, sendidx, "I_MIDI_SRCCHAN") == src_channel
+        and get_br_send_value(src, 0, sendidx, "I_MIDI_DSTCHAN") == dst_channel
+        and send_receive_metadata_matches(src, dest, sendidx)
+end
+
+local function set_midi_send_metadata(src, sendidx, src_bus, dst_bus, src_channel, dst_channel)
+    local changed = false
+    local function set_core_if_different(parameter, value)
+        if get_send_value(src, 0, sendidx, parameter) ~= value then
+            reaper.SetTrackSendInfo_Value(src, 0, sendidx, parameter, value)
+            changed = true
+        end
+    end
+    local function set_br_if_different(parameter, value)
+        if get_br_send_value(src, 0, sendidx, parameter) ~= value then
+            set_br_send_value(src, 0, sendidx, parameter, value)
+            changed = true
+        end
+    end
+
+    set_core_if_different("I_SRCCHAN", -1)
+    set_core_if_different("I_DSTCHAN", -1)
+    set_br_if_different("I_MIDI_SRCBUS", src_bus)
+    set_br_if_different("I_MIDI_DSTBUS", dst_bus)
+    set_br_if_different("I_MIDI_SRCCHAN", src_channel)
+    set_br_if_different("I_MIDI_DSTCHAN", dst_channel)
+    set_core_if_different("D_VOL", 1.0)
+    set_core_if_different("B_MUTE", 0.0)
+    return changed
+end
+
+-- M->CTRL is a script-managed MIDI-only route. Reconcile all MIDI-only sends
+-- for this exact endpoint pair into one CSV-configured route; preserve any
+-- separate audio sends between the same tracks.
+local function ensure_midi_send(src, dest, midi_dstbus)
+    local src_bus = 1
+    local dst_bus = tonumber(midi_dstbus) or 0
+    local src_channel, dst_channel = 0, 0
+    local count = reaper.GetTrackNumSends(src, 0)
+    local midi_only_indices = {}
+    local exact_idx = nil
+
+    for sendidx = 0, count - 1 do
+        if send_targets_track(src, dest, sendidx) then
+            local midi_srcbus = get_br_send_value(src, 0, sendidx, "I_MIDI_SRCBUS")
+            local midi_dstbus_value = get_br_send_value(src, 0, sendidx, "I_MIDI_DSTBUS")
+            local midi_srcchan = get_br_send_value(src, 0, sendidx, "I_MIDI_SRCCHAN")
+            local midi_dstchan = get_br_send_value(src, 0, sendidx, "I_MIDI_DSTCHAN")
+            if (midi_srcbus ~= -1) or (midi_dstbus_value ~= -1)
+                or (midi_srcchan ~= -1) or (midi_dstchan ~= -1) then
+                table.insert(midi_only_indices, sendidx)
+                if midi_route_matches(src, dest, sendidx, src_bus, dst_bus, src_channel, dst_channel) then
+                    exact_idx = exact_idx or sendidx
                 end
             end
         end
     end
 
-    local sendidx = reaper.CreateTrackSend(src, dest)
-    if sendidx and sendidx >= 0 then
-        pcall(function()
-            reaper.BR_GetSetTrackSendInfo(src, 0, sendidx, "I_SRCCHAN", true, desired_src_val)
-            reaper.BR_GetSetTrackSendInfo(src, 0, sendidx, "I_DSTCHAN", true, desired_dst_val)
-            reaper.BR_GetSetTrackSendInfo(src, 0, sendidx, "I_MIDI_SRCBUS", true, -1)
-            reaper.BR_GetSetTrackSendInfo(src, 0, sendidx, "I_MIDI_DSTBUS", true, -1)
-            reaper.BR_GetSetTrackSendInfo(src, 0, sendidx, "I_MIDI_SRCCHAN", true, -1)
-            reaper.BR_GetSetTrackSendInfo(src, 0, sendidx, "I_MIDI_DSTCHAN", true, -1)
-            reaper.BR_GetSetTrackSendInfo(src, 0, sendidx, "D_VOL", true, 1.0)
-            reaper.BR_GetSetTrackSendInfo(src, 0, sendidx, "B_MUTE", true, 0.0)
-        end)
-        return true, true
+    local sendidx = exact_idx or midi_only_indices[1]
+    local created_send = false
+    if not sendidx then
+        sendidx = reaper.CreateTrackSend(src, dest)
+        if not sendidx or sendidx < 0 then return false end
+        created_send = true
     end
 
-    return false, false
+    local changed = set_midi_send_metadata(src, sendidx, src_bus, dst_bus, src_channel, dst_channel)
+    -- Delete stale/duplicate MIDI-only routes to this managed endpoint. Audio
+    -- sends are not included in midi_only_indices and are left untouched.
+    local remove_indices = {}
+    for _, candidate_idx in ipairs(midi_only_indices) do
+        if candidate_idx ~= sendidx then table.insert(remove_indices, candidate_idx) end
+    end
+    for i = #remove_indices, 1, -1 do
+        reaper.RemoveTrackSend(src, 0, remove_indices[i])
+    end
+
+    return true, created_send or changed
 end
 for i, r in ipairs(rows) do
     dbg(string.format("Processing entry %d: Type=%s | CTRL=%s | Lib=%s | Name=%s | VE=%s | MidiBus=%s | Bus=%s", i, tostring(r.type), tostring(r.ctrl), tostring(r.lib), tostring(r.name), tostring(r.ve), tostring(r.midi_bus), tostring(r.audio_send_to)))
@@ -877,13 +973,14 @@ for i, r in ipairs(rows) do
             if has_odd then
                 local last_src = pairs * 2
                 local last_dst = pairs * 2
+                local desired_src = ctrl_srcchan_value(last_src, true)
                 if last_src < MASTER_NCHANNELS then
-                    if not send_has_dest_and_chans(FX, bus_tr, last_src, last_dst) then
+                    if not send_has_dest_and_chans(FX, bus_tr, desired_src, last_dst) then
                         local sidx = reaper.CreateTrackSend(FX, bus_tr)
                         if sidx and sidx >= 0 then
                             dbg(string.format("  Created single-channel audio send from %s to bus %s (sendidx=%d src=%d)", FX_name, bus_name, sidx, last_src))
                             pcall(function()
-                                reaper.BR_GetSetTrackSendInfo(FX, 0, sidx, "I_SRCCHAN", true, last_src)
+                                reaper.BR_GetSetTrackSendInfo(FX, 0, sidx, "I_SRCCHAN", true, desired_src)
                                 reaper.BR_GetSetTrackSendInfo(FX, 0, sidx, "I_DSTCHAN", true, last_dst)
                                 reaper.BR_GetSetTrackSendInfo(FX, 0, sidx, "I_MIDI_SRCBUS", true, -1)
                                 reaper.BR_GetSetTrackSendInfo(FX, 0, sidx, "I_MIDI_DSTBUS", true, -1)
@@ -981,23 +1078,11 @@ for i, r in ipairs(rows) do
         -- routing: M sends MIDI to CTRL (bus only; channel remains 0 as per existing behavior)
         local src_track = ctrl_tracks[ctrl]
         if src_track then
-            if receive_from_src_exists(M, src_track) or (midi_bus and send_has_midi(M, src_track, midi_bus)) then
-                dbg(string.format("    MIDI send already exists from M parent to CTRL bus=%s (skipping)", tostring(midi_bus)))
+            local ok_send, changed = ensure_midi_send(M, src_track, midi_bus)
+            if ok_send then
+                dbg(string.format("    Ensured MIDI-only send from M parent to CTRL bus=%s%s", tostring(midi_bus), changed and " (created/updated)" or ""))
             else
-                local sendidx = reaper.CreateTrackSend(M, src_track)
-                if sendidx and sendidx >= 0 then
-                    dbg(string.format("    Created MIDI send from M parent to CTRL: sendidx=%d", sendidx))
-                    -- disable audio
-                    reaper.BR_GetSetTrackSendInfo(M, 0, sendidx, "I_SRCCHAN", true, -1)
-                    reaper.BR_GetSetTrackSendInfo(M, 0, sendidx, "I_DSTCHAN", true, -1)
-                    -- midi mapping: source bus fixed to 1, destination from csv if present
-                    reaper.BR_GetSetTrackSendInfo(M, 0, sendidx, "I_MIDI_SRCBUS", true, 1)
-                    if midi_bus then reaper.BR_GetSetTrackSendInfo(M, 0, sendidx, "I_MIDI_DSTBUS", true, midi_bus) end
-                    reaper.BR_GetSetTrackSendInfo(M, 0, sendidx, "I_MIDI_SRCCHAN", true, 0)
-                    reaper.BR_GetSetTrackSendInfo(M, 0, sendidx, "I_MIDI_DSTCHAN", true, 0)
-                    reaper.BR_GetSetTrackSendInfo(M, 0, sendidx, "D_VOL", true, 1.0)
-                    reaper.BR_GetSetTrackSendInfo(M, 0, sendidx, "B_MUTE", true, 0.0)
-                end
+                dbg("    Warning: failed ensuring MIDI send from M parent to CTRL.")
             end
         else
             dbg("Warning: CTRL track not found for " .. tostring(ctrl))
@@ -1075,13 +1160,14 @@ for i, r in ipairs(rows) do
                 if has_odd then
                     local last_src = pairs * 2
                     local last_dst = pairs * 2
+                    local desired_src = ctrl_srcchan_value(last_src, true)
                     if last_src < MASTER_NCHANNELS then
-                        if not send_has_dest_and_chans(A, bus_tr, last_src, last_dst) then
+                        if not send_has_dest_and_chans(A, bus_tr, desired_src, last_dst) then
                             local sidx = reaper.CreateTrackSend(A, bus_tr)
                             if sidx and sidx >= 0 then
                                 dbg(string.format("  Created single-channel audio send from %s to bus %s (sendidx=%d src=%d)", A_name, bus_name, sidx, last_src))
                                 pcall(function()
-                                    reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_SRCCHAN", true, last_src)
+                                    reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_SRCCHAN", true, desired_src)
                                     reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_DSTCHAN", true, last_dst)
                                     reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_MIDI_SRCBUS", true, -1)
                                     reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_MIDI_DSTBUS", true, -1)
@@ -1233,14 +1319,15 @@ for i, r in ipairs(rows) do
             if has_odd then
                 local last_src = pairs * 2
                 local last_dst = pairs * 2
+                local desired_src = ctrl_srcchan_value(last_src, true)
                 -- ensure leftover channel doesn't exceed MASTER_NCHANNELS-1
                 if last_src < MASTER_NCHANNELS then
-                    if not send_has_dest_and_chans(A, bus_tr, last_src, last_dst) then
+                    if not send_has_dest_and_chans(A, bus_tr, desired_src, last_dst) then
                         local sidx = reaper.CreateTrackSend(A, bus_tr)
                         if sidx and sidx >= 0 then
                             dbg(string.format("  Created single-channel audio send from %s to bus %s (sendidx=%d src=%d)", A_name, bus_name, sidx, last_src))
                             pcall(function()
-                                reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_SRCCHAN", true, last_src)
+                                reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_SRCCHAN", true, desired_src)
                                 reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_DSTCHAN", true, last_dst)
                                 reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_MIDI_SRCBUS", true, -1)
                                 reaper.BR_GetSetTrackSendInfo(A, 0, sidx, "I_MIDI_DSTBUS", true, -1)
@@ -1296,23 +1383,11 @@ for i, r in ipairs(rows) do
 
     -- routing: M sends MIDI to CTRL
     if src_track then
-        if receive_from_src_exists(M, src_track) or (midi_bus and send_has_midi(M, src_track, midi_bus)) then
-            dbg(string.format("    MIDI send already exists from M to CTRL bus=%s (skipping)", tostring(midi_bus)))
+        local ok_send, changed = ensure_midi_send(M, src_track, midi_bus)
+        if ok_send then
+            dbg(string.format("    Ensured MIDI-only send from M to CTRL bus=%s%s", tostring(midi_bus), changed and " (created/updated)" or ""))
         else
-            local sendidx = reaper.CreateTrackSend(M, src_track)
-            if sendidx and sendidx >= 0 then
-                dbg(string.format("    Created MIDI send from M to CTRL: sendidx=%d", sendidx))
-                -- disable audio
-                reaper.BR_GetSetTrackSendInfo(M, 0, sendidx, "I_SRCCHAN", true, -1)
-                reaper.BR_GetSetTrackSendInfo(M, 0, sendidx, "I_DSTCHAN", true, -1)
-                -- midi mapping: source bus fixed to 1, destination from csv if present
-                reaper.BR_GetSetTrackSendInfo(M, 0, sendidx, "I_MIDI_SRCBUS", true, 1)
-                if midi_bus then reaper.BR_GetSetTrackSendInfo(M, 0, sendidx, "I_MIDI_DSTBUS", true, midi_bus) end
-                reaper.BR_GetSetTrackSendInfo(M, 0, sendidx, "I_MIDI_SRCCHAN", true, 0)
-                reaper.BR_GetSetTrackSendInfo(M, 0, sendidx, "I_MIDI_DSTCHAN", true, 0)
-                reaper.BR_GetSetTrackSendInfo(M, 0, sendidx, "D_VOL", true, 1.0)
-                reaper.BR_GetSetTrackSendInfo(M, 0, sendidx, "B_MUTE", true, 0.0)
-            end
+            dbg("    Warning: failed ensuring MIDI send from M to CTRL.")
         end
     end
 
