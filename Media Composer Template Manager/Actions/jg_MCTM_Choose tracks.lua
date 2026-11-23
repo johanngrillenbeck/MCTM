@@ -9,14 +9,31 @@ local function add_script_dir_to_package_path()
     local script_dir = source:match("@?(.*[\\/])")
     if not script_dir then return end
     SCRIPT_DIR = script_dir
-    local pattern1 = script_dir .. "?.lua;"
-    local pattern2 = script_dir .. "?/init.lua;"
-    package.path = pattern1 .. pattern2 .. package.path
+
+    -- Repo layout: Actions/ + ../Helpers/. Also tolerate a flat install.
+    local roots = {
+        script_dir,
+        script_dir .. "../Helpers/",
+        script_dir .. "Helpers/",
+    }
+    local parts = {}
+    for _, root in ipairs(roots) do
+        parts[#parts + 1] = root .. "?.lua;"
+        parts[#parts + 1] = root .. "?/init.lua;"
+    end
+    package.path = table.concat(parts) .. package.path
 end
 add_script_dir_to_package_path()
 
 local ok, mctm = pcall(require, "jg_MCTM_helper")
 if not ok or not mctm then reaper.ShowConsoleMsg("Could not require 'jg_MCTM_helper': " .. tostring(mctm) .. "\n") return end
+
+local ok_vepro, V = pcall(require, "jg_MCTM_VEPro")
+if not ok_vepro or not V then
+    reaper.ShowConsoleMsg("Could not require 'jg_MCTM_VEPro': " .. tostring(V) .. "\n")
+    return
+end
+V.reset_cache()
 local selected_groups = {}
 local show_window = true  -- Fenster-Status
 local last_routing_error_fingerprint = nil
@@ -363,8 +380,7 @@ function loop()
                 local to_disable = {}
                 local to_enable = {}
                 local final_m_selection = {}
-                local changed_set = {}
-                local changed_tracks = {}
+                local vepro_jobs = {}
 
                 for _, key in ipairs(group_order) do
                     local grp = group_map[key]
@@ -374,20 +390,26 @@ function loop()
                         table.insert(final_m_selection, grp.midi_track)
                     end
 
+                    if grp and grp.midi_track then
+                        table.insert(vepro_jobs, {
+                            midi_track = grp.midi_track,
+                            base_name = grp.name,
+                            desired = desired,
+                            label = grp.name,
+                        })
+                    end
+
                     if grp then
                         local any_track = grp.midi_track or (grp.audio_tracks and grp.audio_tracks[1])
                         if (not desired) and (not grp.disabled) then
                             if any_track then table.insert(to_disable, any_track) end
-                            if any_track and not changed_set[any_track] then changed_set[any_track] = true; table.insert(changed_tracks, any_track) end
                         elseif desired and grp.disabled then
                             if any_track then table.insert(to_enable, any_track) end
-                            if any_track and not changed_set[any_track] then changed_set[any_track] = true; table.insert(changed_tracks, any_track) end
                         end
                     end
                 end
 
-                local toggle_script = "jg_MCTM_Toggle D Prefix and Visibility for Track Pair.lua"
-                local vepro_script = "jg_MCTM_Toggle VEPro Activation depending on D Prefix.lua"
+                local toggle_script = "jg_MCTM_Toggle D prefix and visibility for track pair.lua"
 
                 local failed = false
                 local fail_msg = nil
@@ -395,7 +417,12 @@ function loop()
                 reaper.Undo_BeginBlock()
                 reaper.PreventUIRefresh(1)
 
+                -- The toggle script can sync VE Pro itself when used as a shortcut.
+                -- Suppress that here so Apply performs one batched sync for all groups.
+                _G.MCTM_SUPPRESS_VEPRO_SYNC = true
+
                 repeat
+                    _G.MCTM_FORCE_D_STATE = true
                     if #to_disable > 0 then
                         selectTracks(to_disable)
                         local ok, err = dofile_in_script_dir(toggle_script)
@@ -406,6 +433,7 @@ function loop()
                         end
                     end
 
+                    _G.MCTM_FORCE_D_STATE = false
                     if #to_enable > 0 then
                         selectTracks(to_enable)
                         local ok, err = dofile_in_script_dir(toggle_script)
@@ -415,30 +443,55 @@ function loop()
                             break
                         end
                     end
-
-                    -- Update VEPro state for affected instruments (or for current enabled selection if nothing changed)
-                    if #changed_tracks > 0 then
-                        selectTracks(changed_tracks)
-                    else
-                        selectTracks(final_m_selection)
-                    end
-
-                    do
-                        local ok, err = dofile_in_script_dir(vepro_script)
-                        if not ok then
-                            failed = true
-                            fail_msg = "Failed running: " .. vepro_script .. "\n" .. tostring(err)
-                            break
-                        end
-                    end
-
-                    -- Final selection: M tracks for checked instruments
-                    selectTracks(final_m_selection)
                 until true
+
+                _G.MCTM_FORCE_D_STATE = nil
+                _G.MCTM_SUPPRESS_VEPRO_SYNC = false
 
                 reaper.TrackList_AdjustWindows(false)
                 reaper.PreventUIRefresh(-1)
                 reaper.Undo_EndBlock(failed and "MCTM Apply Selection (failed)" or "MCTM Apply Selection", -1)
+
+                -- VE Pro changes are outside REAPER undo and outside the UI freeze.
+                if not failed and #vepro_jobs > 0 then
+                    local dry_run = reaper.GetExtState("MCTM", "vepro_dry_run") == "1"
+                    local report = V.sync(vepro_jobs, { dry_run = dry_run })
+                    local summary = report.summary
+
+                    if summary.errors > 0 then
+                        local lines = {
+                            string.format("VE Pro sync reported %d error(s).", summary.errors),
+                            "",
+                        }
+                        for index = 1, math.min(#report.errors, 8) do
+                            local entry = report.errors[index]
+                            local err = entry.error or {}
+                            lines[#lines + 1] = string.format(
+                                "- %s: %s %s",
+                                tostring(entry.label),
+                                tostring(err.code or "ERROR"),
+                                tostring(err.message or "")
+                            )
+                        end
+                        if #report.errors > 8 then
+                            lines[#lines + 1] = "- ..."
+                        end
+                        reaper.MB(table.concat(lines, "\n"), "MCTM VE Pro sync", 0)
+                    elseif dry_run and (summary.would_enable + summary.would_disable) > 0 then
+                        reaper.MB(
+                            string.format(
+                                "Dry run: %d channel(s) would be enabled, %d disabled.\nNo VE Pro changes were applied.\n\nClear ExtState MCTM/vepro_dry_run to apply.",
+                                summary.would_enable,
+                                summary.would_disable
+                            ),
+                            "MCTM VE Pro sync",
+                            0
+                        )
+                    end
+                end
+
+                -- Final selection: M tracks for checked instruments
+                selectTracks(final_m_selection)
 
                 if failed and fail_msg then
                     reaper.MB(fail_msg, "MCTM", 0)
