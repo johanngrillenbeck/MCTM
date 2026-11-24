@@ -1,4 +1,4 @@
--- jg_MCTM_helper.lua
+-- jg_MCTM_Helper.lua
 -- Helper for Media Composer Template Manager (MCTM)
 -- Parses track prefixes and finds audio/midi/ctrl pairs.
 

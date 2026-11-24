@@ -12,14 +12,23 @@ local function add_script_dir_to_package_path()
     local source = info.source
     local script_dir = source:match("@?(.*[\\/])")
     if not script_dir then return end
-    local pattern1 = script_dir .. "?.lua;"
-    local pattern2 = script_dir .. "?/init.lua;"
-    package.path = pattern1 .. pattern2 .. package.path
+    -- Repo layout: Actions/ + ../Helpers/. Also tolerate a flat install.
+    local roots = {
+        script_dir,
+        script_dir .. "../Helpers/",
+        script_dir .. "Helpers/",
+    }
+    local parts = {}
+    for _, root in ipairs(roots) do
+        parts[#parts + 1] = root .. "?.lua;"
+        parts[#parts + 1] = root .. "?/init.lua;"
+    end
+    package.path = table.concat(parts) .. package.path
 end
 add_script_dir_to_package_path()
 
-local ok, mctm = pcall(require, "jg_MCTM_helper")
-if not ok or not mctm then reaper.ShowConsoleMsg("Could not require 'jg_MCTM_helper': " .. tostring(mctm) .. "\n") return end
+local ok, mctm = pcall(require, "jg_MCTM_Helper")
+if not ok or not mctm then reaper.ShowConsoleMsg("Could not require 'jg_MCTM_Helper': " .. tostring(mctm) .. "\n") return end
 
 -- Helper function: get all tracks with prefix "CTRL"
 function get_ctrl_tracks()

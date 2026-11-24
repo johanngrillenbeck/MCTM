@@ -1,6 +1,6 @@
 --[[
-@description MCTM: Sync selected M tracks to VE Pro (Phase 1 test)
-@version 0.1
+@description MCTM: Sync selected M tracks to VE Pro
+@version 0.2
 @author Johann Grillenbeck
 @about
   Resolves selected M tracks to their VE Pro channels and reconciles the
@@ -11,6 +11,9 @@
 
   Shows a dry-run plan first and asks before writing. Set ExtState
   MCTM/vepro_dry_run=1 to report without asking or writing.
+
+  Also useful as a standalone test or maintenance action. Choose Tracks and
+  the D prefix shortcut perform the same sync automatically.
 
   Enabling a cold instrument can take several seconds; REAPER waits.
   This action does not change tracks, routing, or the REAPER project.
@@ -45,10 +48,10 @@ end
 
 add_paths()
 
-local ok_mctm, mctm = pcall(require, "jg_MCTM_helper")
+local ok_mctm, mctm = pcall(require, "jg_MCTM_Helper")
 if not ok_mctm then
   reaper.ShowConsoleMsg(
-    "Could not require jg_MCTM_helper: " .. tostring(mctm) .. "\n\npackage.path:\n" .. package.path .. "\n"
+    "Could not require jg_MCTM_Helper: " .. tostring(mctm) .. "\n\npackage.path:\n" .. package.path .. "\n"
   )
   return
 end

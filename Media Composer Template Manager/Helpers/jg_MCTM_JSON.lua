@@ -1,12 +1,12 @@
 --[[
-jg_MCTM_json.lua
+jg_MCTM_JSON.lua
 Small dependency-free JSON decoder for MCTM.
 
 Only decoding is implemented. MCTM builds VE Pro API payloads from fixed
 keys and GUIDs, so an encoder is deliberately not needed here.
 
 API:
-  local json = require("jg_MCTM_json")
+  local json = require("jg_MCTM_JSON")
   local value, err = json.decode(text)
 
 Compatible with Lua 5.1+ (no bitwise operators, no goto).

@@ -1,14 +1,19 @@
 --[[
 jg_MCTM_VEPro.lua
-Deterministic VE Pro channel lookup for MCTM.
-
-Phase 0: read-only. This module resolves a REAPER MIDI track to a VE Pro
-instance and channel, but never writes to VE Pro.
+Deterministic VE Pro channel lookup and state sync for MCTM.
 
 The join key is the REAPER MIDI send destination bus, which is the same
 number as the VE Pro channel's midiPort. Channel titles are only used for
 diagnostics, never for lookup, because titles drift (renames, dropped
 library prefixes, SUR/2 suffixes).
+
+Reads use instance/midirouting/summary and instance/channelsummary. Writes
+use channel/forceenable (enable) and channel/patch (disable), followed by a
+verification read by channelId. The CLI's stdout is redirected to a temp file
+because REAPER's ExecProcess pipe truncates large routing summaries.
+
+Nested folder channels such as "3[3]" are supported: the instrument-bearing
+child carries the midiPort; folder and mic/output siblings do not.
 
 Public API:
   V.probe()                    -> info | nil, err
@@ -23,7 +28,7 @@ Public API:
 
 Errors are tables: { code = "...", message = "...", instance = "...", bus = n }
 
-Requires: jg_MCTM_json (in this folder).
+Requires: jg_MCTM_JSON (in this folder).
 --]]
 
 -- Make sure the JSON helper is findable even if the caller only added Actions/.
@@ -38,11 +43,11 @@ do
   end
 end
 
-local json = require("jg_MCTM_json")
+local json = require("jg_MCTM_JSON")
 
 local M = {}
 
-M.version = "0.1"
+M.version = "0.2"
 
 local routing_cache = {}
 local instance_cache = nil

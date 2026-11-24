@@ -1,6 +1,6 @@
 --[[
 @description MCTM: VE Pro mapping selftest (read only)
-@version 0.1
+@version 0.2
 @author Johann Grillenbeck
 @about
   Resolves every M track to its VE Pro instance and instrument channel via
@@ -48,10 +48,10 @@ end
 
 add_paths()
 
-local ok_mctm, mctm = pcall(require, "jg_MCTM_helper")
+local ok_mctm, mctm = pcall(require, "jg_MCTM_Helper")
 if not ok_mctm then
   reaper.ShowConsoleMsg(
-    "Could not require jg_MCTM_helper: " .. tostring(mctm) .. "\n\npackage.path:\n" .. package.path .. "\n"
+    "Could not require jg_MCTM_Helper: " .. tostring(mctm) .. "\n\npackage.path:\n" .. package.path .. "\n"
   )
   return
 end

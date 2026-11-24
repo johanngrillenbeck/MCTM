@@ -25,8 +25,8 @@ local function add_script_dir_to_package_path()
 end
 add_script_dir_to_package_path()
 
-local ok, mctm = pcall(require, "jg_MCTM_helper")
-if not ok or not mctm then reaper.ShowConsoleMsg("Could not require 'jg_MCTM_helper': " .. tostring(mctm) .. "\n") return end
+local ok, mctm = pcall(require, "jg_MCTM_Helper")
+if not ok or not mctm then reaper.ShowConsoleMsg("Could not require 'jg_MCTM_Helper': " .. tostring(mctm) .. "\n") return end
 
 local ok_vepro, V = pcall(require, "jg_MCTM_VEPro")
 if not ok_vepro or not V then
