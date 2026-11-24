@@ -132,7 +132,8 @@ Merge the generated Reabank with a custom Reabank file so custom articulations s
 
 ### Choose Tracks
 Choose your instruments in a more comfortable way compared to the track manager.
-Instruments are grouped by Bus they are routed to.
+Buses are listed in an always-visible side menu; instruments within the selected bus (or All Buses) are grouped by Library Prefix.
+Use the search bar to filter the instrument list instantly.
 Select the instruments and `apply selection`.
 
 Apply Selection also reconciles the corresponding VE Pro channels:

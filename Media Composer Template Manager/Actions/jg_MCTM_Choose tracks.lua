@@ -37,6 +37,9 @@ V.reset_cache()
 local selected_groups = {}
 local show_window = true  -- Fenster-Status
 local last_routing_error_fingerprint = nil
+local search_text = ""
+local selected_bus_key = "ALL"  -- "ALL", "UNROUTED", or "BUS:<track>"
+local focus_search = true
 
 local function trim(s)
     return (s and s:gsub("^%s+", ""):gsub("%s+$", "")) or ""
@@ -44,6 +47,25 @@ end
 
 local function canonical_name(name)
     return trim(name):lower()
+end
+
+-- Library prefix convention: the first word of the parsed instrument name.
+-- Example: "M OTBW Flute 1" -> parsed name "OTBW Flute 1" -> "OTBW".
+local function library_prefix_from_name(name)
+    local prefix = tostring(name or ""):match("^%s*(%S+)")
+    return prefix or ""
+end
+
+-- Match every whitespace-separated search word anywhere in the haystack.
+local function matches_search(haystack, query)
+    if not query or query == "" then return true end
+    haystack = tostring(haystack or ""):lower()
+    for word in query:gmatch("%S+") do
+        if not haystack:find(word:lower(), 1, true) then
+            return false
+        end
+    end
+    return true
 end
 
 -- Track Group detection (supports multi-audio child A tracks)
@@ -274,17 +296,22 @@ local function dofile_in_script_dir(filename)
 end
 
 function loop()
-    reaper.ImGui_SetNextWindowSize(ctx, 300, 400, reaper.ImGui_Cond_FirstUseEver())
+    -- Keep the sticky toolbar usable on narrow windows.
+    if type(reaper.ImGui_SetNextWindowSizeConstraints) == "function" then
+        reaper.ImGui_SetNextWindowSizeConstraints(ctx, 620, 400, 3.402823e38, 3.402823e38)
+    end
+    reaper.ImGui_SetNextWindowSize(ctx, 980, 600, reaper.ImGui_Cond_FirstUseEver())
     local visible, open = reaper.ImGui_Begin(ctx, 'Track Selector', show_window)
     show_window = open -- Fenster-Flag aktualisieren
 
     if visible then
         local group_order, group_map = getTrackGroups()
 
-        -- Build bus groups
+        -- Build bus categories for the sidebar.
         local bus_groups = {}
         local bus_order = {}
         local routing_errors = {}
+        local group_bus_name = {}
 
         local function ensure_bus_group(bus_key)
             if not bus_groups[bus_key] then
@@ -321,6 +348,8 @@ function loop()
                 group.bus_index = 1e9
                 table.insert(group.items, key)
             end
+
+            group_bus_name[key] = bus_groups[bus_key].bus_name or ""
         end
 
         table.sort(bus_order, function(a, b)
@@ -340,12 +369,22 @@ function loop()
             end
         end
 
-        if reaper.ImGui_Button(ctx, "Select All") then
-            for _, key in ipairs(group_order) do selected_groups[key] = true end
+        -- Fall back to "All Buses" if the selected bus disappeared.
+        if selected_bus_key ~= "ALL" and not bus_groups[selected_bus_key] then
+            selected_bus_key = "ALL"
+        end
+
+        -- Sticky toolbar: selection buttons, apply, and search.
+        local select_all_clicked = reaper.ImGui_Button(ctx, "Select All")
+        if type(reaper.ImGui_IsItemHovered) == "function" and type(reaper.ImGui_SetTooltip) == "function"
+            and reaper.ImGui_IsItemHovered(ctx) then
+            reaper.ImGui_SetTooltip(ctx, "Select every instrument currently shown")
         end
         reaper.ImGui_SameLine(ctx)
-        if reaper.ImGui_Button(ctx, "Deselect All") then
-            for _, key in ipairs(group_order) do selected_groups[key] = false end
+        local deselect_all_clicked = reaper.ImGui_Button(ctx, "Deselect All")
+        if type(reaper.ImGui_IsItemHovered) == "function" and type(reaper.ImGui_SetTooltip) == "function"
+            and reaper.ImGui_IsItemHovered(ctx) then
+            reaper.ImGui_SetTooltip(ctx, "Deselect every instrument currently shown")
         end
 
         reaper.ImGui_SameLine(ctx)
@@ -369,6 +408,37 @@ function loop()
         apply_clicked = reaper.ImGui_Button(ctx, "Apply Selection")
         if push_ok then
             reaper.ImGui_PopStyleColor(ctx, 3)
+        end
+
+        reaper.ImGui_SameLine(ctx)
+        reaper.ImGui_SetNextItemWidth(ctx, -40)
+        if focus_search and type(reaper.ImGui_SetKeyboardFocusHere) == "function" then
+            reaper.ImGui_SetKeyboardFocusHere(ctx)
+            focus_search = false
+        end
+        local search_changed, new_search_text
+        if type(reaper.ImGui_InputTextWithHint) == "function" then
+            search_changed, new_search_text = reaper.ImGui_InputTextWithHint(
+                ctx,
+                "##mctm_search",
+                "Search instruments...",
+                search_text
+            )
+        else
+            search_changed, new_search_text = reaper.ImGui_InputText(ctx, "##mctm_search", search_text)
+        end
+        if search_changed and new_search_text then
+            search_text = new_search_text
+        end
+        reaper.ImGui_SameLine(ctx)
+        local clear_search_clicked = reaper.ImGui_Button(ctx, "X")
+        if type(reaper.ImGui_IsItemHovered) == "function" and type(reaper.ImGui_SetTooltip) == "function"
+            and reaper.ImGui_IsItemHovered(ctx) then
+            reaper.ImGui_SetTooltip(ctx, "Clear search")
+        end
+        if clear_search_clicked then
+            search_text = ""
+            focus_search = true
         end
 
         reaper.ImGui_Separator(ctx)
@@ -499,42 +569,134 @@ function loop()
             end
         end
 
-        if #routing_errors > 0 then
-            reaper.ImGui_Text(ctx, "Routing error(s) detected. Fix routing and run again:")
-            for _, msg in ipairs(routing_errors) do
-                reaper.ImGui_TextWrapped(ctx, msg)
+        -- Sidebar stays visible while the instrument list scrolls.
+        local sidebar_width = 190
+        reaper.ImGui_BeginChild(ctx, "mctm_bus_categories", sidebar_width, 0)
+        do
+            if reaper.ImGui_Selectable(ctx, "All Buses##mctm_all_buses", selected_bus_key == "ALL") then
+                selected_bus_key = "ALL"
             end
-
-            -- also log to console for copy/paste (but avoid spamming every frame)
-            local fingerprint = table.concat(routing_errors, "\n")
-            if fingerprint ~= last_routing_error_fingerprint then
-                last_routing_error_fingerprint = fingerprint
-                reaper.ShowConsoleMsg("\n[MCTM Choose Tracks] Routing error(s):\n")
-                for _, msg in ipairs(routing_errors) do
-                    reaper.ShowConsoleMsg("- " .. msg .. "\n")
-                end
-            end
-        else
-            last_routing_error_fingerprint = nil
+            reaper.ImGui_Separator(ctx)
             for _, bus_key in ipairs(bus_order) do
-                local group = bus_groups[bus_key]
-                if group then
-                    reaper.ImGui_Text(ctx, group.bus_name or "")
-                    if reaper.ImGui_Indent then reaper.ImGui_Indent(ctx, 12) end
-                    for _, key in ipairs(group.items or {}) do
-                        local grp = group_map[key]
-                        local label = ((grp and grp.name) or key) .. "##" .. key
-                        local checked = getDesiredChecked(key, grp)
-                        local changed, new_state = reaper.ImGui_Checkbox(ctx, label, checked)
-                        if changed then
-                            selected_groups[key] = new_state
-                        end
-                    end
-                    if reaper.ImGui_Indent then reaper.ImGui_Unindent(ctx, 12) end
-                    reaper.ImGui_Separator(ctx)
+                local bus = bus_groups[bus_key]
+                local bus_name = (bus and bus.bus_name) or ""
+                if bus_name == "" then bus_name = "(Unnamed bus)" end
+                local label = bus_name .. "##" .. bus_key
+                if reaper.ImGui_Selectable(ctx, label, selected_bus_key == bus_key) then
+                    selected_bus_key = bus_key
                 end
             end
         end
+        reaper.ImGui_EndChild(ctx)
+
+        -- The selected bus and search text are up to date now, so build the
+        -- main list for this frame without a one-frame delay.
+        local source_keys = group_order
+        local selected_bus_name = "All Buses"
+        if selected_bus_key ~= "ALL" then
+            local bus_group = bus_groups[selected_bus_key]
+            source_keys = (bus_group and bus_group.items) or {}
+            selected_bus_name = (bus_group and bus_group.bus_name) or selected_bus_key
+            if selected_bus_name == "" then selected_bus_name = "(Unnamed bus)" end
+        end
+
+        local library_order = {}
+        local library_map = {}
+        local visible_keys = {}
+
+        for _, key in ipairs(source_keys) do
+            local grp = group_map[key]
+            local lib_name = library_prefix_from_name(grp and grp.name or key)
+            if lib_name == "" then lib_name = "(No library)" end
+
+            local haystack = table.concat({
+                (grp and grp.name) or key,
+                lib_name,
+                group_bus_name[key] or selected_bus_name,
+            }, "\n")
+
+            if matches_search(haystack, search_text) then
+                local lib_key = lib_name:lower()
+                local section = library_map[lib_key]
+                if not section then
+                    section = { name = lib_name, items = {} }
+                    library_map[lib_key] = section
+                    table.insert(library_order, lib_key)
+                end
+                table.insert(section.items, key)
+                table.insert(visible_keys, key)
+            end
+        end
+
+        table.sort(library_order, function(a, b)
+            return library_map[a].name:lower() < library_map[b].name:lower()
+        end)
+
+        if select_all_clicked then
+            for _, key in ipairs(visible_keys) do selected_groups[key] = true end
+        end
+        if deselect_all_clicked then
+            for _, key in ipairs(visible_keys) do selected_groups[key] = false end
+        end
+
+        reaper.ImGui_SameLine(ctx)
+
+        -- Main list scrolls independently; toolbar and sidebar stay put.
+        reaper.ImGui_BeginChild(ctx, "mctm_instrument_list", 0, 0)
+        do
+            if #routing_errors > 0 then
+                reaper.ImGui_Text(ctx, "Routing error(s) detected. Fix routing and run again:")
+                for _, msg in ipairs(routing_errors) do
+                    reaper.ImGui_TextWrapped(ctx, msg)
+                end
+
+                -- also log to console for copy/paste (but avoid spamming every frame)
+                local fingerprint = table.concat(routing_errors, "\n")
+                if fingerprint ~= last_routing_error_fingerprint then
+                    last_routing_error_fingerprint = fingerprint
+                    reaper.ShowConsoleMsg("\n[MCTM Choose Tracks] Routing error(s):\n")
+                    for _, msg in ipairs(routing_errors) do
+                        reaper.ShowConsoleMsg("- " .. msg .. "\n")
+                    end
+                end
+            else
+                last_routing_error_fingerprint = nil
+
+                if #library_order == 0 then
+                    local empty_message
+                    if search_text ~= "" then
+                        if selected_bus_key ~= "ALL" then
+                            empty_message = "No instruments match your search in this bus. Try All Buses."
+                        else
+                            empty_message = "No instruments match your search."
+                        end
+                    elseif selected_bus_key ~= "ALL" then
+                        empty_message = "No instruments in this bus."
+                    else
+                        empty_message = "No instruments found."
+                    end
+                    reaper.ImGui_Text(ctx, empty_message)
+                else
+                    for _, lib_key in ipairs(library_order) do
+                        local section = library_map[lib_key]
+                        reaper.ImGui_Text(ctx, section.name)
+                        if reaper.ImGui_Indent then reaper.ImGui_Indent(ctx, 12) end
+                        for _, key in ipairs(section.items) do
+                            local grp = group_map[key]
+                            local label = ((grp and grp.name) or key) .. "##" .. key
+                            local checked = getDesiredChecked(key, grp)
+                            local changed, new_state = reaper.ImGui_Checkbox(ctx, label, checked)
+                            if changed then
+                                selected_groups[key] = new_state
+                            end
+                        end
+                        if reaper.ImGui_Indent then reaper.ImGui_Unindent(ctx, 12) end
+                        reaper.ImGui_Separator(ctx)
+                    end
+                end
+            end
+        end
+        reaper.ImGui_EndChild(ctx)
 
         reaper.ImGui_End(ctx)
     end
